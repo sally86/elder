@@ -1,0 +1,162 @@
+<?php
+$ction ="adduser";
+$page_title = "اضـــافة مستخدم";
+if (isset($user_info))
+{
+	unset($_SESSION['update']);
+	foreach($user_info as $user_row);
+	$ction ="updateuser";
+	$page_title = "تعـــديل مستخدم";
+}
+?>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+      <!-- BEGIN VALIDATION STATES-->
+      <div class="portlet box blue-madison">
+          <div class="portlet-title">
+              <div class="caption">
+                  <i class="fa fa-user"></i> <?php echo $page_title;?>
+              </div>
+              <div class="tools">
+                  <a href="javascript:;" class="collapse">
+                  </a>
+                  <a href="#portlet-config" data-toggle="modal" class="config">
+                  </a>
+                  <a href="javascript:;" class="reload">
+                  </a>
+                  <a href="javascript:;" class="remove">
+                  </a>
+              </div>
+          </div>
+          <div class="portlet-body form">
+              <!-- BEGIN FORM-->
+              <form action="#" id="user_form" class="form-horizontal">
+                  <div class="form-body">
+                  	<br/>
+                      <div class="alert alert-danger display-hide">
+                          <button class="close" data-close="alert"></button>
+                          يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                      </div>
+                      <div class="alert alert-success display-hide">
+                          <button class="close" data-close="alert"></button>
+                          تـم عملية حـفـظ البيـانات بنجـاح !
+                      </div>
+                      <div>
+                      	  <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3">الرقم الوظيفي <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <input type="text" id="txtEmployeeId" name="txtEmployeeId" data-required="1" class="form-control"
+                              value="<?php if(isset($user_row->employee_id)) echo $user_row->employee_id;?>" />
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">اسـم المـوظف <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                          	<div class="input-group">
+                          	  <span class="input-group-addon">
+                              <i class="fa fa-search"></i>
+                              </span>
+                              <input type="text" id="txtName" name="txtName" data-required="1" class="form-control"
+                              value="<?php if(isset($user_row->name)) echo $user_row->name;?>" />
+                            </div>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">اسم المستخدم <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <input type="text" id="txtUsername" name="txtUsername" data-required="1" class="form-control"
+                              value="<?php if(isset($user_row->user_name)) echo $user_row->user_name;?>" />
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">كلمة المرور <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <input type="password" id="txtPassword" name="txtPassword" data-required="1" class="form-control"
+                              value="<?php if(isset($user_row->passward)) echo $user_row->passward;?>" />
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">تأكيد كلمة المرور <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <input type="password" id="txtPasswordconf" name="txtPasswordconf" data-required="1" 
+                              class="form-control" value="<?php if(isset($user_row->passward)) echo $user_row->passward;?>" />
+                          </div>
+                      </div>
+                      
+                       <div class="form-group">
+                          <label class="control-label col-md-3">نوع المستخدم <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select class="form-control select2me" id="drpUsertype" name="drpUsertype">
+                                  <option value="">اختر...</option>
+                                  <?php
+								  foreach($user_type as $row_user_type)
+								  {
+									  $selected = '';
+									  if(isset($user_row->user_type_id) && $user_row->user_type_id == $row_user_type->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo '<option value="'.$row_user_type->sub_constant_id.'" '.$selected.'>'
+									  						.$row_user_type->sub_constant_name.
+										   '</option>';
+								  }
+								  ?>
+                              </select>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">حساب فعال&nbsp;&nbsp;&nbsp;
+                          </label>
+                          <div class="col-md-4">
+                              <div class="checkbox-list" data-error-container="#form_2_services_error">
+                                  <label>
+                                  <input type="checkbox" value="1" id="chbxIsactive" name="chbxIsactive"
+                                  <?php 
+								  $checked = ' checked="checked"';
+								  if(isset($user_row->active_account) && $user_row->active_account == 0) 
+								  $checked = '';
+								  echo $checked;?> 
+                                  /></label>
+                              </div>
+                              <div id="form_2_services_error">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- END FORM BODY -->
+                  <div class="form-actions">
+                      <div class="row">
+                          <div class="col-md-offset-3 col-md-9">
+                              <button type="submit" class="btn blue-madison">حـفـظ</button>
+                              <button type="button" class="btn default" onclick="count()">الغاء الامر</button>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+              <!-- END FORM-->
+          </div>
+          <!-- END VALIDATION STATES-->
+      </div>
+  </div>
+</div>
+<!-- END PAGE CONTENT-->
