@@ -6,7 +6,7 @@ function editemployee()
 	var action = $("#hdnAction").val();
 	
 	$.ajax({
-			url: baseURL+"employee/"+action,
+			url: baseURL+"Employee/addemployee",
 			type: "POST",
 			data:  $("#employee_form").serialize(),
 			error: function(xhr, status, error) {
