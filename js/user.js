@@ -84,7 +84,7 @@ var UserFormValidation = function () {
 						required: "الرجاء ادخل رقم الموظف"
                     },
                     txtName: {
-                        required: "الرجاء ادخل الاسم"
+                        required: "الرجاء ادخل اسم"
                     },
 					txtUsername: {
                         minlength: "لايمكن ادخال اسـم المستـخدم اقل من حرفين",
@@ -105,10 +105,10 @@ var UserFormValidation = function () {
                 },
 
                 errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.attr("data-error-container")) { 
+                    if (element.attr("data-error-container")) { 
                         error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
                     } else if (element.parents('.radio-list').size() > 0) { 
                         error.appendTo(element.parents('.radio-list').attr("data-error-container"));
                     } else if (element.parents('.radio-inline').size() > 0) { 
@@ -258,45 +258,21 @@ var ComponentsFormTools = function () {
 
     var handleTwitterTypeahead = function() {
 
-        // Example #2
-        /*var countries = new Bloodhound({
-          datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.name); },
-          queryTokenizer: Bloodhound.tokenizers.whitespace,
-          limit: 10,
-          prefetch: {
-            url: baseURL+'demo/typeahead_countries.json',//'demo/typeahead_countries.json',//'User/getemp',
-            filter: function(list) {
-              return $.map(list, function(country) { return { name: country }; });
-            }
-          }
-        });
- 
-        countries.initialize();
-         
-        if (Metronic.isRTL()) {
-          $('#txtName').attr("dir", "rtl");  
-        } 
-        $('#txtName').typeahead(null, {
-          name: 'txtName',
-          displayKey: 'name',
-          hint: (Metronic.isRTL() ? false : true),
-          source: countries.ttAdapter()
-        });*/
-		
-		// Example #3
         var custom = new Bloodhound({
           datumTokenizer: function(d) { return d.tokens; },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           remote: {
-						url: baseURL+'User/getemp',
+						url: baseURL+'User/getemp/%QUERY',
 						filter: function (custom) {
 							return $.map(custom, function (emp) {
+								$('#txtEmployeeId').val('');
 								return {
-									value: emp.name
+									value: emp.name,
+									id: emp.emp_id
 									
 								};
 							});
-						}
+						},
 					}
         });
          
@@ -310,8 +286,10 @@ var ComponentsFormTools = function () {
           displayKey: 'value',
           source: custom.ttAdapter(),
           
-        });
-
+        }).on('typeahead:selected typeahead:autocompleted typeahead:cursorchanged', function(event, datum) {
+         $('#txtEmployeeId').val(datum.id);
+		 });
+		
     }
 	return {
         //main function to initiate the module
@@ -321,20 +299,3 @@ var ComponentsFormTools = function () {
     };
 
 }();
-function count()
-{
-	$.ajax({
-			url: baseURL+"User/getemp",
-			type: "POST",
-			data:  $("#user_form").serialize(),
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				alert(returndb)
-			}
-		});//END $.ajax
-}

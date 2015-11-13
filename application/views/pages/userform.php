@@ -1,12 +1,14 @@
 <?php
 $ction ="adduser";
 $page_title = "اضـــافة مستخدم";
+$readonly = '';
 if (isset($user_info))
 {
 	unset($_SESSION['update']);
 	foreach($user_info as $user_row);
 	$ction ="updateuser";
 	$page_title = "تعـــديل مستخدم";
+	$readonly = 'readonly="readonly"';
 }
 ?>
 <!-- END PAGE HEADER-->
@@ -52,7 +54,7 @@ if (isset($user_info))
                           </label>
                           <div class="col-md-4">
                               <input type="text" id="txtEmployeeId" name="txtEmployeeId" data-required="1" class="form-control"
-                              value="<?php if(isset($user_row->employee_id)) echo $user_row->employee_id;?>" />
+                              value="<?php if(isset($user_row->employee_id)) echo $user_row->employee_id;?>" readonly="readonly"/>
                           </div>
                       </div>
                       
@@ -66,8 +68,12 @@ if (isset($user_info))
                               <i class="fa fa-search"></i>
                               </span>
                               <input type="text" id="txtName" name="txtName" data-required="1" class="form-control"
-                              value="<?php if(isset($user_row->name)) echo $user_row->name;?>" />
+                              value="<?php if(isset($user_row->name)) echo $user_row->name;?>" 
+                              data-error-container="#form_2_error"
+                              <?php echo $readonly; ?>/>
                             </div>
+                            <div id="form_2_error">
+                              </div>
                           </div>
                       </div>
                       
@@ -77,7 +83,8 @@ if (isset($user_info))
                           </label>
                           <div class="col-md-4">
                               <input type="text" id="txtUsername" name="txtUsername" data-required="1" class="form-control"
-                              value="<?php if(isset($user_row->user_name)) echo $user_row->user_name;?>" />
+                              value="<?php if(isset($user_row->user_name)) echo $user_row->user_name;?>" 
+                              <?php echo $readonly; ?>/>
                           </div>
                       </div>
                       

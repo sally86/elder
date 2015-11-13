@@ -72,7 +72,7 @@ class Usermodel extends CI_Model
 	{
 		extract($_POST);
 		$data['user_name'] = $txtUsername;
-		$data['passward'] = $txtPassword;
+		$data['passward'] = MD5($txtPassword);
 		$data['employee_id'] = $txtEmployeeId;
 		$data['is_active'] = $chbxIsactive;
 		$data['user_type_id'] = $drpUsertype;
@@ -89,9 +89,8 @@ class Usermodel extends CI_Model
 		else
 			$data['is_active'] = 0;
 			
-		$data['passward'] = $txtPassword;
+		$data['passward'] = MD5($txtPassword);
 		$data['employee_id'] = $txtEmployeeId;
-		//$data['is_active'] = $chbxIsactive;
 		$data['user_type_id'] = $drpUsertype;
 		
 		$this->db->where('user_name',$txtUsername);

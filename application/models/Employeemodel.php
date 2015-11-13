@@ -15,13 +15,15 @@ class Employeemodel extends CI_Model
 	}
 	
 	// Search Employee 
-	function search_employee()
+	function search_employee($empname)
 	{
-		$sql = "SELECT employee_id, national_id, emp_id, name, sex_id, job_title_id, mobile, phone, email, is_active
+		$myquery = "SELECT employee_id, national_id, emp_id, name, sex_id, job_title_id, mobile, phone, email, is_active
 				  FROM employee_tb
+				  WHERE name LIKE '".$empname."%'
 				  ORDER BY is_active DESC, name";
 		
-		return $this->db->query($sql);
+		$res = $this->db->query($myquery);
+		return $res->result();
 	}
 	
 	// Insert New Employee

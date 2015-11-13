@@ -125,10 +125,11 @@ class User extends CI_Controller
 	}
 	/************************************************************/
 	
-	function getemp()
+	function getemp($query)
 	{
+		$query = urldecode($query);
 		$this->load->model('employeemodel');
-		$rec = $this->employeemodel->get_all_employee();
+		$rec = $this->employeemodel->search_employee($query);
 		
 		//$rec =array("Andorra","United Arab Emirates","Afghanistan");
 		$output = array();
@@ -138,15 +139,16 @@ class User extends CI_Controller
 			$temp = array();
 
 			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+			$temp['emp_id'] = $row->emp_id;
 			$temp['name'] = $row->name;
-
+			$temp['tokens'] = array($query, $query . rand(1, 10));
 			array_push($output,$temp);
 			
 		}
-		header('Access-Control-Allow-Origin: *');
-		header("Content-Type: application/json");
+		/*header('Access-Control-Allow-Origin: *');
+		header("Content-Type: application/json");*/
 		
-		echo json_encode($rec);
+		echo json_encode($output);
 		
 		//----------------------------------
 		
