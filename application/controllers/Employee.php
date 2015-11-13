@@ -38,7 +38,7 @@ class Employee extends CI_Controller
 		$this->load->model('constantmodel');
 		$this->data['job_title'] = $this->constantmodel->get_sub_constant(3);
 		
-	if(isset($_SESSION['update']))
+		if(isset($_SESSION['update']))
 		{
 			$this->load->model('employeemodel');
 			$this->data['employee_info'] = $this->employeemodel->get_employee_info($_SESSION['update']);
@@ -68,7 +68,7 @@ class Employee extends CI_Controller
 		$_SESSION['update'] = $employee_id;
 	}
 	/******************* USER DATA GRID *************************/
-	function employee()
+	function employees()
 	{
 		$this->load->model('constantmodel');
 		$this->data['job_title'] = $this->constantmodel->get_sub_constant(3);
