@@ -1,6 +1,6 @@
 <?php
 
-class Employee extends CI_Model
+class Employeemodel extends CI_Model
 {
 	// Get All Employee
 	function get_all_employee()

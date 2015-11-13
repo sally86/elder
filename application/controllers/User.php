@@ -127,8 +127,8 @@ class User extends CI_Controller
 	
 	function getemp()
 	{
-		$this->load->model('employee');
-		$rec = $this->employee->get_all_employee();
+		$this->load->model('employeemodel');
+		$rec = $this->employeemodel->get_all_employee();
 		
 		//$rec =array("Andorra","United Arab Emirates","Afghanistan");
 		$output = array();
