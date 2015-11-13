@@ -1,12 +1,26 @@
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
+<?php
+$ction ="addemployee";
+$page_title = "اضـــافة موظف";
+$readonly = '';
+if (isset($employee_info))
+{
+	unset($_SESSION['update']);
+	foreach($employee_info as $employee_row);
+	$ction ="updateemployee";
+	$page_title = "تعـــديل موظف";
+	$readonly = 'readonly="readonly"';
+}
+?>
+
 <div class="row">
     <div class="col-md-12">
       <!-- BEGIN VALIDATION STATES-->
       <div class="portlet box blue-madison">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-briefcase"></i>اضـــافة مـوظـــف
+                  <i class="fa fa-briefcase"></i><?php echo $page_title;?>
               </div>
               <div class="tools">
                   <a href="javascript:;" class="collapse">
@@ -21,7 +35,7 @@
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
-              <form action="#" id="form_sample_3" class="form-horizontal">
+              <form action="#" id="employee_form" class="form-horizontal">
                   <div class="form-body">
                   	<br/>
                       <div class="alert alert-danger display-hide">
@@ -30,15 +44,17 @@
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
-                          Your form validation is successful!
+							تـم عملية حـفـظ البيـانات بنجـاح !
                       </div>
-                      
+                      <div>
+                      <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
+                      </div>
                       <div class="form-group">
                           <label class="control-label col-md-3">رقم الهوية <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtNationalId" name="txtNationalId" data-required="1" class="form-control"/>
+                              <input type="text" id="txtNationalId" name="txtNationalId" data-required="1" class="form-control" value="<?php if(isset($employee_row->national_id)) echo $employee_row->national_id;?>"/>
                           </div>
                       </div>
                       
@@ -47,7 +63,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtEmployeeId" name="txtEmployeeId" data-required="1" class="form-control"/>
+                              <input type="text" id="txtEmployeeId" name="txtEmployeeId" data-required="1" class="form-control" value="<?php if(isset($employee_row->emp_id)) echo $employee_row->emp_id;?>"/>
                           </div>
                       </div>
                       
@@ -56,7 +72,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtName" name="txtName" data-required="1" class="form-control"/>
+                              <input type="text" id="txtName" name="txtName" data-required="1" class="form-control" value="<?php if(isset($employee_row->name)) echo $employee_row->name;?>" />
                           </div>
                       </div>
                       
@@ -82,11 +98,20 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control select2me" name="drpJobtitle" name="drpJobtitle">
+                              <select class="form-control select2me" id="drpJobtitle" name="drpJobtitle">
                                   <option value="">اختر...</option>
-                                  <option value="Option 1">مدخل بيانات</option>
-                                  <option value="Option 2">باحث</option>
-                                  <option value="Option 3">مدير</option>
+                                  <?php
+								  foreach($job_title as $row_job_title)
+								  {
+									  $selected = '';
+									  if(isset($employee_row->job_title_id) && $employee_row->job_title_id == $row_job_title->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo '<option value="'.$row_job_title->sub_constant_id.'" '.$selected.'>'
+									  						.$row_job_title->sub_constant_name.
+										   '</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
@@ -104,7 +129,7 @@
                           <label class="control-label col-md-3">رقم الهاتف&nbsp;&nbsp;&nbsp;
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtPhone" name="txtPhone" class="form-control"/>
+                              <input type="text" id="txtPhone" name="txtPhone" class="form-control" value="<?php if(isset($employee_row->phone)) echo $employee_row->phone;?>"/>
                           </div>
                       </div>
                       
@@ -117,7 +142,7 @@
                                   <span class="input-group-addon">
                                   <i class="fa fa-envelope"></i>
                                   </span>
-                                  <input type="email" id="txtEmail" name="txtEmail" class="form-control" placeholder="البريد الالكتروني">
+                                  <input type="email" id="txtEmail" name="txtEmail" class="form-control" placeholder="البريد الالكتروني" value="<?php if(isset($employee_row->email)) echo $employee_row->email;?>">
                               </div>
                           </div>
                       </div>
@@ -128,10 +153,16 @@
                           <div class="col-md-4">
                               <div class="checkbox-list" data-error-container="#form_2_services_error">
                                   <label>
-                                  <input type="checkbox" value="1" name="chbxIsactive" checked="checked"/> </label>
+                                  <input type="checkbox" value="1" name="chbxIsactive" checked="checked"
+                                   <?php 
+								  $checked = ' checked="checked"';
+								  if(isset($employee_row->active_account) && $employee_row->active_account == 0) 
+								  $checked = '';
+								  echo $checked;?> 
+
+                                  /> </label>
                               </div>
-                              <div id="form_2_services_error">
-                              </div>
+                             
                           </div>
                       </div>
                   </div>

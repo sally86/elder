@@ -60,11 +60,11 @@
 						</li>
 					</ul>
 				</li>
-				<li <?php if($title == 'employee' || $title == 'addemployee') echo 'class="active open"';?>>
+				<li <?php if($title == 'employee' || $title == 'empform') echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-briefcase"></i>
 					<span class="title">المـوظـفين</span>
-					<?php if($title == 'employee' || $title == 'addemployee')
+					<?php if($title == 'employee' || $title == 'empform')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
@@ -77,8 +77,8 @@
 							<i class="icon-home"></i>
 							عـرض المـوظفيـن</a>
 						</li>
-						<li <?php if($title == 'addemployee') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>addemployee">
+						<li <?php if($title == 'empform') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>empform">
 							<i class="icon-basket"></i>
 							اضــافة مـوظـف</a>
 						</li>

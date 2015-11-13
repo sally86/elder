@@ -79,6 +79,7 @@
 <!-- OUR SCRIPTS -->
 <script src="<?php echo base_url();?>js/constants.js"></script>
 <script src="<?php echo base_url();?>js/user.js"></script>
+<script src="<?php echo base_url();?>js/employee.js"></script>
 <!-- END OUR SCRIPTS -->
 
 
@@ -90,7 +91,9 @@
 		Demo.init(); // init demo features
 		TableManaged.init();
 		UserFormValidation.init();
+		EmpFormValidation.init();
 		UserTableAjax.init();
+		EmpTableAjax.init();
 		ComponentsFormTools.init();
       });
    </script>

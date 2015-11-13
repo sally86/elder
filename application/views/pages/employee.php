@@ -23,7 +23,7 @@
                       </select>
                       <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
                   </div>
-                  <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
+                  <table class="table table-striped table-bordered table-hover" id="Empdatatable_ajax">
                   <thead>
                   <tr role="row" class="heading">
                       <th width="2%">
@@ -58,16 +58,16 @@
                       <td>
                       </td>
                       <td>
-                          <input type="text" class="form-control form-filter input-sm" id="national_id" name="national_id">
+                          <input type="text" class="form-control form-filter input-sm" id="txtNationalid" name="txtNational_id">
                       </td>
                       <td>
-                          <input type="text" class="form-control form-filter input-sm" id="employee_id" name="employee_id">
+                          <input type="text" class="form-control form-filter input-sm" id="txtEmpid" name="txtEmpid">
                       </td>
                       <td>
-                          <input type="text" class="form-control form-filter input-sm" id="name" name="name">
+                          <input type="text" class="form-control form-filter input-sm" id="txtName" name="txtName">
                       </td>
                       <td>
-                          <select id="job_title" name="job_title" class="form-control form-filter input-sm">
+                          <select id="drpJobtitle" name="drpJobtitle" class="form-control form-filter input-sm">
                               <option value="">اختر...</option>
                           	  <?php
 							  foreach($job_title as $row)
@@ -78,20 +78,16 @@
                           </select>                      
                       </td>
                       <td>
-                         <input type="text" class="form-control form-filter input-sm" id="mobile" name="mobile">
+                         <input type="text" class="form-control form-filter input-sm" id="txtmobile" name="txtmobile">
                       </td>
                       <td>
-                         <input type="text" class="form-control form-filter input-sm" id="email" name="email">
+                         <input type="text" class="form-control form-filter input-sm" id="txtemail" name="txtemail">
                       </td>
                       <td>
-                          <select id="is_active" name="is_active" class="form-control form-filter input-sm">
+                          <select id="drpIsactive" name="drpIsactive" class="form-control form-filter input-sm">
                               <option value="">اختر...</option>
-                              <?php
-							  foreach($is_active as $row)
-							  {
-                      			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-							  }
-							  ?>
+                              <option value="1">فعال</option>
+                              <option value="0">غير فعال</option>
                           </select>
                       </td>
                       <td>
@@ -101,34 +97,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                  	<td>&nbsp;</td>
-                    <td>901020304</td>
-                    <td>123</td>
-                    <td>محمد أحمد</td>
-                    <td>مدخل بيانات</td>
-                    <td>0599232456</td>
-                    <td>mohammed@gmail.com</td>
-                    <td><span class="fa fa-check"></span></td>
-                    <td><a class="btn btn-xs default" href="addemployee">
-						<i class="fa fa-pencil"></i>
-							تعديل
-						</a></td>
-                  </tr>
-                  <tr>
-                  	<td>&nbsp;</td>
-                    <td>905060708</td>
-                    <td>456</td>
-                    <td>عمر حسن</td>
-                    <td>باحث</td>
-                    <td>0599454678</td>
-                    <td>omar@gmail.com</td>
-                    <td><span class="fa fa-ban"></span></td>
-                    <td><a class="btn btn-xs default" href="addemployee">
-						<i class="fa fa-pencil"></i>
-							تعديل
-						</a></td>
-                  </tr>
+                  
                   </tbody>
                   </table>
               </div>
