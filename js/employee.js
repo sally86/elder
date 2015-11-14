@@ -6,7 +6,7 @@ function editemployee()
 	var action = $("#hdnAction").val();
 	
 	$.ajax({
-			url: baseURL+"Employee/addemployee",
+			url: baseURL+"Employee/"+action,
 			type: "POST",
 			data:  $("#employee_form").serialize(),
 			error: function(xhr, status, error) {
@@ -27,7 +27,7 @@ function editemployee()
 function goto(arg)
 {
 	$.ajax({
-			url: baseURL+"employee/senddata",
+			url: baseURL+"Employee/senddata",
 			type: "POST",
 			data:  {employee_id : arg},
 			error: function(xhr, status, error) {
@@ -37,7 +37,7 @@ function goto(arg)
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				window.location.href = baseURL+"user/addemployee";
+				window.location.href = baseURL+"employee/empform";
 				//alert(returndb);
 			}
 		});//END $.ajax
@@ -208,7 +208,7 @@ var EmpTableAjax = function () {
                 ],
                 "pageLength": 10, // default record count per page
                 "ajax": {
-                    "url": baseURL+"employee/employeegriddata", // ajax source
+                    "url": baseURL+"Employee/employeegriddata", // ajax source
 					"type": "POST"
                 },
                 "order": [

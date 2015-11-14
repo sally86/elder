@@ -65,7 +65,7 @@ class Employee extends CI_Controller
 	function senddata()
 	{
 		extract($_POST);
-		$_SESSION['update'] = $employee_id;
+		$_SESSION['update'] = $national_id;
 	}
 	/******************* USER DATA GRID *************************/
 	function employees()
@@ -93,7 +93,7 @@ class Employee extends CI_Controller
 			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
 			  <i class="fa fa-edit"></i> تعديل </a>';*/
 			
-			$btn='<a class="btn default btn-xs purple" onclick="goto(\''.$row->employee_id.'\')">
+			$btn='<a class="btn default btn-xs purple" onclick="goto(\''.$row->national_id.'\')">
 			  <i class="fa fa-edit"></i> تعديل </a>';
 			
 			$nestedData[] = $i++;

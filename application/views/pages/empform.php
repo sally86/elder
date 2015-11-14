@@ -82,14 +82,14 @@ if (isset($employee_info))
                           <div class="col-md-4">
                               <div class="radio-list" data-error-container="#form_2_membership_error">
                                   <label>
-                                  <input type="radio" id="rdSexMale" name="rdSex" value="1" checked="checked"/>
+                                  <input type="radio" id="rdSexMale" name="rdSex" value="1" checked="checked" <?php if (isset($employee_row->sex_id)) {if ($employee_row->sex_id==1) echo 'checked=checked';}?> />
                                   ذكـر </label>
                                   <label>
-                                  <input type="radio" id="rdSexFemale" name="rdSex" value="2"/>
+                                  <input type="radio" id="rdSexFemale" name="rdSex" value="2" <?php if (isset($employee_row->sex_id)) {if ($employee_row->sex_id==2) echo 'checked=checked';}?>/>
                                   انـثى </label>
+                                  
                               </div>
-                              <div id="form_2_membership_error">
-                              </div>
+                              
                           </div>
                       </div>
                       

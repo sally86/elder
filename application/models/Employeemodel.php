@@ -25,13 +25,13 @@ class Employeemodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
-function get_employee_info($employee_id)
+function get_employee_info($national_id)
 	{
-		$myquery = "SELECT 	emp.national_id, emp.emp_id, emp.name , emp.sex_id , emp.job_title_id ,emp.mobile,
-							emp.phone, emp.email,emp.is_active active_account,constjob.sub_constant_name
-					FROM 	employee_tb emp, sub_constant_tb constjob
-					WHERE 	emp.employee_id='".$employee_id."'
-					AND     emp.job_title_id = constjob.sub_constant_id";
+		$myquery = "SELECT 	national_id, emp_id, name , sex_id , job_title_id ,mobile,
+							phone, email,is_active active_account,constjob.sub_constant_name
+					FROM 	employee_tb, sub_constant_tb constjob
+					WHERE 	national_id=$national_id
+					AND     employee_tb.job_title_id = constjob.sub_constant_id";
 		
 		$res = $this->db->query($myquery);
 		return $res->result();
@@ -88,7 +88,7 @@ function get_employee_info($employee_id)
 			7 => 'is_active');
 		
 		$myquery = "SELECT 	national_id,emp_id,name,mobile,employee_id,email,
-							constjob.sub_constant_name job_title,is_active
+							constjob.sub_constant_name job_title,job_title_id,is_active active_account
 				      FROM  employee_tb,sub_constant_tb constjob
 				     WHERE  job_title_id = constjob.sub_constant_id";
 		
