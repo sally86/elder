@@ -70,7 +70,7 @@ if (isset($user_info))
                               <input type="text" id="txtName" name="txtName" data-required="1" class="form-control"
                               value="<?php if(isset($user_row->name)) echo $user_row->name;?>" 
                               data-error-container="#form_2_error"
-                              <?php echo $readonly; ?>/>
+                              <?php echo $readonly; ?> />
                             </div>
                             <div id="form_2_error">
                               </div>

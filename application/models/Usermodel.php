@@ -97,5 +97,25 @@ class Usermodel extends CI_Model
 		$this->db->update('users_tb',$data);
 	}
 	
+	// Enable/Disable Account
+	function update_account_status()
+	{
+		extract($_POST);
+		$data['is_active'] = $isactive;
+		
+		$this->db->where('user_name',$username);
+		$this->db->update('users_tb',$data);
+	}
+	
+	// Reset Password
+	function reset_password()
+	{
+		extract($_POST);
+		$data['passward'] = MD5('123456');
+		
+		$this->db->where('user_name',$username);
+		$this->db->update('users_tb',$data);
+	}
+	
 }
 ?>

@@ -24,7 +24,7 @@ function editUser()
 			}
 		});//END $.ajax
 }
-function goto(arg)
+function gotoUser(arg)
 {
 	$.ajax({
 			url: baseURL+"User/senddata",
@@ -42,6 +42,70 @@ function goto(arg)
 			}
 		});//END $.ajax
 }
+function updateUserstatus(username)
+{
+	var isactive = '';
+	var newclass = '';
+	var itemid = '#i'+username;
+	var active_class = 'fa fa-user font-green';
+	var unactive_class = 'fa fa-user font-red-sunglo';
+	
+	if($('#i'+username).attr("class") == active_class)
+	{
+		isactive = 0;
+		newclass = unactive_class;
+	}
+	else
+	{
+		isactive = 1;
+		newclass = active_class;
+	}
+	
+	$.ajax({
+			url: baseURL+"User/updateacount",
+			type: "POST",
+			data:  {username : username,
+					isactive : isactive},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				if (returndb == '')	//Success
+				{
+					$('#i'+username).removeClass( $('#i'+username).attr("class") ).addClass(newclass);
+				}
+			}
+		});//END $.ajax
+	
+}
+function resetPassword(username)
+{
+	$.ajax({
+			url: baseURL+"User/resetpassword",
+			type: "POST",
+			data:  {username : username},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				if(returndb == '')
+					alert('تم تعديل كلمة المرور الى 123456');
+				else
+					alert('حدث خطأ أثناء عملية التعديل');
+			}
+		});//END $.ajax
+}
+$(document).ready(function(){
+	$('#confirm-reset').on('show.bs.modal', function(e) {
+		$(this).find('.btn-ok').attr('onclick', $(e.relatedTarget).data('onclick'));
+	});
+}); // END READY
 //--------------------------------------
 var UserFormValidation = function () {
  var handleValidation = function() {

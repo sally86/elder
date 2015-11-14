@@ -61,12 +61,17 @@ class User extends CI_Controller
 		$this->load->model('usermodel');
 		$this->usermodel->user_update();
 	}
-	/************************************************************/
+	
 	function senddata()
 	{
 		extract($_POST);
 		$_SESSION['update'] = $username;
 	}
+	
+	/************************************************************/
+	
+	
+	
 	/******************* USER DATA GRID *************************/
 	function users()
 	{
@@ -74,6 +79,16 @@ class User extends CI_Controller
 		$this->data['job_title'] = $this->constantmodel->get_sub_constant(3);
 		$this->data['user_type'] = $this->constantmodel->get_sub_constant(20);
 		$this->data['job_title'] = $this->constantmodel->get_sub_constant(3);
+	}
+	function updateacount()
+	{
+		$this->load->model('usermodel');
+		$this->usermodel->update_account_status();
+	}
+	function resetpassword()
+	{
+		$this->load->model('usermodel');
+		$this->usermodel->reset_password();
 	}
 	function usergriddata()
 	{
@@ -88,15 +103,30 @@ class User extends CI_Controller
 			$nestedData=array();
 			
 			if ($row->active_account == 1)
-				$active = '<i class="fa fa-user font-green"></i>';
-			else
-				$active = '<i class="fa fa-user font-red-sunglo"></i>';
+			{
+				$active = '<i id="i'.$row->user_name.'" class="fa fa-user font-green" 
+							onclick="updateUserstatus(\''.$row->user_name.'\')" style="cursor:pointer"></i>';
+				$active = $active .'&nbsp;&nbsp;&nbsp;&nbsp';
 				
-			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
-			  <i class="fa fa-edit"></i> تعديل </a>';*/
+				$active = $active .'<a href="#" data-onclick="resetPassword(\''.$row->user_name.'\')" 
+							data-toggle="modal" data-target="#confirm-reset" role="button" >';
+				$active = $active .'<i class="fa fa-refresh"></i></a>';
+				
+			}
+			else
+			{
+				$active = '<i id="i'.$row->user_name.'" class="fa fa-user font-red-sunglo" 
+							onclick="updateUserstatus(\''.$row->user_name.'\')" style="cursor:pointer"></i>';
+				$active = $active .'&nbsp;&nbsp;&nbsp;&nbsp';
+				
+				$active = $active .'<a href="#" data-onclick="resetPassword(\''.$row->user_name.'\')" 
+							data-toggle="modal" data-target="#confirm-reset" role="button" >';
+				$active = $active .'<i class="fa fa-refresh"></i></a>';
+			}
+				
 			
-			$btn='<a class="btn default btn-xs purple" onclick="goto(\''.$row->user_name.'\')">
-			  <i class="fa fa-edit"></i> تعديل </a>';
+			$btn = '<a class="btn default btn-xs purple" onclick="gotoUser(\''.$row->user_name.'\')">
+			  		<i class="fa fa-edit"></i> تعديل </a>';
 			
 			$nestedData[] = $i++;
 			$nestedData[] = $row->user_name;
@@ -116,9 +146,9 @@ class User extends CI_Controller
 		//$records["draw"] = $sEcho;
 		$json_data = array(
 					"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
-					"recordsTotal"    => intval( $totalData ),  // total number of records
-					"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
-					"data"            => $data   // total data array
+					"recordsTotal"    => intval( $totalData ),  		// total number of records
+					"recordsFiltered" => intval( $totalFiltered ),		// total number of records after searching, if there is no searching then totalFiltered = totalData
+					"data"            => $data   						// total data array
 					);
 		
 		echo json_encode($json_data);  // send data as json format
@@ -131,7 +161,6 @@ class User extends CI_Controller
 		$this->load->model('employeemodel');
 		$rec = $this->employeemodel->search_employee($query);
 		
-		//$rec =array("Andorra","United Arab Emirates","Afghanistan");
 		$output = array();
 		foreach($rec as $row)
 		{
@@ -142,17 +171,14 @@ class User extends CI_Controller
 			$temp['emp_id'] = $row->emp_id;
 			$temp['name'] = $row->name;
 			$temp['tokens'] = array($query, $query . rand(1, 10));
+			
 			array_push($output,$temp);
 			
 		}
-		/*header('Access-Control-Allow-Origin: *');
-		header("Content-Type: application/json");*/
 		
-		echo json_encode($output);
-		
-		//----------------------------------
-		
-		//----------------------------------
+		echo json_encode($output);		
 	}
+	
+	
 }
 ?>
