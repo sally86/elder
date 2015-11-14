@@ -117,5 +117,18 @@ class Usermodel extends CI_Model
 		$this->db->update('users_tb',$data);
 	}
 	
+	// Check Availabile Username
+	function check_username()
+	{
+		extract($_POST);
+		
+		$this->db->from('users_tb');
+		$this->db->where('user_name',$username);
+		$query = $this->db->get();
+		
+		return $query->result();
+		
+	}
+	
 }
 ?>

@@ -155,6 +155,7 @@ class User extends CI_Controller
 	}
 	/************************************************************/
 	
+	// Auto-Complete
 	function getemp($query)
 	{
 		$query = urldecode($query);
@@ -179,6 +180,19 @@ class User extends CI_Controller
 		echo json_encode($output);		
 	}
 	
-	
+	// Check Username Availability
+	function availabileusername()
+	{
+		extract($_POST);
+		
+		$this->load->model('usermodel');
+		$rec = $this->usermodel->check_username();
+		
+		if (count($rec) == 0 ) {
+			echo 'true';
+		} else {
+			echo 'false';
+		}
+	}
 }
 ?>

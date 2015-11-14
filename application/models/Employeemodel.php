@@ -3,7 +3,7 @@
 class Employeemodel extends CI_Model
 {
 	// Get All Employee
-		function get_all_employee()
+	function get_all_employee()
 	{
 		$this->db->from('employee_tb');
 		$this->db->order_by("is_active", "DESC");
@@ -18,14 +18,14 @@ class Employeemodel extends CI_Model
 	function search_employee($empname)
 	{
 		$myquery = "SELECT employee_id, national_id, emp_id, name, sex_id, job_title_id, mobile, phone, email, is_active
-				  FROM employee_tb
-				  WHERE name LIKE '".$empname."%'
+				  	  FROM employee_tb
+				  	 WHERE name LIKE '".$empname."%'
 				  ORDER BY is_active DESC, name";
 		
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
-function get_employee_info($national_id)
+	function get_employee_info($national_id)
 	{
 		$myquery = "SELECT 	national_id, emp_id, name , sex_id , job_title_id ,mobile,
 							phone, email,is_active active_account,constjob.sub_constant_name

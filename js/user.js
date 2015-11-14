@@ -101,20 +101,68 @@ function resetPassword(username)
 			}
 		});//END $.ajax
 }
+
 $(document).ready(function(){
+	// Conferm Reset Password						   
 	$('#confirm-reset').on('show.bs.modal', function(e) {
 		$(this).find('.btn-ok').attr('onclick', $(e.relatedTarget).data('onclick'));
 	});
+	
 }); // END READY
+
 //--------------------------------------
 var UserFormValidation = function () {
  var handleValidation = function() {
-        
+        	
             var form = $('#user_form');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
 
-            form.validate({
+            // Unique Username
+			var response = true;
+			$.validator.addMethod(
+				"uniqueUserName", 
+				function(value, element) {
+					$.ajax({
+						type: "POST",
+						url: baseURL+"User/availabileusername",
+						data: {username :value},
+						error: function(xhr, status, error) {
+							//var err = eval("(" + xhr.responseText + ")");
+							alert(xhr.responseText);
+						},
+						beforeSend: function(){},
+						complete: function(){},
+						success: function(msg)
+						{
+							var massege ='';
+							if( msg == 'true' )
+							{
+								$("#iCheck").removeClass('fa fa-warning font-red-sunglo').addClass('fa fa-check font-green');
+								$("#txtUsername").closest('.form-group').removeClass('has-error').addClass('has-success');
+								$("#txtUsername-error").html('اسم المستخدم <b>' + value + '</b> متاح. يمكنك اختياره!');
+								
+								response = true;
+							}
+							else
+							{
+								$("#iCheck").removeClass('fa fa-check font-green').addClass('fa fa-warning font-red-sunglo');
+								$("#txtUsername").closest('.form-group').removeClass('has-success').addClass('has-error');
+								$("#txtUsername-error").html('اسم المستخدم <b>' + value + '</b> غير متاح. الرجاء اختيار اسم مستخدم اخر!');
+								response = false;
+								
+							}
+							
+							
+						}
+						
+					 });//END $.ajax
+					return response;
+				},
+				"Username is Already Taken"
+			);
+			
+			form.validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block help-block-error', // default input error message class
                 focusInvalid: false, // do not focus the last invalid input
@@ -128,7 +176,8 @@ var UserFormValidation = function () {
                     },
 					txtUsername: {
 						minlength: 2,
-                        required: true
+                        required: true,
+						uniqueUserName: true
                     },
 					txtPassword: {
 						minlength: 6,
@@ -152,7 +201,8 @@ var UserFormValidation = function () {
                     },
 					txtUsername: {
                         minlength: "لايمكن ادخال اسـم المستـخدم اقل من حرفين",
-						required: "الرجـاء ادخـل اسـم المستـخدم"
+						required: "الرجـاء ادخـل اسـم المستـخدم",
+						uniqueUserName: "اسم المستخدم غير متاح ... الرجاء اختيار اسم مستخدم اخر"
                     },
 					txtPassword: {
 						minlength: "كلمة المرور يجب ان لا تقل عن 6 خانات",
@@ -170,9 +220,9 @@ var UserFormValidation = function () {
 
                 errorPlacement: function (error, element) { // render error placement for each input type
                     if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
+						error.appendTo(element.attr("data-error-container"));
                     } else if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
+						error.insertAfter(element.parent(".input-group"));
                     } else if (element.parents('.radio-list').size() > 0) { 
                         error.appendTo(element.parents('.radio-list').attr("data-error-container"));
                     } else if (element.parents('.radio-inline').size() > 0) { 
@@ -182,7 +232,7 @@ var UserFormValidation = function () {
                     } else if (element.parents('.checkbox-inline').size() > 0) { 
                         error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
                     } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
+						error.insertAfter(element); // for other inputs, just perform default behavior
                     }
                 },
 
@@ -195,6 +245,10 @@ var UserFormValidation = function () {
                 highlight: function (element) { // hightlight error inputs
                    $(element)
                         .closest('.form-group').addClass('has-error'); // set error class to the control group
+				   	
+					if($(element).attr('id') == 'txtUsername')
+						$("#iCheck").removeClass('fa fa-check font-green').addClass('fa fa-warning font-red-sunglo');
+								
                 },
 
                 unhighlight: function (element) { // revert the change done by hightlight
@@ -355,10 +409,61 @@ var ComponentsFormTools = function () {
 		 });
 		
     }
+	// Check Username Availability
+	/*var handleUsernameAvailabilityChecker = function () {
+        $("#txtUsername").change(function () {
+            var input = $(this);
+			
+            if (input.val() === "") {
+                return;
+            }
+
+            input.attr("readonly", true).
+            attr("disabled", true).
+            addClass("spinner");
+
+            $.post(baseURL+"User/availabileusername", {
+                username: input.val()
+            }, function (res) {
+                input.attr("readonly", false).
+                attr("disabled", false).
+                removeClass("spinner");
+
+                // change popover font color based on the result
+                if (res.status == 'OK') {
+					alert('OK');
+                    input.closest('.form-group').removeClass('has-error').addClass('has-success');
+                    $('.icon-exclamation-sign', input.closest('.form-group')).remove();
+                    input.before('<i class="icon-ok"></i>');
+                    input.data('bs.popover').tip().removeClass('error').addClass('success');
+                } else {
+					alert('Error');
+                    input.closest('.form-group').removeClass('has-success').addClass('has-error');
+                    $('.icon-ok', input.closest('.form-group')).remove();
+                    input.before('<i class="icon-exclamation-sign"></i>');
+
+                    input.popover('destroy');
+                    input.popover({
+                        'html': true,
+                        'placement': (Metronic.isRTL() ? 'left' : 'right'),
+                        'container': 'body',
+                        'content': res.message,
+                    });
+                    input.popover('show');
+                    input.data('bs.popover').tip().removeClass('success').addClass('error');
+
+                    Metronic.setLastPopedPopover(input);
+                }
+
+            }, 'json');
+
+        });
+    }*/
 	return {
         //main function to initiate the module
         init: function () {
             handleTwitterTypeahead();
+			//handleUsernameAvailabilityChecker();
 		}
     };
 
