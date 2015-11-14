@@ -108,6 +108,15 @@ $(document).ready(function(){
 		$(this).find('.btn-ok').attr('onclick', $(e.relatedTarget).data('onclick'));
 	});
 	
+	// Prevent Arabic Char In Username
+	$("#txtUsername").on("keypress", function(event) {
+		  var englishAlphabetAndWhiteSpace = /[ا-ي]/g;
+		  var key = String.fromCharCode(event.which);
+		  if (englishAlphabetAndWhiteSpace.test(key)) {
+			 return false;
+		  }
+	});
+	
 }); // END READY
 
 //--------------------------------------
