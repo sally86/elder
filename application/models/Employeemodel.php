@@ -14,13 +14,25 @@ class Employeemodel extends CI_Model
 		return $query->result();
 	}
 	
-	// Search Employee 
-	function search_employee($empname)
+	// Get All Employee do not have Account
+	function get_employee_hasnt_account()
 	{
-		$myquery = "SELECT employee_id, national_id, emp_id, name, sex_id, job_title_id, mobile, phone, email, is_active
+		$myquery = "SELECT employee_id, name
+				  	  FROM employee_tb
+				  	 WHERE employee_id NOT IN ( SELECT employee_id FROM users_tb )";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
+	// Search Employee 
+	function search_employee_hasnt_account($empname)
+	{
+		$myquery = "SELECT employee_id, name, emp_id
 				  	  FROM employee_tb
 				  	 WHERE name LIKE '".$empname."%'
-				  ORDER BY is_active DESC, name";
+					   AND employee_id NOT IN ( SELECT employee_id FROM users_tb )
+					   AND is_active = 1
+				  ORDER BY name";
 		
 		$res = $this->db->query($myquery);
 		return $res->result();

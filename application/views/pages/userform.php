@@ -32,6 +32,27 @@ if (isset($user_info))
                   </a>
               </div>
           </div>
+          
+          <div id="confirm-reset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                          <h4 class="modal-title">تأكيد تعديل كلمة المرور</h4>
+                      </div>
+                      <div class="modal-body">
+                          <p>
+                               سيتم تعديل كلمة المرور ... هل تود المتابعة؟
+                          </p>
+                      </div>
+                      <div class="modal-footer">
+                          <button class="btn default" data-dismiss="modal" aria-hidden="true">تراجع</button>
+                          <button data-dismiss="modal" class="btn btn-danger btn-ok" >متابعة</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
               <form action="#" id="user_form" class="form-horizontal">
@@ -48,15 +69,6 @@ if (isset($user_info))
                       <div>
                       	  <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
                       </div>
-                      <div class="form-group">
-                          <label class="control-label col-md-3">الرقم الوظيفي <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                              <input type="text" id="txtEmployeeId" name="txtEmployeeId" data-required="1" class="form-control"
-                              value="<?php if(isset($user_row->employee_id)) echo $user_row->employee_id;?>" readonly="readonly"/>
-                          </div>
-                      </div>
                       
                       <div class="form-group">
                           <label class="control-label col-md-3">اسـم المـوظف <span class="required">
@@ -67,6 +79,7 @@ if (isset($user_info))
                           	  <span class="input-group-addon">
                               <i class="fa fa-search"></i>
                               </span>
+                              <input id="hdnEmployeeId" name="hdnEmployeeId" type="hidden" value="<?php if(isset($user_row->employee_id))echo $user_row->employee_id;?>" />
                               <input type="text" id="txtName" name="txtName" data-required="1" class="form-control"
                               value="<?php if(isset($user_row->name)) echo $user_row->name;?>" 
                               data-error-container="#form_2_error"
@@ -74,6 +87,16 @@ if (isset($user_info))
                             </div>
                             <div id="form_2_error">
                               </div>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">الرقم الوظيفي <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <input type="text" id="txtEmpId" name="txtEmpId" data-required="1" class="form-control"
+                              value="<?php if(isset($user_row->emp_id)) echo $user_row->emp_id;?>" readonly="readonly"/>
                           </div>
                       </div>
                       
@@ -91,6 +114,7 @@ if (isset($user_info))
                           </div>
                       </div>
                       
+<?php if ($ction == "adduser") { ?>         
                       <div class="form-group">
                           <label class="control-label col-md-3">كلمة المرور <span class="required">
                           * </span>
@@ -110,6 +134,19 @@ if (isset($user_info))
                               class="form-control" value="<?php if(isset($user_row->passward)) echo $user_row->passward;?>" />
                           </div>
                       </div>
+<?php } else if ($ction == "updateuser") {?>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">اعـادة تعيين كلمة المرور </label>
+                          <div class="col-md-4">
+                              <a class="btn btn-circle red" href="#" data-toggle="modal" data-target="#confirm-reset" role="button"
+                              data-onclick="resetPassword('<?php echo $user_row->user_name;?>')">
+                                اعادة تعين كلمة المرور
+                                <i class="fa fa-refresh"></i>
+                              </a>
+                          </div>
+                      </div>
+<?php } ?>
                       
                        <div class="form-group">
                           <label class="control-label col-md-3">نوع المستخدم <span class="required">

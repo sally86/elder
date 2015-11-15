@@ -132,6 +132,10 @@ var UserFormValidation = function () {
 			$.validator.addMethod(
 				"uniqueUserName", 
 				function(value, element) {
+					if ($("#hdnAction").val() == 'updateuser')
+					{
+						return true;
+					}
 					$.ajax({
 						type: "POST",
 						url: baseURL+"User/availabileusername",
@@ -395,7 +399,8 @@ var ComponentsFormTools = function () {
 								$('#txtEmployeeId').val('');
 								return {
 									value: emp.name,
-									id: emp.emp_id
+									id: emp.employee_id,
+									empid: emp.emp_id
 									
 								};
 							});
@@ -414,7 +419,8 @@ var ComponentsFormTools = function () {
           source: custom.ttAdapter(),
           
         }).on('typeahead:selected typeahead:autocompleted typeahead:cursorchanged', function(event, datum) {
-         $('#txtEmployeeId').val(datum.id);
+         $('#hdnEmployeeId').val(datum.id);
+		 $('#txtEmpId').val(datum.empid);
 		 });
 		
     }

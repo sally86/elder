@@ -130,7 +130,7 @@ class User extends CI_Controller
 			
 			$nestedData[] = $i++;
 			$nestedData[] = $row->user_name;
-			$nestedData[] = $row->employee_id;
+			$nestedData[] = $row->emp_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->job_title;
 			$nestedData[] = $row->user_type;
@@ -160,7 +160,7 @@ class User extends CI_Controller
 	{
 		$query = urldecode($query);
 		$this->load->model('employeemodel');
-		$rec = $this->employeemodel->search_employee($query);
+		$rec = $this->employeemodel->search_employee_hasnt_account($query);
 		
 		$output = array();
 		foreach($rec as $row)
@@ -169,8 +169,9 @@ class User extends CI_Controller
 			$temp = array();
 
 			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+			$temp['employee_id'] = $row->employee_id;
 			$temp['emp_id'] = $row->emp_id;
-			$temp['name'] = $row->name;
+			$temp['name']   = $row->name;
 			$temp['tokens'] = array($query, $query . rand(1, 10));
 			
 			array_push($output,$temp);

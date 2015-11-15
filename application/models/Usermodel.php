@@ -5,7 +5,7 @@ class Usermodel extends CI_Model
 	{
 		$myquery = "SELECT u.user_name, u.passward, u.employee_id, u.is_active active_account, 
 						   u.user_type_id, constutype.sub_constant_name user_type, u.created_on, u.created_by,
-					       emp.name, emp.job_title_id, constjob.sub_constant_name job_title
+					       emp.emp_id, emp.name, emp.job_title_id, constjob.sub_constant_name job_title
 				      FROM users_tb u, employee_tb emp, sub_constant_tb constutype, sub_constant_tb constjob
 				     WHERE u.employee_id = emp.employee_id
 				  	   AND u.user_type_id = constutype.sub_constant_id
@@ -28,7 +28,7 @@ class Usermodel extends CI_Model
 		
 		$myquery = "SELECT u.user_name, u.employee_id, u.is_active active_account, 
 						   u.user_type_id, constutype.sub_constant_name user_type, u.created_on, u.created_by,
-					       emp.name, emp.job_title_id, constjob.sub_constant_name job_title
+					       emp.emp_id, emp.name, emp.job_title_id, constjob.sub_constant_name job_title
 				      FROM users_tb u, employee_tb emp, sub_constant_tb constutype, sub_constant_tb constjob
 				     WHERE u.employee_id = emp.employee_id
 				  	   AND u.user_type_id = constutype.sub_constant_id
@@ -40,7 +40,7 @@ class Usermodel extends CI_Model
 		}
 		if(isset($requestData['txtEmpid']) && $requestData['txtEmpid'] !='')
 		{
-			$myquery = $myquery." AND u.employee_id = ".$requestData['txtEmpid'];
+			$myquery = $myquery." AND emp.emp_id = ".$requestData['txtEmpid'];
 		}
 		if(isset($requestData['txtName']) && $requestData['txtName'] !='')
 		{
@@ -73,7 +73,7 @@ class Usermodel extends CI_Model
 		extract($_POST);
 		$data['user_name'] = $txtUsername;
 		$data['passward'] = MD5($txtPassword);
-		$data['employee_id'] = $txtEmployeeId;
+		$data['employee_id'] = $hdnEmployeeId;
 		$data['is_active'] = $chbxIsactive;
 		$data['user_type_id'] = $drpUsertype;
 		//$data['created_by'] = $_SESSION['username'];
@@ -89,8 +89,6 @@ class Usermodel extends CI_Model
 		else
 			$data['is_active'] = 0;
 			
-		$data['passward'] = MD5($txtPassword);
-		$data['employee_id'] = $txtEmployeeId;
 		$data['user_type_id'] = $drpUsertype;
 		
 		$this->db->where('user_name',$txtUsername);

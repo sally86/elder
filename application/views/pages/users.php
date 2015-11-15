@@ -35,6 +35,7 @@
                           </div>
                       </div>
                   </div>
+                  
                   <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
                   <thead>
                   <tr role="row" class="heading">
