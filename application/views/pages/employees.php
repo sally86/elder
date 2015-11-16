@@ -70,7 +70,7 @@
                           <select id="drpJobtitle" name="drpJobtitle" class="form-control form-filter input-sm">
                               <option value="">اختر...</option>
                           	  <?php
-							  foreach($job_title as $row)
+							  foreach($emp_job_title as $row)
 							  {
                       			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
 							  }

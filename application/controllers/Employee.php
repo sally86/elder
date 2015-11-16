@@ -76,7 +76,7 @@ class Employee extends CI_Controller
 	function employees()
 	{
 		$this->load->model('constantmodel');
-		$this->data['job_title'] = $this->constantmodel->get_sub_constant(3);
+		$this->data['emp_job_title'] = $this->constantmodel->get_sub_constant(3);
 	}
 	function employeegriddata()
 	{
