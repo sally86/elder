@@ -39,6 +39,18 @@ class Usertypeperm extends CI_Controller
 		
 	}
 	
+	function addusertypepermession()
+	{
+		$this->load->model('usertypepermmodel');
+		$this->usertypepermmodel->user_menu_page_insert();
+	}
+	
+	function deleteusertypepermession()
+	{
+		$this->load->model('usertypepermmodel');
+		$this->usertypepermmodel->user_menu_page_delete();
+	}
+	
 	function getmenue()
 	{
 		$this->load->model('usertypepermmodel');
@@ -56,18 +68,18 @@ class Usertypeperm extends CI_Controller
 				  {
 					  $menue_id = $menue_row->menu_id;
 					  echo '<optgroup label="'.$menue_row->menu_name.'">';
-					  echo '<option '.$selected.'>'.$menue_row->page_title.'</option>';
+					  echo '<option '.$selected.' value='.$menue_row->menu_page_id.'>'.$menue_row->page_title.'</option>';
 				  } 
 				  else if ($menue_id != $menue_row->menu_id)
 				  {
 					  $menue_id = $menue_row->menu_id;
 					  echo '</optgroup>';
 					  echo '<optgroup label="'.$menue_row->menu_name.'">';
-					  echo '<option '.$selected.'>'.$menue_row->page_title.'</option>';
+					  echo '<option '.$selected.' value='.$menue_row->menu_page_id.'>'.$menue_row->page_title.'</option>';
 				  }
 				  else
 				  {
-					  echo '<option '.$selected.'>'.$menue_row->page_title.'</option>';
+					  echo '<option '.$selected.' value='.$menue_row->menu_page_id.'>'.$menue_row->page_title.'</option>';
 				  }
 				  
 			  }

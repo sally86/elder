@@ -18,5 +18,33 @@ class Usertypepermmodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+	
+	function user_menu_page_insert()
+	{
+		extract($_POST);
+		
+		$myquery = "INSERT INTO user_menu_page_tb
+					(menu_page_id, user_type_id)
+					(SELECT menu_page_id,".$user_type_id."
+					   FROM menu_page_tb
+					  WHERE menu_page_id IN (".implode(",",$values)."))";
+		
+		$res = $this->db->query($myquery);
+		
+		
+	}
+	
+	function user_menu_page_delete()
+	{
+		extract($_POST);
+		
+		$myquery = "DELETE FROM user_menu_page_tb
+					WHERE user_type_id = ".$user_type_id."
+					  AND menu_page_id IN (".implode(",",$values).")";
+		
+		$res = $this->db->query($myquery);
+		
+		
+	}
 }
 ?>
