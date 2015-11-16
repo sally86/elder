@@ -76,10 +76,21 @@
 <!-- END AUTO COMPLETE-->
 
 
+<!-- BEGIN MULTIPLE SELECT PLUGINS -->
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<!--<script type="text/javascript" src="../../assets/global/plugins/select2/select2.min.js"></script>-->
+
+
+<!-- END MULTIPLE SELECT PLUGINS -->
+
+
+
 <!-- OUR SCRIPTS -->
 <script src="<?php echo base_url();?>js/constants.js"></script>
 <script src="<?php echo base_url();?>js/user.js"></script>
 <script src="<?php echo base_url();?>js/employee.js"></script>
+<script src="<?php echo base_url();?>js/usertypepermession.js"></script>
 <!-- END OUR SCRIPTS -->
 
 
@@ -95,6 +106,7 @@
 		UserTableAjax.init();
 		EmpTableAjax.init();
 		ComponentsFormTools.init();
+		ComponentsDropdowns.init();
       });
    </script>
 <!-- END JAVASCRIPTS -->
