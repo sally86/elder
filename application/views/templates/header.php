@@ -52,6 +52,13 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN AUTO COMPLETE-->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/global/plugins/typeahead/typeahead.css">
 <!-- END AUTO COMPLETE-->
+
+<!-- BEGIN MULTIPLE SELECT-->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/global/plugins/bootstrap-select/bootstrap-select-rtl.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/global/plugins/jquery-multi-select/css/multi-select-rtl.css"/>
+<!--<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/select2/select2.css"/>-->
+<!-- END MULTIPLE SELECT-->
+
 <!------------------------ END PAGE LEVEL STYLES -------------------------------------------------------------->
 <!-- BEGIN THEME STYLES -->
 <link href="<?php echo base_url();?>assets/global/css/components-rtl.css" id="style_components" rel="stylesheet" type="text/css"/>

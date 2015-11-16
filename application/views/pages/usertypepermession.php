@@ -40,55 +40,27 @@
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpUsertype" name="drpUsertype">
                                   <option value="">اختر...</option>
-                                  <option value="pending">مدير النظام</option>
-                              	  <option value="closed">مدخل بيانات</option>
-                              	  <option value="closed">باحث</option>
+                                  <?php 
+                                  foreach($user_type as $row_user_type)
+								  {
+									   echo '<option value="'.$row_user_type->sub_constant_id.'" '.$selected.'>'
+									  						.$row_user_type->sub_constant_name.
+										   '</option>';
+								  }
+								  ?>
+
                               </select>
                           </div>
                       </div>
                       
-                      <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">القوائم <span class="required">
-                                * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <select class="form-control select2me" id="drpUsertype" name="drpUsertype">
-                                        <option value="">اختر...</option>
-                                        <option value="pending">الرئيسية</option>
-                                        <option value="closed" selected="selected">الموظفين</option>
-                                        <option value="closed">المستخدمين</option>
-                                        <option value="closed">الأعضاء</option>
-                                        <option value="closed">الاستبانة</option>
-                                        <option value="closed">مواعيد البحث الميداني</option>
-                                        <option value="closed">ثوابت النظام</option>
-                                        <option value="closed">الرسائل</option>
-                                        <option value="closed">التقارير</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">الصـفحـات <span class="required">
-                                * </span>
-                                </label>
-                                <div class="col-md-4">
-                                   <div class="checkbox-list" data-error-container="#form_2_services_error">
-                                      <label>
-                                      <input type="checkbox" value="1" name="service"/> عرض الموظفين </label>
-                                      <label>
-                                      <input type="checkbox" value="2" name="service"/> اضافة الموظفين </label>
-                                  </div>
-                                  <div id="form_2_services_error">
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
-                    </div>
+                      <div id="dvMenue" class="row" style="display:none">
+                       	  <label class="control-label col-md-3">صلاحيات المستخدم</label>
+                          <div class="col-md-4">
+                              <select multiple="multiple" class="multi-select" id="my_multi_select2" name="my_multi_select2[]">
+                              
+                              </select>
+                          </div>
+                      </div>
                   </div>
                   <!-- END FORM BODY -->
                   <div class="form-actions">

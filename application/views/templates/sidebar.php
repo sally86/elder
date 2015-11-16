@@ -105,7 +105,7 @@
 							اضـافـة مـستـخدم</a>
 						</li>
 						<li <?php if($title == 'usertypepermession') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>usertypepermession">
+							<a href="<?php echo base_url();?>usertypeperm/usertypepermession">
 							صـلاحيـات أنواع المـستـخدمين</a>
 						</li>
 					</ul>
