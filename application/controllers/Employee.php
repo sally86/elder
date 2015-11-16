@@ -76,11 +76,13 @@ class Employee extends CI_Controller
 	function employees()
 	{
 		$this->load->model('constantmodel');
+
 		$this->data['emp_job_title'] = $this->constantmodel->get_sub_constant(3);
 	}
 	function employeegriddata()
 	{
 		$this->load->model('employeemodel');
+		$totalData=$this->employeemodel->count_get_search_employee($_REQUEST);
 		$rec = $this->employeemodel->get_search_employee($_REQUEST);
 		
 		
@@ -114,8 +116,9 @@ class Employee extends CI_Controller
 			$data[] = $nestedData;
 		} // End Foreach
 		
-		$totalFiltered = count($rec);
-		$totalData = 1;
+//		$totalFiltered = count($rec);
+		$totalFiltered = $totalData;
+		//$totalData = 1;
 		//$records["draw"] = $sEcho;
 		$json_data = array(
 					"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
