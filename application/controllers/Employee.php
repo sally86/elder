@@ -62,8 +62,18 @@ class Employee extends CI_Controller
 		$this->load->model('employeemodel');
 		$this->employeemodel->insert_employee();
 	}
-	/************************************************************/
 	
+	/************************************************************/
+	function check_id()
+	{
+		$this->load->model('employeemodel');
+		$rec=$this->employeemodel->check_employee_id();
+		
+		foreach($rec->result() as $row)
+		{
+  			echo $row->cn;
+		}
+	}
 	/******************* Update USER ******************************/
 	function updateemployee()
 	{

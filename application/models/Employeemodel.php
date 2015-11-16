@@ -13,7 +13,15 @@ class Employeemodel extends CI_Model
 		
 		return $query->result();
 	}
-	
+	function check_employee_id()
+	{
+		extract($_POST);
+		$national_id=$national_id;
+		$myquery = "SELECT 	count(1) as cn
+				  	FROM 	employee_tb
+				  	WHERE 	national_id=$national_id";
+		 return $this->db->query($myquery);
+	}
 	// Get All Employee do not have Account
 	function get_employee_hasnt_account()
 	{

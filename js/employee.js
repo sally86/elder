@@ -42,6 +42,44 @@ function gotoEmployee(arg)
 			}
 		});//END $.ajax
 }
+//-------------check ID ----------------------//
+function check_emp_id(){	
+
+ 	var national_id = document.getElementById('txtNationalId').value;
+if (national_id !='')
+{
+		$.ajax({
+			url: baseURL+"Employee/check_id",
+			type: "POST",
+			data: {national_id: national_id},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+	
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(result){
+				
+				if (result==1)
+				{
+					alert('رقم الهوية مستخدم مسبقاً, الرجاء التأكد من رقم الهوية المدخل');
+					document.getElementById('txtNationalId').value='';
+					document.getElementById('txtNationalId').focus();
+					return;
+				}
+				
+			}
+		});//END $.ajax	
+	
+}
+else
+return;
+}
+
+
+//-------------End check ID
+
 //--------------------------------------
 var EmpFormValidation = function () {
  var handleValidation = function() {

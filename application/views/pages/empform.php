@@ -54,7 +54,7 @@ if (isset($employee_info))
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtNationalId" name="txtNationalId" data-required="1" class="form-control" value="<?php if(isset($employee_row->national_id)) echo $employee_row->national_id;?>"/>
+                              <input type="text" id="txtNationalId" name="txtNationalId" data-required="1" class="form-control" value="<?php if(isset($employee_row->national_id)) echo $employee_row->national_id;?>"  onblur="check_emp_id()"/>
                           </div>
                       </div>
                       
