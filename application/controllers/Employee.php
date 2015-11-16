@@ -32,6 +32,15 @@ class Employee extends CI_Controller
 		}
 	}
 	
+	/********************/
+	function senddata()
+	{
+		extract($_POST);
+		$_SESSION['update'] = $national_id;
+		//echo $_SESSION['update'];
+		//$this->empform();
+		//exit;
+	}
 	/******************* USER FORM *****************************/
 	function empform()
 	{
@@ -59,14 +68,10 @@ class Employee extends CI_Controller
 	function updateemployee()
 	{
 		$this->load->model('employeemodel');
-		$this->employeemodel->employe_update();
+		$this->employeemodel->update_employee();
 	}
 	/************************************************************/
-	function senddata()
-	{
-		extract($_POST);
-		$_SESSION['update'] = $national_id;
-	}
+	
 	/******************* USER DATA GRID *************************/
 	function employees()
 	{
@@ -93,7 +98,7 @@ class Employee extends CI_Controller
 			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
 			  <i class="fa fa-edit"></i> تعديل </a>';*/
 			
-			$btn='<a class="btn default btn-xs purple" onclick="goto(\''.$row->national_id.'\')">
+			$btn='<a class="btn default btn-xs purple" onclick="gotoEmployee(\''.$row->national_id.'\')">
 			  <i class="fa fa-edit"></i> تعديل </a>';
 			
 			$nestedData[] = $i++;
@@ -123,34 +128,6 @@ class Employee extends CI_Controller
 	}
 	/************************************************************/
 	
-	function getemp($query)
-	{
-		$query = urldecode($query);
-		$this->load->model('employeemodel');
-		$rec = $this->employeemodel->search_employee($query);
-		
-		//$rec =array("Andorra","United Arab Emirates","Afghanistan");
-		$output = array();
-		foreach($rec as $row)
-		{
-			unset($temp); // Release the contained value of the variable from the last loop
-			$temp = array();
-
-			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
-			$temp['emp_id'] = $row->emp_id;
-			$temp['name'] = $row->name;
-			$temp['tokens'] = array($query, $query . rand(1, 10));
-			array_push($output,$temp);
-			
-		}
-		/*header('Access-Control-Allow-Origin: *');
-		header("Content-Type: application/json");*/
-		
-		echo json_encode($output);
-		
-		//----------------------------------
-		
-		//----------------------------------
-	}
+	
 }
 ?>

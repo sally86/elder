@@ -4,7 +4,7 @@
 function editemployee()
 {
 	var action = $("#hdnAction").val();
-	
+	//alert(action);
 	$.ajax({
 			url: baseURL+"Employee/"+action,
 			type: "POST",
@@ -24,12 +24,12 @@ function editemployee()
 			}
 		});//END $.ajax
 }
-function goto(arg)
-{
+function gotoEmployee(arg)
+{//alert(arg);
 	$.ajax({
 			url: baseURL+"Employee/senddata",
 			type: "POST",
-			data:  {employee_id : arg},
+			data:  {national_id : arg},
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);

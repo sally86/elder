@@ -25,7 +25,7 @@ class Employeemodel extends CI_Model
 		return $res->result();
 	}
 	// Search Employee 
-	function search_employee_hasnt_account($empname)
+	/*function search_employee_hasnt_account($empname)
 	{
 		$myquery = "SELECT employee_id, name, emp_id
 				  	  FROM employee_tb
@@ -36,14 +36,14 @@ class Employeemodel extends CI_Model
 		
 		$res = $this->db->query($myquery);
 		return $res->result();
-	}
+	}*/
 	function get_employee_info($national_id)
 	{
 		$myquery = "SELECT 	national_id, emp_id, name , sex_id , job_title_id ,mobile,
 							phone, email,is_active active_account,constjob.sub_constant_name
 					FROM 	employee_tb, sub_constant_tb constjob
-					WHERE 	national_id=$national_id
-					AND     employee_tb.job_title_id = constjob.sub_constant_id";
+					WHERE 	employee_tb.job_title_id = constjob.sub_constant_id
+					AND     national_id=$national_id";
 		
 		$res = $this->db->query($myquery);
 		return $res->result();
@@ -70,22 +70,22 @@ class Employeemodel extends CI_Model
 		extract($_POST);
 		
 		
-		$data['national_id'] = $national_id;
-		$data['emp_id'] = $emp_id;
-		$data['name'] = $name;
-		$data['sex_id'] = $sex_id;
-		$data['job_title_id'] = $job_title_id;
-		$data['mobile'] = $mobile;
-		$data['phone'] = $phone;
-		$data['email'] = $email;
+		$data['national_id'] = $txtNationalId;
+		$data['emp_id'] = $txtEmployeeId;
+		$data['name'] = $txtName;
+		$data['sex_id'] = $rdSex;
+		$data['job_title_id'] = $drpJobtitle;
+		$data['mobile'] = $txtMobile;
+		$data['phone'] = $txtPhone;
+		$data['email'] = $txtEmail;
 		//$data['is_active'] = $is_active;
 		if (isset($chbxIsactive))
 			$data['is_active'] = 1;
 		else
 			$data['is_active'] = 0;
 		
-		$this->db->where('employee_id',$employee_id);
-		$this->db->insert('employee_tb',$data);
+		$this->db->where('national_id',$txtNationalId);
+		$this->db->update('employee_tb',$data);
 	}
 	
 	function get_search_employee($requestData)

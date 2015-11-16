@@ -121,7 +121,7 @@ if (isset($employee_info))
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtMobile" name="txtMobile" data-required="1" class="form-control"/>
+                              <input type="text" id="txtMobile" name="txtMobile" data-required="1" class="form-control" value="<?php if(isset($employee_row->mobile)) echo $employee_row->mobile;?>"/>
                           </div>
                       </div>
                       
@@ -153,11 +153,10 @@ if (isset($employee_info))
                           <div class="col-md-4">
                               <div class="checkbox-list" data-error-container="#form_2_services_error">
                                   <label>
-                                  <input type="checkbox" value="1" name="chbxIsactive" checked="checked"
+                                  <input type="checkbox" value="1" id="chbxIsactive"  name="chbxIsactive" 
                                    <?php 
 								  $checked = ' checked="checked"';
-								  if(isset($employee_row->active_account) && $employee_row->active_account == 0) 
-								  $checked = '';
+								  if(isset($employee_row->active_account)  && $employee_row->active_account == 0) 								  $checked = '';
 								  echo $checked;?> 
 
                                   /> </label>
@@ -171,7 +170,7 @@ if (isset($employee_info))
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
                               <button type="submit" class="btn blue-madison">حـفـظ</button>
-                              <button type="button" class="btn default">الغاء الامر</button>
+                              <button type="button" class="btn default" onclick="window.location='<?php echo base_url()?>employees/';">عودة</button>
                           </div>
                       </div>
                   </div>
