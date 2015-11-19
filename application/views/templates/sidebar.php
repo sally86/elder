@@ -127,7 +127,7 @@
 							فتــح ملف جـديـد</a>
 						</li>-->
 						<li <?php if($title == 'elders') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>elders">
+							<a href="<?php echo base_url();?>elder/elders">
 							عــرض الأعــضاء</a>
 						</li>
 					</ul>
