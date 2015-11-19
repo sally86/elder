@@ -122,10 +122,10 @@
 					?>
 					</a>
 					<ul class="sub-menu">
-						<li <?php if($title == 'openfile') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>openfile">
+						<!--<li <?php // if($title == 'openfile') echo 'class="active open"';?>>
+							<a href="<?php //echo base_url();?>openfile">
 							فتــح ملف جـديـد</a>
-						</li>
+						</li>-->
 						<li <?php if($title == 'elders') echo 'class="active open"';?>>
 							<a href="<?php echo base_url();?>elders">
 							عــرض الأعــضاء</a>
@@ -158,28 +158,28 @@
 						</li>
 					</ul>
 				</li>
-				<li <?php if($title == 'addappointment' || $title == 'appointments') echo 'class="active open"';?>>
+				<!--<li <?php //if($title == 'addappointment' || $title == 'appointments') echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-clock"></i>
 					<span class="title">مــواعيد البحث الميداني</span>
-					<?php if($title == 'addappointment' || $title == 'appointments')
+					<?php /* if($title == 'addappointment' || $title == 'appointments')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
-						echo '<span class="arrow "></span>';
+						echo '<span class="arrow "></span>';*/
 					?>
 					</a>
 					<ul class="sub-menu">
-						<li <?php if($title == 'addappointment') echo 'class="active open"';?>>
+						<li <?php //if($title == 'addappointment') echo 'class="active open"';?>>
 							<a href="addappointment">
 							ادخال موعد</a>
 						</li>
-						<li <?php if($title == 'appointments') echo 'class="active open"';?>>
+						<li <?php //if($title == 'appointments') echo 'class="active open"';?>>
 							<a href="appointments">
 							عـرض المواعيد</a>
 						</li>
 					</ul>
-				</li>
+				</li>-->
 				<li <?php if($title == 'constants') echo 'class="active open"';?> >
 					<a href="javascript:;">
 					<i class="icon-settings"></i>
