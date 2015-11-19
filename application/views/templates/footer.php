@@ -90,6 +90,7 @@
 <script src="<?php echo base_url();?>js/constants.js"></script>
 <script src="<?php echo base_url();?>js/user.js"></script>
 <script src="<?php echo base_url();?>js/employee.js"></script>
+<script src="<?php echo base_url();?>js/elders.js"></script>
 <script src="<?php echo base_url();?>js/usertypepermession.js"></script>
 <!-- END OUR SCRIPTS -->
 
@@ -105,6 +106,7 @@
 		EmpFormValidation.init();
 		UserTableAjax.init();
 		EmpTableAjax.init();
+		ElderTableAjax.init();
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
       });

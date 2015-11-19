@@ -23,7 +23,7 @@
                       </select>
                       <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
                   </div>
-                  <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
+                  <table class="table table-striped table-bordered table-hover" id="Elderdatatable_ajax">
                   <thead>
                   <tr role="row" class="heading">
                       <th width="2%">
@@ -85,8 +85,8 @@
                       <td>
                           <select id="isDead" name="isDead" class="form-control form-filter input-sm">
                               <option value="">اختر...</option>
-                              <option value="pending">على قيد الحياة</option>
-                              <option value="closed">متوفي</option>
+                              <option value="0">على قيد الحياة</option>
+                              <option value="1">متوفي</option>
                           </select>
                       </td>
                       <td>
@@ -96,34 +96,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                  	<td>&nbsp;</td>
-                    <td>901020304</td>
-                    <td>أحمد محمد أحمد حسين</td>
-                    <td>2822345</td>
-                    <td>0599112456</td>
-                    <td>0599232456</td>
-                    <td>غزة</td>
-                    <td>&nbsp;</td>
-                    <td><a class="btn btn-xs default" href="openfile">
-						<i class="fa fa-pencil"></i>
-							تعديل
-						</a></td>
-                  </tr>
-                  <tr>
-                  	<td>&nbsp;</td>
-                    <td>905060708</td>
-                    <td>عمر حسن علي موسى</td>
-                    <td>2033345</td>
-                    <td>0599454678</td>
-                    <td>0599224678</td>
-                    <td>الوسطى</td>
-                    <td>01/02/2015</td>
-                    <td><a class="btn btn-xs default" href="openfile">
-						<i class="fa fa-pencil"></i>
-							تعديل
-						</a></td>
-                  </tr>
+                  
                   </tbody>
                   </table>
               </div>
