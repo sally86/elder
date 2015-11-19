@@ -51,7 +51,7 @@ class Elder extends CI_Controller
 		{
 			$nestedData=array();
 			
-			if ($row->isDead == 0)
+			if ($row->isDeadElder == 1)
 				$isDead = '<i class="fa fa-user font-green"></i>';
 			else
 				$isDead= '<i class="fa fa-user font-red-sunglo"></i>';
@@ -59,7 +59,7 @@ class Elder extends CI_Controller
 			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
 			  <i class="fa fa-edit"></i> تعديل </a>';*/
 			
-			$btn='<a class="btn default btn-xs purple" onclick="gotoEmployee(\''.$row->elder_id.'\')">
+			$btn='<a class="btn default btn-xs purple" onclick="gotoEder(\''.$row->elder_id.'\')">
 			  <i class="fa fa-edit"></i> تعديل </a>';
 			
 			$nestedData[] = $i++;
@@ -68,8 +68,9 @@ class Elder extends CI_Controller
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
 			$nestedData[] = $row->mobile_second;
-			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->Eder_governorate;
 			$nestedData[] = $isDead;
+			$nestedData[] = $btn;
 			
 			$data[] = $nestedData;
 		} // End Foreach

@@ -12,13 +12,13 @@ class Eldermodel extends CI_Model
 			3 => 'phone', 
 			4 => 'mobile_first',
 			5 => 'mobile_second',
-			6 => 'governorate',
-			7 => 'isDead');
+			6 => 'Eder_governorate',
+			7 => 'isDeadElder');
 		
 		$myquery = "SELECT 	elder_id,CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name) as name,
-							governorate_id , phone,mobile_first, mobile_second,
-							CASE WHEN death_date IS null then 0 ELSE  1 END AS  isDead,
-							governconst.sub_constant_name as governorate 
+							phone,mobile_first, mobile_second,
+							CASE WHEN death_date IS null then 1 ELSE  0 END AS  isDeadElder,
+							governconst.sub_constant_name as Eder_governorate 
  					FROM 	elder_tb ,sub_constant_tb governconst
 					WHERE 	elder_tb.governorate_id=governconst.sub_constant_id";
 		
@@ -46,17 +46,18 @@ class Eldermodel extends CI_Model
 		
 		if(isset($requestData['drpGovernorate']) && $requestData['drpGovernorate'] !='')
 		{
-			$myquery = $myquery." AND governorate_id = ".$requestData['drpGovernorate'];
+			$myquery = $myquery." AND governconst.sub_constant_id = ".$requestData['drpGovernorate'];
 		}
-		if(isset($requestData['isDead']) && $requestData['isDead'] !='')
-		{ if(isset($requestData['isDead'])=="0")
-			{
-			$myquery = $myquery." AND death_date is null ";
-			}
-			else if(isset($requestData['isDead'])=="1")
-			{
-			$myquery = $myquery." AND death_date is not null  ";
-			}
+		if(isset($requestData['drpisDead']) && $requestData['drpisDead'] !='')
+		{ 
+			if(isset($requestData['drpisDead'])==1)
+				{
+					$myquery = $myquery." AND death_date is null ";
+				}
+			else if(isset($requestData['drpisDead'])==0)
+				{
+					$myquery = $myquery." AND death_date is not null  ";
+				}
 		}
 		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'].
 					" LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
@@ -69,8 +70,8 @@ class Eldermodel extends CI_Model
 	{
 
 		$myquery = "SELECT 	elder_id,CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name) as name,
-							governorate_id , phone,mobile_first, mobile_second,
-							CASE WHEN death_date IS null then 0 ELSE  1 END AS  isDead,
+							phone,mobile_first, mobile_second,
+							CASE WHEN death_date IS null then 1 ELSE  0 END AS  isDeadElder,
 							governconst.sub_constant_name as governorate 
  					FROM 	elder_tb ,sub_constant_tb governconst
 					WHERE 	elder_tb.governorate_id=governconst.sub_constant_id";
@@ -99,17 +100,18 @@ class Eldermodel extends CI_Model
 		
 		if(isset($requestData['drpGovernorate']) && $requestData['drpGovernorate'] !='')
 		{
-			$myquery = $myquery." AND governorate_id = ".$requestData['drpGovernorate'];
+			$myquery = $myquery." AND governconst.sub_constant_id = ".$requestData['drpGovernorate'];
 		}
-		if(isset($requestData['isDead']) && $requestData['isDead'] !='')
-		{ if(isset($requestData['isDead'])=="0")
-		{
-			$myquery = $myquery." AND death_date is null ";
-		}
-		else if(isset($requestData['isDead'])=="1")
-		{
-			$myquery = $myquery." AND death_date is not null  ";
-		}
+		if(isset($requestData['drpisDead']) && $requestData['drpisDead'] !='')
+		{ 
+		if(isset($requestData['drpisDead'])==1)
+			{
+				$myquery = $myquery." AND death_date is null ";
+			}
+		else if(isset($requestData['drpisDead'])==0)
+			{
+				$myquery = $myquery." AND death_date is not null  ";
+			}
 		}
 		
 		$res = $this->db->query($myquery);

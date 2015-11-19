@@ -3,6 +3,24 @@
 /*	Ajax Data Table Jquery							   */
 /*													   */
 /*-----------------------------------------------------*/
+function gotoElder(arg)
+{//alert(arg);
+	$.ajax({
+			url: baseURL+"Elder/senddata",
+			type: "POST",
+			data:  {national_id : arg},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+//				window.location.href = baseURL+"elder/empform";
+				//alert(returndb);
+			}
+		});//END $.ajax
+}
 
 var ElderTableAjax = function () {
 

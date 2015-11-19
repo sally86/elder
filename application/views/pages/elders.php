@@ -73,7 +73,7 @@
                          <input type="text" class="form-control form-filter input-sm" id="txtMobile2" name="txtMobile2">
                       </td>
                       <td>
-                         <select class="form-control select2me" id="drpGovernorate" name="drpGovernorate">
+                         <select class="form-control form-filter input-sm" id="drpGovernorate" name="drpGovernorate">
                             <option value="">اختر...</option>
                             <?php
 							  foreach($elder_governorate as $row)
@@ -84,10 +84,10 @@
                         </select>
                       </td>
                       <td>
-                          <select id="isDead" name="isDead" class="form-control form-filter input-sm">
+                          <select id="drpisDead" name="drpisDead" class="form-control form-filter input-sm">
                               <option value="">اختر...</option>
-                              <option value="0">على قيد الحياة</option>
-                              <option value="1">متوفي</option>
+                              <option value="1">على قيد الحياة</option>
+                              <option value="0">متوفي</option>
                           </select>
                       </td>
                       <td>
