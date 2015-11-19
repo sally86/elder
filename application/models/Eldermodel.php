@@ -15,9 +15,9 @@ class Eldermodel extends CI_Model
 			6 => 'governorate',
 			7 => 'isDead');
 		
-		$myquery = "SELECT 	elder_id, first_name||' '||middle_name||' '||third_name||' '||last_name as name,
+		$myquery = "SELECT 	elder_id,CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name) as name,
 							governorate_id , phone,mobile_first, mobile_second,
-							CASE WHEN death_date=null then 0 ELSE  1 END AS  isDead,
+							CASE WHEN death_date IS null then 0 ELSE  1 END AS  isDead,
 							governconst.sub_constant_name as governorate 
  					FROM 	elder_tb ,sub_constant_tb governconst
 					WHERE 	elder_tb.governorate_id=governconst.sub_constant_id";
@@ -49,11 +49,11 @@ class Eldermodel extends CI_Model
 			$myquery = $myquery." AND governorate_id = ".$requestData['drpGovernorate'];
 		}
 		if(isset($requestData['isDead']) && $requestData['isDead'] !='')
-		{ if(isset($requestData['isDead'])=="pending")
+		{ if(isset($requestData['isDead'])=="0")
 			{
 			$myquery = $myquery." AND death_date is null ";
 			}
-			else if(isset($requestData['isDead'])=="closed")
+			else if(isset($requestData['isDead'])=="1")
 			{
 			$myquery = $myquery." AND death_date is not null  ";
 			}
@@ -68,9 +68,9 @@ class Eldermodel extends CI_Model
 	function count_get_search_elder($requestData)
 	{
 
-		$myquery = "SELECT 	elder_id, first_name||' '||middle_name||' '||third_name||' '||last_name as name,
+		$myquery = "SELECT 	elder_id,CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name) as name,
 							governorate_id , phone,mobile_first, mobile_second,
-							CASE WHEN death_date=null then 0 ELSE  1 END AS  isDead,
+							CASE WHEN death_date IS null then 0 ELSE  1 END AS  isDead,
 							governconst.sub_constant_name as governorate 
  					FROM 	elder_tb ,sub_constant_tb governconst
 					WHERE 	elder_tb.governorate_id=governconst.sub_constant_id";
@@ -102,11 +102,11 @@ class Eldermodel extends CI_Model
 			$myquery = $myquery." AND governorate_id = ".$requestData['drpGovernorate'];
 		}
 		if(isset($requestData['isDead']) && $requestData['isDead'] !='')
-		{ if(isset($requestData['isDead'])=="pending")
+		{ if(isset($requestData['isDead'])=="0")
 		{
 			$myquery = $myquery." AND death_date is null ";
 		}
-		else if(isset($requestData['isDead'])=="closed")
+		else if(isset($requestData['isDead'])=="1")
 		{
 			$myquery = $myquery." AND death_date is not null  ";
 		}

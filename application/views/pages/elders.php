@@ -75,11 +75,12 @@
                       <td>
                          <select class="form-control select2me" id="drpGovernorate" name="drpGovernorate">
                             <option value="">اختر...</option>
-                            <option value="pending">الشمال</option>
-                            <option value="closed">غزة</option>
-                            <option value="closed">الوسطى</option>
-                            <option value="closed">خانيونس</option>
-                            <option value="closed">رفح</option>
+                            <?php
+							  foreach($elder_governorate as $row)
+							  {
+                      			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+							  }
+							  ?>
                         </select>
                       </td>
                       <td>

@@ -31,7 +31,12 @@ class Elder extends CI_Controller
 			$this->load->view('templates/footer');
 		}
 	}
-	
+	function elders()
+	{
+		$this->load->model('constantmodel');
+
+		$this->data['elder_governorate'] = $this->constantmodel->get_sub_constant(22);
+	}
 	
 	function eldergriddata()
 	{
@@ -46,7 +51,7 @@ class Elder extends CI_Controller
 		{
 			$nestedData=array();
 			
-			if ($row->isDead == 1)
+			if ($row->isDead == 0)
 				$isDead = '<i class="fa fa-user font-green"></i>';
 			else
 				$isDead= '<i class="fa fa-user font-red-sunglo"></i>';
@@ -54,7 +59,7 @@ class Elder extends CI_Controller
 			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
 			  <i class="fa fa-edit"></i> تعديل </a>';*/
 			
-			$btn='<a class="btn default btn-xs purple" onclick="gotoEmployee(\''.$row->national_id.'\')">
+			$btn='<a class="btn default btn-xs purple" onclick="gotoEmployee(\''.$row->elder_id.'\')">
 			  <i class="fa fa-edit"></i> تعديل </a>';
 			
 			$nestedData[] = $i++;
