@@ -36,18 +36,59 @@ class Elderfilecont extends CI_Controller
 		$this->load->model('constantmodel');
 		$this->data['doc_type'] = $this->constantmodel->get_sub_constant(27);
 		
+		$this->load->model('elderfilemodel');
+		$this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc(1);
+		
 	}
 	
 	function uploaddoc()
 	{
+		
 		$this->load->model('elderfilemodel');
-		$this->elderfilemodel->elder_doc_insert();		
+		$this->elderfilemodel->elder_doc_insert();
+		
+		extract($_POST);
+		$rec = $this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc($fileid);
+		
+		foreach ($rec as $elder_docs_row)
+		{			
+			echo '<tr>';
+		    echo '<td>'.$elder_docs_row->doc_type.'</td>';
+		    echo '<td><a href="/elder/uploads/'.$elder_docs_row->doc_path.'">'
+		   			   .$elder_docs_row->doc_path.'</a></td>';
+		   	echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+					class="btn btn-circle red-sunglo btn-sm" 
+					onclick="deleteDoc('.$elder_docs_row->elder_doc_id.',\''.$elder_docs_row->doc_path.'\')">
+					  <i id="iConst" class="fa fa-close"></i>
+					 </button></td>';
+			echo '</tr>';
+		}
+
 	}
 	
 	function deletedoc()
 	{
+		
+		
 		$this->load->model('elderfilemodel');
-		$this->elderfilemodel->elder_doc_delete();		
+		$this->elderfilemodel->elder_doc_delete();
+		
+		extract($_POST);
+		$rec = $this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc($fileid);
+		
+		foreach ($rec as $elder_docs_row)
+		{			
+			echo '<tr>';
+		    echo '<td>'.$elder_docs_row->doc_type.'</td>';
+		    echo '<td><a href="/elder/uploads/'.$elder_docs_row->doc_path.'">'
+		   			   .$elder_docs_row->doc_path.'</a></td>';
+		   	echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+					class="btn btn-circle red-sunglo btn-sm" 
+					onclick="deleteDoc('.$elder_docs_row->elder_doc_id.',\''.$elder_docs_row->doc_path.'\')">
+					  <i id="iConst" class="fa fa-close"></i>
+					 </button></td>';
+			echo '</tr>';
+		}
 	}
 }
 ?>

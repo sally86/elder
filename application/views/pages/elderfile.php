@@ -20,6 +20,7 @@
               </div>
           </div>
           <div class="portlet-body form">
+          	<input id="hdnFileid" name="hdnFileid" type="hidden" value="1" />
               <!-- BEGIN FORM-->
               <form action="#" id="form_sample_3" class="form-horizontal">
                   <div class="form-body">
@@ -405,15 +406,24 @@
             </div>
             <div class="portlet-body form">
             <!-- BEGIN FORM-->
-              <form id="doc_form" action="#" class="form-horizontal">
+              <form id="doc_form" action="#" class="form-horizontal" enctype="multipart/form-data">
                 <div class="form-body">
+                <br/>
+                  <div id="dvErrorMsg" class="alert alert-danger display-hide">
+                      <button class="close" data-close="alert"></button>
+                      الـرجـاء ادخــال نــوع المـســتنـد واختـيــار المــلـف
+                  </div>
+                  <div id="dvSuccessMsg" class="alert alert-success display-hide">
+                      <button class="close" data-close="alert"></button>
+                      Your form validation is successful!
+                  </div>
                   <div class="row">
                 	<div class="col-md-offset-1 col-md-10">
                       <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
                           <th>
-                            <select class="form-control select2me" id="drpDoctype" name="drpDoctype">
+                            <select class="form-control input-small" id="drpDoctype" name="drpDoctype">
                                 <option value="">اختر نوع المستند ...</option>
                                 <?php
 								foreach ($doc_type as $row_doc_type)
@@ -436,7 +446,7 @@
                                   اختر الملف </span>
                                   <span class="fileinput-exists">
                                   تعديل </span>
-                                  <input type="file" name="...">
+                                  <input type="file" id="fileToUpload" name="fileToUpload[]">
                                   </span>
                                   <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
                                       حذف </a>
@@ -448,17 +458,21 @@
                           </tr>
                           </thead>
                            <tbody id="tbdDoc">
-                            <tr>
-                                <td>Amiral</td>
-                                <td>متوفر</td>
-                                <td><button id="btnDeletedoc" name="btnDeletedoc" type="button" class="btn btn-circle red-sunglo btn-sm" onclick="deleteDoc(5)">
-                            <i id="iConst" class="fa fa-close"></i></button></td>
-                             </tr>
-                             <tr>
-                                <td>Lipanthyl</td>
-                                <td>متقطع</td>
-                                <td>&nbsp;</td>
-                             </tr>
+                           <?php 
+						   foreach ($elder_docs as $elder_docs_row)
+						   {
+							   echo '<tr>';
+							   echo '<td>'.$elder_docs_row->doc_type.'</td>';
+							   echo '<td><a href="/elder/uploads/'.$elder_docs_row->doc_path.'">'
+							   .$elder_docs_row->doc_path.'</a></td>';
+							   echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+							   			class="btn btn-circle red-sunglo btn-sm" 
+										onclick="deleteDoc('.$elder_docs_row->elder_doc_id.',\''.$elder_docs_row->doc_path.'\')">
+                            			  <i id="iConst" class="fa fa-close"></i>
+										 </button></td>';
+								echo '</tr>';
+						   }
+						   ?>
                            </tbody>
                          </table>
                      </div>
