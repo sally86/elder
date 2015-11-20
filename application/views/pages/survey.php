@@ -75,7 +75,7 @@
                     <div class="col-md-9 col-sm-9 col-xs-9">
                         <div class="tab-content">
                         <!-- Visit Info -->
-                        	<div class="tab-pane active" id="tab_6_0">
+                        	<div class="tab-pane " id="tab_6_0">
                                <form action="#" id="form_sample_3" class="form-horizontal">
                                 <div class="form-body">
                                   <br/>
@@ -182,7 +182,7 @@
                             </div>
                             <!-- End Visit Info-->
                             <!-- Elder Info-->
-                            <div class="tab-pane" id="tab_6_1">
+                            <div class="tab-pane active" id="tab_6_1">
                                <form action="#" id="ElderTab" class="form-horizontal">
                                 <div class="form-body">
                                   <br/>
@@ -217,7 +217,7 @@
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtElderId" name="txtElderId" data-required="1" class="form-control"  onblur="check_elder_id()/>
+                                            <input type="text" id="txtElderId" name="txtElderId" data-required="1" class="form-control" />
                                         </div>
                                     </div>
                                     
@@ -272,7 +272,7 @@
                                     
                                     <div class="form-group">
                                         <label class="control-label col-md-3">النوع الطبيعي&nbsp;&nbsp;&nbsp;
-                                         <label>
+                                         
 		                                  <input type="radio" id="rdSexMale" name="rdSex" value="1" checked="checked"  />
             	                      ذكـر </label>
         	    	                      <label>
