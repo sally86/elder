@@ -55,6 +55,7 @@ $route['user/(:any)'] = 'user/view/$1';
 $route['employee/(:any)'] = 'employee/view/$1';
 $route['elder/(:any)'] = 'elder/view/$1';
 $route['usertypeperm/(:any)'] = 'usertypeperm/view/$1';
+$route['elderfilecont/(:any)'] = 'elderfilecont/view/$1';
 $route['(:any)'] = 'pages/view/$1';
 $route['default_controller'] = 'pages/view';
 $route['404_override'] = '';

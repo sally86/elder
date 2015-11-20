@@ -106,6 +106,7 @@
 <script src="<?php echo base_url();?>js/employee.js"></script>
 <script src="<?php echo base_url();?>js/elders.js"></script>
 <script src="<?php echo base_url();?>js/usertypepermession.js"></script>
+<script src="<?php echo base_url();?>js/elderfile.js"></script>
 <!-- END OUR SCRIPTS -->
 
 

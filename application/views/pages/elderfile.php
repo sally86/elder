@@ -405,7 +405,7 @@
             </div>
             <div class="portlet-body form">
             <!-- BEGIN FORM-->
-              <form action="#" class="form-horizontal">
+              <form id="doc_form" action="#" class="form-horizontal">
                 <div class="form-body">
                   <div class="row">
                 	<div class="col-md-offset-1 col-md-10">
@@ -413,18 +413,22 @@
                         <thead>
                         <tr>
                           <th>
-                            <select class="form-control select2me" id="drpInsurence" name="drpInsurence">
+                            <select class="form-control select2me" id="drpDoctype" name="drpDoctype">
                                 <option value="">اختر نوع المستند ...</option>
-                                <option value="pending">هوية</option>
-                                <option value="closed">شهادة ميلاد</option>
-                                <option value="closed">جواز سفر</option>                          
+                                <?php
+								foreach ($doc_type as $row_doc_type)
+								{
+									echo '<option value="'.$row_doc_type->sub_constant_id.'">'
+									.$row_doc_type->sub_constant_name.'</option>';
+								}
+								?>
                              </select>                                       
                             </th>
                             <th>
                               <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="input-group input-large">
                                   <div class="form-control uneditable-input" data-trigger="fileinput">
-                                      <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+                                      <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename" id="flFilename" name="flFilename">
                                       </span>
                                   </div>
                                   <span class="input-group-addon btn default btn-file">
@@ -443,11 +447,12 @@
                             <i id="iConst" class="fa fa-plus"></i></button></th>
                           </tr>
                           </thead>
-                           <tbody>
+                           <tbody id="tbdDoc">
                             <tr>
                                 <td>Amiral</td>
                                 <td>متوفر</td>
-                                <td>&nbsp;</td>
+                                <td><button id="btnDeletedoc" name="btnDeletedoc" type="button" class="btn btn-circle red-sunglo btn-sm" onclick="deleteDoc(5)">
+                            <i id="iConst" class="fa fa-close"></i></button></td>
                              </tr>
                              <tr>
                                 <td>Lipanthyl</td>
