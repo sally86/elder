@@ -34,7 +34,7 @@ class Surveycont extends CI_Controller
 	function survey()
 	{
 		$this->load->model('constantmodel');
-
+		$this->data['survey_Filestatus'] = $this->constantmodel->get_sub_constant(51);
 		$this->data['survey_Maritalstatus'] = $this->constantmodel->get_sub_constant(2);
 		$this->data['survey_Governorate'] = $this->constantmodel->get_sub_constant(22);
 		$this->data['survey_Specialization'] = $this->constantmodel->get_sub_constant(24);
@@ -63,7 +63,8 @@ class Surveycont extends CI_Controller
 		$this->data['survey_FamilyMember'] = $this->constantmodel->get_sub_constant(46);
 		$this->data['survey_CashAidType'] = $this->constantmodel->get_sub_constant(47);
 		$this->data['survey_NutritionType'] = $this->constantmodel->get_sub_constant(48);
-		$this->data['survey_PsychologicalSupport'] = $this->constantmodel->get_sub_constant(48);
+		$this->data['survey_PsychologicalSupport'] = $this->constantmodel->get_sub_constant(49);
+		$this->data['survey_HomeImprovRecomend'] = $this->constantmodel->get_sub_constant(50);
 		
 	}
 	

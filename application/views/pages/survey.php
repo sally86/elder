@@ -201,9 +201,13 @@
                                         <div class="col-md-4">
                                             <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
                                                 <option value="">اختر...</option>
-                                                <option value="pending">فعال</option>
-                                                <option value="closed">ملغي</option>
-                                                <option value="closed">مغلق</option>
+                                                 <?php
+												  foreach($survey_Filestatus as $row)
+												  {
+                      								echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+							  					}
+							 					 ?>
+
                                             </select>
                                         </div>
                                     </div>
@@ -740,10 +744,10 @@
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpPreviousjob" name="drpPreviousjob">
+                                            <select class="form-control select2me" id="drpincomeSource" name="drpincomeSource">
                                                 <option value="">اختر...</option>
                                                 <?php
-												  foreach($survey_incomeSource as $row)
+												  foreach($survey_IncomeSource as $row)
 												  {
                       								echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
 							  					}

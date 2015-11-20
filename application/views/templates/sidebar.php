@@ -145,7 +145,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li <?php if($title == 'survey') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>survey">
+							<a href="<?php echo base_url();?>surveycont/survey">
 							تعبــئة استــبانة</a>
 						</li>
 						<li  <?php if($title == 'recomendation') echo 'class="active open"';?>>
