@@ -59,6 +59,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/select2/select2.css"/>-->
 <!-- END MULTIPLE SELECT-->
 
+<!-- BEGIN IMAGE UPLOAD-->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css"/>
+<!-- BEGIN IMAGE UPLOAD-->
+
 <!------------------------ END PAGE LEVEL STYLES -------------------------------------------------------------->
 <!-- BEGIN THEME STYLES -->
 <link href="<?php echo base_url();?>assets/global/css/components-rtl.css" id="style_components" rel="stylesheet" type="text/css"/>

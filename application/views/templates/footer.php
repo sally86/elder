@@ -84,6 +84,20 @@
 
 <!-- END MULTIPLE SELECT PLUGINS -->
 
+<!-- BEGIN IMAGE UPLOAD PLUGINS -->
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+<!-- END IMAGE UPLOAD PLUGINS -->
+
+<!-- BEGIN DATEPICKER PLUGINS -->
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<!-- END DATEPICKER PLUGINS -->
+
+
+<!-- BEGIN DATEPICKER SCRIPT -->
+<script src="<?php echo base_url();?>assets/admin/pages/scripts/components-pickers.js"></script>
+<!-- END DATEPICKER SCRIPT -->
 
 
 <!-- OUR SCRIPTS -->
@@ -109,6 +123,7 @@
 		ElderTableAjax.init();
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
+		ComponentsPickers.init();
       });
    </script>
 <!-- END JAVASCRIPTS -->

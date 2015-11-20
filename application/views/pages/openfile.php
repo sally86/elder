@@ -6,7 +6,112 @@
       <div class="portlet box blue-madison">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-folder-open"></i>فتح ملف جديد
+                  <i class="fa fa-folder-open"></i>بيـانـات المـلـف
+              </div>
+              <div class="tools">
+                  <a href="javascript:;" class="collapse">
+                  </a>
+                  <a href="#portlet-config" data-toggle="modal" class="config">
+                  </a>
+                  <a href="javascript:;" class="reload">
+                  </a>
+                  <a href="javascript:;" class="remove">
+                  </a>
+              </div>
+          </div>
+          <div class="portlet-body form">
+              <!-- BEGIN FORM-->
+              <form action="#" id="form_sample_3" class="form-horizontal">
+                  <div class="form-body">
+                  	<br/>
+                      <div class="alert alert-danger display-hide">
+                          <button class="close" data-close="alert"></button>
+                          يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                      </div>
+                      <div class="alert alert-success display-hide">
+                          <button class="close" data-close="alert"></button>
+                          Your form validation is successful!
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">تـصنيف المـلـف&nbsp;&nbsp;&nbsp;
+                          </label>
+                          <div class="col-md-4">
+                              <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
+                                  <option value="">اختر...</option>
+                                  <option value="pending">فعال</option>
+                              	  <option value="closed">ملغي</option>
+                              	  <option value="closed">مغلق</option>
+                              </select>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">حالة الملف <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
+                                  <option value="">اختر...</option>
+                                  <option value="pending">فعال</option>
+                              	  <option value="closed">مفتوح</option>
+                              	  <option value="closed">مغلق</option>
+                              </select>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">تـاريخ الاغـلاق</label>
+                          <div class="col-md-4">
+                              <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                  <input type="text" class="form-control" readonly id="dpDob" name="dpDob">
+                                  <span class="input-group-btn">
+                                  <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                  </span>
+                              </div>
+                              <!-- /input-group -->
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3">سبب الاغلاق <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
+                                  <option value="">اختر...</option>
+                                  <option value="pending">فعال</option>
+                              	  <option value="closed">مفتوح</option>
+                              	  <option value="closed">مغلق</option>
+                              </select>
+                          </div>
+                      </div>
+                      
+                  </div>
+                  <!-- END FORM BODY -->
+                  <div class="form-actions">
+                      <div class="row">
+                          <div class="col-md-offset-3 col-md-9">
+                              <button type="submit" class="btn blue-madison">حـفـظ</button>
+                              <button type="button" class="btn default">الغاء الامر</button>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+              <!-- END FORM-->
+          </div>
+          <!-- END VALIDATION STATES-->
+      </div>
+  </div>
+</div>
+<!----------------------------- END FILE ----------------------------------------------->
+<div class="row">
+    <div class="col-md-12">
+      <!-- BEGIN VALIDATION STATES-->
+      <div class="portlet box blue-madison">
+          <div class="portlet-title">
+              <div class="caption">
+                  <i class="fa fa-folder-open"></i>بيـانـات العـضــو الشـخـصيــة
               </div>
               <div class="tools">
                   <a href="javascript:;" class="collapse">
@@ -56,39 +161,21 @@
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">الاسم الأول <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                              <input type="text" id="txtFname" name="txtFname" data-required="1" class="form-control"/>
-                          </div>
-                      </div>
-                      
-                      <div class="form-group">
-                          <label class="control-label col-md-3">اسم الأب <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                              <input type="text" id="txtSname" name="txtSname" data-required="1" class="form-control"/>
-                          </div>
-                      </div>
-                      
-                      <div class="form-group">
-                          <label class="control-label col-md-3">اسم الجد <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                              <input type="text" id="txtThname" name="txtThname" data-required="1" class="form-control"/>
-                          </div>
-                      </div>
-                      
-                      <div class="form-group">
-                          <label class="control-label col-md-3">اسم العائلة <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                              <input type="text" id="txtThname" name="txtThname" data-required="1" class="form-control"/>
-                          </div>
+                        <label class="control-label col-md-3">الاســـم <span class="required">
+                        * </span>
+                        </label>
+                        <div class="col-md-2">
+                            <input type="text" id="txtFname" name="txtFname" data-required="1" class="form-control input-small" placeholder="الاسم الاول"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" id="txtSname" name="txtSname" data-required="1" class="form-control input-small" placeholder="اسم الاب"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" id="txtThname" name="txtThname" data-required="1" class="form-control input-small" placeholder="اسم الجد"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" id="txtThname" name="txtThname" data-required="1" class="form-control input-small" placeholder="اسم العائلة"/>
+                        </div>
                       </div>
                       
                       <div class="form-group">
@@ -296,4 +383,87 @@
       </div>
   </div>
 </div>
+<!----------------------------- END ELDER INFO----------------------------------------------->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box blue-madison">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>الأوراق الثبـــوتية للمسـن
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                    <a href="#portlet-config" data-toggle="modal" class="config">
+                    </a>
+                    <a href="javascript:;" class="reload">
+                    </a>
+                    <a href="javascript:;" class="remove">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+              <form action="#" class="form-horizontal">
+                <div class="form-body">
+                  <div class="row">
+                	<div class="col-md-offset-1 col-md-10">
+                      <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                          <th>
+                            <select class="form-control select2me" id="drpInsurence" name="drpInsurence">
+                                <option value="">اختر نوع المستند ...</option>
+                                <option value="pending">هوية</option>
+                                <option value="closed">شهادة ميلاد</option>
+                                <option value="closed">جواز سفر</option>                          
+                             </select>                                       
+                            </th>
+                            <th>
+                              <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group input-large">
+                                  <div class="form-control uneditable-input" data-trigger="fileinput">
+                                      <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+                                      </span>
+                                  </div>
+                                  <span class="input-group-addon btn default btn-file">
+                                  <span class="fileinput-new">
+                                  اختر الملف </span>
+                                  <span class="fileinput-exists">
+                                  تعديل </span>
+                                  <input type="file" name="...">
+                                  </span>
+                                  <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                      حذف </a>
+                                </div>
+                              </div>
+                            </th>
+                            <th><button id="btnAdddoc" name="btnAdddoc" type="button" class="btn btn-circle green-turquoise btn-sm">
+                            <i id="iConst" class="fa fa-plus"></i></button></th>
+                          </tr>
+                          </thead>
+                           <tbody>
+                            <tr>
+                                <td>Amiral</td>
+                                <td>متوفر</td>
+                                <td>&nbsp;</td>
+                             </tr>
+                             <tr>
+                                <td>Lipanthyl</td>
+                                <td>متقطع</td>
+                                <td>&nbsp;</td>
+                             </tr>
+                           </tbody>
+                         </table>
+                     </div>
+                  </div>
+                </div>
+              </form>
+              <!-- END FORM-->      
+            </div>
+        </div>
+       <!-- END PORTLET-->
+    </div>
+  </div>
 <!-- END PAGE CONTENT-->
