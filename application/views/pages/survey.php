@@ -183,7 +183,7 @@
                             <!-- End Visit Info-->
                             <!-- Elder Info-->
                             <div class="tab-pane" id="tab_6_1">
-                               <form action="#" id="form_sample_3" class="form-horizontal">
+                               <form action="#" id="ElderTab" class="form-horizontal">
                                 <div class="form-body">
                                   <br/>
                                     <div class="alert alert-danger display-hide">
@@ -192,7 +192,7 @@
                                     </div>
                                     <div class="alert alert-success display-hide">
                                         <button class="close" data-close="alert"></button>
-                                        Your form validation is successful!
+										تـم عملية حـفـظ البيـانات بنجـاح !
                                     </div>
                                     
                                     <div class="form-group">
@@ -235,7 +235,7 @@
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtSname" name="txtSname" data-required="1" class="form-control"/>
+                                            <input type="text" id="txtMname" name="txtMname" data-required="1" class="form-control"/>
                                         </div>
                                     </div>
                                     
@@ -253,7 +253,7 @@
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtThname" name="txtThname" data-required="1" class="form-control"/>
+                                            <input type="text" id="txtLname" name="txtLname" data-required="1" class="form-control"/>
                                         </div>
                                     </div>
                                     
@@ -272,16 +272,13 @@
                                     
                                     <div class="form-group">
                                         <label class="control-label col-md-3">النوع الطبيعي&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                        <div class="col-md-4">
-                                            <div class="radio-list" data-error-container="#form_2_membership_error">
-                                                <label>
-                                                <input type="radio" id="rdSexMale" name="rdSex" value="1" checked="checked"/>
-                                                ذكـر </label>
-                                                <label>
-                                                <input type="radio" id="rdSexFemale" name="rdSex" value="2"/>
-                                                انـثى </label>
-                                            </div>
+                                         <label>
+		                                  <input type="radio" id="rdSexMale" name="rdSex" value="1" checked="checked"  />
+            	                      ذكـر </label>
+        	    	                      <label>
+                    		              <input type="radio" id="rdSexFemale" name="rdSex" value="2" />
+                            	      انـثى </label>
+                                    </div>
                                             <div id="form_2_membership_error">
                                             </div>
                                         </div>
@@ -291,7 +288,7 @@
                                         <label class="control-label col-md-3">الحـالة الاجتمـاعية&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpUsertype" name="drpUsertype">
+                                            <select class="form-control select2me" id="drpElderstatus" name="drpElderstatus">
                                                 <option value="">اختر...</option>
                                                  <?php
 												  foreach($survey_Maritalstatus as $row)
@@ -332,7 +329,7 @@
                                         <label class="control-label col-md-3">وصف العنوان بالكامل&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <textarea name="txtFulladdress" cols="70" rows="2" class="form-control"></textarea>
+                                            <textarea name="txtFulladdress" id="txtFulladdress" cols="70" rows="2" class="form-control"></textarea>
                                         </div>
                                     </div>
                                                           

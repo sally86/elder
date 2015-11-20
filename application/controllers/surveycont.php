@@ -70,6 +70,10 @@ class Surveycont extends CI_Controller
 	
 	/************************************************************/
 	
-	
+	function AddElder()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_elder();
+	}
 }
 ?>
