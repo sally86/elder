@@ -24,7 +24,7 @@ function editeelder()
 		});//END $.ajax
 }
 //-------------check ID ----------------------//
-function check_emp_id(){	
+function check_Elder_id(){	
 
  	var ElderId = document.getElementById('txtElderId').value;
 if (ElderId !='')

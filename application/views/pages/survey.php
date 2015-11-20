@@ -217,7 +217,7 @@
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtElderId" name="txtElderId" data-required="1" class="form-control"/>
+                                            <input type="text" id="txtElderId" name="txtElderId" data-required="1" class="form-control"  onblur="check_elder_id()/>
                                         </div>
                                     </div>
                                     
