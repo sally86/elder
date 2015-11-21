@@ -2,6 +2,21 @@
 
 class Elderfilemodel extends CI_Model
 {
+	
+	// Get Elder File
+	function get_elder_file($elderid)
+	{
+		$myquery = "SELECT fl.file_id, fl.elder_id, fl.file_status_id, filestatus.sub_constant_name file_status, fl.close_date, 				
+						   fl.close_reason_id, closeres.sub_constant_name closeres, fl.created_on, fl.created_by
+					  FROM elders.file_tb fl 
+						LEFT OUTER JOIN sub_constant_tb filestatus ON fl.file_status_id = filestatus.sub_constant_id
+							LEFT OUTER JOIN sub_constant_tb closeres ON fl.close_reason_id = closeres.sub_constant_id
+					 WHERE fl.elder_id = ".$elderid;
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
+	
 	// Get Elder Docs
 	function get_elder_doc($fileid)
 	{
@@ -15,6 +30,28 @@ class Elderfilemodel extends CI_Model
 		return $res->result();
 	}
 	
+	function file_update()
+	{
+		extract($_POST);
+		
+		$data['file_status_id']  = $drpFilestatus;
+		if($dpClose == '')
+			$data['close_date'] 	 = NULL;
+		else
+			$data['close_date'] 	 = $dpClose;
+		if($drpClosereasone == '')
+			$data['close_reason_id'] = NULL;
+		else
+			$data['close_reason_id'] = $drpClosereasone;
+		
+		
+		
+		$this->db->where ('file_id',$hdnFileid);
+		$this->db->update('file_tb',$data);
+		
+	}
+	
+	//***************** ELDER DOC ***************//
 	function elder_doc_insert()
 	{
 		extract($_POST);

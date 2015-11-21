@@ -34,13 +34,27 @@ class Elderfilecont extends CI_Controller
 	function elderfile()
 	{
 		$this->load->model('constantmodel');
-		$this->data['doc_type'] = $this->constantmodel->get_sub_constant(27);
 		
-		$this->load->model('elderfilemodel');
-		$this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc(1);
+		$this->data['file_status'] 	   = $this->constantmodel->get_sub_constant(51);
+		$this->data['doc_type']    	   = $this->constantmodel->get_sub_constant(27);
+		$this->data['close_resone']    = $this->constantmodel->get_sub_constant(52);
+		
+		if(isset($_SESSION['update']))
+		{
+			$this->load->model('elderfilemodel');
+			$this->data['elder_file'] = $this->elderfilemodel->get_elder_file($_SESSION['update']);
+			$this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc($_SESSION['update']);
+		}
 		
 	}
 	
+	function updatefile()
+	{
+		
+		$this->load->model('elderfilemodel');
+		$this->elderfilemodel->file_update();
+		
+	}
 	function uploaddoc()
 	{
 		

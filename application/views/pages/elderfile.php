@@ -1,3 +1,11 @@
+<?php
+if (isset($elder_file))
+{
+	unset($_SESSION['update']);
+	foreach($elder_file as $elder_file_row);
+	
+}
+?>
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
 <div class="row">
@@ -20,9 +28,9 @@
               </div>
           </div>
           <div class="portlet-body form">
-          	<input id="hdnFileid" name="hdnFileid" type="hidden" value="1" />
+          	<input id="hdnFileid" name="hdnFileid" type="hidden" value="<?php echo $elder_file_row->file_id;?>" />
               <!-- BEGIN FORM-->
-              <form action="#" id="form_sample_3" class="form-horizontal">
+              <form action="#" id="file_form" class="form-horizontal">
                   <div class="form-body">
                   	<br/>
                       <div class="alert alert-danger display-hide">
@@ -31,20 +39,7 @@
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
-                          Your form validation is successful!
-                      </div>
-                      
-                      <div class="form-group">
-                          <label class="control-label col-md-3">تـصنيف المـلـف&nbsp;&nbsp;&nbsp;
-                          </label>
-                          <div class="col-md-4">
-                              <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
-                                  <option value="">اختر...</option>
-                                  <option value="pending">فعال</option>
-                              	  <option value="closed">ملغي</option>
-                              	  <option value="closed">مغلق</option>
-                              </select>
-                          </div>
+                          تـم عملية حـفـظ البيـانات بنجـاح !
                       </div>
                       
                       <div class="form-group">
@@ -54,18 +49,35 @@
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
                                   <option value="">اختر...</option>
-                                  <option value="pending">فعال</option>
-                              	  <option value="closed">مفتوح</option>
-                              	  <option value="closed">مغلق</option>
+                                  <?php
+								  foreach ($file_status as $row_file_status)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_file_row->file_status_id == $row_file_status->sub_constant_id)
+									  	$selected = 'selected="selected"';
+										
+									  echo '<option value="'.$row_file_status->sub_constant_id.'" '.$selected.'>'
+									  						.$row_file_status->sub_constant_name.'</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
                       
+                      <div id="dvClose" 
+					  		<?php if ($elder_file_row->file_status_id == 172) echo 'style="display:block"';
+									else echo 'style="display:none"'; ?>
+					  >
                       <div class="form-group">
-                          <label class="control-label col-md-3">تـاريخ الاغـلاق</label>
+                          <label class="control-label col-md-3">تـاريخ الاغـلاق <span class="required">
+                          * </span>
+                          </label>
                           <div class="col-md-4">
-                              <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
-                                  <input type="text" class="form-control" readonly id="dpDob" name="dpDob">
+                              <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                  <input type="text" class="form-control" readonly id="dpClose" name="dpClose" 
+                                  value="<?php if(isset($elder_file_row->close_date)) echo $elder_file_row->close_date;?>"
+                                  >
                                   <span class="input-group-btn">
                                   <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                   </span>
@@ -79,21 +91,31 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
+                              <select class="form-control" id="drpClosereasone" name="drpClosereasone">
                                   <option value="">اختر...</option>
-                                  <option value="pending">فعال</option>
-                              	  <option value="closed">مفتوح</option>
-                              	  <option value="closed">مغلق</option>
+                                   <?php
+								  foreach ($close_resone as $row_close_resone)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_file_row->close_reason_id == $row_close_resone->sub_constant_id)
+									  	$selected = 'selected="selected"';
+										
+									  echo '<option value="'.$row_close_resone->sub_constant_id.'" '.$selected.'>'
+									  						.$row_close_resone->sub_constant_name.'</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
+                      </div> <!-- END Div Close -->
                       
                   </div>
                   <!-- END FORM BODY -->
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button type="submit" class="btn blue-madison">حـفـظ</button>
+                              <button id="btnSavefile" type="submit" class="btn blue-madison">حـفـظ</button>
                               <button type="button" class="btn default">الغاء الامر</button>
                           </div>
                       </div>

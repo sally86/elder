@@ -38,6 +38,12 @@ class Elder extends CI_Controller
 		$this->data['elder_governorate'] = $this->constantmodel->get_sub_constant(22);
 	}
 	
+	function senddata()
+	{
+		extract($_POST);
+		$_SESSION['update'] = $national_id;
+	}
+	
 	function eldergriddata()
 	{
 		$this->load->model('eldermodel');
@@ -59,7 +65,7 @@ class Elder extends CI_Controller
 			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
 			  <i class="fa fa-edit"></i> تعديل </a>';*/
 			
-			$btn='<a class="btn default btn-xs purple" onclick="gotoEder(\''.$row->elder_id.'\')">
+			$btn='<a class="btn default btn-xs purple" onclick="gotoElder(\''.$row->elder_id.'\')">
 			  <i class="fa fa-edit"></i> تعديل </a>';
 			
 			$nestedData[] = $i++;

@@ -16,7 +16,7 @@ function gotoElder(arg)
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-//				window.location.href = baseURL+"elder/empform";
+				window.location.href = baseURL+"elderfilecont/elderfile";
 				//alert(returndb);
 			}
 		});//END $.ajax
