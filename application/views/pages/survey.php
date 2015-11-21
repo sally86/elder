@@ -504,7 +504,7 @@ if (isset($elder_info))
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtMemberId" name="txtMemberId" data-required="1" class="form-control"/>
+                                            <input type="text" id="txtMemberId" name="txtMemberId" data-required="1" class="form-control" onblur="check_familymember_id()"/>
                                         </div>
                                     </div>
                                     
