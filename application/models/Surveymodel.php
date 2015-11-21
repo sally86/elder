@@ -198,8 +198,8 @@ function check_elder_id()
 function insert_familyMember()
 	{
 		extract($_POST);
-		$data['family_member_id'] = $txtMemberId;
-		$data['elder_id'] = $txtElderId;
+	//	$data['family_member_id'] = $txtMemberId;
+		$data['elder_id'] = $hdnelder_id;
 		$data['member_id'] = $txtMemberId;
 		$data['member_name'] = $txtMembername;
 		$data['member_sex_id'] = $rdMemSex;
@@ -230,7 +230,7 @@ function update_familyMember()
 		$data['income_shekel'] = $txtMemincome;
 		$data['job'] = $txtMemjob;
 		
-		$this->db->where('family_member_id',$txtMemberId);
+		$this->db->where('member_id',$txtMemberId);
 		$this->db->update('family_member_tb',$data);
 	}
 
