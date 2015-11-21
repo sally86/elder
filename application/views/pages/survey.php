@@ -529,7 +529,7 @@ if (isset($elder_info))
                                         <label class="control-label col-md-3">صـلة القـرابـة&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpMemRelationship" name="drpMemRelationship">
+                                            <select class="form-control" id="drpMemRelationship" name="drpMemRelationship">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  		foreach($survey_Relationship as $row)
@@ -545,7 +545,7 @@ if (isset($elder_info))
                                         <label class="control-label col-md-3">الحـالة الاجتمـاعية&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpMemStatus" name="drpMemStatus">
+                                            <select class="form-control" id="drpMemStatus" name="drpMemStatus">
                                                  <?php
 												  foreach($survey_Maritalstatus as $row)
 												  {
@@ -573,7 +573,7 @@ if (isset($elder_info))
                                         <label class="control-label col-md-3">المستـوى التعليمي&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpMemEdulevel" name="drpMemEdulevel">
+                                            <select class="form-control" id="drpMemEdulevel" name="drpMemEdulevel">
                                                 <option value="">اختر...</option>
                                					<?php
 												  foreach($survey_Educationlevel as $row)
@@ -589,7 +589,7 @@ if (isset($elder_info))
                                         <label class="control-label col-md-3">الحـالة الصحيـة&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpMemHealth" name="drpMemHealth">
+                                            <select class="form-control" id="drpMemHealth" name="drpMemHealth">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_Health as $row)
