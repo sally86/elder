@@ -233,6 +233,13 @@ function update_familyMember()
 		$this->db->where('member_id',$txtMemberId);
 		$this->db->update('family_member_tb',$data);
 	}
+function check_familyMember_id()
+	{	extract($_POST);
+		$this->db->where('member_id',$txtMemberId);
+		$query = $this->db->get('family_member_tb');
+		return $query->result();
+		
+	}
 
 //***********************end family_member_tb operations*********************
 

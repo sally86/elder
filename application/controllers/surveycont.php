@@ -143,5 +143,48 @@ function addfamilymember()
 	}
 
 //***************************end family_member***********************
+//*************************check elder id ****************************
+function check_familymember_id()
+	{
+		$this->load->model('Surveymodel');
+		$rec=$this->Surveymodel->check_familyMember_id();
+		
+		if (count($rec) == 0)
+		{
+			echo 0;
+			return;
+		}
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+		
+		$temp['member_name'] = $member_name;
+		$temp['member_sex_id'] = $member_sex_id;
+		$temp['relationship_id'] = $relationship_id;
+		$temp['status_id'] = $status_id;
+		$temp['dob'] = $dob;
+		$temp['education_level'] = $education_level;
+		$temp['health_status_id'] = $health_status_id;
+		$temp['income_shekel'] = $income_shekel;
+		$temp['job'] = $job;
+		
+			array_push($output,$temp);
+			
+			
+			header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
+		}
+	
+	
+		
+		
+	}	
+//**************************family_member_id*************************
+
 }
 ?>

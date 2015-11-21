@@ -28,7 +28,7 @@ function editeelder()
 			}
 		});//END $.ajax
 }
-//-------------check ID ----------------------//
+//-------------ELDER check ID ----------------------//
 function check_elder_id(){	
 
  	var ElderId = document.getElementById('txtElderId').value;
@@ -347,6 +347,55 @@ function editefamilymember()
 			}
 		});//END $.ajax
 }
+//-------------ELDER check ID ----------------------//
+function check_familymember_id(){	
+
+ 	var MemberId = document.getElementById('txtMemberId').value;
+if (ElderId !='')
+{
+		$.ajax({
+			url: baseURL+"Surveycont/check_familymember_id",
+			type: "POST",
+			data: {member_id: MemberId},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+	
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+	//			alert(returndb);
+//				alert(returndb[0]['txtFname']);
+				if(returndb !=null)
+			
+				{
+					
+	
+					
+				$('#fmhdnAction').val('updateelder');
+				$('#txtMembername').val(returndb[0]['member_name']);
+				$('#rdMemSex').val(returndb[0]['member_sex_id']);
+				$('#drpMemRelationship').val(returndb[0]['relationship_id']);
+				$('#drpMemStatus').val(returndb[0]['status_id']);
+				$('#dpMemDob').val(returndb[0]['dob']);
+				$('#drpMemEdulevel').val(returndb[0]['education_level']);
+				$('#drpMemHealth').val(returndb[0]['health_status_id']);
+				$('#txtMemincome').val(returndb[0]['income_shekel']);
+				$('#txtMemjob').val(returndb[0]['job']);
+				
+			
+				}
+			}
+		});//END $.ajax	
+	
+}
+else
+
+return;
+}
+
+//******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
         
