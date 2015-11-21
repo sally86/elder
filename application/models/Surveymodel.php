@@ -235,7 +235,7 @@ function update_familyMember()
 	}
 function check_familyMember_id()
 	{	extract($_POST);
-		$this->db->where('member_id',$txtMemberId);
+		$this->db->where('member_id',$member_id);
 		$query = $this->db->get('family_member_tb');
 		return $query->result();
 		

@@ -351,7 +351,7 @@ function editefamilymember()
 function check_familymember_id(){	
 
  	var MemberId = document.getElementById('txtMemberId').value;
-if (ElderId !='')
+if (MemberId !='')
 {
 		$.ajax({
 			url: baseURL+"Surveycont/check_familymember_id",
@@ -373,7 +373,7 @@ if (ElderId !='')
 					
 	
 					
-				$('#fmhdnAction').val('updateelder');
+				$('#fmhdnAction').val('updatefamilymember');
 				$('#txtMembername').val(returndb[0]['member_name']);
 				$('#rdMemSex').val(returndb[0]['member_sex_id']);
 				$('#drpMemRelationship').val(returndb[0]['relationship_id']);

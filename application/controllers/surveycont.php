@@ -162,15 +162,15 @@ function check_familymember_id()
 
 			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
 		
-		$temp['member_name'] = $member_name;
-		$temp['member_sex_id'] = $member_sex_id;
-		$temp['relationship_id'] = $relationship_id;
-		$temp['status_id'] = $status_id;
-		$temp['dob'] = $dob;
-		$temp['education_level'] = $education_level;
-		$temp['health_status_id'] = $health_status_id;
-		$temp['income_shekel'] = $income_shekel;
-		$temp['job'] = $job;
+		$temp['member_name'] = $row->member_name;
+		$temp['member_sex_id'] = $row->member_sex_id;
+		$temp['relationship_id'] = $row->relationship_id;
+		$temp['status_id'] = $row->status_id;
+		$temp['dob'] = $row->dob;
+		$temp['education_level'] = $row->education_level;
+		$temp['health_status_id'] = $row->health_status_id;
+		$temp['income_shekel'] = $row->income_shekel;
+		$temp['job'] = $row->job;
 		
 			array_push($output,$temp);
 			
