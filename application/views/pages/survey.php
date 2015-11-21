@@ -1,5 +1,7 @@
 <?php
 $ction ="addelder";
+$fmction="addfamilymember";
+
 $page_title = "اضـــافة موظف";
 $readonly = '';
 if (isset($elder_info))
@@ -473,8 +475,9 @@ if (isset($elder_info))
                             </div>
                             <!-- End of Elder Info-->
                             <!-- Family Members-->
+                            
                             <div class="tab-pane fade" id="tab_6_2">
-                             <form action="#" id="form_sample_3" class="form-horizontal">
+                             <form action="#" id="familyMemberTab" class="form-horizontal">
                                 <div class="form-body">
                                   <br/>
                                     <div class="alert alert-danger display-hide">
@@ -483,9 +486,10 @@ if (isset($elder_info))
                                     </div>
                                     <div class="alert alert-success display-hide">
                                         <button class="close" data-close="alert"></button>
-                                        Your form validation is successful!
+                                         تـم عملية حـفـظ البيـانات بنجـاح !
                                     </div>
-                                    
+                                     <input id="fmhdnAction" name="fmhdnAction" type="hidden" value="<?php echo $fmction;?>" />
+                                     <input id="hdnelder_id" name="hdnelder_id" type="hidden" value="" />
                                     <div class="form-group">
                                         <label class="control-label col-md-3">الاسـم <span class="required">
                                         * </span>
@@ -525,7 +529,7 @@ if (isset($elder_info))
                                         <label class="control-label col-md-3">صـلة القـرابـة&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpRelationship" name="drpRelationship">
+                                            <select class="form-control select2me" id="drpMemRelationship" name="drpMemRelationship">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  		foreach($survey_Relationship as $row)
@@ -555,7 +559,7 @@ if (isset($elder_info))
                                     <div class="form-group">
                                         <label class="control-label col-md-3">تـاريخ الميـلاد</label>
                                         <div class="col-md-4">
-                                            <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
                                                 <input type="text" class="form-control" readonly id="dpMemDob" name="dpMemDob">
                                                 <span class="input-group-btn">
                                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
@@ -585,7 +589,7 @@ if (isset($elder_info))
                                         <label class="control-label col-md-3">الحـالة الصحيـة&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpHealth" name="drpHealth">
+                                            <select class="form-control select2me" id="drpMemHealth" name="drpMemHealth">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_Health as $row)

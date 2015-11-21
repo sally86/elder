@@ -4,6 +4,7 @@
 function editeelder()
 {
 	var action = $("#hdnAction").val();
+	var ElderId = document.getElementById('txtElderId').value;
 	alert(action);
 	
 	$.ajax({
@@ -21,7 +22,8 @@ function editeelder()
 				{
 					var form = $('#ElderTab');
 					$('.alert-success', form).show();
-					$('#hdnAction').val('');
+					$('#hdnelder_id').val(ElderId);
+				
 				}
 			}
 		});//END $.ajax
@@ -69,7 +71,7 @@ if (ElderId !='')
 				$('#drpCurrentjob').val(returndb[0]['drpCurrentjob']);
 				$('#drpPreviousjob').val(returndb[0]['drpPreviousjob']);
 				$('#drpInsurence').val(returndb[0]['drpInsurence']);
-
+				$('#hdnelder_id').val(ElderId);
 			
 				}
 			}
@@ -77,6 +79,7 @@ if (ElderId !='')
 	
 }
 else
+
 return;
 }
 
@@ -133,7 +136,8 @@ var ElderTabValidation = function () {
                 ignore: "", // validate all fields including form hidden input
                 rules: {
 					txtElderId: {
-                        required: true
+                        required: true,
+						digits: true
                     },
 					txtFname: {
                         required: true
@@ -195,7 +199,8 @@ var ElderTabValidation = function () {
 
                messages: { // custom messages for radio buttons and checkboxes
                     txtElderId: {
-						required: "الرجاء إدخال رقم الهوية"
+						required: "الرجاء إدخال رقم الهوية",
+						digits: "الرجـاء ادخـال ارقـام فقط"
                     },
 					txtFName: {
                         required: "الرجاء ادخل الاسم"
@@ -314,6 +319,165 @@ return {
 
     };
 
+}();
+
+//----------------------------------------------------------
+function editefamilymember()
+{
+	var action = $("#fmhdnAction").val();
+	alert(action);
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:  $("#familyMemberTab").serialize(),
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}
+			}
+		});//END $.ajax
+}
+var FamilyMemberTabValidation = function () {
+ var handleValidation = function() {
+        
+            var form = $('#familyMemberTab');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+
+            form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					txtMemberId: {
+                        required: true,
+						digits: true
+                    },
+					txtMembername: {
+                        required: true
+                    },
+					dpMemDob: {
+                        required: true
+                    },
+					drpMemRelationship: {
+                        required: true
+                    },
+					drpMemStatus: {
+                        required: true
+                    },
+					drpMemEdulevel: {
+                        required: true
+                    },
+					drpMemHealth: {
+						required: true
+                    },
+					txtMemincome: {
+						required: true,
+						digits: true
+                    },
+					txtMemjob: {
+						required: true
+                    }
+				},
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    txtMemberId: {
+						required: "الرجاء إدخال رقم الهوية",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+                    },
+					txtMembername: {
+                        required: "الرجاء ادخل الاسم"
+                    },
+					dpMemDob: {
+						required: "الرجاء إدخال تاريخ الميلاد"
+                    },
+					drpMemRelationship: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpMemStatus: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpMemEdulevel: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpMemHealth: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					txtMemincome: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط",
+                    },
+					txtMemjob: {
+						required: "الرجاء إدخال قيمة"
+                    }
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+                        error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+                        error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editefamilymember();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
 
 }();
-//----------------------------------------------------------

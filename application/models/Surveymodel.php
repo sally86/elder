@@ -118,7 +118,7 @@ class Surveymodel extends CI_Model
 		return count($res->result());
 		
 	}
-
+//*******************elder_tb***********************
 function insert_elder()
 	{
 		extract($_POST);
@@ -191,6 +191,50 @@ function check_elder_id()
 		return $query->result();
 		
 	}
+//***********************end eder_tb operation***************
+
+//***********************end family_member_tb operations*********************
+
+function insert_familyMember()
+	{
+		extract($_POST);
+		$data['family_member_id'] = $txtMemberId;
+		$data['elder_id'] = $txtElderId;
+		$data['member_id'] = $txtMemberId;
+		$data['member_name'] = $txtMembername;
+		$data['member_sex_id'] = $rdMemSex;
+		$data['relationship_id'] = $drpMemRelationship;
+		$data['status_id'] = $drpMemStatus;
+		$data['dob'] = $dpMemDob;
+		$data['education_level'] = $drpMemEdulevel;
+		$data['health_status_id'] = $drpMemHealth;
+		$data['income_shekel'] = $txtMemincome;
+		$data['job'] = $txtMemjob;
+		
+		
+		$this->db->insert('family_member_tb',$data);
+	}
+function update_familyMember()
+	{
+		extract($_POST);
+		//$data['family_member_id'] = $txtFname;
+		//$data['elder_id'] = $txtElderId;
+		//$data['member_id'] = $txtMemberId;
+		$data['member_name'] = $txtMembername;
+		$data['member_sex_id'] = $rdMemSex;
+		$data['relationship_id'] = $drpMemRelationship;
+		$data['status_id'] = $drpMemStatus;
+		$data['dob'] = $dpMemDob;
+		$data['education_level'] = $drpMemEdulevel;
+		$data['health_status_id'] = $drpMemHealth;
+		$data['income_shekel'] = $txtMemincome;
+		$data['job'] = $txtMemjob;
+		
+		$this->db->where('family_member_id',$txtMemberId);
+		$this->db->update('family_member_tb',$data);
+	}
+
+//***********************end family_member_tb operations*********************
 
 }
 ?>

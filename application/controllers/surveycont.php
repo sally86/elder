@@ -80,6 +80,7 @@ class Surveycont extends CI_Controller
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->update_elder();
 	}
+	
 //*************************check elder id ****************************
 function check_elder_id()
 	{
@@ -128,5 +129,19 @@ function check_elder_id()
 		
 		
 	}	
+//**************************family_member_id*************************
+
+function addfamilymember()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_familyMember();
+	}
+	function updatefamilymember()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_familyMember();
+	}
+
+//***************************end family_member***********************
 }
 ?>
