@@ -3,9 +3,11 @@
 // Add Or Update User
 function editeelder()
 {
+	var action = $("#hdnAction").val();
+	alert(action);
 	
 	$.ajax({
-			url: baseURL+"Surveycont/AddElder",
+			url: baseURL+"Surveycont/"+action,
 			type: "POST",
 			data:  $("#ElderTab").serialize(),
 			error: function(xhr, status, error) {
@@ -19,18 +21,19 @@ function editeelder()
 				{
 					var form = $('#ElderTab');
 					$('.alert-success', form).show();
+					$('#hdnAction').val('');
 				}
 			}
 		});//END $.ajax
 }
 //-------------check ID ----------------------//
-function check_Elder_id(){	
+function check_elder_id(){	
 
  	var ElderId = document.getElementById('txtElderId').value;
 if (ElderId !='')
 {
 		$.ajax({
-			url: baseURL+"Surveycont/check_id",
+			url: baseURL+"Surveycont/check_elder_id",
 			type: "POST",
 			data: {elder_id: ElderId},
 			error: function(xhr, status, error) {
@@ -40,16 +43,35 @@ if (ElderId !='')
 			},
 			beforeSend: function(){},
 			complete: function(){},
-			success: function(result){
-				
-				if (result==1)
+			success: function(returndb){
+	//			alert(returndb);
+//				alert(returndb[0]['txtFname']);
+				if(returndb !=null)
+			
 				{
-					alert('رقم الهوية مستخدم مسبقاً, الرجاء التأكد من رقم الهوية المدخل');
-					document.getElementById('txtElderId').value='';
-					document.getElementById('txtElderId').focus();
-					return;
+					
+				$('#hdnAction').val('updateelder');
+				$('#txtFname').val(returndb[0]['txtFname']);
+				$('#txtMname').val(returndb[0]['txtMname']);
+				$('#txtThname').val(returndb[0]['txtThname']);
+				$('#txtLname').val(returndb[0]['txtLname']);
+				$('#dpDob').val(returndb[0]['dpDob']);
+				$('#rdSex').val(returndb[0]['rdSex']);
+				$('#drpElderstatus').val(returndb[0]['drpElderstatus']);
+				$('#drpGovernorate').val(returndb[0]['drpGovernorate']);
+				$('#txtRegion').val(returndb[0]['txtRegion']);
+				$('#txtFulladdress').val(returndb[0]['txtFulladdress']);
+				$('#txtPhone').val(returndb[0]['txtPhone']);
+				$('#txtMobile1').val(returndb[0]['txtMobile1']);
+				$('#txtMobile2').val(returndb[0]['txtMobile2']);
+				$('#drpEducationlevel').val(returndb[0]['drpEducationlevel']);
+				$('#drpSpecialization').val(returndb[0]['drpSpecialization']);
+				$('#drpCurrentjob').val(returndb[0]['drpCurrentjob']);
+				$('#drpPreviousjob').val(returndb[0]['drpPreviousjob']);
+				$('#drpInsurence').val(returndb[0]['drpInsurence']);
+
+			
 				}
-				
 			}
 		});//END $.ajax	
 	
@@ -60,7 +82,42 @@ return;
 
 
 //-------------End check ID
+//-----------------check age less 60
+/*$('#dpDob').change(function(event) {							
+		event.preventDefault();
+		
+		var Elder_date= document.getElementById('dpDob').value;
+		
+		var date = new Date();
+		
+		var day = date.getDate();
+		if (day>= 1 && day <= 9) 
+			day = '0' + day;
+			
+		var month = date.getMonth()+1;
+		if (month >= 1 && month <= 9)
+			month = '0' + month;
+		
+		var year = date.getFullYear();
+		
+		
+		var d = year+'-'+month+'-'+day;
+		
+		var Elderdate = new Date(Elder_date);
+		var today = new Date(d);
+		//alert ("bookingDate: "+bookingDate);
+		//alert ("today: "+today);
+		alert((today-Elderdate))
+	//	if ((Elderdate - today)<60)
+		{
+			//alert ('يجب ان يكون تاريخ الحجز اكبر من تاريخ اليوم');
+			//document.getElementById('booking_date').value = '';
+		//	return;
+		}
+}); // END READY*/
 
+
+//---------------------------------
 //--------------------------------------
 var ElderTabValidation = function () {
  var handleValidation = function() {
@@ -138,7 +195,7 @@ var ElderTabValidation = function () {
 
                messages: { // custom messages for radio buttons and checkboxes
                     txtElderId: {
-						required: "الرجاء ادخال هوية رقم الموظف"
+						required: "الرجاء إدخال رقم الهوية"
                     },
 					txtFName: {
                         required: "الرجاء ادخل الاسم"

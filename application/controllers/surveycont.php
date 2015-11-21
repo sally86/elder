@@ -70,10 +70,63 @@ class Surveycont extends CI_Controller
 	
 	/************************************************************/
 	
-	function AddElder()
+	function addelder()
 	{
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->insert_elder();
 	}
+	function updateelder()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_elder();
+	}
+//*************************check elder id ****************************
+function check_elder_id()
+	{
+		$this->load->model('Surveymodel');
+		$rec=$this->Surveymodel->check_elder_id();
+		
+		if (count($rec) == 0)
+		{
+			echo 0;
+			return;
+		}
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+		$temp['txtFname'] = $row->first_name;
+		$temp['txtMname'] = $row->middle_name;
+		$temp['txtThname'] = $row->third_name;
+		$temp['txtLname'] = $row->last_name;
+		$temp['dpDob'] = $row->dob;
+		$temp['rdSex'] = $row->sex_id;
+		$temp['drpElderstatus'] = $row->status_id;
+		$temp['drpGovernorate'] = $row->governorate_id;
+		$temp['txtRegion'] = $row->region;
+		$temp['txtFulladdress'] = $row->full_address;
+		$temp['txtPhone'] = $row->phone;
+		$temp['txtMobile1'] = $row->mobile_first;
+		$temp['txtMobile2'] = $row->mobile_second;
+		$temp['drpEducationlevel'] = $row->education_level_id;
+		$temp['drpSpecialization'] = $row->specialization_id;
+		$temp['drpCurrentjob'] = $row->current_job_id;
+		$temp['drpPreviousjob'] = $row->previous_job_id;
+		$temp['drpInsurence'] = $row->insurance_type_id;
+			array_push($output,$temp);
+			
+			
+			header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
+		}
+	
+	
+		
+		
+	}	
 }
 ?>

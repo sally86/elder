@@ -1,3 +1,17 @@
+<?php
+$ction ="addelder";
+$page_title = "اضـــافة موظف";
+$readonly = '';
+if (isset($elder_info))
+{
+	unset($_SESSION['update']);
+	foreach($elder_info as $elder_row);
+	$ction ="updateelder";
+	$page_title = "تعـــديل عضو";
+	$readonly = 'readonly="readonly"';
+}
+?>
+
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
 <div class="row">
@@ -85,8 +99,9 @@
                                     </div>
                                     <div class="alert alert-success display-hide">
                                         <button class="close" data-close="alert"></button>
-                                        Your form validation is successful!
+                                        تـم عملية حـفـظ البيـانات بنجـاح !
                                     </div>
+
                                     <div class="form-group">
                                         <label class="control-label col-md-3">رقم الملف<span class="required">
                                         * </span>
@@ -194,7 +209,7 @@
                                         <button class="close" data-close="alert"></button>
 										تـم عملية حـفـظ البيـانات بنجـاح !
                                     </div>
-                                    
+                                  <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
                                     <div class="form-group">
                                         <label class="control-label col-md-3">تـصنيف المـلـف&nbsp;&nbsp;&nbsp;
                                         </label>
@@ -260,7 +275,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">تـاريخ الميـلاد</label>
                                         <div class="col-md-4">
-                                            <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
                                                 <input type="text" class="form-control" readonly id="dpDob" name="dpDob">
                                                 <span class="input-group-btn">
                                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
@@ -292,7 +307,7 @@
                                         <label class="control-label col-md-3">الحـالة الاجتمـاعية&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpElderstatus" name="drpElderstatus">
+                                            <select class="form-control" id="drpElderstatus" name="drpElderstatus">
                                                 <option value="">اختر...</option>
                                                  <?php
 												  foreach($survey_Maritalstatus as $row)
@@ -309,7 +324,7 @@
                                         <label class="control-label col-md-3">العنوان : المحـافظة&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpGovernorate" name="drpGovernorate">
+                                            <select class="form-control" id="drpGovernorate" name="drpGovernorate">
                                                 <option value="">اختر...</option>
 													<?php
 												  		foreach($survey_Governorate as $row)
@@ -365,7 +380,7 @@
                                         <label class="control-label col-md-3">المؤهل العلمي&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpEducationlevel" name="drpEducationlevel">
+                                            <select class="form-control" id="drpEducationlevel" name="drpEducationlevel">
                                                 <option value="">اختر...</option>
    													<?php
 												  		foreach($survey_Educationlevel as $row)
@@ -382,7 +397,7 @@
                                         <label class="control-label col-md-3">التخصص&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpSpecialization" name="drpSpecialization">
+                                            <select class="form-control" id="drpSpecialization" name="drpSpecialization">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  		foreach($survey_Specialization as $row)
@@ -399,7 +414,7 @@
                                         <label class="control-label col-md-3">العمل الحالي&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpCurrentjob" name="drpCurrentjob">
+                                            <select class="form-control" id="drpCurrentjob" name="drpCurrentjob">
                                                 <option value="">اختر...</option>
 													<?php
 												  		foreach($survey_CurrentJob as $row)
@@ -415,7 +430,7 @@
                                         <label class="control-label col-md-3">العمل السابق&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpPreviousjob" name="drpPreviousjob">
+                                            <select class="form-control" id="drpPreviousjob" name="drpPreviousjob">
                                                 <option value="">اختر...</option>
                                                 	<?php
 												  		foreach($survey_PreviousJob as $row)
@@ -431,7 +446,7 @@
                                         <label class="control-label col-md-3">نوع التأمين الصحي&nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpInsurence" name="drpInsurence">
+                                            <select class="form-control" id="drpInsurence" name="drpInsurence">
                                                 <option value="">اختر...</option>
                                                 	<?php
 												  		foreach($survey_InsuranceType as $row)
@@ -449,7 +464,8 @@
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">
                                             <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                            <button type="button" class="btn default">الغاء الامر</button>
+                                            <button type="button" class="btn default">عودة</button>
+                                            
                                         </div>
                                     </div>
                                 </div>

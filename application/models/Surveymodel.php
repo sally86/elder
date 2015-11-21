@@ -146,14 +146,51 @@ function insert_elder()
 		
 		$this->db->insert('elder_tb',$data);
 	}
+function update_elder()
+	{
+		extract($_POST);
+
+
+		$data['first_name'] = $txtFname;
+		$data['middle_name'] = $txtMname;
+		$data['third_name'] = $txtThname;
+		$data['last_name'] = $txtLname;
+		$data['dob'] = $dpDob;
+		$data['sex_id'] = $rdSex;
+		$data['status_id'] = $drpElderstatus;
+		$data['governorate_id'] = $drpGovernorate;
+		$data['region'] = $txtRegion;
+		$data['full_address'] = $txtFulladdress;
+		$data['phone'] = $txtPhone;
+		$data['mobile_first'] = $txtMobile1;
+		$data['mobile_second'] = $txtMobile2;
+		$data['education_level_id'] = $drpEducationlevel;
+		$data['specialization_id'] = $drpSpecialization;
+		$data['current_job_id'] = $drpCurrentjob;
+		$data['previous_job_id'] = $drpPreviousjob;
+		$data['insurance_type_id'] = $drpInsurence;
+//		$data['death_date'] = $txtMobile;
+		$this->db->where('elder_id',$txtElderId);
+		$this->db->update('elder_tb',$data);
+	}
+/*
 function check_elder_id()
 	{
 		extract($_POST);
-		$national_id=$national_id;
+		$elder_id=$elder_id;
 		$myquery = "SELECT 	count(1) as cn
 				  	FROM 	elder_tb
 				  	WHERE 	elder_id=$elder_id";
 		 return $this->db->query($myquery);
 	}
+	*/
+function check_elder_id()
+	{	extract($_POST);
+		$this->db->where('elder_id',$elder_id);
+		$query = $this->db->get('elder_tb');
+		return $query->result();
+		
+	}
+
 }
 ?>
