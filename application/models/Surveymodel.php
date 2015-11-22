@@ -70,13 +70,7 @@ function check_elder_id()
 		 return $this->db->query($myquery);
 	}
 	*/
-function check_elder_id()
-	{	extract($_POST);
-		$this->db->where('elder_id',$elder_id);
-		$query = $this->db->get('elder_tb');
-		return $query->result();
-		
-	}
+
 //***********************end eder_tb operation***************
 
 //***********************end family_member_tb operations*********************

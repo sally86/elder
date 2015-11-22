@@ -2,8 +2,25 @@
 
 class Eldermodel extends CI_Model
 {
-	// Get All Employee
+	
+	// Get Elder By ID
+	function get_elder_by_id($elderid ='')
+	{
+		// Get elder id from POST otherwise get elder id from function arg $elderid
+		if ( !empty($_POST) )
+		{
+			extract($_POST);
+			$elderid = $elder_id;
+		}
 		
+		$this->db->where('elder_id',$elderid);
+		$query = $this->db->get('elder_tb');
+		
+		return $query->result();
+		
+	}
+	
+	// Get All Elders
 	function get_search_elder($requestData)
 	{
 		$columns = array( 

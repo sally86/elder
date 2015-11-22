@@ -82,10 +82,10 @@ class Surveycont extends CI_Controller
 	}
 	
 //*************************check elder id ****************************
-function check_elder_id()
+	function check_elder_id()
 	{
-		$this->load->model('Surveymodel');
-		$rec=$this->Surveymodel->check_elder_id();
+		$this->load->model('Eldermodel');
+		$rec=$this->Eldermodel->get_elder_by_id();
 		
 		if (count($rec) == 0)
 		{
