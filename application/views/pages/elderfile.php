@@ -1,8 +1,20 @@
 <?php
+$eldername = '';
 if (isset($elder_file))
 {
 	unset($_SESSION['update']);
 	foreach($elder_file as $elder_file_row);
+	foreach($elder_info as $elder_info_row);
+	
+	// Elder Name
+	if(isset($elder_info_row->first_name)) 
+		$eldername = $elder_info_row->first_name;
+	if(isset($elder_info_row->first_name)) 
+		$eldername = $eldername.' '.$elder_info_row->middle_name;
+	if(isset($elder_info_row->first_name)) 
+		$eldername = $eldername.' '.$elder_info_row->third_name;
+	if(isset($elder_info_row->first_name)) 
+		$eldername = $eldername.' '.$elder_info_row->last_name;
 	
 }
 ?>
@@ -14,7 +26,7 @@ if (isset($elder_file))
       <div class="portlet box blue-madison">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-folder-open"></i>بيـانـات المـلـف
+                  <i class="fa fa-folder-open"></i>بيـانـات المـلـف (<?php echo $eldername;?>)
               </div>
               <div class="tools">
                   <a href="javascript:;" class="collapse">
@@ -39,7 +51,7 @@ if (isset($elder_file))
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
-                          تـم عملية حـفـظ البيـانات بنجـاح !
+                          تمت عملية حـفـظ البيـانات بنجـاح !
                       </div>
                       
                       <div class="form-group">
@@ -134,7 +146,7 @@ if (isset($elder_file))
       <div class="portlet box blue-madison">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-folder-open"></i>بيـانـات العـضــو الشـخـصيــة
+                  <i class="fa fa-folder-open"></i>بيـانـات العـضــو الشـخـصيــة (<?php echo $eldername;?>)
               </div>
               <div class="tools">
                   <a href="javascript:;" class="collapse">
@@ -149,7 +161,7 @@ if (isset($elder_file))
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
-              <form action="#" id="form_sample_3" class="form-horizontal">
+              <form action="#" id="elder_form" class="form-horizontal">
                   <div class="form-body">
                   	<br/>
                       <div class="alert alert-danger display-hide">
@@ -158,7 +170,7 @@ if (isset($elder_file))
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
-                          Your form validation is successful!
+                          تمت عملية حـفـظ البيـانات بنجـاح !
                       </div>
                       
                       <div class="form-group">
@@ -179,7 +191,9 @@ if (isset($elder_file))
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtElderId" name="txtElderId" data-required="1" class="form-control"/>
+                              <input type="text" id="txtElderId" name="txtElderId" data-required="1" class="form-control"
+                               value="<?php if(isset($elder_info_row->elder_id)) echo $elder_info_row->elder_id;?>"
+                              />
                           </div>
                       </div>
                       
@@ -188,24 +202,28 @@ if (isset($elder_file))
                         * </span>
                         </label>
                         <div class="col-md-2">
-                            <input type="text" id="txtFname" name="txtFname" data-required="1" class="form-control input-small" placeholder="الاسم الاول"/>
+                            <input type="text" id="txtFname" name="txtFname" data-required="1" class="form-control input-small" placeholder="الاسم الاول" value="<?php if(isset($elder_info_row->first_name)) echo $elder_info_row->first_name;?>"/>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" id="txtSname" name="txtSname" data-required="1" class="form-control input-small" placeholder="اسم الاب"/>
+                            <input type="text" id="txtMname" name="txtMname" data-required="1" class="form-control input-small" placeholder="اسم الاب" value="<?php if(isset($elder_info_row->middle_name)) echo $elder_info_row->middle_name;?>"/>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" id="txtThname" name="txtThname" data-required="1" class="form-control input-small" placeholder="اسم الجد"/>
+                            <input type="text" id="txtThname" name="txtThname" data-required="1" class="form-control input-small" placeholder="اسم الجد" value="<?php if(isset($elder_info_row->third_name)) echo $elder_info_row->third_name;?>"/>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" id="txtThname" name="txtThname" data-required="1" class="form-control input-small" placeholder="اسم العائلة"/>
+                            <input type="text" id="txtLname" name="txtLname" data-required="1" class="form-control input-small" placeholder="اسم العائلة" value="<?php if(isset($elder_info_row->last_name)) echo $elder_info_row->last_name;?>"/>
                         </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">تـاريخ الميـلاد</label>
+                          <label class="control-label col-md-3">تـاريخ الميـلاد <span class="required">
+                          * </span>
+                          </label>
                           <div class="col-md-4">
                               <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
-                                  <input type="text" class="form-control" readonly id="dpDob" name="dpDob">
+                                  <input type="text" class="form-control" readonly id="dpDob" name="dpDob"
+                                  value="<?php if(isset($elder_info_row->dob)) echo $elder_info_row->dob;?>"
+                                  >
                                   <span class="input-group-btn">
                                   <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                   </span>
@@ -215,7 +233,8 @@ if (isset($elder_file))
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">النوع الطبيعي&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">النوع الطبيعي <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
                               <div class="radio-list" data-error-container="#form_2_membership_error">
@@ -232,63 +251,90 @@ if (isset($elder_file))
                       </div>
                       
                        <div class="form-group">
-                          <label class="control-label col-md-3">الحـالة الاجتمـاعية&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">الحـالة الاجتمـاعية <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control select2me" id="drpUsertype" name="drpUsertype">
+                              <select class="form-control select2me" id="drpElderstatus" name="drpElderstatus">
                                   <option value="">اختر...</option>
-                                  <option value="pending">أعزب</option>
-                              	  <option value="closed">مطلق</option>
-                              	  <option value="closed">أرمل</option>
-                                  <option value="closed">متزوج</option>
+                                  <?php 
+								  foreach ($status as $status_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->status_id == $status_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$status_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$status_row->sub_constant_name.'</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">العنوان : المحـافظة&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">العنوان : المحـافظة <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpGovernorate" name="drpGovernorate">
-                                  <option value="">اختر...</option>
-                                  <option value="pending">الشمال</option>
-                              	  <option value="closed">غزة</option>
-                              	  <option value="closed">الوسطى</option>
-                                  <option value="closed">خانيونس</option>
-                                  <option value="closed">رفح</option>
+                                  <?php 
+								  foreach ($governorate as $governorate_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->governorate_id == $governorate_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$governorate_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$governorate_row->sub_constant_name.'</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">المنطقـة&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">المنطقـة <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtRegion" name="txtRegion" data-required="1" class="form-control"/>
+                              <input type="text" id="txtRegion" name="txtRegion" data-required="1" class="form-control"
+                              value="<?php if(isset($elder_info_row->region)) echo $elder_info_row->region;?>"
+                              />
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">وصف العنوان بالكامل&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">وصف العنوان بالكامل <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
-                          	  <textarea name="txtFulladdress" cols="70" rows="2" class="form-control"></textarea>
+                          	  <textarea name="txtFulladdress" cols="70" rows="2" class="form-control"><?php if(isset($elder_info_row->region)) echo $elder_info_row->region;?>
+                              </textarea>
                           </div>
                       </div>
                                             
                       <div class="form-group">
-                          <label class="control-label col-md-3">رقم الهاتف&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">رقم الهاتف <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtPhone" name="txtPhone" class="form-control"/>
+                              <input type="text" id="txtPhone" name="txtPhone" class="form-control"
+                               value="<?php if(isset($elder_info_row->phone)) echo $elder_info_row->phone;?>"
+                              />
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">رقم الجوال (1)&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">رقم الجوال (1) <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtMobile1" name="txtMobile1" class="form-control"/>
+                              <input type="text" id="txtMobile1" name="txtMobile1" class="form-control"
+                              value="<?php if(isset($elder_info_row->mobile_first)) echo $elder_info_row->mobile_first;?>"
+                              />
                           </div>
                       </div>
                       
@@ -296,95 +342,123 @@ if (isset($elder_file))
                           <label class="control-label col-md-3">رقم الجوال (2)&nbsp;&nbsp;&nbsp;
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtMobile2" name="txtMobile2" class="form-control"/>
+                              <input type="text" id="txtMobile2" name="txtMobile2" class="form-control"
+                              value="<?php if(isset($elder_info_row->mobile_second)) echo $elder_info_row->mobile_second;?>"
+                              />
                           </div>
                       </div>
                       
                        <div class="form-group">
-                          <label class="control-label col-md-3">المؤهل العلمي&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">المؤهل العلمي <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpEducationlevel" name="drpEducationlevel">
-                                  <option value="">اختر...</option>
-                                  <option value="pending">أمي</option>
-                              	  <option value="closed">ابتدائي</option>
-                              	  <option value="closed">اعدادي</option>
-                                  <option value="closed">ثانوي</option>
-                                  <option value="closed">دبلوم</option>
-                                  <option value="closed">بكالوريوس</option>
-                                  <option value="closed">ليسانس</option>
-                                  <option value="closed">ماجستير</option>
-                                  <option value="closed">دراسات عليا</option>
+                              	<option value="">اختر...</option>
+                                  <?php 
+								  foreach ($education_level as $education_level_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->education_level_id == $education_level_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$education_level_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$education_level_row->sub_constant_name.'</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">التخصص&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">التخصص <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpSpecialization" name="drpSpecialization">
                                   <option value="">اختر...</option>
-                                  <option value="pending">ادارة أعمال</option>
-                              	  <option value="closed">محاسبة</option>
-                              	  <option value="closed">تعليم</option>
-                                  <option value="closed">التجارة</option>
-                                  <option value="closed">الصحة</option>
-                                  <option value="closed">الدعم النفسي</option>
-                                  <option value="closed">العمل المجتمعي</option>
-                                  <option value="closed">بحث وتخطيط</option>
-                                  <option value="closed">بناء مؤسسات</option>
-                                  <option value="closed">زراعة</option>
-                                  <option value="closed">جقوق</option>
-                                  <option value="closed">هندسة</option>
-                                  <option value="closed">تكنولوجيا معلومات</option>
+								  <?php 
+								  foreach ($specialization as $specialization_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->specialization_id == $specialization_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$specialization_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$specialization_row->sub_constant_name.'</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">العمل الحالي&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">العمل الحالي <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpCurrentjob" name="drpCurrentjob">
                                   <option value="">اختر...</option>
-                                  <option value="pending">بدون</option>
-                              	  <option value="closed">متقاعد</option>
-                              	  <option value="closed">قطاع خاص</option>
+                                  <?php 
+								  foreach ($current_job as $current_job_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->current_job_id == $current_job_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$current_job_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$current_job_row->sub_constant_name.'</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">العمل السابق&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">العمل السابق <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpPreviousjob" name="drpPreviousjob">
                                   <option value="">اختر...</option>
-                                  <option value="pending">مزارع</option>
-                              	  <option value="closed">حكومي</option>
-                              	  <option value="closed">وكالة</option>
-                                  <option value="closed">خاص</option>
-                                  <option value="closed">صناعة</option>
-                                  <option value="closed">حرفة</option>
-                                  <option value="closed">فني صيانة</option>
-                                  <option value="closed">شرطة</option>
-                                  <option value="closed">أجهزة أمنية</option>
+								  <?php 
+								  foreach ($previous_job as $previous_job_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->previous_job_id == $previous_job_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$previous_job_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$previous_job_row->sub_constant_name.'</option>';
+								  }
+								  ?>
                               </select>
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">نوع التأمين الصحي&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">نوع التأمين الصحي <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpInsurence" name="drpInsurence">
                                   <option value="">اختر...</option>
-                                  <option value="pending">موظف حكومة</option>
-                              	  <option value="closed">عمال</option>
-                              	  <option value="closed">كبار سن</option>
-                                  <option value="closed">انتفاضة اقصى</option>
-                                  <option value="closed">عسكري</option>                             
+                                 <?php 
+								  foreach ($insurance_type as $insurance_type_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->insurance_type_id == $insurance_type_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$insurance_type_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$insurance_type_row->sub_constant_name.'</option>';
+								  }
+								  ?>                             
                               </select>
                           </div>
                       </div>
@@ -413,7 +487,7 @@ if (isset($elder_file))
         <div class="portlet box blue-madison">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>الأوراق الثبـــوتية للمسـن
+                    <i class="fa fa-gift"></i>الأوراق الثبـــوتية للمسـن (<?php echo $eldername;?>)
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">

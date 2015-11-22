@@ -39,11 +39,23 @@ class Elderfilecont extends CI_Controller
 		$this->data['doc_type']    	   = $this->constantmodel->get_sub_constant(27);
 		$this->data['close_resone']    = $this->constantmodel->get_sub_constant(52);
 		
+		$this->data['status']          = $this->constantmodel->get_sub_constant(2);
+		$this->data['governorate']     = $this->constantmodel->get_sub_constant(22);
+		$this->data['education_level'] = $this->constantmodel->get_sub_constant(23);
+		$this->data['specialization']  = $this->constantmodel->get_sub_constant(24);
+		$this->data['current_job']     = $this->constantmodel->get_sub_constant(25);
+		$this->data['previous_job']    = $this->constantmodel->get_sub_constant(26);
+		$this->data['insurance_type']  = $this->constantmodel->get_sub_constant(7);
+		
 		if(isset($_SESSION['update']))
 		{
 			$this->load->model('elderfilemodel');
 			$this->data['elder_file'] = $this->elderfilemodel->get_elder_file($_SESSION['update']);
 			$this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc($_SESSION['update']);
+			
+			$this->load->model('eldermodel');
+			foreach ($this->data['elder_file'] as $row);
+			$this->data['elder_info'] = $this->eldermodel->get_elder_by_id($row->elder_id);
 		}
 		
 	}
@@ -54,6 +66,11 @@ class Elderfilecont extends CI_Controller
 		$this->load->model('elderfilemodel');
 		$this->elderfilemodel->file_update();
 		
+	}
+	function updateelder()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_elder();
 	}
 	function uploaddoc()
 	{
