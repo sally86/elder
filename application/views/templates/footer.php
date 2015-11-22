@@ -122,6 +122,7 @@
 		UserFormValidation.init();
 		EmpFormValidation.init();
 		FileFormValidation.init();
+		ElderInfoValidation.init();
 		
 		/*******Survey Validation *******************/
 		ElderTabValidation.init();
