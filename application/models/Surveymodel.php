@@ -120,6 +120,45 @@ function check_familyMember_id()
 		return $query->result();
 		
 	}
+function insert_survey()
+	{
+		extract($_POST);
+
+		$data['file_id'] = $txtFileid;
+		$data['visit_date'] = $dpVisitdate;
+		$data['visit_time'] = $txtVisittime;
+		$data['visit_end_time'] = $txtVisitendtime;
+		$data['researcher_id'] = $drpResearcher;
+		$data['researcher_assistant_fst_id'] = $drpResearcherass1;
+		$data['researcher_assistant_sec_id'] = $drpResearcherass2;
+		
+		
+		$this->db->insert('survey_tb',$data);
+	}
+
+function update_survey()
+	{
+		extract($_POST);
+
+		//$data['file_id'] = $txtFileid;
+		$data['visit_date'] = $dpVisitdate;
+		$data['visit_time'] = $txtVisittime;
+		$data['visit_end_time'] = $txtVisitendtime;
+		$data['researcher_id'] = $drpResearcher;
+		$data['researcher_assistant_fst_id'] = $drpResearcherass1;
+		$data['researcher_assistant_sec_id'] = $drpResearcherass2;
+		
+		$this->db->where('file_id',$txtFileid);
+		$this->db->update('survey_tb',$data);
+	}
+
+function get_survey_info()
+	{	extract($_POST);
+		$this->db->where('file_id',$file_id);
+		$query = $this->db->get('survey_tb');
+		return $query->result();
+		
+	}
 
 //***********************end family_member_tb operations*********************
 

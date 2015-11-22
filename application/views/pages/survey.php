@@ -1,6 +1,7 @@
 <?php
 $ction ="addelder";
 $fmction="addfamilymember";
+$surveyction="addsurvey";
 
 $page_title = "اضـــافة موظف";
 $readonly = '';
@@ -92,7 +93,7 @@ if (isset($elder_info))
                         <div class="tab-content">
                         <!-- Visit Info -->
                         	<div class="tab-pane active" id="tab_6_0">
-                               <form action="#" id="form_sample_3" class="form-horizontal">
+                               <form action="#" id="SurveyTab" class="form-horizontal">
                                 <div class="form-body">
                                   <br/>
                                     <div class="alert alert-danger display-hide">
@@ -103,13 +104,13 @@ if (isset($elder_info))
                                         <button class="close" data-close="alert"></button>
                                         تـم عملية حـفـظ البيـانات بنجـاح !
                                     </div>
-
+									<input id="surveyhdnAction" name="surveyhdnAction" type="hidden" value="<?php echo $surveyction;?>" />
                                     <div class="form-group">
                                         <label class="control-label col-md-3">رقم الملف<span class="required">
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                           <input type="text" id="txtFileid" name="txtFileid" data-required="1" class="form-control"/>
+                                           <input type="text" id="txtFileid" name="txtFileid" data-required="1" class="form-control" onblur="check_file_id()"/>
                                         </div>
                                     </div>
                                     
@@ -118,7 +119,7 @@ if (isset($elder_info))
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                          <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                          <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
                                               <input type="text" class="form-control" readonly id="dpVisitdate" name="dpVisitdate">
                                               <span class="input-group-btn">
                                               <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
@@ -151,10 +152,15 @@ if (isset($elder_info))
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpResearcher" name="drpResearcher">
+                                            <select class="form-control" id="drpResearcher" name="drpResearcher">
                                                 <option value="">اختر...</option>
-                                                <option value="pending">محمد أحمد</option>
-                                                <option value="closed">عمر حسن</option>
+                                                <?php
+												  foreach($survey_employee_info as $row)
+												  {
+                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+							  					}
+							 					 ?>
+
                                             </select>
                                         </div>
                                     </div>
@@ -164,10 +170,15 @@ if (isset($elder_info))
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpResearcherass1" name="drpResearcherass1">
+                                            <select class="form-control" id="drpResearcherass1" name="drpResearcherass1">
                                                 <option value="">اختر...</option>
-                                                <option value="pending">محمد أحمد</option>
-                                                <option value="closed">عمر حسن</option>
+                                                 <?php
+												  foreach($survey_employee_info as $row)
+												  {
+                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+							  					}
+							 					 ?>
+
                                             </select>
                                         </div>
                                     </div>
@@ -177,10 +188,15 @@ if (isset($elder_info))
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpResearcherass2" name="drpResearcherass2">
+                                            <select class="form-control" id="drpResearcherass2" name="drpResearcherass2">
                                                 <option value="">اختر...</option>
-                                                <option value="pending">محمد أحمد</option>
-                                                <option value="closed">عمر حسن</option>
+                                                 <?php
+												  foreach($survey_employee_info as $row)
+												  {
+                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+							  					}
+							 					 ?>
+
                                             </select>
                                         </div>
                                     </div>

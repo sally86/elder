@@ -65,6 +65,9 @@ class Surveycont extends CI_Controller
 		$this->data['survey_NutritionType'] = $this->constantmodel->get_sub_constant(48);
 		$this->data['survey_PsychologicalSupport'] = $this->constantmodel->get_sub_constant(49);
 		$this->data['survey_HomeImprovRecomend'] = $this->constantmodel->get_sub_constant(50);
+
+		$this->load->model('Employeemodel');
+		$this->data['survey_employee_info'] = $this->Employeemodel->get_all_employee();
 		
 	}
 	
@@ -136,14 +139,13 @@ function addfamilymember()
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->insert_familyMember();
 	}
-	function updatefamilymember()
+function updatefamilymember()
 	{
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->update_familyMember();
 	}
 
-//***************************end family_member***********************
-//*************************check elder id ****************************
+//*************************check family member id ****************************
 function check_familymember_id()
 	{
 		$this->load->model('Surveymodel');
@@ -179,12 +181,55 @@ function check_familymember_id()
 			header("Content-Type: application/json");
 			echo json_encode($output);
 		}
-	
-	
-		
-		
-	}	
+}	
 //**************************family_member_id*************************
+//************************** survey procedure*************************
+
+function addsurvey()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_survey();
+	}
+function updatesurvey()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_survey();
+	}
+
+function get_survey_data()
+	{
+		$this->load->model('Surveymodel');
+		$rec=$this->Surveymodel->get_survey_info();
+		
+		if (count($rec) == 0)
+		{
+			echo 0;
+			return;
+		}
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+		
+		$temp['dpVisitdate'] = $row->visit_date;
+		$temp['txtVisittime'] = $row->visit_time;
+		$temp['txtVisitendtime'] = $row->visit_end_time;
+		$temp['drpResearcher'] = $row->researcher_id;
+		$temp['drpResearcherass1'] = $row->researcher_assistant_fst_id;
+		$temp['drpResearcherass2'] = $row->researcher_assistant_sec_id;
+			array_push($output,$temp);
+			
+			
+			header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
+		}
+}	
+
+//*************************check family member id ****************************
 
 }
 ?>

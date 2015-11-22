@@ -528,5 +528,200 @@ return {
         }
 
     };
-
 }();
+//**************** end family member function******************//
+
+//***************** survey *************//
+function editesurvey()
+{
+	var action = $("#surveyhdnAction").val();
+	var FileId = document.getElementById('txtFileid').value;
+	alert(action);
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:  $("#SurveyTab").serialize(),
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				if(returndb == '')
+				{
+					var form = $('#SurveyTab');
+					$('.alert-success', form).show();
+					
+				
+				}
+			}
+		});//END $.ajax
+}
+//-------------get servey data ----------------------//
+function check_file_id(){	
+
+ 	var Fileid = document.getElementById('txtFileid').value;
+if (Fileid !='')
+{
+		$.ajax({
+			url: baseURL+"Surveycont/get_survey_data",
+			type: "POST",
+			data: {file_id: Fileid},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+	
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+	//			alert(returndb);
+//				alert(returndb[0]['txtFname']);
+				if(returndb !=null)
+			
+				{
+					
+	
+					
+				$('#surveyhdnAction').val('updatesurvey');
+				$('#dpVisitdate').val(returndb[0]['dpVisitdate']);
+				$('#txtVisittime').val(returndb[0]['txtVisittime']);
+				$('#txtVisitendtime').val(returndb[0]['txtVisitendtime']);
+				$('#drpResearcher').val(returndb[0]['drpResearcher']);
+				$('#drpResearcherass1').val(returndb[0]['drpResearcherass1']);
+				$('#drpResearcherass2').val(returndb[0]['drpResearcherass2']);
+							
+				}
+			}
+		});//END $.ajax	
+	
+}
+else
+
+return;
+}
+
+
+//*********** Survey tab validation 
+var SurveyTabValidation = function () {
+ var handleValidation = function() {
+        
+            var form = $('#SurveyTab');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+
+            form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					txtFileid: {
+                        required: true,
+						digits: true
+                    },
+					dpVisitdate: {
+                        required: true
+                    }
+					,
+					txtVisittime: {
+                        required: true
+                    },
+					txtVisitendtime: {
+                        required: true
+                    },
+					drpResearcher: {
+                        required: true
+                    },
+					drpResearcherass1: {
+                        required: true
+                    },
+					drpResearcherass2: {
+						required: true
+                    }
+				},
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    txtFileid: {
+						required: "الرجاء إدخال رقم الهوية",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+                    },
+					dpVisitdate: {
+						required: "الرجاء إدخال تاريخ الميلاد"
+                    },
+					txtVisittime: {
+						required: "الرجاء إدخال الوقت"
+                    },
+					txtVisitendtime: {
+						required: "الرجاء إدخال الوقت"
+                    },
+					drpResearcher: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpResearcherass1: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpResearcherass2: {
+						required: "الرجاء إختيار قيمة"
+                    }
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+                        error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+                        error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editesurvey();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+}();
+//**************** end survey function******************

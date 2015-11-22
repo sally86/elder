@@ -125,11 +125,13 @@
 		
 		/*******Survey Validation *******************/
 		ElderTabValidation.init();
+		SurveyTabValidation.init();
+		FamilyMemberTabValidation.init();
+
 		/**************************/
 		UserTableAjax.init();
 		EmpTableAjax.init();
 		ElderTableAjax.init();
-		FamilyMemberTabValidation.init();
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
 		ComponentsPickers.init();
