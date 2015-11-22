@@ -188,7 +188,8 @@ function check_familymember_id()
 function addsurvey()
 	{
 		$this->load->model('Surveymodel');
-		$this->Surveymodel->insert_survey();
+		$result->Surveymodel->insert_survey();
+		echo $result;
 	}
 function updatesurvey()
 	{
@@ -200,6 +201,57 @@ function get_survey_data()
 	{
 		$this->load->model('Surveymodel');
 		$rec=$this->Surveymodel->get_survey_info();
+		$SurveyId=0;
+		if (count($rec) == 0)
+		{
+			echo 0;
+			return;
+		}
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+		
+		$temp['SurveyId'] = $row->survey_id;
+		$SurveyId=$row->survey_id;
+		$temp['dpVisitdate'] = $row->visit_date;
+		$temp['txtVisittime'] = $row->visit_time;
+		$temp['txtVisitendtime'] = $row->visit_end_time;
+		$temp['drpResearcher'] = $row->researcher_id;
+		$temp['drpResearcherass1'] = $row->researcher_assistant_fst_id;
+		$temp['drpResearcherass2'] = $row->researcher_assistant_sec_id;
+			array_push($output,$temp);
+			
+			
+			header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
+		}
+	$this->get_homeStatus_data($SurveyId);
+}	
+
+//*************************end survey fuction****************************
+//************************** home status function*************************
+
+function addhomeStatus()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_homeStatus();
+		
+	}
+function updatehomeStatus()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_homeStatus();
+	}
+
+function get_homeStatus_data($SurveyId)
+	{
+		$this->load->model('Surveymodel');
+		$rec=$this->Surveymodel->get_homeStatus_info($SurveyId);
 		
 		if (count($rec) == 0)
 		{
@@ -214,12 +266,11 @@ function get_survey_data()
 
 			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
 		
-		$temp['dpVisitdate'] = $row->visit_date;
-		$temp['txtVisittime'] = $row->visit_time;
-		$temp['txtVisitendtime'] = $row->visit_end_time;
-		$temp['drpResearcher'] = $row->researcher_id;
-		$temp['drpResearcherass1'] = $row->researcher_assistant_fst_id;
-		$temp['drpResearcherass2'] = $row->researcher_assistant_sec_id;
+		$temp['drpHomeStatus'] = $row->home_situation_id;
+		$temp['drpHomeType'] = $row->home_type_id;
+		$temp['drpCeilingType'] = $row->ceiling_type_id;
+		$temp['drpFurnitureLevel'] = $row->furniture_level_id;
+		
 			array_push($output,$temp);
 			
 			
@@ -229,7 +280,7 @@ function get_survey_data()
 		}
 }	
 
-//*************************check family member id ****************************
+//*************************end home status function ****************************
 
 }
 ?>

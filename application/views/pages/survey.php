@@ -2,6 +2,7 @@
 $ction ="addelder";
 $fmction="addfamilymember";
 $surveyction="addsurvey";
+$homeStatusction="addhomeStatus";
 
 $page_title = "اضـــافة موظف";
 $readonly = '';
@@ -88,6 +89,7 @@ if (isset($elder_info))
                                 توصيات الادارة</a>
                             </li>
                         </ul>
+                   <input id="SurveyId" name="SurveyId" type="hidden" value="" />
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-9">
                         <div class="tab-content">
@@ -853,7 +855,7 @@ if (isset($elder_info))
                               </fieldset>
                             </div>
                             <div class="tab-pane fade" id="tab_6_5">
-                              <form action="#" id="form_sample_3" class="form-horizontal">
+                              <form action="#" id="HomeStatusTab" class="form-horizontal">
                                   <div class="form-body">
                                     <br/>
                                       <div class="alert alert-danger display-hide">
@@ -862,15 +864,15 @@ if (isset($elder_info))
                                       </div>
                                       <div class="alert alert-success display-hide">
                                           <button class="close" data-close="alert"></button>
-                                          Your form validation is successful!
+											تـم عملية حـفـظ البيـانات بنجـاح !
                                       </div>
-                                      
+                                      <input id="homeStatushdnAction" name="homeStatushdnAction" type="hidden" value="<?php echo $homeStatusction;?>" />
                                       <div class="form-group">
                                           <label class="control-label col-md-3">الوضع العام <span class="required">
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpHomeStatus" name="drpHomeStatus">
+                                              <select class="form-control" id="drpHomeStatus" name="drpHomeStatus">
                                                 <option value="">اختر...</option>
                                                 
                                                  <?php
@@ -889,7 +891,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpHomeType" name="drpHomeType">
+                                              <select class="form-control" id="drpHomeType" name="drpHomeType">
                                                 <option value="">اختر...</option>
 
                                                  <?php
@@ -907,7 +909,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpCeilingType" name="drpCeilingType">
+                                              <select class="form-control" id="drpCeilingType" name="drpCeilingType">
                                                 <option value="">اختر...</option>
                                                   <?php
 												  foreach($survey_CeilingType as $row)
@@ -924,7 +926,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpFurnitureLevel" name="drpFurnitureLevel">
+                                              <select class="form-control" id="drpFurnitureLevel" name="drpFurnitureLevel">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_FurnitureLevel as $row)

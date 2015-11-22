@@ -131,9 +131,10 @@ function insert_survey()
 		$data['researcher_id'] = $drpResearcher;
 		$data['researcher_assistant_fst_id'] = $drpResearcherass1;
 		$data['researcher_assistant_sec_id'] = $drpResearcherass2;
-		
-		
+			
 		$this->db->insert('survey_tb',$data);
+		$Surveyid=$this->db->insert_id();
+		return $Surveyid;
 	}
 
 function update_survey()
@@ -161,6 +162,44 @@ function get_survey_info()
 	}
 
 //***********************end family_member_tb operations*********************
+//**********************Home_status operation********************************
+function insert_homeStatus()
+	{
+		extract($_POST);
 
+		$data['survey_id'] = $SurveyId;
+		$data['home_situation_id'] = $drpHomeStatus;
+		$data['home_type_id'] = $drpHomeType;
+		$data['ceiling_type_id'] = $drpCeilingType;
+		$data['furniture_level_id'] = $drpFurnitureLevel;
+		
+			
+		$this->db->insert('home_status_tb ',$data);
+		
+	}
+function update_homeStatus()
+	{
+		extract($_POST);
+
+		//$data['survey_id'] = $SurveyId;
+		$data['home_situation_id'] = $drpHomeStatus;
+		$data['home_type_id'] = $drpHomeType;
+		$data['ceiling_type_id'] = $drpCeilingType;
+		$data['furniture_level_id'] = $drpFurnitureLevel;
+		
+			
+		$this->db->where('survey_id',$SurveyId);
+		$this->db->update('home_status_tb ',$data);
+		
+	}
+function get_homeStatus_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('home_status_tb');
+		return $query->result();
+		
+	}
+
+//*********************end home_status operation*****************************
 }
 ?>
