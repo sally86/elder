@@ -294,5 +294,21 @@ function updateelderRoom()
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->update_elderRoom();
 	}
+//****************end elder room status function******//
+
+//*********************** Elder family relation function****************	//
+
+function addelderFamRel()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_elderFamilyRelation();
+		
+	}
+function updateelderFamRel()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_elderFamilyRelation();
+	}
+	
 }
 ?>

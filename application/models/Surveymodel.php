@@ -245,6 +245,37 @@ function update_elderRoom()
 		$this->db->update('elder_room_tb ',$data);
 		
 	}
+//*************** elder family relation*****************//
+//**********************Home_status operation********************************
+function insert_elderFamilyRelation()
+	{
+		extract($_POST);
 
+		$data['survey_id'] = $SurveyId;
+		$data['respect'] = $drpRespect;
+		$data['pariah'] = $drpPariah;
+		$data['care'] = $drpCare;
+		$data['provision_needs'] = $drpNeeds;
+		$data['psychological_support'] = $drpPsycosupport;
+			
+		$this->db->insert('family_elder_relationship_tb',$data);
+		
+	}
+function update_elderFamilyRelation()
+	{
+		extract($_POST);
+
+		//$data['survey_id'] = $SurveyId;
+		$data['respect'] = $drpRespect;
+		$data['pariah'] = $drpPariah;
+		$data['care'] = $drpCare;
+		$data['provision_needs'] = $drpNeeds;
+		$data['psychological_support'] = $drpPsycosupport;
+			
+		$this->db->where('survey_id',$SurveyId);
+		$this->db->update('family_elder_relationship_tb ',$data);
+		
+	}
+//********************end elder family relation function**************//
 }
 ?>
