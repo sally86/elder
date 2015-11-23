@@ -309,7 +309,8 @@ function update_lifeImprovement()
 		$data['elder_training_type'] = $txtTrainigType;
 		$data['can_start_project'] = $drpStartproject;
 		$data['project_type'] = $txtProjectType;
-		$data['project_budget'] = $txtProjectBudget;	
+		$data['project_budget'] = $txtProjectBudget;
+			
 		$this->db->where('survey_id',$SurveyId);
 		$this->db->update('life_improvement_tb ',$data);
 		
