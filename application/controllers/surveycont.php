@@ -230,7 +230,8 @@ function get_survey_data()
 			header("Content-Type: application/json");
 			echo json_encode($output);
 		}
-	$this->get_homeStatus_data($SurveyId);
+		
+
 }	
 
 //*************************end survey fuction****************************
@@ -247,8 +248,8 @@ function updatehomeStatus()
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->update_homeStatus();
 	}
-
-function get_homeStatus_data($SurveyId)
+/*
+function get_homeStatus_data()
 	{
 		$this->load->model('Surveymodel');
 		$rec=$this->Surveymodel->get_homeStatus_info($SurveyId);
@@ -279,8 +280,19 @@ function get_homeStatus_data($SurveyId)
 			echo json_encode($output);
 		}
 }	
+*/
+//*********************** Elder room status function****************	//
 
-//*************************end home status function ****************************
-
+function addelderRoom()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_elderRoom();
+		
+	}
+function updateelderRoom()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_elderRoom();
+	}
 }
 ?>

@@ -129,7 +129,7 @@
 		SurveyTabValidation.init();
 		FamilyMemberTabValidation.init();
 		HomeStatusTabValidation.init();
-
+		ElderRoomTabValidation.init();
 		/**************************/
 		UserTableAjax.init();
 		EmpTableAjax.init();

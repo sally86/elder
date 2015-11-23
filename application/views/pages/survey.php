@@ -3,6 +3,7 @@ $ction ="addelder";
 $fmction="addfamilymember";
 $surveyction="addsurvey";
 $homeStatusction="addhomeStatus";
+$elderRoomaction="addelderRoom";
 
 $page_title = "اضـــافة موظف";
 $readonly = '';
@@ -952,7 +953,7 @@ if (isset($elder_info))
                             </div>
                             <!-- Elder Room-->
                             <div class="tab-pane fade" id="tab_6_6">
-                              <form action="#" id="form_sample_3" class="form-horizontal">
+                              <form action="#" id="ElderRoomTab" class="form-horizontal">
                                   <div class="form-body">
                                     <br/>
                                       <div class="alert alert-danger display-hide">
@@ -961,15 +962,15 @@ if (isset($elder_info))
                                       </div>
                                       <div class="alert alert-success display-hide">
                                           <button class="close" data-close="alert"></button>
-                                          Your form validation is successful!
+                                          تـم عملية حـفـظ البيـانات بنجـاح !
                                       </div>
-                                      
+                                      <input id="elderRoomhdnAction" name="elderRoomhdnAction" type="hidden" value="<?php echo $elderRoomaction;?>" />
                                       <div class="form-group">
                                           <label class="control-label col-md-3">وصف حالة المسن في الأسرة <span class="required">
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpRoomtype" name="drpRoomtype">
+                                              <select class="form-control" id="drpRoomtype" name="drpRoomtype">
                                                 <option value="">اختر...</option>
                                                  <?php
 												  foreach($survey_Roomtype as $row)
@@ -986,7 +987,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpClothes" name="drpClothes">
+                                              <select class="form-control" id="drpClothes" name="drpClothes">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_Clothes as $row)
@@ -1004,7 +1005,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpVentilation" name="drpVentilation">
+                                              <select class="form-control" id="drpVentilation" name="drpVentilation">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_Ventilation as $row)
@@ -1021,7 +1022,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpLighting" name="drpLighting">
+                                              <select class="form-control" id="drpLighting" name="drpLighting">
                                                 <option value="">اختر...</option>
                                                    <?php
 												  foreach($survey_Lighting as $row)
@@ -1038,7 +1039,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpCloset" name="drpCloset">
+                                              <select class="form-control" id="drpCloset" name="drpCloset">
                                                 <option value="">اختر...</option>
                                                       <?php
 												  foreach($survey_Choice as $row)
@@ -1055,7 +1056,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpBed" name="drpBed">
+                                              <select class="form-control" id="drpBed" name="drpBed">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_Choice as $row)
@@ -1072,7 +1073,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpCupboard" name="drpCupboard">
+                                              <select class="form-control" id="drpCupboard" name="drpCupboard">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_Choice as $row)
@@ -1089,7 +1090,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpMaintenance" name="drpMaintenance">
+                                              <select class="form-control" id="drpMaintenance" name="drpMaintenance">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_Choice as $row)
@@ -1123,7 +1124,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpBathroom" name="drpBathroom">
+                                              <select class="form-control" id="drpBathroom" name="drpBathroom">
                                                 <option value="">اختر...</option>
                                                 <?php
 												  foreach($survey_Bathroom as $row)
@@ -1140,7 +1141,7 @@ if (isset($elder_info))
                                            * </span>
                                            </label>
                                           <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpHigiene" name="drpHigiene">
+                                              <select class="form-control" id="drpHigiene" name="drpHigiene">
                                                 <option value="">اختر...</option>
                                               <?php
 												  foreach($survey_Higiene as $row)

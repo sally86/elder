@@ -192,7 +192,7 @@ function update_homeStatus()
 		$this->db->update('home_status_tb ',$data);
 		
 	}
-function get_homeStatus_info($SurveyId)
+function get_homeStatus_info()
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
 		$query = $this->db->get('home_status_tb');
@@ -201,5 +201,50 @@ function get_homeStatus_info($SurveyId)
 	}
 
 //*********************end home_status operation*****************************
+
+//**********************Home_status operation********************************
+function insert_elderRoom()
+	{
+		extract($_POST);
+
+		$data['survey_id'] = $SurveyId;
+		$data['room_type_id'] = $drpRoomtype;
+		$data['clothes_covers_status_id'] = $drpClothes;
+		$data['room_ventilation_id'] = $drpVentilation;
+		$data['room_lighting_id'] = $drpLighting;
+		$data['has_closet'] = $drpCloset;
+		$data['has_good_bed'] = $drpBed;
+		$data['has_medicine_cupboard'] = $drpCupboard;
+		$data['room_need_maintenance'] = $drpMaintenance;
+		$data['room_need_restoration'] = $drpRestoration;
+		$data['bathroom_status_id'] = $drpBathroom;
+		$data['elder_higiene_id'] = $drpHigiene;
+		
+			
+		$this->db->insert('elder_room_tb ',$data);
+		
+	}
+function update_elderRoom()
+	{
+		extract($_POST);
+
+		//$data['survey_id'] = $SurveyId;
+		$data['room_type_id'] = $drpRoomtype;
+		$data['clothes_covers_status_id'] = $drpClothes;
+		$data['room_ventilation_id'] = $drpVentilation;
+		$data['room_lighting_id'] = $drpLighting;
+		$data['has_closet'] = $drpCloset;
+		$data['has_good_bed'] = $drpBed;
+		$data['has_medicine_cupboard'] = $drpCupboard;
+		$data['room_need_maintenance'] = $drpMaintenance;
+		$data['room_need_restoration'] = $drpRestoration;
+		$data['bathroom_status_id'] = $drpBathroom;
+		$data['elder_higiene_id'] = $drpHigiene;
+			
+		$this->db->where('survey_id',$SurveyId);
+		$this->db->update('elder_room_tb ',$data);
+		
+	}
+
 }
 ?>
