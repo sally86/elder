@@ -1164,4 +1164,161 @@ return {
         }
 
     };}();
-//*************** elder room function************************//
+//*************** end elder family relation function************************//
+
+//**************Life Improvemnt fucntion******************//
+
+function editeLifeImprov()
+{
+	var action = $("#lifeImprovhdnaction").val();
+	var SurveyId = $('#SurveyId').val();
+	alert(action);
+	alert(SurveyId);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:$('#LifeImprovementTab').serialize() + '&SurveyId=' + $('#SurveyId').val(),
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				if (returndb=='')
+				{
+					var form = $('#LifeImprovementTab');
+					$('.alert-success', form).show();
+					$('#lifeImprovhdnaction').val('updatelifeImprov');										
+				}
+			}
+		});//END $.ajax
+}
+//********** home status valisation**
+var LifeImprovTabValidation = function () {
+ var handleValidation = function() {
+        
+            var form = $('#LifeImprovementTab');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+
+            form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					drpElderWorkAbility: {
+                        required: true
+					},
+					txtelderworktype: {
+                        required: true
+                    },
+					drpFamilyMember: {
+                        required: true
+                    },
+					drpNeedtraining: {
+                        required: true
+                    },
+					txtTrainigType: {
+                        required: true
+					},
+					drpStartproject: {
+                        required: true
+                    },
+					txtProjectType: {
+                        required: true
+                    },
+					txtProjectBudget: {
+                        required: true
+					}
+					
+				},
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    
+					drpElderWorkAbility: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtelderworktype: {
+                        required: "الرجاء إدخال قيمة"
+                    },
+					drpFamilyMember: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					drpNeedtraining: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					txtTrainigType: {
+                        required: "الرجاء إدخال قيمة"
+					},
+					drpStartproject: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					txtProjectType: {
+                        required: "الرجاء إدخال قيمة"
+                    },
+					txtProjectBudget: {
+                        required: "الرجاء إدخال قيمة"
+					}
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+                        error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+                        error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editeLifeImprov();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };}();
+//*********************end life improvemnt function************//
+	

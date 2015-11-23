@@ -246,7 +246,6 @@ function update_elderRoom()
 		
 	}
 //*************** elder family relation*****************//
-//**********************Home_status operation********************************
 function insert_elderFamilyRelation()
 	{
 		extract($_POST);
@@ -277,5 +276,44 @@ function update_elderFamilyRelation()
 		
 	}
 //********************end elder family relation function**************//
+
+//**********************elder life improvement function********************************//
+function insert_lifeImprovement()
+	{
+		extract($_POST);
+
+		$data['survey_id'] = $SurveyId;
+		$data['elder_work_ability_id'] = $drpElderWorkAbility;
+		$data['elder_work_type'] = $txtelderworktype;
+		$data['family_member_id'] = $drpFamilyMember;
+		
+		$data['is_elder_need_training'] = $drpNeedtraining;
+		$data['elder_training_type'] = $txtTrainigType;
+		$data['can_start_project'] = $drpStartproject;
+		$data['project_type'] = $txtProjectType;
+		$data['project_budget'] = $txtProjectBudget;
+			
+		$this->db->insert('life_improvement_tb',$data);
+		
+	}
+function update_lifeImprovement()
+	{
+		extract($_POST);
+
+		//$data['survey_id'] = $SurveyId;
+		$data['elder_work_ability_id'] = $drpElderWorkAbility;
+		$data['elder_work_type'] = $txtelderworktype;
+		$data['family_member_id'] = $drpFamilyMember;
+		
+		$data['is_elder_need_training'] = $drpNeedtraining;
+		$data['elder_training_type'] = $txtTrainigType;
+		$data['can_start_project'] = $drpStartproject;
+		$data['project_type'] = $txtProjectType;
+		$data['project_budget'] = $txtProjectBudget;	
+		$this->db->where('survey_id',$SurveyId);
+		$this->db->update('life_improvement_tb ',$data);
+		
+	}
+//********************end elder life improvement function**************//
 }
 ?>

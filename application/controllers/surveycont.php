@@ -309,6 +309,22 @@ function updateelderFamRel()
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->update_elderFamilyRelation();
 	}
+
+//*********************** Elder family relation function****************	//
+
+function addelifeImprov()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_lifeImprovement();
+		
+	}
+function updatelifeImprov()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_lifeImprovement();
+	}
+	
 	
 }
+
 ?>

@@ -5,6 +5,7 @@ $surveyction="addsurvey";
 $homeStatusction="addhomeStatus";
 $elderRoomaction="addelderRoom";
 $elderFamRelAction="addelderFamRel";
+$lifeImprovAction="addelifeImprov";
 $page_title = "اضـــافة موظف";
 $readonly = '';
 if (isset($elder_info))
@@ -1425,7 +1426,7 @@ if (isset($elder_info))
                               <!-- END FORM-->
                             </div>
                             <div class="tab-pane fade" id="tab_6_9">
-                              <form action="#" id="form_sample_3" class="form-horizontal">
+                              <form action="#" id="form_6_Tab" class="form-horizontal">
                                   <div class="form-body">
                                     <br/>
                                       <div class="alert alert-danger display-hide">
@@ -1434,9 +1435,9 @@ if (isset($elder_info))
                                       </div>
                                       <div class="alert alert-success display-hide">
                                           <button class="close" data-close="alert"></button>
-                                          Your form validation is successful!
+                                           تـم عملية حـفـظ البيـانات بنجـاح !
                                       </div>
-                                      
+                                       
                                       <div class="form-group">
                                         <label class="control-label col-md-3">علاقة المسن بالأسرة والمجتمع المحلي <span class="required">
                                         * </span>
@@ -1548,7 +1549,7 @@ if (isset($elder_info))
                             <!-- End of Family Psycho-->
                             <!-- Life Improvement-->
                             <div class="tab-pane fade" id="tab_6_11">
-                               <form action="#" id="form_sample_3" class="form-horizontal">
+                               <form action="#" id="LifeImprovementTab" class="form-horizontal">
                                   <div class="form-body">
                                     <br/>
                                       <div class="alert alert-danger display-hide">
@@ -1557,15 +1558,15 @@ if (isset($elder_info))
                                       </div>
                                       <div class="alert alert-success display-hide">
                                           <button class="close" data-close="alert"></button>
-                                          Your form validation is successful!
+                                          تـم عملية حـفـظ البيـانات بنجـاح !
                                       </div>
-                                      
+                                      <input id="lifeImprovhdnaction" name="lifeImprovhdnaction" type="hidden" value="<?php echo $lifeImprovAction;?>" />
                                       <div class="form-group">
                                         <label class="control-label col-md-3">قدرة المسن على العمل  <span class="required">
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpElderWorkAbility" name="drpElderWorkAbility">
+                                            <select class="form-control" id="drpElderWorkAbility" name="drpElderWorkAbility">
                                                 <option value="">اختر...</option>
                                                  <?php
 												  foreach($survey_ElderWorkAbility as $row)
@@ -1581,7 +1582,7 @@ if (isset($elder_info))
                  					<div class="form-group">
                                         <label class="control-label col-md-3">طبيعة العمل التي يمكنه/ها القيام به  &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtReason" name="txtReason" class="form-control"/>
+                                            <input type="text" id="txtelderworktype" name="txtelderworktype" class="form-control"/>
                                         </div>
                                     </div>
                                   
@@ -1605,7 +1606,7 @@ if (isset($elder_info))
                                     <div class="form-group">
                                         <label class="control-label col-md-3">طبيعة العمل التي يمكنه/ها القيام به  &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtReason" name="txtReason" class="form-control"/>
+                                            <input type="text" id="txtFamilyworktype" name="txtFamilyworktype" class="form-control"/>
                                         </div>
                                     </div>
                                     
@@ -1615,7 +1616,7 @@ if (isset($elder_info))
                                         </label>
                                         <div class="col-md-4">
 
-                                            <select class="form-control select2me" id="drpPreviousjob" name="drpPreviousjob">
+                                            <select class="form-control select2me" id="drpNeedtraining" name="drpNeedtraining">
                                                 <option value="">اختر...</option>
                                                   <?php
 												  foreach($survey_Choice as $row)
@@ -1630,7 +1631,7 @@ if (isset($elder_info))
                                      <div class="form-group">
                                         <label class="control-label col-md-3">حدد نوع التدريب &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtReason" name="txtReason" class="form-control"/>
+                                            <input type="text" id="txtTrainigType" name="txtTrainigType" class="form-control"/>
                                         </div>
                                     </div>
                                     
@@ -1638,7 +1639,7 @@ if (isset($elder_info))
                                         <label class="control-label col-md-3">إمكانية عمل مشروع صغير مدر للدخل  &nbsp;&nbsp;&nbsp 
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control select2me" id="drpPreviousjob" name="drpPreviousjob">
+                                            <select class="form-control" id="drpStartproject" name="drpStartproject">
                                                 <option value="">اختر...</option>
                                                   <?php
 												  foreach($survey_Choice as $row)
@@ -1653,14 +1654,14 @@ if (isset($elder_info))
                                     <div class="form-group">
                                         <label class="control-label col-md-3">حدد نوع المشروع &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtReason" name="txtReason" class="form-control"/>
+                                            <input type="text" id="txtProjectType" name="txtProjectType" class="form-control"/>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label class="control-label col-md-3">التكلفة المتوقعة لتنفيذ المشروع &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <input type="text" id="txtReason" name="txtReason" class="form-control"/>
+                                            <input type="text" id="txtProjectBudget" name="txtProjectBudget" class="form-control"/>
                                         </div>
                                     </div>
                                     
