@@ -148,10 +148,10 @@
 							<a href="<?php echo base_url();?>surveycont/survey">
 							تعبــئة استــبانة</a>
 						</li>
-						<li  <?php if($title == 'recomendation') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>recomendation">
+						<!--<li  <?php //if($title == 'recomendation') echo 'class="active open"';?>>
+							<a href="<?php //echo base_url();?>recomendation">
 							تـوصيـات الادارة</a>
-						</li>
+						</li>-->
 						<li <?php if($title == 'viewsurvey') echo 'class="active open"';?>>
 							<a href="<?php echo base_url();?>viewsurvey">
 							عــرض الابحــاث الميـدانية</a>
