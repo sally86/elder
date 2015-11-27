@@ -125,7 +125,37 @@ class Surveymodel extends CI_Model
 		return $outdata;
 	}
 
-//-------------------------- END ELDER TAB -------------------------------/
+//-------------------------- END ELDER TAB ----------------------------/
+
+
+/*************************** Visit TAB ********************************/
+/*	 												  				  */
+/*	Update Survey									  				  */
+/*													  				  */
+/**********************************************************************/
+	// Update Survey
+	function update_survey()
+	{
+		extract($_POST);
+
+		$data['visit_date'] = $dpVisitdate;
+		$data['visit_time'] = $txtVisittime;
+		$data['visit_end_time'] = $txtVisitendtime;
+		$data['researcher_id']  = $drpResearcher;
+		if($drpResearcherass1 =="")
+			$data['researcher_assistant_fst_id'] = NULL;
+		else
+			$data['researcher_assistant_fst_id'] = $drpResearcherass1;
+		if($drpResearcherass2 =="")
+			$data['researcher_assistant_sec_id'] = NULL;
+		else
+			$data['researcher_assistant_sec_id'] = $drpResearcherass2;
+		
+		$this->db->where('survey_id',$hdnSurveyId);
+		$this->db->update('survey_tb',$data);
+	}
+//-------------------------- END VISIT TAB ----------------------------/
+
 
 //***********************end family_member_tb operations*********************
 
@@ -191,21 +221,7 @@ function insert_survey()
 		return $Surveyid;
 	}
 
-function update_survey()
-	{
-		extract($_POST);
 
-		//$data['file_id'] = $txtFileid;
-		$data['visit_date'] = $dpVisitdate;
-		$data['visit_time'] = $txtVisittime;
-		$data['visit_end_time'] = $txtVisitendtime;
-		$data['researcher_id'] = $drpResearcher;
-		$data['researcher_assistant_fst_id'] = $drpResearcherass1;
-		$data['researcher_assistant_sec_id'] = $drpResearcherass2;
-		
-		$this->db->where('file_id',$txtFileid);
-		$this->db->update('survey_tb',$data);
-	}
 
 function get_survey_info()
 	{	extract($_POST);

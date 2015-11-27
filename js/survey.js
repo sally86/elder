@@ -1,43 +1,8 @@
 // JavaScript Document
-var issuccess;
-// Add Or Update Elder
-/*function editeelder(tab, navigation, index)
-{
-	var action = $("#hdnAction").val();
-	var ElderId = document.getElementById('txtElderId').value;
-	alert(action);
-	
-	$.ajax({
-			url: baseURL+"Surveycont/"+action,
-			type: "POST",
-			data:  $("#submit_form").serialize(),
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				alert("returndb"+returndb);
-				if(returndb == '')
-				{
-					alert('issuccess true');
-					/*var form = $('#ElderTab');
-					$('.alert-success', form).show();
-					$('#hdnelder_id').val(ElderId);*/
-					/*handleTitle(tab, navigation, index);
-					issuccess = 1;
-				
-				} else {
-					alert('issuccess false');
-					issuccess = 0;
-				}
-			}
-		});//END $.ajax
-	
-	return 1;
-}*/
-//-------------ELDER check ID ----------------------//
+
+//-------------------- Elder Tab --------------------//
+
+//	ELDER check ID 
 function check_elder_id(){	
 
  	var ElderId = document.getElementById('txtElderId').value;
@@ -117,16 +82,12 @@ function check_elder_id(){
 			}
 		});//END $.ajax	
 	
+	}else
+		return;
 }
-else
+// END check ID
 
-return;
-}
-
-
-//-------------End check ID
-
-//-----------------check age less 60
+// Calculate Age 
 function claculateAge()
 {
 	if($('#dpDob').val() == '')
@@ -370,8 +331,105 @@ return {
     };
 
 }();
+//-------------------- END Elder Tab --------------------//
 
-//----------------------------------------------------------
+//-------------------- Survey Tab -----------------------//
+$(document).ready(function(){
+	
+	/********** Researcher **********/
+	$('#drpResearcher').change(function(event) {							
+		event.preventDefault();
+		
+		// Reset Disable Options
+		$("#drpResearcherass1 > option").prop('disabled', false);
+		$("#drpResearcherass2 > option").prop('disabled', false);
+		
+		// Disable the new Selected Option
+		if ($('#drpResearcher').val() != "")
+		{
+			var name = $( "#drpResearcher option:selected" ).text();
+			$("#drpResearcherass1 > option:contains('"+name+"')").attr("disabled","disabled");
+			$("#drpResearcherass2 > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		
+		// Disable Other Selected Options
+		if ($('#drpResearcherass1').val() != "")
+		{
+			var name = $( "#drpResearcherass1 option:selected" ).text();
+			$("#drpResearcherass2 > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		if ($('#drpResearcherass2').val() != "")
+		{
+			var name = $( "#drpResearcherass2 option:selected" ).text();
+			$("#drpResearcherass1 > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		
+		
+	}); // END CHANGE
+	
+	/********** Researcher Assistant 1**********/
+	$('#drpResearcherass1').change(function(event) {							
+		event.preventDefault();
+		
+		// Reset Disable Options
+		$("#drpResearcher > option").prop('disabled', false);
+		$("#drpResearcherass2 > option").prop('disabled', false);
+		
+		// Disable the new Selected Option
+		if ($('#drpResearcherass1').val() != "")
+		{
+			var name = $( "#drpResearcherass1 option:selected" ).text();
+			$("#drpResearcher > option:contains('"+name+"')").attr("disabled","disabled");
+			$("#drpResearcherass2 > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		
+		// Disable Other Selected Options
+		if ($('#drpResearcher').val() != "")
+		{
+			var name = $( "#drpResearcher option:selected" ).text();
+			$("#drpResearcherass2 > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		if ($('#drpResearcherass2').val() != "")
+		{
+			var name = $( "#drpResearcherass2 option:selected" ).text();
+			$("#drpResearcher > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		
+	}); // END CHANGE
+	/********** Researcher Assistant 2**********/
+	$('#drpResearcherass2').change(function(event) {							
+		event.preventDefault();
+		
+		// Reset Disable Options
+		$("#drpResearcher > option").prop('disabled', false);
+		$("#drpResearcherass1 > option").prop('disabled', false);
+		
+		// Disable the new Selected Option
+		if ($('#drpResearcherass2').val() != "")
+		{
+			var name = $( "#drpResearcherass2 option:selected" ).text();
+			$("#drpResearcher > option:contains('"+name+"')").attr("disabled","disabled");
+			$("#drpResearcherass1 > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		
+		// Disable Other Selected Options
+		if ($('#drpResearcher').val() != "")
+		{
+			var name = $( "#drpResearcher option:selected" ).text();
+			$("#drpResearcherass1 > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		if ($('#drpResearcherass1').val() != "")
+		{
+			var name = $( "#drpResearcherass1 option:selected" ).text();
+			$("#drpResearcher > option:contains('"+name+"')").attr("disabled","disabled");
+		}
+		
+	}); // END CHANGE
+	
+}); // END READY
+	
+//-------------------- END Survey Tab -----------------------//
+//
 function editefamilymember()
 {
 	var action = $("#fmhdnAction").val();
@@ -582,32 +640,8 @@ return {
 //**************** end family member function******************//
 
 //***************** survey *************//
-function editesurvey()
-{
-	var action = $("#surveyhdnAction").val();
-	var FileId = document.getElementById('txtFileid').value;
-	alert(action);
-	
-	$.ajax({
-			url: baseURL+"Surveycont/"+action,
-			type: "POST",
-			data:  $("#SurveyTab").serialize(),
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				
-					var form = $('#SurveyTab');
-					$('.alert-success', form).show();
-					$('#SurveyId').val(returndb);			
-			
-			}
-		});//END $.ajax
-}
 //-------------get servey data ----------------------//
+// غير لازمه
 function check_file_id(){	
 
  	var Fileid = document.getElementById('txtFileid').value;
@@ -1474,10 +1508,6 @@ var FormWizard = function () {
 						required: true
                     },
 					// Visit Info
-					txtFileid: {
-                        required: true,
-						digits: true
-                    },
 					dpVisitdate: {
                         required: true
                     }
@@ -1491,12 +1521,7 @@ var FormWizard = function () {
 					drpResearcher: {
                         required: true
                     },
-					drpResearcherass1: {
-                        required: true
-                    },
-					drpResearcherass2: {
-						required: true
-                    },
+					
 					// Family Member
 					txtMemberId: {
                         required: true,
@@ -1596,12 +1621,8 @@ var FormWizard = function () {
 						required: "الرجاء إختيار قيمة"
                     },
 					// Visit Info
-					txtFileid: {
-						required: "الرجاء إدخال رقم الهوية",
-						digits: "الرجـاء ادخـال ارقـام فقط"
-                    },
 					dpVisitdate: {
-						required: "الرجاء إدخال تاريخ الميلاد"
+						required: "الرجاء إدخال تاريخ الزيارة"
                     },
 					txtVisittime: {
 						required: "الرجاء إدخال الوقت"
@@ -1610,14 +1631,9 @@ var FormWizard = function () {
 						required: "الرجاء إدخال الوقت"
                     },
 					drpResearcher: {
-						required: "الرجاء إختيار قيمة"
+						required: "الرجاء إختيار الباحث"
                     },
-					drpResearcherass1: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpResearcherass2: {
-						required: "الرجاء إختيار قيمة"
-                    },
+		
 					// Family Member
 					 txtMemberId: {
 						required: "الرجاء إدخال رقم الهوية",
@@ -1799,7 +1815,29 @@ var FormWizard = function () {
 									}
 								}
 							});//END $.ajax
+						
+					}else if (index == 2){
+						$.ajax({
+								url: baseURL+"Surveycont/updatesurvey",
+								type: "POST",
+								data:  $("#submit_form").serialize(),
+								error: function(xhr, status, error) {
+									//var err = eval("(" + xhr.responseText + ")");
+									alert(xhr.responseText);
+								},
+								beforeSend: function(){},
+								complete: function(){},
+								success: function(returndb){
+										if(returndb == '')
+										{
+											handleTitle(tab, navigation, index);
+										}		
+								
+								}
+								
+							});//END $.ajax
 					}
+					
                     
                 },
                 onPrevious: function (tab, navigation, index) {

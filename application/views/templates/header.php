@@ -43,6 +43,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap-rtl.css"/>
 <!-- END TABLE STYLES -->
 
+<!-- BEGIN TIME STYLES -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+<!-- BEGIN TIME STYLES -->
+
 <!-- BEGIN TABLE AJAX-->
 <!--<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/select2/select2.css"/>-->
 <!--<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap-rtl.css"/>-->

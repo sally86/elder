@@ -358,15 +358,6 @@ $readonly = '';
                                 <div class="tab-pane" id="tab2">
                                     <h3 class="block">ادخل بيــانات الزيـارة الحــالية</h3>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">رقم الملف<span class="required">
-                                        * </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                           <input type="text" id="txtFileid" name="txtFileid" data-required="1" class="form-control" onblur="check_file_id()"/>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
                                         <label class="control-label col-md-3">تـاريخ دراسـة الحـالة <span class="required">
                                         * </span>
                                         </label>
@@ -385,18 +376,30 @@ $readonly = '';
                                         <label class="control-label col-md-3">ساعة الزيارة <span class="required">
                                         * </span>
                                         </label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="txtVisittime" name="txtVisittime" data-required="1" class="form-control"/>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+												<input type="text" id="txtVisittime" name="txtVisittime" readonly 
+                                                class="form-control timepicker timepicker-24" >
+												<span class="input-group-btn">
+												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+												</span>
+											</div> 
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label class="control-label col-md-3"> سـاعة انتهاء الزيارة<span class="required">
+                                        <label class="control-label col-md-3"> سـاعة انتهاء الزيارة <span class="required">
                                         * </span>
                                         </label>
-                                        <div class="col-md-4">
-                                          <input type="text" id="txtVisitendtime" name="txtVisitendtime" data-required="1" class="form-control"/>
-                                        </div>
+                                        <div class="col-md-3">
+											<div class="input-group">
+												<input type="text" id="txtVisitendtime" name="txtVisitendtime" readonly 
+                                                class="form-control timepicker timepicker-24" >
+												<span class="input-group-btn">
+												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+												</span>
+											</div>
+										</div>
                                     </div>
                                                                                                          
                                     <div class="form-group">
@@ -407,19 +410,18 @@ $readonly = '';
                                             <select class="form-control" id="drpResearcher" name="drpResearcher">
                                                 <option value="">اختر...</option>
                                                 <?php
-												  foreach($survey_employee_info as $row)
-												  {
+												 foreach($survey_employee_info as $row)
+												 {
                       								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
-							  					}
-							 					 ?>
+							  					  }
+							 					?>
 
                                             </select>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">اسـم المرافق الأول <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">اسـم المرافق الأول &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <select class="form-control" id="drpResearcherass1" name="drpResearcherass1">
@@ -436,8 +438,7 @@ $readonly = '';
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">اسـم المرافق الثاني <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">اسـم المرافق الثاني  &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <select class="form-control" id="drpResearcherass2" name="drpResearcherass2">

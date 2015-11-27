@@ -72,7 +72,7 @@ class Surveycont extends CI_Controller
 		
 	}
 	
-	/************************************************************/
+/************************* ELDER TAB ************************/
 	
 	function addelder()
 	{
@@ -83,6 +83,7 @@ class Surveycont extends CI_Controller
 		header("Content-Type: application/json");
 		echo json_encode($output);
 	}
+	
 	function updateelder()
 	{
 		$this->load->model('Surveymodel');
@@ -93,7 +94,7 @@ class Surveycont extends CI_Controller
 		echo json_encode($output);
 	}
 	
-//*************************check elder id ****************************
+	// check elder id 
 	function check_elder_id()
 	{
 		$this->load->model('Eldermodel');
@@ -144,15 +145,24 @@ class Surveycont extends CI_Controller
 	
 		
 		
-	}	
+	}
+/*********************** END ELDER TAB ************************/
+/************************* VISIT TAB **************************/
+
+	function updatesurvey()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_survey();
+	}
+	
 //**************************family_member_id*************************
 
-function addfamilymember()
+	function addfamilymember()
 	{
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->insert_familyMember();
 	}
-function updatefamilymember()
+	function updatefamilymember()
 	{
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->update_familyMember();
@@ -198,17 +208,13 @@ function check_familymember_id()
 //**************************family_member_id*************************
 //************************** survey procedure*************************
 
-function addsurvey()
+	/*function addsurvey()
 	{
 		$this->load->model('Surveymodel');
 		$result->Surveymodel->insert_survey();
 		echo $result;
-	}
-function updatesurvey()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->update_survey();
-	}
+	}*/
+	
 
 function get_survey_data()
 	{
