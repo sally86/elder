@@ -2,76 +2,130 @@
 
 class Surveymodel extends CI_Model
 {
-	// Get All Employee
+	
 
-//*******************elder_tb***********************
-function insert_elder()
+/*************************** ELDER TAB ********************************/
+/*	Insert Elder									  				  */
+/*	Update Elder									  				  */
+/**********************************************************************/
+	// Insert Elder
+	function insert_elder()
 	{
 		extract($_POST);
 
-		$data['elder_id'] = $txtElderId;
-		$data['first_name'] = $txtFname;
-		$data['middle_name'] = $txtMname;
-		$data['third_name'] = $txtThname;
-		$data['last_name'] = $txtLname;
-		$data['dob'] = $dpDob;
-		$data['sex_id'] = $rdSex;
-		$data['status_id'] = $drpElderstatus;
-		$data['governorate_id'] = $drpGovernorate;
-		$data['region'] = $txtRegion;
-		$data['full_address'] = $txtFulladdress;
-		$data['phone'] = $txtPhone;
-		$data['mobile_first'] = $txtMobile1;
-		$data['mobile_second'] = $txtMobile2;
+		$data['elder_id'] 	  		= $txtElderId;
+		$data['elder_category_id'] 	= $drpEldercategory;
+		$data['first_name'] 		= $txtFname;
+		$data['middle_name'] 		= $txtMname;
+		$data['third_name'] 		= $txtThname;
+		$data['last_name'] 			= $txtLname;
+		$data['dob'] 				= $dpDob;
+		$data['sex_id'] 			= $rdSex;
+		$data['status_id'] 			= $drpElderstatus;
+		$data['governorate_id'] 	= $drpGovernorate;
+		$data['region'] 			= $txtRegion;
+		$data['full_address'] 		= $txtFulladdress;
+		$data['phone'] 				= $txtPhone;
+		$data['mobile_first'] 		= $txtMobile1;
+		$data['mobile_second'] 		= $txtMobile2;
 		$data['education_level_id'] = $drpEducationlevel;
-		$data['specialization_id'] = $drpSpecialization;
-		$data['current_job_id'] = $drpCurrentjob;
-		$data['previous_job_id'] = $drpPreviousjob;
-		$data['insurance_type_id'] = $drpInsurence;
-//		$data['death_date'] = $txtMobile;
+		$data['specialization_id'] 	= $drpSpecialization;
+		$data['current_job_id'] 	= $drpCurrentjob;
+		$data['previous_job_id'] 	= $drpPreviousjob;
+		$data['insurance_type_id'] 	= $drpInsurence;
+		
 		
 		$this->db->insert('elder_tb',$data);
+		
+		// Insert file_tb
+		$filedata['elder_id'] = $txtElderId;
+		$filedata['file_status_id'] = 170;
+		//$filedata['created_by'] = $_SESSION['username'];
+		
+		$this->db->insert('file_tb',$filedata);
+		$file_id = $this->db->insert_id();
+		
+		
+		// Insert survey_tb
+		$surveydata['file_id'] = $file_id;
+		//$surveydata['created_by'] = $_SESSION['username'];
+		
+		$this->db->insert('survey_tb',$surveydata);
+		$survey_id = $this->db->insert_id();
+		
+		
+		
+		// Insert survey_elder_info_tb
+		$data['survey_id'] = $survey_id;
+		$this->db->insert('survey_elder_info_tb',$data);
+		
+		
+		
+		$outdata['file_id']   = $file_id;
+		$outdata['survey_id'] = $survey_id;
+		return $outdata;
+		
 	}
-function update_elder()
+	
+	// Update Elder
+	function update_elder()
 	{
 		extract($_POST);
 
-
-		$data['first_name'] = $txtFname;
-		$data['middle_name'] = $txtMname;
-		$data['third_name'] = $txtThname;
-		$data['last_name'] = $txtLname;
-		$data['dob'] = $dpDob;
-		$data['sex_id'] = $rdSex;
-		$data['status_id'] = $drpElderstatus;
-		$data['governorate_id'] = $drpGovernorate;
-		$data['region'] = $txtRegion;
-		$data['full_address'] = $txtFulladdress;
-		$data['phone'] = $txtPhone;
-		$data['mobile_first'] = $txtMobile1;
-		$data['mobile_second'] = $txtMobile2;
+		$data['elder_category_id'] 	= $drpEldercategory;
+		$data['first_name'] 		= $txtFname;
+		$data['middle_name'] 		= $txtMname;
+		$data['third_name'] 		= $txtThname;
+		$data['last_name'] 			= $txtLname;
+		$data['dob'] 				= $dpDob;
+		$data['sex_id'] 			= $rdSex;
+		$data['status_id'] 			= $drpElderstatus;
+		$data['governorate_id'] 	= $drpGovernorate;
+		$data['region'] 			= $txtRegion;
+		$data['full_address'] 		= $txtFulladdress;
+		$data['phone'] 				= $txtPhone;
+		$data['mobile_first'] 		= $txtMobile1;
+		$data['mobile_second'] 		= $txtMobile2;
 		$data['education_level_id'] = $drpEducationlevel;
-		$data['specialization_id'] = $drpSpecialization;
-		$data['current_job_id'] = $drpCurrentjob;
-		$data['previous_job_id'] = $drpPreviousjob;
+		$data['specialization_id'] 	= $drpSpecialization;
+		$data['current_job_id'] 	= $drpCurrentjob;
+		$data['previous_job_id'] 	= $drpPreviousjob;
 		$data['insurance_type_id'] = $drpInsurence;
 //		$data['death_date'] = $txtMobile;
+
 		$this->db->where('elder_id',$txtElderId);
 		$this->db->update('elder_tb',$data);
+		
+		if($hdnSurveyId != "")
+		{
+			$this->db->where('survey_id',$hdnSurveyId);
+			$this->db->update('survey_elder_info_tb',$data);
+			
+			$file_id = $hdnFileId;
+			$survey_id = $hdnSurveyId; 
+		}
+		elseif($hdnSurveyId == "")
+		{
+			// Insert survey_tb
+			$surveydata['file_id'] = $hdnFileId;
+			//$surveydata['created_by'] = $_SESSION['username'];
+			$this->db->insert('survey_tb',$surveydata);
+			
+			
+			// Insert survey_elder_info_tb
+			$survey_id = $this->db->insert_id();
+			$data['survey_id'] = $this->db->insert_id();
+			$this->db->insert('survey_elder_info_tb',$data);
+			
+			$file_id = $hdnFileId;
+		}
+		
+		$outdata['file_id']   = $file_id;
+		$outdata['survey_id'] = $survey_id;
+		return $outdata;
 	}
-/*
-function check_elder_id()
-	{
-		extract($_POST);
-		$elder_id=$elder_id;
-		$myquery = "SELECT 	count(1) as cn
-				  	FROM 	elder_tb
-				  	WHERE 	elder_id=$elder_id";
-		 return $this->db->query($myquery);
-	}
-	*/
 
-//***********************end eder_tb operation***************
+//-------------------------- END ELDER TAB -------------------------------/
 
 //***********************end family_member_tb operations*********************
 

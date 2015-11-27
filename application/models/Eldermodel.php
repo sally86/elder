@@ -13,10 +13,17 @@ class Eldermodel extends CI_Model
 			$elderid = $elder_id;
 		}
 		
-		$this->db->where('elder_id',$elderid);
-		$query = $this->db->get('elder_tb');
+		$myquery = "SELECT e.elder_id, e.elder_category_id, e.first_name, e.middle_name, e.third_name, e.last_name,
+							e.dob, e.sex_id, e.status_id, e.governorate_id, e.region, e.full_address, e.phone, 
+        					e.mobile_first, e.mobile_second, e.education_level_id, e.specialization_id, 
+        					e.current_job_id, e.previous_job_id, e.insurance_type_id, e.death_date,
+        					f.file_id, f.file_status_id
+					 FROM elder_tb e, file_tb f
+					WHERE e.elder_id = f.elder_id
+					  AND e.elder_id = ".$elderid;
 		
-		return $query->result();
+		$res = $this->db->query($myquery);
+		return $res->result();
 		
 	}
 	

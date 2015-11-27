@@ -81,7 +81,6 @@
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 <!--<script type="text/javascript" src="../../assets/global/plugins/select2/select2.min.js"></script>-->
 
-
 <!-- END MULTIPLE SELECT PLUGINS -->
 
 <!-- BEGIN IMAGE UPLOAD PLUGINS -->
@@ -94,6 +93,9 @@
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <!-- END DATEPICKER PLUGINS -->
 
+<!-- BEGIN WIZARD PLUGINS -->
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<!-- END WIZARD PLUGINS -->
 
 <!-- BEGIN DATEPICKER SCRIPT -->
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-pickers.js"></script>
@@ -109,7 +111,6 @@
 <script src="<?php echo base_url();?>js/usertypepermession.js"></script>
 <script src="<?php echo base_url();?>js/elderfile.js"></script>
 <!-- END OUR SCRIPTS -->
-
 
 <script>
       jQuery(document).ready(function() {    
@@ -133,12 +134,15 @@
 		ElderFamRelTabValidation.init();
 		LifeImprovTabValidation.init();
 		/**************************/
+		FormWizard.init();
+		
 		UserTableAjax.init();
 		EmpTableAjax.init();
 		ElderTableAjax.init();
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
 		ComponentsPickers.init();
+		
       });
    </script>
 <!-- END JAVASCRIPTS -->

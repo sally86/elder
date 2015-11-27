@@ -146,7 +146,7 @@ if (isset($elder_file))
       <div class="portlet box blue-madison">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-folder-open"></i>بيـانـات العـضــو الشـخـصيــة (<?php echo $eldername;?>)
+                  <i class="fa fa-user"></i>بيـانـات العـضــو الشـخـصيــة (<?php echo $eldername;?>)
               </div>
               <div class="tools">
                   <a href="javascript:;" class="collapse">
@@ -174,7 +174,7 @@ if (isset($elder_file))
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">تـصنيف المـلـف&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">تـصنيف الحـالة&nbsp;&nbsp;&nbsp;
                           </label>
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
@@ -487,7 +487,7 @@ if (isset($elder_file))
         <div class="portlet box blue-madison">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>الأوراق الثبـــوتية للمسـن (<?php echo $eldername;?>)
+                    <i class="fa fa-file"></i>الأوراق الثبـــوتية للمسـن (<?php echo $eldername;?>)
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">

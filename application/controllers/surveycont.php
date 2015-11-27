@@ -35,6 +35,7 @@ class Surveycont extends CI_Controller
 	{
 		$this->load->model('constantmodel');
 		$this->data['survey_Filestatus'] = $this->constantmodel->get_sub_constant(51);
+		$this->data['survey_Eldercategory'] = $this->constantmodel->get_sub_constant(53);
 		$this->data['survey_Maritalstatus'] = $this->constantmodel->get_sub_constant(2);
 		$this->data['survey_Governorate'] = $this->constantmodel->get_sub_constant(22);
 		$this->data['survey_Specialization'] = $this->constantmodel->get_sub_constant(24);
@@ -76,12 +77,20 @@ class Surveycont extends CI_Controller
 	function addelder()
 	{
 		$this->load->model('Surveymodel');
-		$this->Surveymodel->insert_elder();
+		$output = $this->Surveymodel->insert_elder();
+		
+		header('Access-Control-Allow-Origin: *');
+		header("Content-Type: application/json");
+		echo json_encode($output);
 	}
 	function updateelder()
 	{
 		$this->load->model('Surveymodel');
-		$this->Surveymodel->update_elder();
+		$output = $this->Surveymodel->update_elder();
+		
+		header('Access-Control-Allow-Origin: *');
+		header("Content-Type: application/json");
+		echo json_encode($output);
 	}
 	
 //*************************check elder id ****************************
@@ -102,24 +111,28 @@ class Surveycont extends CI_Controller
 			$temp = array();
 
 			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
-		$temp['txtFname'] = $row->first_name;
-		$temp['txtMname'] = $row->middle_name;
-		$temp['txtThname'] = $row->third_name;
-		$temp['txtLname'] = $row->last_name;
-		$temp['dpDob'] = $row->dob;
-		$temp['rdSex'] = $row->sex_id;
-		$temp['drpElderstatus'] = $row->status_id;
-		$temp['drpGovernorate'] = $row->governorate_id;
-		$temp['txtRegion'] = $row->region;
-		$temp['txtFulladdress'] = $row->full_address;
-		$temp['txtPhone'] = $row->phone;
-		$temp['txtMobile1'] = $row->mobile_first;
-		$temp['txtMobile2'] = $row->mobile_second;
-		$temp['drpEducationlevel'] = $row->education_level_id;
-		$temp['drpSpecialization'] = $row->specialization_id;
-		$temp['drpCurrentjob'] = $row->current_job_id;
-		$temp['drpPreviousjob'] = $row->previous_job_id;
-		$temp['drpInsurence'] = $row->insurance_type_id;
+			$temp['hdnFileId']   		= $row->file_id;
+			$temp['FileStatus']  		= $row->file_status_id;
+			$temp['drpEldercategory']  	= $row->elder_category_id;
+			$temp['txtFname'] 	 		= $row->first_name;
+			$temp['txtMname'] 	 		= $row->middle_name;
+			$temp['txtThname'] 	 		= $row->third_name;
+			$temp['txtLname'] 	 		= $row->last_name;
+			$temp['dpDob'] 		 		= $row->dob;
+			$temp['rdSex'] 		 		= $row->sex_id;
+			$temp['drpElderstatus'] 	= $row->status_id;
+			$temp['drpGovernorate'] 	= $row->governorate_id;
+			$temp['txtRegion'] 			= $row->region;
+			$temp['txtFulladdress'] 	= $row->full_address;
+			$temp['txtPhone'] 			= $row->phone;
+			$temp['txtMobile1'] 		= $row->mobile_first;
+			$temp['txtMobile2'] 		= $row->mobile_second;
+			$temp['drpEducationlevel'] 	= $row->education_level_id;
+			$temp['drpSpecialization'] 	= $row->specialization_id;
+			$temp['drpCurrentjob'] 		= $row->current_job_id;
+			$temp['drpPreviousjob'] 	= $row->previous_job_id;
+			$temp['drpInsurence'] 		= $row->insurance_type_id;
+			$temp['DeathDate'] 			= $row->death_date;
 			array_push($output,$temp);
 			
 			

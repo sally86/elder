@@ -203,7 +203,8 @@ var FormWizard = function () {
                 'nextSelector': '.button-next',
                 'previousSelector': '.button-previous',
                 onTabClick: function (tab, navigation, index, clickedIndex) {
-                    return false;
+                    alert('hi');
+					return false;
                     /*
                     success.hide();
                     error.hide();

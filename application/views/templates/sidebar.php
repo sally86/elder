@@ -110,11 +110,11 @@
 						</li>
 					</ul>
 				</li>
-				<li <?php if($title == 'openfile' || $title == 'elders') echo 'class="active open"';?>>
+				<li <?php if($title == 'elderfile' || $title == 'elders') echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-folder"></i>
 					<span class="title">الأعضـــــــاء</span>
-                    <?php if($title == 'openfile' || $title == 'elders')
+                    <?php if($title == 'elderfile' || $title == 'elders')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
