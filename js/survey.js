@@ -1,7 +1,7 @@
 // JavaScript Document
 var issuccess;
 // Add Or Update Elder
-function editeelder(tab, navigation, index)
+/*function editeelder(tab, navigation, index)
 {
 	var action = $("#hdnAction").val();
 	var ElderId = document.getElementById('txtElderId').value;
@@ -25,7 +25,7 @@ function editeelder(tab, navigation, index)
 					/*var form = $('#ElderTab');
 					$('.alert-success', form).show();
 					$('#hdnelder_id').val(ElderId);*/
-					handleTitle(tab, navigation, index);
+					/*handleTitle(tab, navigation, index);
 					issuccess = 1;
 				
 				} else {
@@ -36,7 +36,7 @@ function editeelder(tab, navigation, index)
 		});//END $.ajax
 	
 	return 1;
-}
+}*/
 //-------------ELDER check ID ----------------------//
 function check_elder_id(){	
 
@@ -65,11 +65,17 @@ function check_elder_id(){
 				  $('#txtMname').val(returndb[0]['txtMname']);
 				  $('#txtThname').val(returndb[0]['txtThname']);
 				  $('#txtLname').val(returndb[0]['txtLname']);
-				 	$("#dpDob").datepicker().val(returndb[0]['dpDob']);
-					$('#dpDob').datepicker("setDate", new Date(2008,09,03) );
-				   //$("#dpDob").datepicker('option', 'defaultDate', returndb[0]['dpDob']);
-				  //alert($('#dpDob').datepicker('setDate'));
+				 
+				  //------------------------------------------------
+				  // Set Select Date to date picker
+				  var queryDate = returndb[0]['dpDob'],
+					  dateParts = queryDate.match(/(\d+)/g);
+					  realDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);  
+													  // months are 0-based!
 				  
+				  $('#dvDob').datepicker({ dateFormat: 'yy-mm-dd' }); // format to show
+				  $('#dvDob').datepicker('setDate', realDate);
+				  //------------------------------------------------
 				  
 				  $('#rdSex').val(returndb[0]['rdSex']);
 				  $('#drpElderstatus').val(returndb[0]['drpElderstatus']);
@@ -119,47 +125,18 @@ return;
 
 
 //-------------End check ID
-/*
-$('#dpDob').change(function(event) {							
-		event.preventDefault();
-		
-		
-		var Elder_date= document.getElementById('dpDob').value;
-		
-		var date = new Date();
-		
-		var day = date.getDate();
-		if (day>= 1 && day <= 9) 
-			day = '0' + day;
-			
-		var month = date.getMonth()+1;
-		if (month >= 1 && month <= 9)
-			month = '0' + month;
-		
-		var year = date.getFullYear();
-		
-		
-		var d = year+'-'+month+'-'+day;
-		
-		var Elderdate = new Date(Elder_date);
-		var today = new Date(d);
-		//alert ("bookingDate: "+bookingDate);
-		//alert ("today: "+today);
-		alert((today-Elderdate))
-	//	if ((Elderdate - today)<60)
-		{
-			//alert ('يجب ان يكون تاريخ الحجز اكبر من تاريخ اليوم');
-			//document.getElementById('booking_date').value = '';
-		//	return;
-		}
-	}); // END CHANGE
-*/
+
 //-----------------check age less 60
-$(document).ready(function(){
+function claculateAge()
+{
+	if($('#dpDob').val() == '')
+	{
+		$('#lblAge').html('');
+		$('#lblAge').removeClass('font-red');
+		$('#lblAge').removeClass('font-green');
+		return;
+	}
 	
-	$('#dpDob').change(function(event) {							
-		event.preventDefault();
-		
 		var dateStr = $('#dpDob').val();
 		var dateParts = dateStr.split("-");
 		var dateOfBirth = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
@@ -190,8 +167,7 @@ $(document).ready(function(){
 		{
 			$('#lblAge').removeClass('font-green').addClass('font-red');
 		}
-	}); // END CHANGE
-}); // END READY*/
+}
 
 
 //---------------------------------

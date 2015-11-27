@@ -157,8 +157,9 @@ $readonly = '';
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                                <input type="text" class="form-control" readonly id="dpDob" name="dpDob" value="">
+                                            <div id="dvDob" class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                                <input type="text" class="form-control" readonly id="dpDob" name="dpDob" value=""
+                                                onchange="claculateAge()">
                                                 <span class="input-group-btn">
                                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                                 </span>
