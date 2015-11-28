@@ -333,7 +333,7 @@ return {
 }();
 //-------------------- END Elder Tab --------------------//
 
-//-------------------- Survey Tab -----------------------//
+//-------------------- Visit Tab -----------------------//
 $(document).ready(function(){
 	
 	/********** Researcher **********/
@@ -428,7 +428,7 @@ $(document).ready(function(){
 	
 }); // END READY
 	
-//-------------------- END Survey Tab -----------------------//
+//-------------------- END Visit Tab -----------------------//
 //
 function editefamilymember()
 {
