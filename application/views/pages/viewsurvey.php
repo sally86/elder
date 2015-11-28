@@ -23,7 +23,7 @@
                       </select>
                       <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
                   </div>
-                  <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
+                  <table class="table table-striped table-bordered table-hover" id="Surveydatatable_ajax">
                   <thead>
                   <tr role="row" class="heading">
                       <th width="2%">
@@ -49,7 +49,7 @@
                           <input type="text" class="form-control form-filter input-sm" id="txtResearchername" name="txtResearchername">
                       </td>
                       <td>
-                          <input type="text" class="form-control form-filter input-sm" id="txtEmpName" name="txtEmpName">
+                          <input type="text" class="form-control form-filter input-sm" id="txtElderName" name="txtElderName">
                       </td>
                       <td>
                           <div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy/mm/dd">
@@ -72,26 +72,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                  	<td>&nbsp;</td>
-                    <td>محمد أحمد</td>
-                    <td>أحمد محمد أحمد حسين</td>
-                    <td>1/8/2015</td>
-                    <td><a class="btn btn-xs default" href="survey">
-						<i class="fa fa-pencil"></i>
-							تعديل
-						</a></td>
-                  </tr>
-                  <tr>
-                  	<td>&nbsp;</td>
-                    <td>عمر حسن</td>
-                    <td>حسين محمد علي عيسى</td>
-                    <td>5/7/2015</td>
-                    <td><a class="btn btn-xs default" href="survey">
-						<i class="fa fa-pencil"></i>
-							تعديل
-						</a></td>
-                  </tr>
+                  
                   </tbody>
                   </table>
               </div>

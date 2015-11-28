@@ -110,6 +110,8 @@
 <script src="<?php echo base_url();?>js/employee.js"></script>
 <script src="<?php echo base_url();?>js/elders.js"></script>
 <script src="<?php echo base_url();?>js/survey.js"></script>
+<script src="<?php echo base_url();?>js/SurveyView.js"></script>
+
 <script src="<?php echo base_url();?>js/usertypepermession.js"></script>
 <script src="<?php echo base_url();?>js/elderfile.js"></script>
 <!-- END OUR SCRIPTS -->
@@ -127,7 +129,7 @@
 		FileFormValidation.init();
 		ElderInfoValidation.init();
 		
-		/*******Survey Validation *******************/
+		/*******Forms Validation *******************/
 		ElderTabValidation.init();
 		SurveyTabValidation.init();
 		FamilyMemberTabValidation.init();
@@ -137,10 +139,12 @@
 		LifeImprovTabValidation.init();
 		/**************************/
 		FormWizard.init();
-		
+	//***************Ajax table*******************/
 		UserTableAjax.init();
 		EmpTableAjax.init();
 		ElderTableAjax.init();
+		SurveyTableAjax.init();
+		//***************end Ajax table*******************/
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
 		ComponentsPickers.init();

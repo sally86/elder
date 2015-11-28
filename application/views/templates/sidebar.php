@@ -149,11 +149,11 @@
 							تعبــئة استــبانة</a>
 						</li>
 						<!--<li  <?php //if($title == 'recomendation') echo 'class="active open"';?>>
-							<a href="<?php //echo base_url();?>recomendation">
+							<a href="<?php //echo base_url();?>	recomendation">
 							تـوصيـات الادارة</a>
 						</li>-->
 						<li <?php if($title == 'viewsurvey') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>viewsurvey">
+							<a href="<?php echo base_url();?>surveyviewcont/viewsurvey">
 							عــرض الابحــاث الميـدانية</a>
 						</li>
 					</ul>
