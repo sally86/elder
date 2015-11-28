@@ -86,7 +86,7 @@ var SurveyTableAjax = function () {
 function gotoSurvey(arg)
 {//alert(arg);
 	$.ajax({
-			url: baseURL+"Surveyviewcont/Surveysenddata",
+			url: baseURL+"Surveyviewcont/senddata",
 			type: "POST",
 			data:  {survey_id : arg},
 			error: function(xhr, status, error) {

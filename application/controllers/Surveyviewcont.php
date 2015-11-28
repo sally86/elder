@@ -133,7 +133,7 @@ function viewsurvey()
 	/************************************************************/
 	
 }
-function Surveysenddata()
+function senddata()
 	{
 		extract($_POST);
 		$_SESSION['update'] = $survey_id;
