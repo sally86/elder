@@ -459,130 +459,178 @@ $readonly = '';
                                 <!-- Tab 3 -->
                                 <div class="tab-pane" id="tab3">
                                     <h3 class="block">ادخـــل بيـانات أفراد اســرة المسـن</h3>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">الاسـم <span class="required">
-                                        * </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="txtMembername" name="txtMembername" data-required="1" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">رقم الهوية <span class="required">
-                                        * </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="txtMemberId" name="txtMemberId" data-required="1" class="form-control" onblur="check_familymember_id()"/>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">النوع الطبيعي&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                        <div class="col-md-4">
-                                            <div class="radio-list" data-error-container="#form_2_membership_error">
-                                                <label>
-                                                <input type="radio" id="rdMemSexMale" name="rdMemSex" value="1" checked="checked"/>
-                                                ذكـر </label>
-                                                <label>
-                                                <input type="radio" id="rdMemSexFemale" name="rdMemSex" value="2"/>
-                                                انـثى </label>
-                                            </div>
-                                            <div id="form_2_membership_error">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">صـلة القـرابـة&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                        <div class="col-md-4">
-                                            <select class="form-control" id="drpMemRelationship" name="drpMemRelationship">
-                                                <option value="">اختر...</option>
-                                                <?php
-												  		foreach($survey_Relationship as $row)
-												 	 {
-                      										echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-							  						}
-							 						 ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">الحـالة الاجتمـاعية&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                        <div class="col-md-4">
-                                            <select class="form-control" id="drpMemStatus" name="drpMemStatus">
-                                                 <?php
-												  foreach($survey_Maritalstatus as $row)
-												  {
-                      								echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-							  					}
-							 					 ?>
-                          </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">تـاريخ الميـلاد</label>
-                                        <div class="col-md-4">
-                                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                                <input type="text" class="form-control" readonly id="dpMemDob" name="dpMemDob">
-                                                <span class="input-group-btn">
-                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                </span>
-                                            </div>
-                                            <!-- /input-group -->
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">المستـوى التعليمي&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                        <div class="col-md-4">
-                                            <select class="form-control" id="drpMemEdulevel" name="drpMemEdulevel">
-                                                <option value="">اختر...</option>
-                               					<?php
-												  foreach($survey_Educationlevel as $row)
-												  {
-                      								echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-							  					}
-							 					 ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">الحـالة الصحيـة&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                        <div class="col-md-4">
-                                            <select class="form-control" id="drpMemHealth" name="drpMemHealth">
-                                                <option value="">اختر...</option>
-                                                <?php
-												  foreach($survey_Health as $row)
-												  {
-                      								echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-							  					}
-							 					 ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">المهنة&nbsp;&nbsp;&nbsp;</label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="txtMemjob" name="txtMemjob" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">الدخل بالشيكل&nbsp;&nbsp;&nbsp;</label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="txtMemincome" name="txtMemincome" class="form-control"/>
-                                        </div>
-                                    </div>
+                                    <input id="hdnActionFM" name="hdnActionFM" type="hidden" value="addfamilymember" />
+                                    <div class="note note-info">
+										<p><b> عــدد أفــــراد الأســــرة ( <span id="spnCountFamily"> 0 </span> )</b></p>
+									</div>
+   <!------------------------------------------TABLE------------------------------------------------>
+                                    <div class="table-scrollable" style="white-space: nowrap;">
+                                        <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                        <tr class="bg-grey-steel">
+                                            <th scope="col">
+                                                 #
+                                            </th>
+                                            <th scope="col">
+                                                 الاسـم
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">
+                                                 رقم الهوية
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">
+                                                 النوع الطبيعي
+                                            </th>
+                                            <th scope="col">
+                                                 صلة القرابة
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">
+                                                 الحالة الاجتماعية
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">
+                                                 تاريخ الميلاد
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">
+                                                 المستوى التعليمي
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">
+                                                 الحالة الصحية
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">
+                                                 المهنة
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">
+                                                 الدخل بالشيكل
+                                                 <span class="font-red">
+                                        		* </span>
+                                            </th>
+                                            <th scope="col">&nbsp;
+                                                 
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;
+                                                 
+                                            </th>
+                                            <th>
+                                                <input type="text" id="txtMembername" name="txtMembername" data-required="1" 
+                                                class="form-control input-sm input-small"/>
+                                            </th>
+                                            <th>
+                                                 <input type="text" id="txtMemberId" name="txtMemberId" data-required="1" 
+                                                 class="form-control input-sm input-small" />
+                                            </th>
+                                            <th>
+                                                 <div class="radio-list" data-error-container="#form_2_membership_error">
+                                                        <label>
+                                                        <input type="radio" id="rdMemSexMale" name="rdMemSex" value="1" checked="checked"/>
+                                                        ذكـر </label>
+                                                        <label>
+                                                        <input type="radio" id="rdMemSexFemale" name="rdMemSex" value="2"/>
+                                                        انـثى </label>
+                                                    </div>
+                                                    <div id="form_2_membership_error">
+                                                    </div>
+                                                
+                                            </th>
+                                            <th>
+                                                 <select id="drpMemRelationship" name="drpMemRelationship"
+                                                 class="form-control input-sm input-xsmall" >
+                                                        <option value="">اختر...</option>
+                                                        <?php
+                                                         foreach($survey_Relationship as $row)
+                                                         {
+                                                            echo '<option value="'.$row->sub_constant_id.'">'
+                                                                    .$row->sub_constant_name.'</option>';
+                                                         }
+                                                         ?>
+                                                  </select>
+                                            </th>
+                                            <th>
+                                                 <select id="drpMemStatus" name="drpMemStatus" 
+                                                   class="form-control input-sm input-xsmall" >
+                                                         <option value="">اختر...</option>
+                                                         <?php
+                                                          foreach($survey_Maritalstatus as $row)
+                                                          {
+                                                            echo '<option value="'.$row->sub_constant_id.'">'
+                                                                    .$row->sub_constant_name.'</option>';
+                                                          }
+                                                         ?>
+                                                </select>
+                                            </th>
+                                            <th>
+                                                 <div class="input-group date date-picker input-small margin-top-10" 
+                                                      data-date-format="yyyy-mm-dd">
+                                                        <input type="text" class="form-control" readonly id="dpMemDob" name="dpMemDob">
+                                                        <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i></button>
+                                                        </span>
+                                                 </div>
+                                            </th>
+                                            <th>
+                                                 <select id="drpMemEdulevel" name="drpMemEdulevel" 
+                                                   class="form-control input-sm input-xsmall" >
+                                                        <option value="">اختر...</option>
+                                                        <?php
+                                                          foreach($survey_Educationlevel as $row)
+                                                          {
+                                                            echo '<option value="'.$row->sub_constant_id.'">'
+																	.$row->sub_constant_name.'</option>';
+                                                          }
+                                                         ?>
+                                                 </select>
+                                            </th>
+                                            <th>
+                                                 <select id="drpMemHealth" name="drpMemHealth"
+                                                   class="form-control input-sm input-xsmall" >
+                                                        <option value="">اختر...</option>
+                                                        <?php
+                                                          foreach($survey_Health as $row)
+                                                          {
+                                                            echo '<option value="'.$row->sub_constant_id.'">'
+                                                                    .$row->sub_constant_name.'</option>';
+                                                          }
+                                                        ?>
+                                                    </select>
+                                            </th>
+                                            <th>
+                                                  <input type="text" id="txtMemjob" name="txtMemjob" 
+                                                    class="form-control input-sm input-small"/>
+                                            </th>
+                                            <th>
+                                                 <input type="text" id="txtMemincome" name="txtMemincome" 
+                                                   class="form-control input-sm input-xsmall"/>
+                                            </th>
+                                            <th>
+                                                 <button id="btnAddMem" name="btnAddMem" type="button" 
+                                                 class="btn btn-circle green-turquoise btn-sm" onclick="editefamilymember()">
+                                                <i id="iConst" class="fa fa-plus"></i></button>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tbdFamilyMember">
+                                        
+                                        </tbody>
+                                      	</table>
+                        </div>
+   <!----------------------------------------END TABLE---------------------------------------------->
                                 </div><!-- END Tab 3-->
                                 
                                 <!-- Tab 4 -->
@@ -635,51 +683,50 @@ $readonly = '';
                                      
                                      <!-- ** Health Status ** -->
                                      <div class="tab-pane active" id="tab_6_3">
-                                     	<div class="form-group">
-                                          <label class="control-label col-md-3">الحـالة الصـحيـة </label>
-                                          <div class="col-md-4">
-                                              <div class="checkbox-list" data-error-container="#form_2_services_error">
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> الجهاز الهضمي</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> الجهاز التنفسي</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> الجهاز العصبي</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> الجهاز الدوري</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> الجهاز البولي</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> أمراض جلدية</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> زهايمر</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> النفسي</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> رعاش</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> الجهاز العظمي</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> شلل دماغي</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> الغدد</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> السرطان</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> العيون</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> إعاقة خلقية</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> إعاقة نتيجة إصابةحرب</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> إعاقة نتيجة حادث</label>
-                                                  <label>
-                                                  <input type="checkbox" value="1" name="chbxIsactive" /> جهاز سمعي</label>
+                                     	<div class="col-md-12">
+                                     	<table class="table table-bordered table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th>
+                                              <div class="col-md-3">
+                                                 الحـــالة الصحيـــة 
                                               </div>
-                                              <div id="form_2_services_error">
+                                              <div class="col-md-6">
+                                                <select id="drpElderHealth" name="drpElderHealth"
+                                                   class="form-control input-large" >
+                                                    <option value="">اختر...</option>
+                                                    <?php
+                                                     foreach($survey_ElderHealth as $row)
+                                                      {
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+                                                                .$row->sub_constant_name.'</option>';
+                                                      }
+                                                    ?>
+                                                </select>
                                               </div>
-                                          </div>
-                                      </div>
+                                              <div class="col-md-2">
+                                                <button id="btnAddconstant" name="btnAddconstant" type="button" class="btn btn-circle green-turquoise btn-sm">
+                                                <i id="iConst" class="fa fa-plus"></i></button> 
+                                              </div>
+                                            </th>
+                                          </tr>
+                                         </thead>
+                                         <tbody id="tbdConst">
+                                         
+                                          
+                                         </tbody>
+                                         </table>
+                                         </div>
+                                         
+                                         <div class="form-group">
+                                            <label class="control-label col-md-3">تــفاصيـل الحــلة المـرضيـة <span class="required">
+                                            * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <textarea name="txtarIllnessdet" class="form-control input-xlarge">
+                                                </textarea>
+                                            </div>
+                                        </div>    
                                      </div><!-- END tab_6_3-->
                                      <!-- ** END Health Status ** -->
                                      <!-- ** Income Resources ** -->

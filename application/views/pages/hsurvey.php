@@ -97,6 +97,23 @@ if (isset($elder_info))
                         <div class="tab-content">
                         <!-- Visit Info -->
                         	<div class="tab-pane active" id="tab_6_0">
+                            <div class="portlet light bordered">
+                            	<div class="portlet-title">
+										<div class="caption">
+											<i class="icon-equalizer font-red-sunglo"></i>
+											<span class="caption-subject font-red-sunglo bold uppercase">Form Sample</span>
+											<span class="caption-helper">form actions without bg color</span>
+										</div>
+										<div class="actions">
+											<div class="portlet-input input-inline input-small">
+												<div class="input-icon right">
+													<i class="icon-magnifier"></i>
+													<input type="text" class="form-control input-circle" placeholder="search...">
+												</div>
+											</div>
+										</div>
+									</div>
+                                <div class="portlet-body form">
                                <form action="#" id="SurveyTab" class="form-horizontal">
                                 <div class="form-body">
                                   <br/>
@@ -216,6 +233,8 @@ if (isset($elder_info))
                                     </div>
                                 </div>
                             </form>
+                            </div>
+                            </div>
                             </div>
                             <!-- End Visit Info-->
                             <!-- Elder Info-->

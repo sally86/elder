@@ -66,6 +66,7 @@ class Surveycont extends CI_Controller
 		$this->data['survey_NutritionType'] = $this->constantmodel->get_sub_constant(48);
 		$this->data['survey_PsychologicalSupport'] = $this->constantmodel->get_sub_constant(49);
 		$this->data['survey_HomeImprovRecomend'] = $this->constantmodel->get_sub_constant(50);
+		$this->data['survey_ElderHealth'] = $this->constantmodel->get_sub_constant(54);
 
 		$this->load->model('Employeemodel');
 		$this->data['survey_employee_info'] = $this->Employeemodel->get_all_employee();
@@ -155,17 +156,86 @@ class Surveycont extends CI_Controller
 		$this->Surveymodel->update_survey();
 	}
 	
-//**************************family_member_id*************************
+//******************* FAMILY MEMBER TAB ************************/
 
 	function addfamilymember()
 	{
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->insert_familyMember();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_familyMember_by_survey_id($hdnSurveyId);
+		
+		$i=1;
+		foreach($rec as $row)
+		{
+			
+			echo "<tr>";
+			echo "<td>" . $i++ . "</td>";
+			echo "<td>" . $row->member_name . "</td>";
+			echo "<td>" . $row->member_id . "</td>";
+			echo "<td>" . $row->sex . "</td>";
+			echo "<td>" . $row->relationship ."</td>";
+			echo "<td>" . $row->fmstatus ."</td>";
+			echo "<td>" . $row->dob . "</td>";
+			echo "<td>" . $row->education_level . "</td>";
+			echo "<td>" . $row->health_status . "</td>";
+			echo "<td>" . $row->job . "</td>";
+			echo "<td>" . $row->income_shekel . "</td>";
+			echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+                              class="btn btn-circle red-sunglo btn-sm" 
+                              onclick="deleteFamilymember('. $row->family_member_id .')">
+                               <i id="iConst" class="fa fa-close"></i>
+                      </button></td>';
+			echo "</tr>";
+			
+			
+			
+		}
+		
+		
 	}
 	function updatefamilymember()
 	{
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->update_familyMember();
+	}
+	function deletefamilymember()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->delete_familyMember();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_familyMember_by_survey_id($hdnSurveyId);
+		
+		$i=1;
+		foreach($rec as $row)
+		{
+			
+			echo "<tr>";
+			echo "<td>" . $i++ . "</td>";
+			echo "<td>" . $row->member_name . "</td>";
+			echo "<td>" . $row->member_id . "</td>";
+			echo "<td>" . $row->sex . "</td>";
+			echo "<td>" . $row->relationship ."</td>";
+			echo "<td>" . $row->fmstatus ."</td>";
+			echo "<td>" . $row->dob . "</td>";
+			echo "<td>" . $row->education_level . "</td>";
+			echo "<td>" . $row->health_status . "</td>";
+			echo "<td>" . $row->job . "</td>";
+			echo "<td>" . $row->income_shekel . "</td>";
+			echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+                              class="btn btn-circle red-sunglo btn-sm" 
+                              onclick="deleteFamilymember('. $row->family_member_id .')">
+                               <i id="iConst" class="fa fa-close"></i>
+                      </button></td>';
+			echo "</tr>";
+			
+			
+			
+		}
 	}
 
 //*************************check family member id ****************************

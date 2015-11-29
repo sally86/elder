@@ -157,28 +157,36 @@ class Surveymodel extends CI_Model
 //-------------------------- END VISIT TAB ----------------------------/
 
 
-//***********************end family_member_tb operations*********************
+/************************ FAMILY MEMBER TAB ***************************/
+/*	Insert Family Member							  				  */
+/*	Update Family Member							  				  */
+/*	Delete Family Member							  				  */
+/*	Get Family Member By Survey ID							  		  */
+/**********************************************************************/
 
-function insert_familyMember()
+	// Insert Family Member
+	function insert_familyMember()
 	{
 		extract($_POST);
-	//	$data['family_member_id'] = $txtMemberId;
-		$data['elder_id'] = $hdnelder_id;
-		$data['member_id'] = $txtMemberId;
-		$data['member_name'] = $txtMembername;
-		$data['member_sex_id'] = $rdMemSex;
-		$data['relationship_id'] = $drpMemRelationship;
-		$data['status_id'] = $drpMemStatus;
-		$data['dob'] = $dpMemDob;
-		$data['education_level'] = $drpMemEdulevel;
+		
+		$data['survey_id'] 		  = $hdnSurveyId;
+		$data['elder_id'] 		  = $txtElderId;
+		$data['member_id'] 		  = $txtMemberId;
+		$data['member_name'] 	  = $txtMembername;
+		$data['member_sex_id'] 	  = $rdMemSex;
+		$data['relationship_id']  = $drpMemRelationship;
+		$data['status_id'] 		  = $drpMemStatus;
+		$data['dob'] 			  = $dpMemDob;
+		$data['education_level_id']  = $drpMemEdulevel;
 		$data['health_status_id'] = $drpMemHealth;
-		$data['income_shekel'] = $txtMemincome;
-		$data['job'] = $txtMemjob;
+		$data['income_shekel'] 	  = $txtMemincome;
+		$data['job'] 			  = $txtMemjob;
 		
 		
 		$this->db->insert('family_member_tb',$data);
 	}
-function update_familyMember()
+	
+	function update_familyMember()
 	{
 		extract($_POST);
 		//$data['family_member_id'] = $txtFname;
@@ -197,14 +205,45 @@ function update_familyMember()
 		$this->db->where('member_id',$txtMemberId);
 		$this->db->update('family_member_tb',$data);
 	}
-function check_familyMember_id()
+	
+	// Delete Family Member
+	function delete_familyMember()
+	{
+		extract($_POST);
+		
+		$this->db->where('family_member_id',$familymemberid);
+		$this->db->delete('family_member_tb');
+	}
+	
+	function get_familyMember_by_survey_id($surveyid)
+	{
+		
+		$myquery = "SELECT fm.family_member_id, fm.survey_id, fm.elder_id, fm.member_id, fm.member_name, fm.dob, fm.income_shekel, 		
+						fm.job, fm.member_sex_id, sex.sub_constant_name sex,
+        				fm.relationship_id, rel.sub_constant_name relationship,
+        				fm.status_id, stat.sub_constant_name fmstatus,
+        				fm.education_level_id, edu.sub_constant_name education_level,
+        				fm.health_status_id, hlt.sub_constant_name health_status
+					 FROM family_member_tb fm
+					  LEFT OUTER JOIN sub_constant_tb sex  ON fm.member_sex_id      = sex.sub_constant_id
+					  LEFT OUTER JOIN sub_constant_tb rel  ON fm.relationship_id    = rel.sub_constant_id
+					  LEFT OUTER JOIN sub_constant_tb stat ON fm.status_id          = stat.sub_constant_id
+					  LEFT OUTER JOIN sub_constant_tb edu  ON fm.education_level_id = edu.sub_constant_id
+					  LEFT OUTER JOIN sub_constant_tb hlt  ON fm.health_status_id 	= hlt.sub_constant_id
+				  WHERE fm.survey_id = ".$surveyid;
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
+	function check_familyMember_id()
 	{	extract($_POST);
 		$this->db->where('member_id',$member_id);
 		$query = $this->db->get('family_member_tb');
 		return $query->result();
 		
 	}
-function insert_survey()
+//----------------------- END FAMILY MEMBER TAB ------------------------/	
+	function insert_survey()
 	{
 		extract($_POST);
 

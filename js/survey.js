@@ -429,31 +429,136 @@ $(document).ready(function(){
 }); // END READY
 	
 //-------------------- END Visit Tab -----------------------//
-//
+//------------------- Family Member Tab --------------------//
 function editefamilymember()
 {
-	var action = $("#fmhdnAction").val();
-	alert(action);
+	var action = $("#hdnActionFM").val();
+	//alert(action);
+	
+	if ( !validateFamilymember() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the file to the request.
+	formData.append('hdnSurveyId'		 , $("#hdnSurveyId").val()		  );
+	formData.append('txtElderId'		 , $("#txtElderId").val()		  );
+	formData.append('txtMemberId'		 ,  $("#txtMemberId").val()		  );
+	formData.append('txtMembername'	  	 ,  $("#txtMembername").val()	  );
+	formData.append('rdMemSex'	  		 ,  $('input[name=rdMemSex]:checked').val()	);
+	formData.append('drpMemRelationship' ,  $("#drpMemRelationship").val());
+	formData.append('drpMemStatus'		 ,  $("#drpMemStatus").val()	  );
+	formData.append('dpMemDob'			 ,  $("#dpMemDob").val()		  );
+	formData.append('drpMemEdulevel' 	 ,  $("#drpMemEdulevel").val()	  );
+	formData.append('drpMemHealth'		 ,  $("#drpMemHealth").val()	  );
+	formData.append('txtMemincome'	  	 ,  $("#txtMemincome").val()      );
+	formData.append('txtMemjob'			 ,  $("#txtMemjob").val()		  );
 	
 	$.ajax({
 			url: baseURL+"Surveycont/"+action,
 			type: "POST",
-			data:  $("#familyMemberTab").serialize(),
+			data:  formData,
+			processData: false,
+    		contentType: false,
 			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
 			},
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				if(returndb == '')
+				
+				var countFM = parseInt($("#spnCountFamily").html());;
+				countFM = countFM + 1;
+				$("#spnCountFamily").html(countFM);
+				
+				$("#tbdFamilyMember").html(returndb);
+				clearFamilymemberFields();
+				/*if(returndb == '')
 				{
 					var form = $('#familyMemberTab');
 					$('.alert-success', form).show();
 					//$('#hdnAction').val('');
-				}
+				}*/
 			}
 		});//END $.ajax
+}
+function deleteFamilymember(familymemberid)
+{
+	
+	$.ajax({
+			url: baseURL+"Surveycont/deletefamilymember",
+			type: "POST",
+			data:  {familymemberid: familymemberid,
+					hdnSurveyId: $("#hdnSurveyId").val()},
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				var countFM = parseInt($("#spnCountFamily").html());
+				countFM = countFM - 1;
+				$("#spnCountFamily").html(countFM);
+				
+				$("#tbdFamilyMember").html(returndb);
+
+			}
+		});//END $.ajax
+}
+function clearFamilymemberFields()
+{
+	  $("#txtMemberId").val('');
+	  $("#txtMembername").val('');
+	  $('input[name=rdMemSex]:checked').val('1');
+	  $("#drpMemRelationship").val('');
+	  $("#drpMemStatus").val('');
+	  $("#dpMemDob").val('');
+	  $("#drpMemEdulevel").val('');
+	  $("#drpMemHealth").val('');
+	  $("#txtMemincome").val('');
+	  $("#txtMemjob").val('');
+	
+}
+function validateFamilymember()
+{
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#txtMemberId").valid() )
+		valid = false;
+	if ( !$("#txtMembername").valid() )
+		valid = false;
+	if ( !$("#drpMemRelationship").valid() )
+		valid = false;
+	if ( !$("#drpMemStatus").valid() )
+		valid = false;
+	if ( !$("#dpMemDob").valid() )
+		valid = false;
+	if ( !$("#drpMemEdulevel").valid() )
+		valid = false;
+	if ( !$("#drpMemHealth").valid() )
+		valid = false;
+	if ( !$("#txtMemincome").valid() )
+		valid = false;
+	if ( !$("#txtMemjob").valid() )
+		valid = false;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
 }
 //-------------ELDER check ID ----------------------//
 function check_familymember_id(){	
@@ -506,11 +611,11 @@ return;
 //******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
-        
+       
             var form = $('#familyMemberTab');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
-
+			
             form.validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block help-block-error', // default input error message class
@@ -1673,8 +1778,10 @@ var FormWizard = function () {
                         error.insertAfter("#form_payment_error");
                     } else if (element.parent(".input-group").size() > 0) {
                         error.insertAfter(element.parent(".input-group"));
+						error.addClass('font-red');
                     } else {
                         error.insertAfter(element); // for other inputs, just perform default behavior
+						error.addClass('font-red');
                     }
                 },
 
@@ -1785,14 +1892,17 @@ var FormWizard = function () {
                     success.hide();
                     error.hide();
 					
-                    if (form.valid() == false) {
-                        return false;
-                    }
+					if (index != 3)
+					{
+					  if (form.valid() == false) {
+						  return false;
+					  }
+					}
 					if (index == 1)
 					{
 						
 						var action = $("#hdnAction").val();
-						alert(action);
+						//alert(action);
 						
 						$.ajax({
 								url: baseURL+"Surveycont/"+action,
@@ -1828,14 +1938,19 @@ var FormWizard = function () {
 								beforeSend: function(){},
 								complete: function(){},
 								success: function(returndb){
-										if(returndb == '')
-										{
-											handleTitle(tab, navigation, index);
-										}		
+									if(returndb == '')
+									{
+										handleTitle(tab, navigation, index);
+									}		
 								
 								}
 								
 							});//END $.ajax
+					}
+					else if (index == 3){
+						
+						handleTitle(tab, navigation, index);
+									
 					}
 					
                     
