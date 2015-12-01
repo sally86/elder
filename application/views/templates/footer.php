@@ -111,6 +111,7 @@
 <script src="<?php echo base_url();?>js/elders.js"></script>
 <script src="<?php echo base_url();?>js/survey.js"></script>
 <script src="<?php echo base_url();?>js/SurveyView.js"></script>
+<script src="<?php echo base_url();?>js/family.js"></script>
 
 <script src="<?php echo base_url();?>js/usertypepermession.js"></script>
 <script src="<?php echo base_url();?>js/elderfile.js"></script>

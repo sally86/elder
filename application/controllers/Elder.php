@@ -66,7 +66,9 @@ class Elder extends CI_Controller
 			  <i class="fa fa-edit"></i> تعديل </a>';*/
 			
 			$btn='<a class="btn default btn-xs purple" onclick="gotoElder(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i> تعديل </a>';
+			  <i class="fa fa-edit"></i> تعديل </a>
+			  <a class="btn default btn-xs purple" onclick="gotoFamilyMember(\''.$row->elder_id.'\')">
+			  <i class="fa fa-edit"></i>تعديل بيانات العائلة </a>';
 			
 			$nestedData[] = $i++;
 			$nestedData[] = $row->elder_id;

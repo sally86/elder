@@ -22,6 +22,25 @@ function gotoElder(arg)
 		});//END $.ajax
 }
 
+function gotoFamilyMember(arg)
+{//alert(arg);
+alert(arg);
+	$.ajax({
+			url: baseURL+"Familycont/senddata",
+			type: "POST",
+			data:  {elder_id : arg},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				window.location.href = baseURL+"familycont/familyform";
+				//alert(returndb);
+			}
+		});//END $.ajax
+}
 var ElderTableAjax = function () {
 
 // I removed Datepicker becuse it is not used here
