@@ -139,7 +139,7 @@ function updateFamilymember(i)
 }
 
 
-function clearFamilymemberFields()
+function clearFamilymembFields()
 {
 	  $("#txtMemberId").val('');
 	  $("#txtMembername").val('');
@@ -195,13 +195,13 @@ function validateFamilymem()
 	return valid;
 }
 //-------------ELDER check ID ----------------------//
-function check_familymember_id(){	
+function check_familyId(){	
 
  	var MemberId = document.getElementById('txtMemberId').value;
 if (MemberId !='')
 {
 		$.ajax({
-			url: baseURL+"Surveycont/check_familymember_id",
+			url: baseURL+"Familycont/check_familymember_id",
 			type: "POST",
 			data: {member_id: MemberId},
 			error: function(xhr, status, error) {
@@ -220,7 +220,7 @@ if (MemberId !='')
 					
 	
 					
-				$('#fmhdnAction').val('updatefamilymember');
+				$('#hdnActionFM').val('updatefamilymember');
 				$('#txtMembername').val(returndb[0]['member_name']);
 				$('#rdMemSex').val(returndb[0]['member_sex_id']);
 				$('#drpMemRelationship').val(returndb[0]['relationship_id']);

@@ -245,8 +245,8 @@ function senddata()
 //*************************check family member id ****************************
 function check_familymember_id()
 	{
-		$this->load->model('Surveymodel');
-		$rec=$this->Surveymodel->check_familyMember_id();
+		$this->load->model('Familymodel');
+		$rec=$this->Familymodel->check_familyMember_id();
 		
 		if (count($rec) == 0)
 		{
@@ -266,7 +266,7 @@ function check_familymember_id()
 		$temp['relationship_id'] = $row->relationship_id;
 		$temp['status_id'] = $row->status_id;
 		$temp['dob'] = $row->dob;
-		$temp['education_level'] = $row->education_level;
+		$temp['education_level'] = $row->education_level_id;
 		$temp['health_status_id'] = $row->health_status_id;
 		$temp['income_shekel'] = $row->income_shekel;
 		$temp['job'] = $row->job;

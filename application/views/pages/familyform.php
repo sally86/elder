@@ -137,7 +137,7 @@ if (isset($elder_info))
                                             </th>
                                             <th>
                                                  <input type="text" id="txtMemberId" name="txtMemberId" data-required="1" 
-                                                 class="form-control input-sm input-small"/>
+                                                 class="form-control input-sm input-small" onblur="check_familyId();"/>
                                             </th>
                                             <th>
                                                  <div class="radio-list" data-error-container="#form_2_membership_error">
@@ -224,8 +224,12 @@ if (isset($elder_info))
                                             </th>
                                             <th>
                                                  <button id="btnAddMem" name="btnAddMem" type="button" 
-                                                 class="btn btn-circle green-turquoise btn-sm" onclick="editefamilymember()">
+                                                 class="btn btn-circle green-turquoise btn-sm" onclick="editefamilymem()">
                                                 <i id="iConst" class="fa fa-plus"></i></button>
+                                                 <button id="btnAddMem" name="btnAddMem" type="button" 
+                                                 class="btn btn-circle grey-silver btn-sm" onclick="clearFamilymembFields()">
+                                                <i id="iConst" class="fa fa-eraser"></i></button>
+                                                
                                             </th>
                                         </tr>
                                         </thead>
