@@ -134,6 +134,7 @@
 		ElderTabValidation.init();
 		SurveyTabValidation.init();
 		FamilyMemberTabValidation.init();
+		FamilyMemberValidation.init();
 		HomeStatusTabValidation.init();
 		ElderRoomTabValidation.init();
 		ElderFamRelTabValidation.init();

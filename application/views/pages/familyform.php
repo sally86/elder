@@ -255,7 +255,7 @@ if (isset($elder_info))
                                                 echo '<td id="income_shekel_td'.$i.'">'. $row->income_shekel . "</td>";
                                                 echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
                                                                   class="btn btn-circle red-sunglo btn-sm" 
-                                                                  onclick="deleteFamilymember('. $row->family_member_id .')">
+                                                                  onclick="deleteFamilybyId('. $row->family_member_id .')">
                                                                    <i id="iConst" class="fa fa-close"></i>
 																   <button id="btnUpdatedoc" name="btnUpdatedoc" type="button" 
 																  class="btn btn-circle red-sunglo btn-sm" 
