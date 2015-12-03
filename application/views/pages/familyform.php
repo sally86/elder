@@ -46,7 +46,9 @@ if (isset($elder_info))
 							تـم عملية حـفـظ البيـانات بنجـاح !
                       </div>
                       <div>
-               <input id="hdnActionFM" name="hdnActionFM" type="hidden" value="addfamilymember" />
+                      
+                       <input id="hdnActionFM" name="hdnActionFM" type="hidden" value="addfamilymember" />
+					   <input id="hdnSurveyId" name="hdnSurveyId" type="hidden" value="" />
                                
                       </div>
                        <div class="form-group">
@@ -238,7 +240,8 @@ if (isset($elder_info))
                                                 echo '<td id="member_name_td'.$i.'">'. $row->member_name . "</td>";
                                                 echo '<td id="member_id_td'.$i.'">'. $row->member_id . "</td>";
                                                 echo '<td>'. $row->sex . "</td>";
-												echo '<td id="sex_td'.$i.'">'. $row->member_sex_id . "</td>";
+												echo '<td style="display:none;" id="surveyId_tb'.$i.'">'. $row->survey_id . "</td>";
+												echo '<td style="display:none;" id="sex_td'.$i.'">'. $row->member_sex_id . "</td>";
                                                 echo '<td>'. $row->relationship ."</td>";
 												echo '<td style="display:none;" id="relationship_td'.$i.'">'. $row->relationship_id ."</td>";
                                                 echo '<td>'. $row->fmstatus ."</td>";

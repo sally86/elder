@@ -62,7 +62,7 @@ function editefamilymember()
 	formData.append('txtMemjob'			 ,  $("#txtMemjob").val()		  );
 	
 	$.ajax({
-			url: baseURL+"Surveycont/"+action,
+			url: baseURL+"Familycont/"+action,
 			type: "POST",
 			data:  formData,
 			processData: false,
@@ -96,7 +96,7 @@ function deleteFamilymember(familymemberid)
 			url: baseURL+"Familycont/deletefamilymember",
 			type: "POST",
 			data:  {familymemberid: familymemberid,
-					hdnSurveyId: $("#hdnSurveyId").val()},
+					txtElderId: $("#txtElderId").val()},
 			error: function(xhr, status, error) {
   				alert(xhr.responseText);
 			},
@@ -123,12 +123,15 @@ function updateFamilymember(i)
 	$("#rdMemSex").val($('#tbdFamilyMember #sex_td'+i).html());
 	document.getElementById('drpMemRelationship').value =$('#tbdFamilyMember #relationship_td'+i).html();
 	document.getElementById('drpMemStatus').value =$('#tbdFamilyMember #fmstatus_td'+i).html();
-	$('dvdpMemDob').datepicker('setDate',$('#tbdFamilyMember #dob_td'+i).val());
+	$('#dvdpMemDob').datepicker({ dateFormat: 'yyyy-mm-dd' }); // format to show
+	$('#dvdpMemDob').datepicker('setDate',$('#tbdFamilyMember #dob_td'+i).html());
 	document.getElementById('drpMemEdulevel').value =$('#tbdFamilyMember #education_level_td'+i).html();
 	document.getElementById('drpMemHealth').value =$('#tbdFamilyMember #health_status_td'+i).html();
 	document.getElementById('txtMemjob').value =$('#tbdFamilyMember #job_td'+i).html();
 	document.getElementById('txtMemincome').value =$('#tbdFamilyMember #income_shekel_td'+i).html();
-	
+	$("#hdnActionFM").val("updatefamilymember");
+	$("#hdnSurveyId").val($('#tbdFamilyMember #surveyId_tb'+i).html());
+	//alert($("#hdnSurveyId").val());
 	//document.getElementById('drpMemStatus').value =$('#tbdFamilyMember #member_name_td'+i).html();
 	
 	 // $("#txtMemberId").val('');

@@ -59,7 +59,7 @@ function get_elder_by_id($elderid)
 		$data['relationship_id'] = $drpMemRelationship;
 		$data['status_id'] = $drpMemStatus;
 		$data['dob'] = $dpMemDob;
-		$data['education_level'] = $drpMemEdulevel;
+		$data['education_level_id'] = $drpMemEdulevel;
 		$data['health_status_id'] = $drpMemHealth;
 		$data['income_shekel'] = $txtMemincome;
 		$data['job'] = $txtMemjob;
