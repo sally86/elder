@@ -56,6 +56,7 @@ $route['employee/(:any)'] = 'employee/view/$1';
 $route['elder/(:any)'] = 'elder/view/$1';
 $route['surveycont/(:any)'] = 'surveycont/view/$1';
 $route['familycont/(:any)'] = 'familycont/view/$1';
+$route['followupcont/(:any)'] = 'followupcont/view/$1';
 $route['surveyviewcont/(:any)'] = 'surveyviewcont/view/$1';
 $route['usertypeperm/(:any)'] = 'usertypeperm/view/$1';
 $route['elderfilecont/(:any)'] = 'elderfilecont/view/$1';

@@ -1,40 +1,5 @@
 // JavaScript Document// JavaScript Document
 
-//-------------------- Elder Tab --------------------//
-
-//	ELDER check ID 
-/*******************************get elder and family info*******/
-function get_elder_info(){	
-
- 	var ElderId = document.getElementById('txtElderId').value;
-	if (ElderId !='')
-	{
-		$.ajax({
-			url: baseURL+"Surveycont/get_elder_family_info",
-			type: "POST",
-			data: {elder_id: ElderId},
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-	
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-	//			alert(returndb);
-//				alert(returndb[0]['txtFname']);
-				if(returndb !=0){					
-				  
-				  $('#txtName').val(returndb[0]['txtName']);
-				  
-			}
-
-			}
-		});//END $.ajax	
-	
-	}
-}
-
 function editefamilymem()
 {
 	var action = $("#hdnActionFM").val();
