@@ -32,7 +32,7 @@ class Followupmodel extends CI_Model
 		extract($_POST);
 
 		$data['elder_id'] = $txtElderId;
-		$data['researcher_id'] = $txtresearcherId;
+		$data['researcher_id'] = $drpResearcher;
 		$data['visit_date'] = $dpVisitdate;
 		$data['visit_time'] = $txtVisittime;
 		$data['visit_end_time'] = $txtVisitendtime;
@@ -47,8 +47,8 @@ class Followupmodel extends CI_Model
 	{
 		extract($_POST);
 
-		$data['elder_id'] = $txtelder_id;
-		$data['researcher_id'] = $txtresearcherId;
+		$data['elder_id'] = $txtElderId;
+		$data['researcher_id'] = $drpResearcher;
 		$data['visit_date'] = $dpVisitdate;
 		$data['visit_time'] = $txtVisittime;
 		$data['visit_end_time'] = $txtVisitendtime;

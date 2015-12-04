@@ -31,7 +31,7 @@ class Followupcont extends CI_Controller
 			$this->load->view('templates/footer');
 		}
 	}
-	function Followupform()
+	function followupform()
 	{
 		
 		$this->load->model('Employeemodel');
@@ -53,6 +53,7 @@ class Followupcont extends CI_Controller
 	{
 		$this->load->model('Followupmodel');
 		$this->Followupmodel->insert_followup();
+		$this->drawfollowupTable();
 		
 		
 	}
@@ -61,6 +62,7 @@ class Followupcont extends CI_Controller
 	{
 		$this->load->model('Followupmodel');
 		$this->Followupmodel->update_followup();
+		$this->drawfollowupTable();
 		
 		
 	}
@@ -68,7 +70,7 @@ class Followupcont extends CI_Controller
 	{
 		$this->load->model('Followupmodel');
 		$this->Followupmodel->delete_followup();
-		
+		$this->drawfollowupTable();		
 		
 	}
 	function senddata()
@@ -82,7 +84,7 @@ class Followupcont extends CI_Controller
 	{
 		$this->load->model('Followupmodel');
 		$rec=$this->Followupmodel->get_elder_by_id();
-		
+		$this->followupform();	
 		if (count($rec) == 0)
 		{
 			echo 0;
@@ -108,5 +110,43 @@ class Followupcont extends CI_Controller
 	}
 //end 	check elder id 
 }
+function drawfollowupTable()
+{		
+		extract($_POST);
+		
+		$this->load->model('Followupmodel');
+		$rec = $this->Followupmodel->get_followup_by_elderid($txtElderId);
+//	$this->data['familymember_info'] =$this->Familymodel->get_familyMember_by_elder_id($_SESSION['update']);
+		       $i=1;
+					foreach($rec as $row)
+						{
+				 
+					echo "<tr>";
+					echo "<td>" . $i++ . "</td>";
+					echo '<td style="display:none;" id="follow_up_id_tb'.$i.'">'. $row->follow_up_id . "</td>";
+					echo '<td id="visit_date_tb'.$i.'">'. $row->visit_date . "</td>";
+					echo '<td id="visit_time_tb'.$i.'">'. $row->visit_time . "</td>";
+					echo '<td id="visit_end_time_tb'.$i.'">'. $row->visit_end_time. "</td>";
+					echo '<td style="display:none;" id="researcher_id_tb'.$i.'">'. $row->researcher_id . "</td>";
+					echo '<td>'. $row->Researcher_name . "</td>";
+					echo '<td id="visit_reason_tb'.$i.'">'. $row->visit_reason ."</td>";
+					echo '<td id="notes_tb'.$i.'">'. $row->notes ."</td>";
+					echo '<td id="recommendation_tb'.$i.'">'. $row->recommendation ."</td>";
+					echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+									  class="btn btn-circle red-sunglo btn-sm" 
+									  onclick="deleteFollowupbyId('. $row->follow_up_id.')">
+									   <i id="iConst" class="fa fa-close"></i>
+									   <button id="btnUpdatedoc" name="btnUpdatedoc" type="button" 
+									  class="btn btn-circle red-sunglo btn-sm" 
+									  onclick="updateFollowup('.$i.')">
+									   <i id="iConst" class="fa fa-edit"></i>
+							  </button></td>';
+					echo "</tr>";
+					
+					
+					
+				}
 
+}
+	
 ?>

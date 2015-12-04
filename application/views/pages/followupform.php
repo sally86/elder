@@ -34,7 +34,7 @@ if (isset($elder_info))
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
-              <form action="#" id="familymemberform" class="form-horizontal">
+              <form action="#" id="followupform" class="form-horizontal">
                   <div class="form-body">
                   	<br/>
                       <div class="alert alert-danger display-hide">
@@ -152,8 +152,8 @@ if (isset($elder_info))
                                                         <?php
                                                          foreach($followup_research_info as $row)
                                                          {
-                                                            echo '<option value="'.$row->sub_constant_id.'">'
-                                                                    .$row->sub_constant_name.'</option>';
+                                                            echo '<option value="'.$row->national_id.'">'
+                                                                    .$row->name.'</option>';
                                                          }
                                                          ?>
                                                   </select>
