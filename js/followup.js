@@ -5,6 +5,7 @@ function editefollowup()
 {
 	var action = $("#hdnAction").val();
 	alert(action);
+	alert( $("#hdnfollowupId").val());
 	
 	if ( !validateFollowup() )
 		return;
@@ -21,7 +22,7 @@ function editefollowup()
 	formData.append('txtVisitreason'	 ,  $("#txtVisitreason").val()	  );
 	formData.append('txtnotes' 	 		 ,  $("#txtnotes").val()	      );
 	formData.append('txtRecommendation'	 ,  $("#txtRecommendation").val() );
-	formData.append('hdnFollowupId'	 ,  $("#hdnFollowupId").val() );
+	formData.append('hdnfollowupId'	     ,  $("#hdnfollowupId").val()     );
 	
 	
 	$.ajax({
@@ -51,6 +52,7 @@ function editefollowup()
 }
 function deleteFollowupbyId(followupid)
 {
+	
 	//	alert(booking_code);
 	var r = confirm('هل انت متأكد من عملية الحذف');
 	if (r == true) {
@@ -63,7 +65,7 @@ function deleteFollowupbyId(followupid)
 	$.ajax({
 			url: baseURL+"Followupcont/deletefollowup",
 			type: "POST",
-			data:  {followupid: followupid,
+			data:  {hdnfollowupId: followupid,
 					txtElderId: $("#txtElderId").val()},
 			error: function(xhr, status, error) {
   				alert(xhr.responseText);
@@ -91,17 +93,18 @@ function updateFollowup(i)
 	document.getElementById('txtnotes').value =$('#tbdFollowup #notes_tb'+i).html();
 	document.getElementById('txtRecommendation').value =$('#tbdFollowup #recommendation_tb'+i).html();
 	$("#hdnAction").val("updatefollowup");
-	$("#hdnFollowupId").val($('#tbdFollowup #follow_up_id_tb'+i).html());
+	$("#hdnfollowupId").val($('#tbdFollowup #follow_up_id_tb'+i).html());
+	//alert(document.getElementById('hdnFollowupId').value);
 	
 }
 
 
 function clearFollowupFields()
-{	  $("#hdnFollowupId").val('');
+{	  $("#hdnfollowupId").val('');
 	  //$("#txtElderId").val('');
 	  $("#dpVisitdate").val('');
-	  $('txtVisittime').val('1');
-	  $("#txtVisitendtime").val('');
+	 // $('txtVisittime').val('1');
+	 // $("#txtVisitendtime").val('');
 	  $("#drpResearcher").val('');
 	  $("#txtVisitreason").val('');
 	  $("#txtnotes").val('');

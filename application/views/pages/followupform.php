@@ -48,7 +48,7 @@ if (isset($elder_info))
                       <div>
                       
                        <input id="hdnAction" name="hdnAction" type="hidden" value="addfollowup" />
-					   <input id="hdnFollowupId" name="hdnFollowupId" type="hidden" value="" />
+					   <input id="hdnfollowupId" name="hdnfollowupId" type="hidden" value="" />
                                
                       </div>
                        <div class="form-group">

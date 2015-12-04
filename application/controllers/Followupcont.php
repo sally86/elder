@@ -84,7 +84,7 @@ class Followupcont extends CI_Controller
 	{
 		$this->load->model('Followupmodel');
 		$rec=$this->Followupmodel->get_elder_by_id();
-		$this->followupform();	
+			
 		if (count($rec) == 0)
 		{
 			echo 0;
@@ -109,7 +109,7 @@ class Followupcont extends CI_Controller
 			
 	}
 //end 	check elder id 
-}
+
 function drawfollowupTable()
 {		
 		extract($_POST);
@@ -148,5 +148,5 @@ function drawfollowupTable()
 				}
 
 }
-	
+}
 ?>
