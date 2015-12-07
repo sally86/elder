@@ -672,7 +672,7 @@ $readonly = '';
                                                   حـالة اسرة الاجتماعية والنفسية</a>
                                               </li>
                                               <li>
-                                                  <a href="#tab_6_11" data-toggle="tab">
+                                                  <a href="#tab_6_11" data-toggle="tab" onclick="get_family_member()">
                                                   التشغيل وتحسين مستوى الدخل</a>
                                               </li>
                                           </ul>
@@ -684,6 +684,7 @@ $readonly = '';
                                      <!-- ** Health Status ** -->
                                      <div class="tab-pane active" id="tab_6_3">
                                      	<div class="col-md-12">
+                                        <input id="hdnElderDiseaseId" name="hdnElderDiseaseId" type="hidden" value="" />
                                      	<table class="table table-bordered table-striped">
                                         <thead>
                                           <tr>
@@ -692,11 +693,11 @@ $readonly = '';
                                                  الحـــالة الصحيـــة 
                                               </div>
                                               <div class="col-md-6">
-                                                <select id="drpElderHealth" name="drpElderHealth"
+                                                <select id="drpDisease" name="drpDisease"
                                                    class="form-control input-large" >
                                                     <option value="">اختر...</option>
                                                     <?php
-                                                     foreach($survey_ElderHealth as $row)
+                                                     foreach($survey_ElderDisease as $row)
                                                       {
                                                         echo '<option value="'.$row->sub_constant_id.'">'
                                                                 .$row->sub_constant_name.'</option>';
@@ -705,32 +706,121 @@ $readonly = '';
                                                 </select>
                                               </div>
                                               <div class="col-md-2">
-                                                <button id="btnAddconstant" name="btnAddconstant" type="button" class="btn btn-circle green-turquoise btn-sm">
+                                                <button id="btnAdddisease" name="btnAdddisease" type="button" class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_disease()">
                                                 <i id="iConst" class="fa fa-plus"></i></button> 
                                               </div>
                                             </th>
                                           </tr>
                                          </thead>
-                                         <tbody id="tbdConst">
+                                         <tbody id="tbdElderDisease">
                                          
                                           
                                          </tbody>
                                          </table>
+                                         <table class="table table-bordered table-striped">
+                                          <thead>
+                                            <tr>
+                                              <th>
+                                              	<div class="form-group">
+                                                    <label class="control-label col-md-3"><b>
+                                                    تــفاصيـل الحــالة المـرضيـة </b>
+                                                    </label>
+                                                    <div class="col-md-6">
+                                                       <textarea id="txtarDiseaasedet" name="txtarDiseaasedet" 
+                                                        class="form-control input-large"></textarea>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                    	<button id="btnAdddiseaasedet" name="btnAdddiseaasedet" type="button" 
+								  							class="btn btn-circle green-turquoise btn-sm" 
+								  							onclick="add_disease_details()">
+								   							<i id="iConst" class="fa fa-check"></i></button>
+						  							</div>
+                                                </div>  
+                                              </th>
+                                            </tr>
+                                          </thead>
+                                          </table>
                                          </div>
                                          
-                                         <div class="form-group">
-                                            <label class="control-label col-md-3">تــفاصيـل الحــلة المـرضيـة <span class="required">
-                                            * </span>
-                                            </label>
-                                            <div class="col-md-4">
-                                                <textarea name="txtarIllnessdet" class="form-control input-xlarge">
-                                                </textarea>
-                                            </div>
-                                        </div>    
+                                         
                                      </div><!-- END tab_6_3-->
                                      <!-- ** END Health Status ** -->
                                      <!-- ** Income Resources ** -->
                                      <div class="tab-pane fade" id="tab_6_4">
+                                     <fieldset><legend>تفاصيل الدخل</legend>
+                                     <input id="hdnIncomeResourcesId" name="hdnIncomeResourcesId" type="hidden" value="" />
+                                     <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                          <tr class="bg-grey-steel">
+                                            <th>
+                                            	#
+                                            </th>
+                                            <th>
+                                            	مصدر الدخل
+                                            </th>
+                                            <th>
+                                            	القيمة المالية للدخل 
+                                            </th>
+                                            <th>
+                                            	المساعدة العينية
+                                            </th>
+                                            <th>
+                                            	التقييم المالي للمساعدات العينية
+                                            </th>
+                                            <th>&nbsp;
+                                            	
+                                            </th>
+                                          </tr>
+                                          <tr>
+                                            <th>&nbsp;
+                                            	
+                                            </th>
+                                            <th>
+                                              <select class="form-control input-sm" id="drpIncomeSource" name="drpIncomeSource">
+                                                  <option value="">اختر...</option>
+                                                  <?php
+                                                    foreach($survey_IncomeSource as $row)
+                                                    {
+                                                      echo '<option value="'.$row->sub_constant_id.'">'
+													  			.$row->sub_constant_name.'</option>';
+                                                  	}
+                                                   ?>
+                                              </select>
+                                              <select class="form-control input-sm" id="drpOrganization" name="drpOrganization">
+                                                  <option value="">اختر الجمعية ...</option>
+                                                  <?php
+                                                    foreach($survey_Organization as $row)
+                                                    {
+                                                      echo '<option value="'.$row->sub_constant_id.'">'
+													  			.$row->sub_constant_name.'</option>';
+                                                  	}
+                                                   ?>
+                                              </select>
+                                            </th>
+                                            <th>
+                                            	<input type="text" id="txtCashincome" name="txtCashincome" 
+                                                  data-required="1" class="form-control input-sm input-xsmall"/>
+                                            </th>
+                                            <th>
+                                            	<input type="text" id="txtPackageincome" name="txtPackageincome" 
+                                                  data-required="1" class="form-control input-sm input-xsmall"/>
+                                            </th>
+                                            <th>
+                                            	<input type="text" id="txtPackagecashvalue" name="txtPackagecashvalue" 
+                                                  data-required="1" class="form-control input-sm input-xsmall"/>
+                                            </th>
+                                            <th>
+                                            	<button id="btnAddincomeresource" name="btnAddincomeresource" type="button" 
+								  							class="btn btn-circle green-turquoise btn-sm" 
+								  							onclick="add_income_resource_det()">
+								   							<i id="iConst" class="fa fa-check"></i></button>
+                                            </th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="tbdIncomeSourceDet">
+                                        </tbody>
+                                     </table>
+                                     </fieldset>
                               		 <fieldset><legend>ملخص الدخل</legend>
                                      <div class="form-body">
                                       <br/>
@@ -772,93 +862,7 @@ $readonly = '';
                                         </div>
                                     </div>
                                      </fieldset><!-- END fieldset Summery-->
-                                     <fieldset><legend>تفاصيل الدخل</legend>
-                                     <div class="form-body">
-                                      <br/>
-                                        <div class="alert alert-danger display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                        </div>
-                                        <div class="alert alert-success display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            Your form validation is successful!
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                          <label class="control-label col-md-3">مصدر الدخل <span class="required">
-                                          * </span>
-                                          </label>
-                                          <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpincomeSource" name="drpincomeSource">
-                                                  <option value="">اختر...</option>
-                                                  <?php
-                                                    foreach($survey_IncomeSource as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
-                                                   ?>
-                                              </select>
-                                          </div>
-                                      </div>
-                                        
-                                        <div class="form-group">
-                                          <label class="control-label col-md-3">القيمة المالية للدخل <span class="required">
-                                          * </span>
-                                          </label>
-                                          <div class="col-md-4">
-                                            <textarea id="txtPackage" name="txtPackage" cols="70" rows="2" class="form-control"></textarea>
-                                          </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                          <label class="control-label col-md-3">المساعدة العينية <span class="required">
-                                          * </span>
-                                          </label>
-                                          <div class="col-md-4">
-                                            <input type="text" id="txtTotalincome" name="txtTotalincome" data-required="1" class="form-control"/>
-                                          </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                          <label class="control-label col-md-3">التقييم المالي للمساعدات العينية <span class="required">
-                                          * </span>
-                                          </label>
-                                          <div class="col-md-4">
-                                            <input type="text" id="txtPackagecashvalue" name="txtPackagecashvalue" data-required="1" class="form-control"/>
-                                          </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <!-- END FORM BODY -->
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                <button type="button" class="btn default">الغاء الامر</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                    <!-- END FORM-->
-                                    <table class="table table-bordered table-striped">
-                                    <thead>
-                                      <tr>
-                                          <th>المصدر</th>
-                                          <th>القيمة المالية للدخل</th>
-                                          <th>المساعدة العينية</th>
-                                          <th>التقييم المالي للمساعدات العينية</th>
-                                      </tr>
-                                     </thead>
-                                     <tbody>
-                                      <tr>
-                                          <td>عمل خاص</td>
-                                          <td>1000</td>
-                                          <td>&nbsp;</td>
-                                          <td>&nbsp;</td>
-                                       </tr>
-                                     </tbody>
-                                     </table>   
-                                     </fieldset>
+                                     
                                      </div><!-- END tab_6_4-->
                                      <!-- ** END Income Resources ** -->
                                    	 <!-- ** Home Status ** -->
@@ -873,7 +877,10 @@ $readonly = '';
                                               <button class="close" data-close="alert"></button>
                                                 تـم عملية حـفـظ البيـانات بنجـاح !
                                           </div>
-                                          <input id="homeStatushdnAction" name="homeStatushdnAction" type="hidden" value="<?php echo $homeStatusction;?>" />
+                                          <input id="hdnHomeStatusAction" name="hdnHomeStatusAction" type="hidden" 
+                                          value="<?php echo $homeStatusction;?>" />
+                                          <input id="hdnHomeStatusId" name="hdnHomeStatusId" type="hidden" 
+                                          value="" />
                                           <div class="form-group">
                                               <label class="control-label col-md-3">الوضع العام <span class="required">
                                                * </span>
@@ -885,7 +892,8 @@ $readonly = '';
                                                      <?php
                                                       foreach($survey_HomeStatus as $row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+																.$row->sub_constant_name.'</option>';
                                                     }
                                                      ?>
     
@@ -928,6 +936,16 @@ $readonly = '';
                                               </div>
                                           </div>
                                           
+                                          <div id="dvCeilingDescription" class="form-group" style="display:none">
+                                              <label class="control-label col-md-3">نوع السقف توضيح<span class="required">
+                                               * </span>
+                                               </label>
+                                              <div class="col-md-4">
+                                                  <input type="text" id="txtCeilingdescription" name="txtCeilingdescription"
+                                                   data-required="1" class="form-control"/>
+                                              </div>
+                                          </div>
+                                          
                                           <div class="form-group">
                                               <label class="control-label col-md-3">مستوى الأثاث <span class="required">
                                                * </span>
@@ -938,19 +956,31 @@ $readonly = '';
                                                     <?php
                                                       foreach($survey_FurnitureLevel as $row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                    }
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+																.$row->sub_constant_name.'</option>';
+                                                      }
                                                      ?>
                                                 </select>
                                               </div>
                                           </div>
+                                          
+                                          <div id="dvFurnitureNeeds" class="form-group" style="display:none">
+                                              <label class="control-label col-md-3">أذكر هذه الضروريات <span class="required">
+                                               * </span>
+                                               </label>
+                                              <div class="col-md-4">
+                                                   <textarea id="txtarFurnitureneeds" name="txtarFurnitureneeds" 
+                                                        class="form-control input-large"></textarea>
+                                              </div>
+                                          </div>
+                                          
                                       </div>
                                       <!-- END FORM BODY -->
                                       <div class="form-actions">
                                           <div class="row">
                                               <div class="col-md-offset-3 col-md-9">
-                                                  <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                  <button type="button" class="btn default">الغاء الامر</button>
+                                                  <button type="button" class="btn blue-madison" onclick="editehomeStatus()">
+                                                  حـفـظ</button>
                                               </div>
                                           </div>
                                       </div>
@@ -968,7 +998,28 @@ $readonly = '';
                                             <button class="close" data-close="alert"></button>
                                             تـم عملية حـفـظ البيـانات بنجـاح !
                                         </div>
-                                        <input id="elderRoomhdnAction" name="elderRoomhdnAction" type="hidden" value="<?php echo $elderRoomaction;?>" />
+                                        <input id="hdnElderRoomAction" name="hdnElderRoomAction" type="hidden" 
+                                          value="<?php echo $elderRoomaction;?>" />
+                                        <input id="hdnElderRoomId" name="hdnElderRoomId" type="hidden" value="" />
+                                        
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">وصف السكن بالتفصيل للمسن <span class="required">
+                                             * </span>
+                                             </label>
+                                            <div class="col-md-4">
+                                                <select class="form-control" id="drpHometype" name="drpHometype">
+                                                  <option value="">اختر...</option>
+                                                   <?php
+                                                    foreach($survey_Hometype as $row)
+                                                    {
+                                                      echo '<option value="'.$row->sub_constant_id.'">'
+													  		.$row->sub_constant_name.'</option>';
+                                                  }
+                                                   ?>
+                                              </select>
+                                            </div>
+                                        </div>
+                                        
                                         <div class="form-group">
                                             <label class="control-label col-md-3">وصف حالة المسن في الأسرة <span class="required">
                                              * </span>
@@ -1005,7 +1056,7 @@ $readonly = '';
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">تهيوية الغرفة <span class="required">
+                                            <label class="control-label col-md-3">تهوية الغرفة <span class="required">
                                              * </span>
                                              </label>
                                             <div class="col-md-4">
@@ -1090,7 +1141,7 @@ $readonly = '';
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">بحاجة للصيانة <span class="required">
+                                            <label class="control-label col-md-3">غرفة المسن بحاجة إلى صيانة / ترميم <span class="required">
                                              * </span>
                                              </label>
                                             <div class="col-md-4">
@@ -1106,20 +1157,13 @@ $readonly = '';
                                             </div>
                                         </div>
                                         
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">بحاجة للترميم <span class="required">
+                                        <div id="dvRoommaintinancedet" class="form-group" style="display:none">
+                                            <label class="control-label col-md-3">توضيح نوع الصيانة والترميم المطلوب <span class="required">
                                              * </span>
                                              </label>
                                             <div class="col-md-4">
-                                                <select class="form-control select2me" id="drpRestoration" name="drpRestoration">
-                                                  <option value="">اختر...</option>
-                                                  <?php
-                                                    foreach($survey_Choice as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
-                                                   ?>
-                                              </select>
+                                            	<textarea id="txtarRoommaintinancedet" name="txtarRoommaintinancedet" 
+                                                  class="form-control input-large"></textarea>
                                             </div>
                                         </div>
                                         
@@ -1137,6 +1181,17 @@ $readonly = '';
                                                   }
                                                    ?>
                                               </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="dvBathroommaintinancedet" class="form-group" style="display:none">
+                                            <label class="control-label col-md-3">
+                                            	توضيح نوع الصيانة والترميم المطلوب وخاصة في حالة الإعاقة<span class="required">
+                                             * </span>
+                                             </label>
+                                            <div class="col-md-4">
+                                            	<textarea id="txtarBathroommaintinancedet" name="txtarBathroommaintinancedet" 
+                                                  class="form-control input-large"></textarea>
                                             </div>
                                         </div>
                                         
@@ -1162,8 +1217,8 @@ $readonly = '';
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                <button type="button" class="btn default">الغاء الامر</button>
+                                                <button type="button" class="btn blue-madison" onclick="editeElderRoom()">
+                                                حـفـظ</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1172,141 +1227,94 @@ $readonly = '';
                                      <!-- ** Elder Midication **-->
                                      <div class="tab-pane fade" id="tab_6_7">
                               		 <fieldset><legend>توفر العلاج</legend>
-                                     <div class="form-body">
-                                      <br/>
-                                        <div class="alert alert-danger display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                        </div>
-                                        <div class="alert alert-success display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            Your form validation is successful!
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                          <label class="control-label col-md-3">اسم الدواء <span class="required">
-                                          * </span>
-                                          </label>
-                                          <div class="col-md-4">
-                                              <input type="text" id="txtMedicinename" name="txtMedicinename" data-required="1" class="form-control"/>
-                                          </div>
-                                        </div>
-                                          
-                                          <div class="form-group">
-                                              <label class="control-label col-md-3">توفير العلاج للمسن  </label>
-                                              <div class="col-md-4">
-                                                  <select class="form-control select2me" id="drpMedicationNeed" name="drpMedicationNeed">
-                                                    <option value="">اختر...</option>
-                                                    <?php
-                                                      foreach($survey_MedicationNeed as $row)
-                                                      {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                    }
-                                                     ?>
-                                                </select>
-                                              </div>
-                                          </div>
-                                          
-                                          <div class="form-group">
-                                            <label class="control-label col-md-3">سبب الانقطاع &nbsp;&nbsp;&nbsp </label>
-                                            <div class="col-md-4">
-                                                <input type="text" id="txtReason" name="txtReason" class="form-control"/>
-                                            </div>
-                                        </div>
-                                          
-                                      </div>
-                                      <!-- END FORM BODY -->
-                                      <div class="form-actions">
-                                          <div class="row">
-                                              <div class="col-md-offset-3 col-md-9">
-                                                  <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                  <button type="button" class="btn default">الغاء الامر</button>
-                                              </div>
-                                          </div>
-                                      </div><br/>
-                                     <!-- END FORM-->
                                     <table class="table table-bordered table-striped">
                                     <thead>
+                                      <tr class="bg-grey-steel">
+                                          <th>اسم الدواء <span class="font-red">
+                                             * </span>
+                                          </th>
+                                          <th>حالة الدواء <span class="font-red">
+                                             * </span>
+                                          </th>
+                                          <th>سبب الانقطاع <span class="font-red">
+                                             * </span>
+                                          </th>
+                                          <th>&nbsp;</th>
+                                      </tr>
                                       <tr>
-                                          <th>اسم الدواء</th>
-                                          <th>حالة الدواء</th>
-                                          <th>سبب الانقطاع</th>
+                                          <th>
+                                          	<input type="text" id="txtMedicinename" name="txtMedicinename" 
+                                            data-required="1" class="form-control input-sm"/>
+                                          </th>
+                                          <th>
+                                          	<select id="drpMedicationAvailable" name="drpMedicationAvailable" 
+                                             class="form-control input-sm input-small">
+                                                <option value="">اختر...</option>
+                                                <?php
+                                                  foreach($survey_MedicationNeed as $row)
+                                                  {
+                                                    echo '<option value="'.$row->sub_constant_id.'">'
+													.$row->sub_constant_name.'</option>';
+                                                  }
+                                                 ?>
+                                            </select>
+                                          </th>
+                                          <th>
+                                          	<input type="text" id="txtReason" name="txtReason" class="form-control input-sm"/>
+                                          </th>
+                                          <th>
+                                          <button id="btnAddMedication" name="btnAddMedication" type="button" 
+                                              class="btn btn-circle green-turquoise btn-sm" 
+                                              onclick="add_medication_availability()">
+                                              <i id="iConst" class="fa fa-plus"></i></button>
+                                          </th>
                                       </tr>
                                      </thead>
-                                     <tbody>
-                                      <tr>
-                                          <td>Amiral</td>
-                                          <td>متوفر</td>
-                                          <td>&nbsp;</td>
-                                       </tr>
-                                       <tr>
-                                          <td>Lipanthyl</td>
-                                          <td>متقطع</td>
-                                          <td>غير متوفر دائما في العيادات الحكومية</td>
-                                       </tr>
+                                     <tbody id="tbdMedication">
+                                      
                                      </tbody>
                                      </table>   
                                      </fieldset><!-- END fieldset Mication Available-->
                                      <fieldset><legend>الاحتياجات العلاجية</legend>
-                                     <div class="form-body">
-                                      <br/>
-                                        <div class="alert alert-danger display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                        </div>
-                                        <div class="alert alert-success display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            Your form validation is successful!
-                                        </div>
-                                                                                                                  
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">بحاجة الى  </label>
-                                            <div class="col-md-4">
-                                                <select class="form-control select2me" id="drpMedtype" name="drpMedtype">
-                                                  <option value="">اختر...</option>
-                                                 
-                                                    <?php
-                                                    foreach($survey_MedicationType as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
-                                                   ?>
-                                              </select>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                          <label class="control-label col-md-3">تفاصيل&nbsp;&nbsp;&nbsp;
-                                          </label>
-                                          <div class="col-md-4">
-                                              <input type="text" id="txtMeddetails" name="txtMeddetails" class="form-control"/>
-                                          </div>
-                                      </div>
-                                        
-                                    </div>
-                                    <!-- END FORM BODY -->
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                <button type="button" class="btn default">الغاء الامر</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                     <!-- END FORM-->
                                     <table class="table table-bordered table-striped">
                                     <thead>
-                                      <tr>
-                                          <th>نوع العلاج</th>
-                                          <th>تفـاصيل العلاح</th>
+                                      <tr class="bg-grey-steel">
+                                          <th>نوع العلاج <span class="font-red">
+                                             * </span>
+                                          </th>
+                                          <th>تفـاصيل العلاج <span class="font-red">
+                                             * </span>
+                                          </th>
+                                          <th>&nbsp;</th>
                                       </tr>
-                                     </thead>
-                                     <tbody>
                                       <tr>
-                                          <td>علاج</td>
-                                          <td>علاج طبيعي</td>
-                                       </tr>
+                                          <th>
+                                          	<select id="drpMedtype" name="drpMedtype" class="form-control input-sm input-small" >
+                                                <option value="">اختر...</option>
+                                                  <?php
+                                                  foreach($survey_MedicationType as $row)
+                                                  {
+                                                    echo '<option value="'.$row->sub_constant_id.'">'
+													      .$row->sub_constant_name.'</option>';
+                                                  }
+                                                 ?>
+                                            </select>
+                                          </th>
+                                          <th>
+                                          	<input type="text" id="txtMeddetails" name="txtMeddetails" 
+                                            class="form-control input-sm input-larg"/>
+                                          </th>
+                                          <th>
+                                          	<button id="btnAddMedicationneed" name="btnAddMedicationneed" type="button" 
+                                              class="btn btn-circle green-turquoise btn-sm" 
+                                              onclick="add_medication_need()">
+                                              <i id="iConst" class="fa fa-plus"></i></button>
+                                          </th>
+                                      </tr>
+
+                                     </thead>
+                                     <tbody id="tbdMedicationneed">
+                                      
                                      </tbody>
                                      </table>   
                                      </fieldset><!-- END fieldset Mication Needs-->
@@ -1324,7 +1332,9 @@ $readonly = '';
                                             <button class="close" data-close="alert"></button>
                                             تـم عملية حـفـظ البيـانات بنجـاح !
                                         </div>
-                                        <input id="elderFamRelAction" name="elderFamRelAction" type="hidden" value="<?php echo $elderFamRelAction;?>" />
+                                        <input id="hdnelderFamRelAction" name="hdnelderFamRelAction" type="hidden" 
+                                        	value="<?php echo $elderFamRelAction;?>" />
+                                        
                                         <div class="form-group">
                                             <label class="control-label col-md-3">احترام متبادل <span class="required">
                                              * </span>
@@ -1352,7 +1362,8 @@ $readonly = '';
                                                    <?php
                                                     foreach($survey_Choice as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                      echo '<option value="'.$row->sub_constant_id.'">'
+													  		.$row->sub_constant_name.'</option>';
                                                   }
                                                    ?>
                                               </select>
@@ -1365,23 +1376,6 @@ $readonly = '';
                                              </label>
                                             <div class="col-md-4">
                                                 <select class="form-control" id="drpCare" name="drpCare">
-                                                  <option value="">اختر...</option>
-                                                   <?php
-                                                    foreach($survey_Choice as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
-                                                   ?>
-                                              </select>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">توفير الاحتياجات <span class="required">
-                                             * </span>
-                                             </label>
-                                            <div class="col-md-4">
-                                                <select class="form-control" id="drpNeeds" name="drpNeeds">
                                                   <option value="">اختر...</option>
                                                    <?php
                                                     foreach($survey_Choice as $row)
@@ -1410,13 +1404,67 @@ $readonly = '';
                                             </div>
                                         </div>
                                         
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">توفير الاحتياجات <span class="required">
+                                             * </span>
+                                             </label>
+                                            <div class="col-md-4">
+                                                <select class="form-control" id="drpNeeds" name="drpNeeds">
+                                                  <option value="">اختر...</option>
+                                                   <?php
+                                                    foreach($survey_Choice as $row)
+                                                    {
+                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                  }
+                                                   ?>
+                                              </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="dvNeedreasone" class="form-group" style="display:none">
+                                            <label class="control-label col-md-3">اذكر السـبب <span class="required">
+                                             * </span>
+                                             </label>
+                                            <div class="col-md-4">
+                                                <textarea id="txtarNeedreasone" name="txtarNeedreasone" 
+                                                  class="form-control input-large"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">الاحتياج للعيادة القانونية <span class="required">
+                                             * </span>
+                                             </label>
+                                            <div class="col-md-4">
+                                                <select class="form-control" id="drpLegaladvice" name="drpLegaladvice">
+                                                  <option value="">اختر...</option>
+                                                   <?php
+                                                    foreach($survey_Choice as $row)
+                                                    {
+                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                  }
+                                                   ?>
+                                              </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="dvLegaladvicereasone" class="form-group" style="display:none">
+                                            <label class="control-label col-md-3">اذكر السـبب <span class="required">
+                                             * </span>
+                                             </label>
+                                            <div class="col-md-4">
+                                                <textarea id="txtarLegaladvicereasone" name="txtarLegaladvicereasone" 
+                                                  class="form-control input-large"></textarea>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                     <!-- END FORM BODY -->
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                <button type="button" class="btn default">الغاء الامر</button>
+                                                <button type="button" class="btn blue-madison" onclick="editeElderFamRel()">
+                                                حـفـظ</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1424,124 +1472,116 @@ $readonly = '';
                                      <!-- ** END Family-Elder Relationship **-->
                                      <!-- ** Elder-Family Relationship **-->
                                      <div class="tab-pane fade" id="tab_6_9">
-                                     <div class="form-body">
-                                      <br/>
-                                        <div class="alert alert-danger display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                        </div>
-                                        <div class="alert alert-success display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                             تـم عملية حـفـظ البيـانات بنجـاح !
-                                        </div>
+                                    	<div class="col-md-12">
+                                        <input id="hdnElderDiseaseId" name="hdnElderDiseaseId" type="hidden" value="" />
+                                     	<table class="table table-bordered table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th>
+                                              <div class="col-md-3">
+                                                 علافة المسن بالأسرة والمجتمع المحلي 
+                                              </div>
+                                              <div class="col-md-6">
+                                                <select id="drpBehaviour" name="drpBehaviour"
+                                                   class="form-control input-large" >
+                                                    <option value="">اختر...</option>
+                                                    <?php
+                                                     foreach($survey_ElderBehaviour as $row)
+                                                      {
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+                                                                .$row->sub_constant_name.'</option>';
+                                                      }
+                                                    ?>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-2">
+                                                <button id="btnAdddisease" name="btnAdddisease" type="button" 
+                                                class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_behaviour()">
+                                                <i id="iConst" class="fa fa-plus"></i></button> 
+                                              </div>
+                                            </th>
+                                          </tr>
+                                         </thead>
+                                         <tbody id="tbdElderBehaviour">
                                          
-                                        <div class="form-group">
-                                          <label class="control-label col-md-3">علاقة المسن بالأسرة والمجتمع المحلي <span class="required">
-                                          * </span>
-                                          </label>
-                                          <div class="col-md-4">
-                                              <select class="form-control select2me" id="drp" name="drp">
-                                                  <option value="">اختر...</option>
-                                                  <option value="pending">انطوائي</option>
-                                                  <option value="closed">مبادر</option>
-                                                  <option value="closed">مشاركة الآخرين</option>
-                                                  <option value="closed">الإهتمام بمن حوله</option>
-                                                  <option value="closed">أناني</option>
-                                                  <option value="closed">منبوذ بسبب انه أناني</option>
-                                                  <option value="closed">منبوذ بسبب انه سليط اللسان</option>
-                                                  <option value="closed">منبوذ بسبب انه عصبي</option>
-                                                  <option value="closed">منبوذ بسبب انه مريض</option>
-                                                  <option value="closed">منبوذ بسبب انه صعب الحركة</option>
-                                                  
-                                              </select>
+                                          
+                                         </tbody>
+                                         </table>
+                                         <div id="dvPariahreasone" style="display:none">
+                                         <table class="table table-bordered table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th>
+                                              <div class="col-md-3">
+                                                 سبب نبذ المسن 
+                                              </div>
+                                              <div class="col-md-6">
+                                                <select id="drpPariahreasone" name="drpPariahreasone"
+                                                   class="form-control input-large" >
+                                                    <option value="">اختر...</option>
+                                                    <?php
+                                                     foreach($survey_ElderPariah as $row)
+                                                      {
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+                                                                .$row->sub_constant_name.'</option>';
+                                                      }
+                                                    ?>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-2">
+                                                <button id="btnAddpariah" name="btnAddpariah" type="button" 
+                                                class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_pariah()">
+                                                <i id="iConst" class="fa fa-plus"></i></button> 
+                                              </div>
+                                            </th>
+                                          </tr>
+                                         </thead>
+                                         <tbody id="tbdElderPariah">
+                                         
+                                          
+                                         </tbody>
+                                         </table>
                                           </div>
-                                      </div>
-                   
-                                    </div>
-                                    <!-- END FORM BODY -->
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                <button type="button" class="btn default">الغاء الامر</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                     <!-- END FORM-->
-                                    <table class="table table-bordered table-striped">
-                                    <thead>
-                                      <tr>
-                                          <th>علاقة المسن بالأسرة والمجتمع المحلي</th>
-                                      </tr>
-                                     </thead>
-                                     <tbody>
-                                      <tr>
-                                          <td>الإهتمام بمن حوله</td>
-                                       </tr>
-                                      <tr>
-                                          <td>منبوذ بسبب انه عصبي</td>
-                                      </tr>
-                                     </tbody>
-                                     </table>   
+                                         </div>   
                                      </div><!-- END tab_6_9-->
                                      <!-- ** END Elder-Family Relationship **-->
                                      <!-- ** Family Status **-->
                                      <div class="tab-pane fade" id="tab_6_10">
-                                     <div class="form-body">
-                                      <br/>
-                                        <div class="alert alert-danger display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                        </div>
-                                        <div class="alert alert-success display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            Your form validation is successful!
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                          <label class="control-label col-md-3">حالة أسرة المسن الاجتماعية والنفسية  <span class="required">
-                                          * </span>
-                                          </label>
-                                          <div class="col-md-4">
-                                              <select class="form-control select2me" id="drpPsychologicalStatus" name="drpPsychologicalStatus">
+                                     <div class="col-md-12">
+                                        <table class="table table-bordered table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th>
+                                              <div class="col-md-3">
+                                                 حالة أسرة المسن الاجتماعية والنفسية 
+                                              </div>
+                                              <div class="col-md-6">
+                                                <select class="form-control" id="drpPsychologicalStatus" 
+                                                	name="drpPsychologicalStatus">
                                                   <option value="">اختر...</option>
                                                   <?php
                                                     foreach($survey_PsychologicalStatus as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                      echo '<option value="'.$row->sub_constant_id.'">'
+													  		.$row->sub_constant_name.'</option>';
                                                   }
                                                    ?>
                                               </select>
-                                          </div>
-                                      </div>
-                   
-                                    </div>
-                                    <!-- END FORM BODY -->
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                <button type="button" class="btn default">الغاء الامر</button>
-                                            </div>
-                                        </div>
-                                    </div><br/>
-                                     <!-- END FORM-->
-                                    <table class="table table-bordered table-striped">
-                                    <thead>
-                                      <tr>
-                                          <th>علاقة المسن بالأسرة والمجتمع المحلي</th>
-                                      </tr>
-                                     </thead>
-                                     <tbody>
-                                      <tr>
-                                          <td>مشاركة</td>
-                                       </tr>
-                                      <tr>
-                                          <td>منفتحة</td>
-                                      </tr>
-                                     </tbody>
-                                     </table>   
+                                              </div>
+                                              <div class="col-md-2">
+                                                <button id="btnAddfamilypsycho" name="btnAddfamilypsycho" type="button" 
+                                                 class="btn btn-circle green-turquoise btn-sm" onclick="add_family_psycho()">
+                                                <i id="iConst" class="fa fa-plus"></i></button> 
+                                              </div>
+                                            </th>
+                                          </tr>
+                                         </thead>
+                                         <tbody id="tbdFamilyPsycho">
+                                         
+                                         </tbody>
+                                         </table>
+                                         
+                                         </div>
                                      </div><!-- END tab_6_10-->
                                      <!-- ** END Family Status **-->
                                      <!-- ** Life Improvement ** -->
@@ -1556,9 +1596,10 @@ $readonly = '';
                                               <button class="close" data-close="alert"></button>
                                               تـم عملية حـفـظ البيـانات بنجـاح !
                                           </div>
-                                          <input id="lifeImprovhdnaction" name="lifeImprovhdnaction" type="hidden" value="<?php echo $lifeImprovAction;?>" />
+                                          <input id="hdnlifeImprovaction" name="hdnlifeImprovaction" type="hidden" 
+                                          value="<?php echo $lifeImprovAction;?>" />
                                           <div class="form-group">
-                                            <label class="control-label col-md-3">قدرة المسن على العمل  <span class="required">
+                                            <label class="control-label col-md-3">قدرة المسن على العمل <span class="required">
                                             * </span>
                                             </label>
                                             <div class="col-md-4">
@@ -1576,31 +1617,31 @@ $readonly = '';
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">طبيعة العمل التي يمكنه/ها القيام به  &nbsp;&nbsp;&nbsp </label>
+                                            <label class="control-label col-md-3">طبيعة العمل التي يمكنه/ها القيام به </label>
                                             <div class="col-md-4">
-                                                <input type="text" id="txtelderworktype" name="txtelderworktype" class="form-control"/>
+                                               <input type="text" id="txtelderworktype" name="txtelderworktype" class="form-control"/>
                                             </div>
                                         </div>
                                       
                                       <div class="form-group">
-                                            <label class="control-label col-md-3">في حالة عدم القدرة على العمل – إمكانية تشغيل  <span class="required">
-                                            * </span>
+                                            <label class="control-label col-md-3">في حالة عدم القدرة على العمل – إمكانية تشغيل 
                                             </label>
                                             <div class="col-md-4">
-                                                <select class="form-control select2me" id="drpFamilyMember" name="drpFamilyMember">
+                                                <select class="form-control" id="drpFamilyMember" name="drpFamilyMember">
                                                     <option value="">اختر...</option>
-     <?php
+     												<?php
                                                       foreach($survey_FamilyMember as $row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                    }
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+														.$row->sub_constant_name.'</option>';
+                                                      }
                                                      ?>
                                                 </select>
                                             </div>
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">طبيعة العمل التي يمكنه/ها القيام به  &nbsp;&nbsp;&nbsp </label>
+                                            <label class="control-label col-md-3">طبيعة العمل التي يمكنه/ها القيام به  </label>
                                             <div class="col-md-4">
                                                 <input type="text" id="txtFamilyworktype" name="txtFamilyworktype" class="form-control"/>
                                             </div>
@@ -1612,12 +1653,13 @@ $readonly = '';
                                             </label>
                                             <div class="col-md-4">
     
-                                                <select class="form-control select2me" id="drpNeedtraining" name="drpNeedtraining">
+                                                <select class="form-control" id="drpNeedtraining" name="drpNeedtraining">
                                                     <option value="">اختر...</option>
                                                       <?php
                                                       foreach($survey_Choice as $row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+														.$row->sub_constant_name.'</option>';
                                                     }
                                                      ?>
                                                 </select>
@@ -1632,7 +1674,9 @@ $readonly = '';
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">إمكانية عمل مشروع صغير مدر للدخل  &nbsp;&nbsp;&nbsp 
+                                            <label class="control-label col-md-3">إمكانية عمل مشروع صغير مدر للدخل  
+                                            <span class="required">
+                                            * </span> 
                                             </label>
                                             <div class="col-md-4">
                                                 <select class="form-control" id="drpStartproject" name="drpStartproject">
@@ -1640,7 +1684,8 @@ $readonly = '';
                                                       <?php
                                                       foreach($survey_Choice as $row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+															.$row->sub_constant_name.'</option>';
                                                     }
                                                      ?>
                                                 </select>
@@ -1667,8 +1712,9 @@ $readonly = '';
                                       <div class="form-actions">
                                           <div class="row">
                                               <div class="col-md-offset-3 col-md-9">
-                                                  <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                  <button type="button" class="btn default">الغاء الامر</button>
+                                                  <button type="button" class="btn blue-madison" onclick="editeLifeImprov()">
+                                                  حـفـظ</button>
+                                                  
                                               </div>
                                           </div>
                                       </div>  

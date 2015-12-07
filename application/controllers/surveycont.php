@@ -51,6 +51,7 @@ class Surveycont extends CI_Controller
 		$this->data['survey_CeilingType'] = $this->constantmodel->get_sub_constant(32);
 		$this->data['survey_FurnitureLevel'] = $this->constantmodel->get_sub_constant(33);
 		$this->data['survey_Roomtype'] = $this->constantmodel->get_sub_constant(34);
+		$this->data['survey_Hometype'] = $this->constantmodel->get_sub_constant(55);
 		$this->data['survey_Clothes'] = $this->constantmodel->get_sub_constant(35);
 		$this->data['survey_Ventilation'] = $this->constantmodel->get_sub_constant(36);
 		$this->data['survey_Lighting'] = $this->constantmodel->get_sub_constant(37);
@@ -66,8 +67,12 @@ class Surveycont extends CI_Controller
 		$this->data['survey_NutritionType'] = $this->constantmodel->get_sub_constant(48);
 		$this->data['survey_PsychologicalSupport'] = $this->constantmodel->get_sub_constant(49);
 		$this->data['survey_HomeImprovRecomend'] = $this->constantmodel->get_sub_constant(50);
-		$this->data['survey_ElderHealth'] = $this->constantmodel->get_sub_constant(54);
-
+		$this->data['survey_ElderDisease'] = $this->constantmodel->get_sub_constant(54);
+		$this->data['survey_ElderBehaviour'] = $this->constantmodel->get_sub_constant(43);
+		$this->data['survey_ElderPariah'] = $this->constantmodel->get_sub_constant(56);
+		$this->data['survey_Organization'] = $this->constantmodel->get_sub_constant(57);
+		
+		
 		$this->load->model('Employeemodel');
 		$this->data['survey_employee_info'] = $this->Employeemodel->get_all_employee();
 		
@@ -237,6 +242,503 @@ class Surveycont extends CI_Controller
 			
 		}
 	}
+//******************* END FAMILY MEMBER TAB ************************/
+
+/************************ Health Status TAB ************************/
+	function adddisease()
+	{
+		
+		$this->load->model('Surveymodel');
+		$elder_disease_id = $this->Surveymodel->elder_disease_det_insert();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_elder_disease_by_survey_id($hdnSurveyId);
+		
+		echo $elder_disease_id.'|';
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>';
+			echo '<div class="col-md-11">';
+			echo '<span class="font-blue">' . $row->disease .'</span></div>';
+			echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_elder_disease('. $row->elder_disease_det_id .','. $row->disease_id .')">
+								   <i id="iConst" class="fa fa-close"></i>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+		
+	}
+	
+	function deletedisease()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->elder_disease_det_delete();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_elder_disease_by_survey_id($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>';
+			echo '<div class="col-md-11">';
+			echo '<span class="font-blue">' . $row->disease .'</span></div>';
+			echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_elder_disease('. $row->elder_disease_det_id .','. $row->disease_id .')">
+								   <i id="iConst" class="fa fa-close"></i></button>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+	}
+	
+	function adddiseasedet()
+	{
+		$this->load->model('Surveymodel');
+		
+		extract($_POST);
+		
+		if ($hdnElderDiseaseId == '')
+			$hdnElderDiseaseId = $this->Surveymodel->elder_disease_insert();
+		else
+			$this->Surveymodel->elder_disease_update();
+		
+		echo $hdnElderDiseaseId;
+				
+	}
+	
+/************************ END Health Status TAB ************************/
+
+/************************* Income Resources TAB ************************/
+	function addincomeresourcedet()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->income_resources_details_insert();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_income_resources_details($hdnSurveyId);
+		$i=1;
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>' . $i++ . '</td>';
+			echo '<td>' . $row->resource . '</td>';
+			echo '<td>' . $row->cash_income . '</td>';
+			echo '<td>' . $row->package_income . '</td>';
+			echo '<td>' . $row->package_cash_value . '</td>';
+			echo '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
+																	   . $row->resource_id .')">
+								   <i id="iConst" class="fa fa-close"></i></button>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+		
+	}
+	function deleteincomeresourcedet()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->income_resources_details_delete();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_income_resources_details($hdnSurveyId);
+		$i=1;
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>' . $i++ . '</td>';
+			echo '<td>' . $row->resource . '</td>';
+			echo '<td>' . $row->cash_income . '</td>';
+			echo '<td>' . $row->package_income . '</td>';
+			echo '<td>' . $row->package_cash_value . '</td>';
+			echo '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
+																	   . $row->resource_id .')">
+								   <i id="iConst" class="fa fa-close"></i></button>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+		
+	}
+	function addincomeresource()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->income_resources_insert();
+		
+	}
+	function updateincomeresource()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->income_resources_update();
+		
+	}
+/*********************** END Income Resources TAB **********************/
+
+/************************ Family Home Status TAB ***********************/
+
+	function addhomeStatus()
+	{
+		$this->load->model('Surveymodel');
+		$res = $this->Surveymodel->insert_homeStatus();
+		
+		echo $res;
+		
+	}
+	function updatehomeStatus()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_homeStatus();
+		
+		extract($_POST);
+		echo $hdnHomeStatusId;
+	}
+
+/********************** END Family Home Status TAB *********************/
+
+/**************************** Elder Room TAB ***************************/
+
+	function addelderRoom()
+	{
+		$this->load->model('Surveymodel');
+		$res = $this->Surveymodel->insert_elderRoom();
+		
+		echo $res;
+		
+	}
+	function updateelderRoom()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_elderRoom();
+		
+		extract($_POST);
+		echo $hdnHomeStatusId;
+		
+	}
+
+/************************* END Elder Room TAB **************************/
+/*************************** Medication TAB ****************************/
+	function addmedicationavailabl()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->medication_availability_insert();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_medication_availability($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>'. $row->medicine_name .'</td>';
+			echo '<td>'. $row->availability_status .'</td>';
+			echo '<td>'. $row->unavailable_reason .'</td>';
+			echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+							  class="btn btn-circle red-sunglo btn-sm" 
+							  onclick="delete_medication_availability('. $row->medication_availability_id .
+																	  ','. $row->availability_status_id .')">
+							   <i id="iConst" class="fa fa-close"></i></button>';
+			echo "</td>";
+			echo "</tr>";
+		}
+	}
+	function deletemedicationavailabl()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->medication_availability_delete();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_medication_availability($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>'. $row->medicine_name .'</td>';
+			echo '<td>'. $row->availability_status .'</td>';
+			echo '<td>'. $row->unavailable_reason .'</td>';
+			echo '<td><button id="btnDeleteMedicavail" name="btnDeleteMedicavail" type="button" 
+							  class="btn btn-circle red-sunglo btn-sm" 
+							  onclick="delete_medication_availability('. $row->medication_availability_id .')">
+							   <i id="iConst" class="fa fa-close"></i></button>';
+			echo "</td>";
+			echo "</tr>";
+		}
+	}
+	function addmedicationneed()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->medication_need_insert();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_medication_need($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>'. $row->medication_type .'</td>';
+			echo '<td>'. $row->medication_details .'</td>';
+			echo '<td><button id="btnDeleteMedicneed" name="btnDeleteMedicneed" type="button" 
+							  class="btn btn-circle red-sunglo btn-sm" 
+							  onclick="delete_medication_need('. $row->medication_need_id .')">
+							   <i id="iConst" class="fa fa-close"></i></button>';
+			echo "</td>";
+			echo "</tr>";
+		}
+	}
+	function deletemedicationneed()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->medication_need_delete();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_medication_need($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>'. $row->medication_type .'</td>';
+			echo '<td>'. $row->medication_details .'</td>';
+			echo '<td><button id="btnDeleteMedicneed" name="btnDeleteMedicneed" type="button" 
+							  class="btn btn-circle red-sunglo btn-sm" 
+							  onclick="delete_medication_need('. $row->medication_need_id .')">
+							   <i id="iConst" class="fa fa-close"></i></button>';
+			echo "</td>";
+			echo "</tr>";
+		}
+	}
+/************************* END Medication TAB **************************/
+
+/************************ Elder Behaviour TAB **************************/
+	function addbehaviour()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->elder_behaviour_insert();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_elder_behaviour($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>';
+			echo '<div class="col-md-11">';
+			echo '<span class="font-blue">' . $row->behaviour .'</span></div>';
+			echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_elder_behaviour('. $row->elder_behaviour_id .','
+																 . $row->behaviour_id .')">
+								   <i id="iConst" class="fa fa-close"></i>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+	}
+	function deletebehaviour()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->elder_behaviour_delete();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_elder_behaviour($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>';
+			echo '<div class="col-md-11">';
+			echo '<span class="font-blue">' . $row->behaviour .'</span></div>';
+			echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_elder_behaviour('. $row->elder_behaviour_id .','
+																 . $row->behaviour_id .')">
+								   <i id="iConst" class="fa fa-close"></i>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+		
+	}
+	function addpariah()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->elder_pariah_insert();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_elder_pariah($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>';
+			echo '<div class="col-md-11">';
+			echo '<span class="font-blue">' . $row->pariah_reason .'</span></div>';
+			echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_elder_pariah('. $row->elder_pariah_id .','
+																 . $row->elder_pariah_reason_id .')">
+								   <i id="iConst" class="fa fa-close"></i>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+	}
+	function deletepariah()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->elder_pariah_delete();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_elder_pariah($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>';
+			echo '<div class="col-md-11">';
+			echo '<span class="font-blue">' . $row->pariah_reason .'</span></div>';
+			echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_elder_pariah('. $row->elder_pariah_id .','
+																 . $row->elder_pariah_reason_id .')">
+								   <i id="iConst" class="fa fa-close"></i>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+		
+	}
+/********************** END Elder Behaviour TAB ************************/
+/******************* Family Elder Relationship TAB *********************/
+
+	function addelderFamRel()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_elderFamilyRelation();
+		
+	}
+	function updateelderFamRel()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_elderFamilyRelation();
+	}
+
+/***************** END Family Elder Relationship TAB *******************/
+
+/****************** Family Psychological Status TAB ********************/
+	function addfamilypsycho()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->family_psychological_status_insert();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_family_psychological_status($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>';
+			echo '<div class="col-md-11">';
+			echo '<span class="font-blue">' . $row->psychological_status .'</span></div>';
+			echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_family_psycho('. $row->family_psychological_status_id .','
+																 . $row->psychological_status_id .')">
+								   <i id="iConst" class="fa fa-close"></i>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+		
+		
+	}
+	function deletefamilypsycho()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->family_psychological_status_delete();
+		
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_family_psychological_status($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			
+			echo '<tr>';
+			echo '<td>';
+			echo '<div class="col-md-11">';
+			echo '<span class="font-blue">' . $row->psychological_status .'</span></div>';
+			echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+								  class="btn btn-circle red-sunglo btn-sm" 
+								  onclick="delete_family_psycho('. $row->family_psychological_status_id .','
+																 . $row->psychological_status_id .')">
+								   <i id="iConst" class="fa fa-close"></i>
+						  </div>';
+			echo "</td>";
+			echo "</tr>";
+		}
+	}
+/***************** END Family Psychological Status TAB ******************/
+/********************** Life Improvement TAB ****************************/
+	function addelifeImprov()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_lifeImprovement();
+		
+	}
+	function updatelifeImprov()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_lifeImprovement();
+	}
+	
+	
+	/*function getfamilymember()
+	{
+		$this->load->model('Surveymodel');
+		
+		extract($_POST);
+		$rec=$this->Surveymodel->get_familyMember_by_survey_id($hdnSurveyId);
+		
+		foreach($rec as $row)
+		{
+			echo '<option value="'.$row->family_member_id.'">';
+			echo $row->member_name.' ( '.$row->relationship.')';
+			echo '</option>';
+		}
+	}*/
+/********************** END Life Improvement TAB **************************/
 
 //*************************check family member id ****************************
 function check_familymember_id()
@@ -326,17 +828,7 @@ function get_survey_data()
 //*************************end survey fuction****************************
 //************************** home status function*************************
 
-function addhomeStatus()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->insert_homeStatus();
-		
-	}
-function updatehomeStatus()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->update_homeStatus();
-	}
+
 /*
 function get_homeStatus_data()
 	{
@@ -372,46 +864,16 @@ function get_homeStatus_data()
 */
 //*********************** Elder room status function****************	//
 
-function addelderRoom()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->insert_elderRoom();
-		
-	}
-function updateelderRoom()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->update_elderRoom();
-	}
+
 //****************end elder room status function******//
 
 //*********************** Elder family relation function****************	//
 
-function addelderFamRel()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->insert_elderFamilyRelation();
-		
-	}
-function updateelderFamRel()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->update_elderFamilyRelation();
-	}
+
 
 //*********************** Elder family relation function****************	//
 
-function addelifeImprov()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->insert_lifeImprovement();
-		
-	}
-function updatelifeImprov()
-	{
-		$this->load->model('Surveymodel');
-		$this->Surveymodel->update_lifeImprovement();
-	}
+
 	
 	
 }

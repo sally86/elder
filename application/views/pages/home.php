@@ -5,17 +5,43 @@
 					 Page content goes here
                      <?php $query = $this->db->get('constant_tb');
 					 		echo count($query->result());?>
-                <div class="form-group">
-										<label class="control-label col-md-3">Without Seconds</label>
-										<div class="col-md-3">
-											<div class="input-group">
-												<input type="text" class="form-control timepicker timepicker-no-seconds">
-												<span class="input-group-btn">
-												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
-												</span>
-											</div>
-										</div>
-									</div>
+              <!------------------------------------------TABLE------------------------------------------------>
+  <!-- <span class="required">
+                                        		* </span>
+                                                
+                                               <table class="table table-bordered table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th>
+                                              <div class="col-md-4">
+                                                 ??? ?????? 
+                                              </div>
+                                              <div class="col-md-6">
+                                                <select id="drpElderHealth" name="drpElderHealth"
+                                                   class="form-control input-sm" >
+                                                    <option value="">????...</option>
+                                                    <?php
+                                                     /*foreach($survey_ElderHealth as $row)
+                                                      {
+                                                        echo '<option value="'.$row->sub_constant_id.'">'
+                                                                .$row->sub_constant_name.'</option>';
+                                                      }*/
+                                                    ?>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-2">
+                                                <button id="btnAddconstant" name="btnAddconstant" type="button" class="btn btn-circle green-turquoise btn-sm">
+                                                <i id="iConst" class="fa fa-plus"></i></button> 
+                                              </div>
+                                            </th>
+                                          </tr>
+                                         </thead>
+                                         <tbody id="tbdConst">
+                                         
+                                          
+                                         </tbody>
+                                         </table>-->
+   <!----------------------------------------END TABLE---------------------------------------------->
 				</div>
 			</div>
 			<!-- END PAGE CONTENT-->

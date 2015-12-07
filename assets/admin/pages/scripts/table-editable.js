@@ -15,11 +15,13 @@ var TableEditable = function () {
 
         function editRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
+			alert(nRow);
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
             jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
-            jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
+            //jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
+			jqTds[3].innerHTML = '<select name="drpList"><option>' + aData[3] + '</option></select>';
             jqTds[4].innerHTML = '<a class="edit" href="">Save</a>';
             jqTds[5].innerHTML = '<a class="cancel" href="">Cancel</a>';
         }

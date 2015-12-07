@@ -242,7 +242,571 @@ class Surveymodel extends CI_Model
 		return $query->result();
 		
 	}
-//----------------------- END FAMILY MEMBER TAB ------------------------/	
+//----------------------- END FAMILY MEMBER TAB -----------------------/
+
+/************************ ELDER HEALTH STATUS TAB *********************/
+/*	Insert Elder Disease Det						  				  */
+/*	Delete Elder Disease Det						  				  */
+/*	Insert Elder Disease (Master Table)				  				  */
+/*	Update Elder Disease (Master Table)				  				  */
+/*	Get Elder Disease										  		  */
+/**********************************************************************/
+	function elder_disease_det_insert()
+	{
+		
+		extract($_POST);
+		
+		if($hdnElderDiseaseId=='')
+		{
+			$masterdata['survey_id'] = $hdnSurveyId;
+			
+			$this->db->insert('elder_disease_tb',$masterdata);
+			$hdnElderDiseaseId = $this->db->insert_id();
+		}
+		
+		$data['elder_disease_id'] 	 = $hdnElderDiseaseId;
+		$data['disease_id']  = $diseaseid;
+		
+		$this->db->insert('elder_disease_det_tb',$data);
+		
+		return $hdnElderDiseaseId;
+	}
+	
+	function elder_disease_det_delete()
+	{
+		extract($_POST);
+		
+		$this->db->where('elder_disease_det_id',$elderdiseaseid);
+		$this->db->delete('elder_disease_det_tb');
+	}
+	
+	function elder_disease_insert()
+	{
+		extract($_POST);
+		
+		$data['survey_id'] = $hdnSurveyId;
+		$data['elder_disease_details'] = $elderdiseasedet;
+		
+		$this->db->insert('elder_disease_tb',$data);
+		
+		return $this->db->insert_id();
+	}
+	
+	function elder_disease_update()
+	{
+		extract($_POST);
+		
+		$data['elder_disease_details'] = $elderdiseasedet;
+		
+		$this->db->where('elder_disease_id',$hdnElderDiseaseId);
+		$this->db->update('elder_disease_tb',$data);
+		
+	}
+	
+	function get_elder_disease_by_survey_id($surveyid)
+	{
+		
+		$myquery = "SELECT  ed.elder_disease_id, ed.survey_id, ed.elder_disease_details, 
+							det.elder_disease_det_id, det.disease_id, dis.sub_constant_name disease
+					  FROM  elder_disease_tb ed, elder_disease_det_tb det, sub_constant_tb dis
+					 WHERE  ed.elder_disease_id = det.elder_disease_id
+					   AND  det.disease_id = dis.sub_constant_id
+  					   AND  ed.survey_id = ".$surveyid;
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
+		
+	}
+//-------------------- END ELDER HEALTH STATUS TAB ---------------------/
+
+/************************ INCOME RESOURCE TAB *************************/
+/*	Insert Income Resource (Master Table)		  			   		  */
+/*	Update Income Resource (Master Table)		  				  	  */
+/*	Insert Income Resourc Details					  				  */
+/*	Update Income Resourc Details				  				  	  */
+/*	Get Income Resourc Details								  		  */
+/**********************************************************************/
+	function income_resources_insert()
+	{
+		extract($_POST);
+		
+		$data['survey_id'] 			= $hdnSurveyId;
+		if (isset($txtTotalincome) && $txtTotalincom != "")
+			$data['total_income'] 	= $txtTotalincome;
+		else
+			$data['total_income'] 	= NULL;
+		if (isset($txtElderportion) && $txtElderportion != "")
+			$data['elder_portion'] 	= $txtElderportion;
+		else
+			$data['elder_portion'] 	= NULL;
+		
+		$this->db->insert('income_resources_tb',$data);
+		 
+		return $this->db->insert_id();
+		 
+	}
+	function income_resources_update()
+	{
+		extract($_POST);
+		
+		$data['total_income'] 	= $txtTotalincome;
+		$data['elder_portion'] 	= $txtElderportion;
+		
+		$this->db->where('survey_id',$hdnSurveyId);
+		$this->db->update('income_resources_tb',$data);
+		
+	}
+	function income_resources_details_insert()
+	{
+		extract($_POST);
+		
+		if ($hdnIncomeResourcesId == "")
+			$hdnIncomeResourcesId = $this->income_resources_insert();
+			
+		$data['income_resources_id']  = $hdnIncomeResourcesId;
+		$data['resource_id'] 		  = $drpIncomeSource;
+		
+		if ( $drpOrganization != "" )
+			$data['organization_id']  = $drpOrganization;
+		else
+			$data['organization_id']  = NULL;
+		
+		if ( $txtCashincome != "" )
+			$data['cash_income']  = $txtCashincome;
+		else
+			$data['cash_income']  = NULL;
+		
+		if ( $txtPackageincome != "" )
+			$data['package_income']  = $txtPackageincome;
+		else
+			$data['package_income']  = NULL;
+		
+		if ( $txtPackagecashvalue != "" )
+			$data['package_cash_value']  = $txtPackagecashvalue;
+		else
+			$data['package_cash_value']  = NULL;
+		
+		
+		$this->db->insert('income_resources_details_tb',$data);
+		 
+	}
+	function income_resources_details_delete()
+	{
+		extract($_POST);
+		
+		$this->db->where('income_resources_details_id', $incomeresourcedetid);
+		$this->db->delete('income_resources_details_tb');
+	}
+	function get_income_resources_details($surveyid)
+	{
+		$myquery = "SELECT ird.income_resources_details_id, ird.income_resources_id, ird.cash_income,
+						   ird.package_income, ird.package_cash_value,
+						   ird.resource_id, res.sub_constant_name resource,
+						   ird.organization_id, org.sub_constant_name organization
+					  FROM income_resources_tb ir, sub_constant_tb res, income_resources_details_tb ird
+						LEFT OUTER JOIN sub_constant_tb org ON ird.organization_id = org.sub_constant_id
+					 WHERE ir.income_resources_id =  ird.income_resources_id
+					   AND ird.resource_id = res.sub_constant_id
+   					   AND ir.survey_id = ".$surveyid."
+				  ORDER BY ird.resource_id";
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
+	}
+
+//--------------------- END INCOME RESOURCES TAB ----------------------/
+
+/************************ FAMILY HOME STATUS TAB **********************/
+/*	Insert Home Status								  				  */
+/*	Update Home Status								  				  */
+/**********************************************************************/
+
+	function insert_homeStatus()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 		    	= $hdnSurveyId;
+		$data['home_situation_id']  	= $drpHomeStatus;
+		$data['home_type_id'] 	    	= $drpHomeType;
+		$data['ceiling_type_id']    	= $drpCeilingType;
+		$data['ceiling_description']    = $txtCeilingdescription;
+		$data['furniture_level_id'] 	= $drpFurnitureLevel;
+		$data['furniture_needs'] 		= $txtarFurnitureneeds;
+			
+		$this->db->insert('home_status_tb ',$data);
+		
+		return $this->db->insert_id();
+		
+	}
+	
+	function update_homeStatus()
+	{
+		extract($_POST);
+
+		$data['home_situation_id']  	= $drpHomeStatus;
+		$data['home_type_id'] 	    	= $drpHomeType;
+		$data['ceiling_type_id']    	= $drpCeilingType;
+		$data['ceiling_description']    = $txtCeilingdescription;
+		$data['furniture_level_id'] 	= $drpFurnitureLevel;
+		$data['furniture_needs'] 		= $txtarFurnitureneeds;
+		
+			
+		$this->db->where('home_status_id',$hdnHomeStatusId);
+		$this->db->update('home_status_tb ',$data);
+		
+	}
+//-------------------- END FAMILY HOME STATUS TAB ---------------------/
+
+/************************ ELDER ROOM STATUS TAB ***********************/
+/*	Insert Elder Room								  				  */
+/*	Update Elder Room								  				  */
+/**********************************************************************/
+
+	function insert_elderRoom()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 		    		= $hdnSurveyId;
+		$data['home_type_id'] 				= $drpHometype;
+		$data['room_type_id'] 				= $drpRoomtype;
+		$data['clothes_covers_status_id'] 	= $drpClothes;
+		$data['room_ventilation_id'] 		= $drpVentilation;
+		$data['room_lighting_id'] 			= $drpLighting;
+		$data['has_closet'] 				= $drpCloset;
+		$data['has_good_bed'] 				= $drpBed;
+		$data['has_medicine_cupboard'] 		= $drpCupboard;
+		$data['room_need_maintenance'] 		= $drpMaintenance;
+		$data['room_maintenance_details'] 		= $txtarRoommaintinancedet;
+		$data['bathroom_status_id'] 			= $drpBathroom;
+		$data['bathroom_maintenance_details'] 	= $txtarBathroommaintinancedet;
+		$data['elder_higiene_id'] 				= $drpHigiene;
+		
+			
+		$this->db->insert('elder_room_tb ',$data);
+		
+		return $this->db->insert_id();
+		
+	}
+	function update_elderRoom()
+	{
+		extract($_POST);
+		
+		$data['home_type_id'] 				= $drpHometype;
+		$data['room_type_id'] 				= $drpRoomtype;
+		$data['clothes_covers_status_id'] 	= $drpClothes;
+		$data['room_ventilation_id'] 		= $drpVentilation;
+		$data['room_lighting_id'] 			= $drpLighting;
+		$data['has_closet'] 				= $drpCloset;
+		$data['has_good_bed'] 				= $drpBed;
+		$data['has_medicine_cupboard'] 		= $drpCupboard;
+		$data['room_need_maintenance'] 		= $drpMaintenance;
+		$data['room_maintenance_details'] 		= $txtarRoommaintinancedet;
+		$data['bathroom_status_id'] 			= $drpBathroom;
+		$data['bathroom_maintenance_details'] 	= $txtarBathroommaintinancedet;
+		$data['elder_higiene_id'] 				= $drpHigiene;
+		
+			
+		$this->db->where('elder_room_id',$hdnElderRoomId);
+		$this->db->update('elder_room_tb ',$data);
+		
+	}
+
+
+//---------------------- END ELDER ROOM STATUS TAB ---------------------/
+
+/************************ ELDER MEDICATION TAB ***********************/
+/*	Insert Medication Availability					  				  */
+/*	Delete Medication Availability					  				  */
+/*	Get Medication Availability					  					  */
+/*	Insert Medication Need							  				  */
+/*	Delete Medication Need							  				  */
+/*	Get Medication Need								  				  */
+/**********************************************************************/
+	function medication_availability_insert()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 		    		= $hdnSurveyId;
+		$data['medicine_name'] 				= $txtMedicinename;
+		$data['availability_status_id'] 	= $drpMedicationAvailable;
+		$data['unavailable_reason'] 		= $txtReason;		
+			
+		$this->db->insert('medication_availability_tb ',$data);
+		
+		return $this->db->insert_id();
+	}
+	function medication_availability_delete()
+	{
+		extract($_POST);
+		
+		$this->db->where('medication_availability_id',$medicationavaid);
+		$this->db->delete('medication_availability_tb');
+	}
+	function get_medication_availability($surveyid)
+	{
+		$myquery = "SELECT ma.medication_availability_id, ma.survey_id, ma.medicine_name,
+	   						ma.availability_status_id, avstat.sub_constant_name availability_status, ma.unavailable_reason
+					  FROM  medication_availability_tb ma, sub_constant_tb avstat
+					 WHERE  ma.availability_status_id = avstat.sub_constant_id
+  					   AND  ma.survey_id = ".$surveyid;
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
+	}
+	
+	function medication_need_insert()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 		    	= $hdnSurveyId;
+		$data['medication_type_id'] 	= $drpMedtype;
+		$data['medication_details'] 	= $txtMeddetails;
+		
+			
+		$this->db->insert('medication_need_tb ',$data);
+		
+		return $this->db->insert_id();
+	}
+	function medication_need_delete()
+	{
+		extract($_POST);
+		
+		$this->db->where('medication_need_id',$medicationneedid);
+		$this->db->delete('medication_need_tb');
+	}
+	function get_medication_need($surveyid)
+	{
+		$myquery = "SELECT  mn.medication_need_id, mn.survey_id, mn.medication_type_id, typ.sub_constant_name medication_type,
+							mn.medication_details
+					  FROM	medication_need_tb mn, sub_constant_tb typ
+					 WHERE  mn.medication_type_id = typ.sub_constant_id
+  					   AND  mn.survey_id = ".$surveyid;
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
+	}
+//-------------------- END ELDER MEDICATION STATUS TAB -------------------/
+
+/********************* ELDER FAMILY RELATIONSHIP TAB *********************/
+/*	Insert Family Relationship		   				  				     */
+/*	Update Family Relationship						  				 	 */
+/*************************************************************************/
+	function insert_elderFamilyRelation()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 		 	   		   = $hdnSurveyId;
+		$data['respect'] 		 	   		   = $drpRespect;
+		$data['pariah'] 		       		   = $drpPariah;
+		$data['care'] 			 	   		   = $drpCare;
+		$data['psychological_support'] 		   = $drpPsycosupport;
+		$data['provision_needs'] 	   		   = $drpNeeds;
+		$data['no_provision_needs_reason'] 	   = $txtarNeedreasone;
+		$data['legal_advice'] 	   			   = $drpLegaladvice;
+		$data['legal_advice_reason'] 	   	   = $txtarLegaladvicereasone;
+		
+			
+		$this->db->insert('family_elder_relationship_tb',$data);
+		
+		
+	}
+	function update_elderFamilyRelation()
+	{
+		extract($_POST);
+
+		$data['respect'] 		 	   		   = $drpRespect;
+		$data['pariah'] 		       		   = $drpPariah;
+		$data['care'] 			 	   		   = $drpCare;
+		$data['psychological_support'] 		   = $drpPsycosupport;
+		$data['provision_needs'] 	   		   = $drpNeeds;
+		$data['no_provision_needs_reason'] 	   = $txtarNeedreasone;
+		$data['legal_advice'] 	   			   = $drpLegaladvice;
+		$data['legal_advice_reason'] 	   	   = $txtarLegaladvicereasone;
+			
+		$this->db->where('survey_id',$hdnSurveyId);
+		$this->db->update('family_elder_relationship_tb ',$data);
+		
+	}
+//------------------- END ELDER FAMILY RELATIONSHIP TAB -------------------/
+
+/************************** ELDER BEHAVIOUR TAB **************************/
+/*	Insert Elder Behaviour 							  				     */
+/*	Update Elder Behaviour							  				 	 */
+/*	Get Elder Behaviour							  				 	 	 */
+/*	Insert Elder Pariah 							  				     */
+/*	Update Elder Pariah								  				 	 */
+/*	Get Elder Pariah							  				 	 	 */
+/*************************************************************************/
+	function elder_behaviour_insert()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 		= $hdnSurveyId;
+		$data['behaviour_id']  = $drpBehaviour;
+		
+			
+		$this->db->insert('elder_behaviour_tb',$data);
+	}
+	function elder_behaviour_delete()
+	{
+		extract($_POST);
+		
+		if ($behaviourid == 211)
+		{
+			$this->elder_pariah_delete_all();
+		}
+		
+		$this->db->where('elder_behaviour_id',$elderbehaviourid);
+		$this->db->delete('elder_behaviour_tb ');
+	}
+	function get_elder_behaviour($surveyid)
+	{
+		$myquery = "SELECT eb.elder_behaviour_id, eb.survey_id, eb.behaviour_id, bhv.sub_constant_name behaviour
+					  FROM elder_behaviour_tb eb, sub_constant_tb bhv
+					 WHERE eb.behaviour_id = bhv.sub_constant_id
+  					   AND eb.survey_id = ".$surveyid;
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
+	}
+	function elder_pariah_insert()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 		= $hdnSurveyId;
+		$data['elder_pariah_reason_id']  = $drpPariahreasone;
+		
+			
+		$this->db->insert('elder_pariah_tb',$data);
+	}
+	function elder_pariah_delete()
+	{
+		extract($_POST);
+		
+		
+		$this->db->where('elder_pariah_id',$elderpariahid);
+		$this->db->delete('elder_pariah_tb ');
+	}
+	function elder_pariah_delete_all()
+	{
+		extract($_POST);
+		
+		$this->db->where('survey_id',$hdnSurveyId);
+		$this->db->delete('elder_pariah_tb ');
+	}
+	function get_elder_pariah($surveyid)
+	{
+		$myquery = "SELECT ep.elder_pariah_id, ep.survey_id, ep.elder_pariah_reason_id, prh.sub_constant_name pariah_reason
+					  FROM elder_pariah_tb ep, sub_constant_tb prh
+					 WHERE ep.elder_pariah_reason_id = prh.sub_constant_id
+  					   AND ep.survey_id = ".$surveyid;
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
+	}
+//--------------------- END ELDER BEHAVIOUR TAB --------------------------/
+
+/******************* FAMILY PSYCHOLOGICAL STATUS TAB *********************/
+/*	Insert Family Psychological Status				  				     */
+/*	Update Family Psychological Status				  				 	 */
+/*	Get Family Psychological Status				  				 	 	 */
+/*************************************************************************/
+	function family_psychological_status_insert()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 		 	   	   = $hdnSurveyId;
+		$data['psychological_status_id']   = $drpPsychologicalStatus;
+		
+			
+		$this->db->insert('family_psychological_status_tb',$data);
+	}
+	
+	function family_psychological_status_delete()
+	{
+		extract($_POST);
+		
+		$this->db->where('family_psychological_status_id',$familypsychoid);
+		$this->db->delete('family_psychological_status_tb ');
+	}
+	function get_family_psychological_status($surveyid)
+	{
+		$myquery = "SELECT fp.family_psychological_status_id, fp.survey_id, 
+						   fp.psychological_status_id, psy.sub_constant_name psychological_status
+					  FROM family_psychological_status_tb fp, sub_constant_tb psy
+					 WHERE fp.psychological_status_id = psy.sub_constant_id
+  					   AND fp.survey_id = ".$surveyid;
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
+	}
+//----------------- END FAMILY PSYCHOLOGICAL STATUS TAB -------------------/
+
+/************************** LIFE IMPROVEMENT TAB *************************/
+/*	Insert Life Improvement							  				     */
+/*	Update Life Improvement							  				 	 */
+/*************************************************************************/
+
+	function insert_lifeImprovement()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 				= $hdnSurveyId;
+		$data['elder_work_ability_id'] 	= $drpElderWorkAbility;
+		$data['elder_work_type'] 		= $txtelderworktype;
+		$data['is_elder_need_training'] = $drpNeedtraining;
+		$data['elder_training_type'] 	= $txtTrainigType;
+		$data['can_start_project'] 		= $drpStartproject;
+		$data['project_type'] 			= $txtProjectType;
+		
+		if($drpFamilyMember != '')
+			$data['family_member_id'] 		= $drpFamilyMember;
+		else
+			$data['family_member_id'] 		= NULL;
+		
+		if ($txtProjectBudget != '')
+			$data['project_budget'] 		= $txtProjectBudget;
+		else
+			$data['project_budget'] 		= NULL;
+		
+			
+		$this->db->insert('life_improvement_tb',$data);
+		
+	}
+	function update_lifeImprovement()
+	{
+		extract($_POST);
+
+		$data['elder_work_ability_id'] 	= $drpElderWorkAbility;
+		$data['elder_work_type'] 		= $txtelderworktype;
+		$data['is_elder_need_training'] = $drpNeedtraining;
+		$data['elder_training_type'] 	= $txtTrainigType;
+		$data['can_start_project'] 		= $drpStartproject;
+		$data['project_type'] 			= $txtProjectType;
+		
+		if($drpFamilyMember != '')
+			$data['family_member_id'] 		= $drpFamilyMember;
+		else
+			$data['family_member_id'] 		= NULL;
+		
+		if ($txtProjectBudget != '')
+			$data['project_budget'] 		= $txtProjectBudget;
+		else
+			$data['project_budget'] 		= NULL;
+			
+			
+		$this->db->where('survey_id',$hdnSurveyId);
+		$this->db->update('life_improvement_tb ',$data);
+		
+	}
+//--------------------- END LIFE IMPROVEMENT TAB -----------------------/	
 	function insert_survey()
 	{
 		extract($_POST);
@@ -272,35 +836,7 @@ function get_survey_info()
 
 //***********************end family_member_tb operations*********************
 //**********************Home_status operation********************************
-function insert_homeStatus()
-	{
-		extract($_POST);
 
-		$data['survey_id'] = $SurveyId;
-		$data['home_situation_id'] = $drpHomeStatus;
-		$data['home_type_id'] = $drpHomeType;
-		$data['ceiling_type_id'] = $drpCeilingType;
-		$data['furniture_level_id'] = $drpFurnitureLevel;
-		
-			
-		$this->db->insert('home_status_tb ',$data);
-		
-	}
-function update_homeStatus()
-	{
-		extract($_POST);
-
-		//$data['survey_id'] = $SurveyId;
-		$data['home_situation_id'] = $drpHomeStatus;
-		$data['home_type_id'] = $drpHomeType;
-		$data['ceiling_type_id'] = $drpCeilingType;
-		$data['furniture_level_id'] = $drpFurnitureLevel;
-		
-			
-		$this->db->where('survey_id',$SurveyId);
-		$this->db->update('home_status_tb ',$data);
-		
-	}
 function get_homeStatus_info()
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
@@ -312,118 +848,12 @@ function get_homeStatus_info()
 //*********************end home_status operation*****************************
 
 //**********************Home_status operation********************************
-function insert_elderRoom()
-	{
-		extract($_POST);
-
-		$data['survey_id'] = $SurveyId;
-		$data['room_type_id'] = $drpRoomtype;
-		$data['clothes_covers_status_id'] = $drpClothes;
-		$data['room_ventilation_id'] = $drpVentilation;
-		$data['room_lighting_id'] = $drpLighting;
-		$data['has_closet'] = $drpCloset;
-		$data['has_good_bed'] = $drpBed;
-		$data['has_medicine_cupboard'] = $drpCupboard;
-		$data['room_need_maintenance'] = $drpMaintenance;
-		$data['room_need_restoration'] = $drpRestoration;
-		$data['bathroom_status_id'] = $drpBathroom;
-		$data['elder_higiene_id'] = $drpHigiene;
-		
-			
-		$this->db->insert('elder_room_tb ',$data);
-		
-	}
-function update_elderRoom()
-	{
-		extract($_POST);
-
-		//$data['survey_id'] = $SurveyId;
-		$data['room_type_id'] = $drpRoomtype;
-		$data['clothes_covers_status_id'] = $drpClothes;
-		$data['room_ventilation_id'] = $drpVentilation;
-		$data['room_lighting_id'] = $drpLighting;
-		$data['has_closet'] = $drpCloset;
-		$data['has_good_bed'] = $drpBed;
-		$data['has_medicine_cupboard'] = $drpCupboard;
-		$data['room_need_maintenance'] = $drpMaintenance;
-		$data['room_need_restoration'] = $drpRestoration;
-		$data['bathroom_status_id'] = $drpBathroom;
-		$data['elder_higiene_id'] = $drpHigiene;
-			
-		$this->db->where('survey_id',$SurveyId);
-		$this->db->update('elder_room_tb ',$data);
-		
-	}
 //*************** elder family relation*****************//
-function insert_elderFamilyRelation()
-	{
-		extract($_POST);
 
-		$data['survey_id'] = $SurveyId;
-		$data['respect'] = $drpRespect;
-		$data['pariah'] = $drpPariah;
-		$data['care'] = $drpCare;
-		$data['provision_needs'] = $drpNeeds;
-		$data['psychological_support'] = $drpPsycosupport;
-			
-		$this->db->insert('family_elder_relationship_tb',$data);
-		
-	}
-function update_elderFamilyRelation()
-	{
-		extract($_POST);
-
-		//$data['survey_id'] = $SurveyId;
-		$data['respect'] = $drpRespect;
-		$data['pariah'] = $drpPariah;
-		$data['care'] = $drpCare;
-		$data['provision_needs'] = $drpNeeds;
-		$data['psychological_support'] = $drpPsycosupport;
-			
-		$this->db->where('survey_id',$SurveyId);
-		$this->db->update('family_elder_relationship_tb ',$data);
-		
-	}
 //********************end elder family relation function**************//
 
 //**********************elder life improvement function********************************//
-function insert_lifeImprovement()
-	{
-		extract($_POST);
 
-		$data['survey_id'] = $SurveyId;
-		$data['elder_work_ability_id'] = $drpElderWorkAbility;
-		$data['elder_work_type'] = $txtelderworktype;
-		$data['family_member_id'] = $drpFamilyMember;
-		
-		$data['is_elder_need_training'] = $drpNeedtraining;
-		$data['elder_training_type'] = $txtTrainigType;
-		$data['can_start_project'] = $drpStartproject;
-		$data['project_type'] = $txtProjectType;
-		$data['project_budget'] = $txtProjectBudget;
-			
-		$this->db->insert('life_improvement_tb',$data);
-		
-	}
-function update_lifeImprovement()
-	{
-		extract($_POST);
-
-		//$data['survey_id'] = $SurveyId;
-		$data['elder_work_ability_id'] = $drpElderWorkAbility;
-		$data['elder_work_type'] = $txtelderworktype;
-		$data['family_member_id'] = $drpFamilyMember;
-		
-		$data['is_elder_need_training'] = $drpNeedtraining;
-		$data['elder_training_type'] = $txtTrainigType;
-		$data['can_start_project'] = $drpStartproject;
-		$data['project_type'] = $txtProjectType;
-		$data['project_budget'] = $txtProjectBudget;
-			
-		$this->db->where('survey_id',$SurveyId);
-		$this->db->update('life_improvement_tb ',$data);
-		
-	}
 //********************end elder life improvement function**************//
 }
 ?>
