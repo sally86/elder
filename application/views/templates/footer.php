@@ -112,6 +112,8 @@
 <script src="<?php echo base_url();?>js/survey.js"></script>
 <script src="<?php echo base_url();?>js/SurveyView.js"></script>
 <script src="<?php echo base_url();?>js/family.js"></script>
+<script src="<?php echo base_url();?>js/followup.js"></script>
+<script src="<?php echo base_url();?>js/recomendation.js"></script>
 
 <script src="<?php echo base_url();?>js/usertypepermession.js"></script>
 <script src="<?php echo base_url();?>js/elderfile.js"></script>
@@ -135,6 +137,7 @@
 		SurveyTabValidation.init();
 		FamilyMemberTabValidation.init();
 		FamilyMemberValidation.init();
+		FollowupValidation.init();
 		HomeStatusTabValidation.init();
 		ElderRoomTabValidation.init();
 		ElderFamRelTabValidation.init();

@@ -101,3 +101,21 @@ function gotoSurvey(arg)
 			}
 		});//END $.ajax
 }
+function gotoFollowup(arg)
+{//alert(arg);
+	$.ajax({
+			url: baseURL+"Followupcont/senddata",
+			type: "POST",
+			data:  {elder_id : arg},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				window.location.href = baseURL+"followupcont/followupform";
+				//alert(returndb);
+			}
+		});//END $.ajax
+}
