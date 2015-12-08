@@ -441,7 +441,7 @@ function editefamilymember()
 	// Create a new FormData object.
 	var formData = new FormData();
 	
-	// Add the file to the request.
+	// Add the data to the request.
 	formData.append('hdnSurveyId'		 , $("#hdnSurveyId").val()		  );
 	formData.append('txtElderId'		 , $("#txtElderId").val()		  );
 	formData.append('txtMemberId'		 ,  $("#txtMemberId").val()		  );
@@ -607,7 +607,102 @@ else
 
 return;
 }
-
+//------------------ END Family Member Tab ------------------//
+//------------------- Health Status Tab --------------------//
+function add_elder_disease()
+{
+	
+	if(!$("#drpDisease").valid())
+		return false;
+	
+	$.ajax({
+			url: baseURL+"Surveycont/adddisease",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    hdnElderDiseaseId : $("#hdnElderDiseaseId").val(),
+					diseaseid : $("#drpDisease").val()	
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#hdnElderDiseaseId").val(returndb.substr(0, returndb.indexOf('|') ) );
+				$("#tbdElderDisease").html(returndb.substr(returndb.indexOf('|')+1 ) );
+				
+				$("#drpDisease option:selected" ).attr("disabled","disabled");
+				$("#drpDisease").val('');
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+function delete_elder_disease(elderdiseaseid, diseaseid)
+{
+	$.ajax({
+			url: baseURL+"Surveycont/deletedisease",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    elderdiseaseid : elderdiseaseid,
+					diseaseid : diseaseid	
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#drpDisease option[value='"+diseaseid+"']").prop('disabled', false);
+				$("#drpDisease").val('');
+				$("#tbdElderDisease").html(returndb);
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+function add_disease_details()
+{
+	if(!$("#txtarDiseaasedet").valid())
+		return false;
+	
+	$.ajax({
+			url: baseURL+"Surveycont/adddiseasedet",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    hdnElderDiseaseId : $("#hdnElderDiseaseId").val(),
+					elderdiseasedet : $("#txtarDiseaasedet").val()	
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#hdnElderDiseaseId").val(returndb);
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+//---------------- END Health Status Tab --------------------//
 //******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
@@ -1656,7 +1751,15 @@ var FormWizard = function () {
                     },
 					txtMemjob: {
 						required: true
-                    }
+                    },
+					
+					// Health Status
+					drpDisease: {
+						required: true
+					},
+					txtarDiseaasedet: {
+						required: true
+					}
 					
                 },
 
@@ -1768,7 +1871,15 @@ var FormWizard = function () {
                     },
 					txtMemjob: {
 						required: "الرجاء إدخال قيمة"
-                    }
+                    },
+					
+					// Health Status
+					drpDisease: {
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarDiseaasedet: {
+						required: "الرجاء إدخال قيمة"
+					}
                 },
 
                 errorPlacement: function (error, element) { // render error placement for each input type
