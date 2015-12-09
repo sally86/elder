@@ -1236,7 +1236,122 @@ function clearMedicationNeedFields()
 	$("#txtMeddetails").val('');
 }
 //-------------- END Elder Midication Tab ------------------//
+//------------ Elder Family Relationship Tab ---------------//
+function editeElderFamRel()
+{
+	var action = $("#hdnelderFamRelAction").val();
+	
+	alert(action);
+	
+	if ( !validateElderFamRel() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'				,  $("#hdnSurveyId").val()				);
+	formData.append('drpRespect'				,  $("#drpRespect").val() 				);
+	formData.append('drpPariah'					,  $("#drpPariah").val()				);
+	formData.append('drpCare'					,  $("#drpCare").val()					);
+	formData.append('drpPsycosupport'			,  $("#drpPsycosupport").val()			);
+	formData.append('drpNeeds'					,  $("#drpNeeds").val()					);
+	formData.append('txtarNeedreasone'			,  $("#txtarNeedreasone").val()			);
+	formData.append('drpLegaladvice'			,  $("#drpLegaladvice").val()			);
+	formData.append('txtarLegaladvicereasone'	,  $("#txtarLegaladvicereasone").val()	);
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$('#hdnelderFamRelAction').val('updateelderFamRel');
+				
+			}
+		});//END $.ajax
+	
+}
+function validateElderFamRel()
+{
+										 
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpRespect").valid()  )
+		valid = false;
+	if ( !$("#drpPariah").valid()  )
+		valid = false;
+	if ( !$("#drpCare").valid()  )
+		valid = false;
+	if ( !$("#drpPsycosupport").valid()  )
+		valid = false;
+	if ( !$("#drpNeeds").valid()  )
+		valid = false;
+	if ( !$("#txtarNeedreasone").valid()  )
+		valid = false;
+	if ( !$("#drpLegaladvice").valid()  )
+		valid = false;
+	if ( !$("#txtarLegaladvicereasone").valid()  )
+		valid = false;
+	
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+$(document).ready(function(){
+	
+	/********** Needs **********/
+	$('#drpNeeds').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpNeeds').val() == '111')
+			$("#dvNeedreasone").css("display", "block");
+		else
+		{
+			$('#txtarNeedreasone').val('');
+			$("#dvNeedreasone").css("display", "none");
+		}
+		
+	}); // END CHANGE CEILING
+	
+	/********** Legal Advice **********/
+	$('#drpLegaladvice').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpLegaladvice').val() == '110')
+			$("#dvLegaladvicereasone").css("display", "block");
+		else
+		{
+			$('#txtarLegaladvicereasone').val('');
+			$("#dvLegaladvicereasone").css("display", "none");
+		}
+		
+	}); // END CHANGE FURNITURE
+	
+}); // END READY
 
+//------------ END Elder Family Relationship Tab ---------------//
 //******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
@@ -1793,34 +1908,7 @@ return {
 
 //**************elder family relation fucntion******************//
 
-function editeElderFamRel()
-{
-	var action = $("#elderFamRelAction").val();
-	var SurveyId = $('#SurveyId').val();
-	alert(action);
-	alert(SurveyId);
-	
-	
-	$.ajax({
-			url: baseURL+"Surveycont/"+action,
-			type: "POST",
-			data:$('#ElderFamRelTab').serialize() + '&SurveyId=' + $('#SurveyId').val(),
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				if (returndb=='')
-				{
-					var form = $('#ElderFamRelTab');
-					$('.alert-success', form).show();
-					$('#elderFamRelAction').val('updateelderFamRel');										
-				}
-			}
-		});//END $.ajax
-}
+
 //********** home status valisation**
 var ElderFamRelTabValidation = function () {
  var handleValidation = function() {
@@ -2361,7 +2449,51 @@ var FormWizard = function () {
 					},
 					txtMeddetails:{
 						required: true
-					}
+					},
+					
+					// Elder Family Relationship
+					drpRespect:{
+						required: true
+					},
+					drpPariah:{
+						required: true
+					},
+					drpCare:{
+						required: true
+					},
+					drpPsycosupport:{
+						required: true
+					},
+					drpNeeds:{
+						required: true
+					},
+					txtarNeedreasone:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpNeeds').val() == '111')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpLegaladvice:{
+						required: true
+					},
+					txtarLegaladvicereasone:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpLegaladvice').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					} 
 					
                 },
 
@@ -2559,7 +2691,33 @@ var FormWizard = function () {
 					},
 					txtMeddetails:{
 						required: "الرجاء إدخال قيمة"
-					}
+					},
+					
+					// Elder Family Relationship
+					drpRespect:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpPariah:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpCare:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpPsycosupport:{
+						required:"الرجاء إختيار قيمة"
+					},
+					drpNeeds:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarNeedreasone:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpLegaladvice:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarLegaladvicereasone:{
+						required: "الرجاء إدخال قيمة"
+					} 
 	
                 },
 
