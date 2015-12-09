@@ -1037,6 +1037,206 @@ $(document).ready(function(){
 }); // END READY
 //-------------- END Elder Room Status Tab ------------------//
 
+//----------------- Elder Midication Tab -------------------//
+function add_medication_availability()
+{
+	if ( !validateMedicationAvailab() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 		,  $("#hdnSurveyId").val()		   		);
+	formData.append('txtMedicinename'			,  $("#txtMedicinename").val() 			);
+	formData.append('drpMedicationAvailable'	,  $("#drpMedicationAvailable").val()	);
+	formData.append('txtReason'	  				,  $("#txtReason").val()	   			);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addmedicationavailabl",
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#tbdMedication").html(returndb);
+				clearMedicationAvaFields();
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
+function delete_medication_availability(medicationavaid)
+{
+	$.ajax({
+			url: baseURL+"Surveycont/deletemedicationavailabl",
+			type: "POST",
+			data:{ hdnSurveyId : $("#hdnSurveyId").val(),
+				   medicationavaid : medicationavaid
+				 },
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#tbdMedication").html(returndb);
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
+function add_medication_need()
+{
+	if ( !validateMedicationNeed() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'	,  $("#hdnSurveyId").val()		);
+	formData.append('drpMedtype'	,  $("#drpMedtype").val() 		);
+	formData.append('txtMeddetails'	,  $("#txtMeddetails").val()	);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addmedicationneed",
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#drpMedtype option:selected" ).attr("disabled","disabled");
+				$("#tbdMedicationneed").html(returndb);
+				clearMedicationNeedFields();
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
+function delete_medication_need(medicationneedid,medicationtypeid)
+{
+	$.ajax({
+			url: baseURL+"Surveycont/deletemedicationneed",
+			type: "POST",
+			data:{ hdnSurveyId : $("#hdnSurveyId").val(),
+				   medicationneedid : medicationneedid,
+				},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#drpMedtype option[value='"+medicationtypeid+"']").prop('disabled', false);
+				$("#tbdMedicationneed").html(returndb);
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
+function validateMedicationAvailab()
+{
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#txtMedicinename").valid() )
+		valid = false;
+	if ( !$("#drpMedicationAvailable").valid() )
+		valid = false;
+	if ( !$("#txtReason").valid() )
+		valid = false;
+	
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+function validateMedicationNeed()
+{
+	
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpMedtype").valid()  )
+		valid = false;
+	if ( !$("#txtMeddetails").valid()  )
+		valid = false;
+	
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+function clearMedicationAvaFields()
+{
+	$("#txtMedicinename").val('');
+	$("#drpMedicationAvailable").val('');
+	$("#txtReason").val('');
+}
+function clearMedicationNeedFields()
+{
+	$("#drpMedtype").val('');
+	$("#txtMeddetails").val('');
+}
+//-------------- END Elder Midication Tab ------------------//
+
 //******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
@@ -2135,6 +2335,32 @@ var FormWizard = function () {
 					},
 					drpHigiene:{
 						required: true
+					},
+					
+					// Medication Availability
+					txtMedicinename :{
+						required: true
+					},
+					drpMedicationAvailable:{
+						required: true
+					},
+					txtReason:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpMedicationAvailable').val() == '121')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpMedtype:{
+						required: true
+					},
+					txtMeddetails:{
+						required: true
 					}
 					
                 },
@@ -2316,6 +2542,23 @@ var FormWizard = function () {
 					},
 					drpHigiene:{
 						required: "الرجاء إختيار قيمة"
+					},
+					
+					// Medication Availability
+					txtMedicinename :{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpMedicationAvailable:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtReason:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpMedtype:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtMeddetails:{
+						required: "الرجاء إدخال قيمة"
 					}
 	
                 },

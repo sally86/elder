@@ -451,8 +451,7 @@ class Surveycont extends CI_Controller
 			echo '<td>'. $row->unavailable_reason .'</td>';
 			echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
 							  class="btn btn-circle red-sunglo btn-sm" 
-							  onclick="delete_medication_availability('. $row->medication_availability_id .
-																	  ','. $row->availability_status_id .')">
+							  onclick="delete_medication_availability('. $row->medication_availability_id .')">
 							   <i id="iConst" class="fa fa-close"></i></button>';
 			echo "</td>";
 			echo "</tr>";
@@ -499,7 +498,8 @@ class Surveycont extends CI_Controller
 			echo '<td>'. $row->medication_details .'</td>';
 			echo '<td><button id="btnDeleteMedicneed" name="btnDeleteMedicneed" type="button" 
 							  class="btn btn-circle red-sunglo btn-sm" 
-							  onclick="delete_medication_need('. $row->medication_need_id .')">
+							  onclick="delete_medication_need('. $row->medication_need_id  .
+															  ','. $row->medication_type_id .')"">
 							   <i id="iConst" class="fa fa-close"></i></button>';
 			echo "</td>";
 			echo "</tr>";
@@ -522,7 +522,8 @@ class Surveycont extends CI_Controller
 			echo '<td>'. $row->medication_details .'</td>';
 			echo '<td><button id="btnDeleteMedicneed" name="btnDeleteMedicneed" type="button" 
 							  class="btn btn-circle red-sunglo btn-sm" 
-							  onclick="delete_medication_need('. $row->medication_need_id .')">
+							  onclick="delete_medication_need('. $row->medication_need_id  .
+															  ','. $row->medication_type_id .')"">
 							   <i id="iConst" class="fa fa-close"></i></button>';
 			echo "</td>";
 			echo "</tr>";

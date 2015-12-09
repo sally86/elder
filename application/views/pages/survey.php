@@ -1236,8 +1236,7 @@ $readonly = '';
                                           <th>حالة الدواء <span class="font-red">
                                              * </span>
                                           </th>
-                                          <th>سبب الانقطاع <span class="font-red">
-                                             * </span>
+                                          <th>سبب الانقطاع 
                                           </th>
                                           <th>&nbsp;</th>
                                       </tr>
