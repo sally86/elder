@@ -703,6 +703,204 @@ function add_disease_details()
 		});//END $.ajax
 }
 //---------------- END Health Status Tab --------------------//
+//----------------------- Income Tab ------------------------//
+function add_income_resource_det()
+{
+	if ( !validateFamilymember() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 	, $("#hdnSurveyId").val()		   );
+	formData.append('hdnIncomeResourcesId'	, $("#hdnIncomeResourcesId").val() );
+	formData.append('drpIncomeSource'		,  $("#drpIncomeSource").val()	   );
+	formData.append('drpOrganization'	  	,  $("#drpOrganization").val()	   );
+	formData.append('txtCashincome'	  		,  $('txtCashincome').val()		   );
+	formData.append('txtPackageincome' 		,  $("#txtPackageincome").val()	   );
+	formData.append('txtPackagecashvalue'	,  $("#txtPackagecashvalue").val() );
+
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addincomeresourcedet",
+			type: "POST",
+			data:  formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#tbdIncomeSourceDet").html(returndb);
+				$("#drpIncomeSource option:selected" ).attr("disabled","disabled");
+				
+				clearIncomeFields();
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+function delete_income_resource_det(incomeresourcedetid,resourceid)
+{
+	$.ajax({
+			url: baseURL+"Surveycont/deleteincomeresourcedet",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    incomeresourcedetid : incomeresourcedetid,
+					resourceid : resourceid	
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#drpIncomeSource option[value='"+resourceid+"']").prop('disabled', false);
+				$("#tbdIncomeSourceDet").html(returndb);
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+function clearIncomeFields()
+{
+	$("#drpIncomeSource").val('');
+	$("#drpOrganization").val('');
+	$('#txtCashincome').val('');
+	$("#txtPackageincome").val('');
+	$("#txtPackagecashvalue").val('');
+}
+//--------------------- END Income Tab ----------------------//
+
+//-------------------- Home Status Tab ----------------------//
+function editeHomeStatus()
+{
+	var action = $("#hdnHomeStatusAction").val();
+	
+	alert(action);
+	
+	if ( !validateHomeStatus() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 	,  $("#hdnSurveyId").val()		   	);
+	formData.append('hdnHomeStatusId'		,  $("#hdnHomeStatusId").val() 		);
+	formData.append('drpHomeStatus'			,  $("#drpHomeStatus").val()	   	);
+	formData.append('drpHomeType'	  		,  $("#drpHomeType").val()	   		);
+	formData.append('drpCeilingType'	  	,  $('#drpCeilingType').val()		);
+	formData.append('txtCeilingdescription' ,  $("#txtCeilingdescription").val());
+	formData.append('drpFurnitureLevel'		,  $("#drpFurnitureLevel").val() 	);
+	formData.append('txtarFurnitureneeds'	,  $("#txtarFurnitureneeds").val() 	);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#hdnHomeStatusId").val(returndb);
+				$('#hdnHomeStatusAction').val('updatehomeStatus');
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
+function validateHomeStatus()
+{
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpHomeStatus").valid() )
+		valid = false;
+	if ( !$("#drpHomeType").valid() )
+		valid = false;
+	if ( !$("#drpCeilingType").valid() )
+		valid = false;
+	if ( !$("#txtCeilingdescription").valid() )
+		valid = false;
+	if ( !$("#drpFurnitureLevel").valid() )
+		valid = false;
+	if ( !$("#txtarFurnitureneeds").valid() )
+		valid = false;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+$(document).ready(function(){
+	
+	/********** Ceiling **********/
+	$('#drpCeilingType').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpCeilingType').val() == '92')
+			$("#dvCeilingDescription").css("display", "block");
+		else
+		{
+			$('#txtCeilingdescription').val('');
+			$("#dvCeilingDescription").css("display", "none");
+		}
+		
+	}); // END CHANGE CEILING
+	
+	/********** Furniture **********/
+	$('#drpFurnitureLevel').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpFurnitureLevel').val() == '96')
+			$("#dvFurnitureNeeds").css("display", "block");
+		else
+		{
+			$('#txtarFurnitureneeds').val('');
+			$("#dvFurnitureNeeds").css("display", "none");
+		}
+		
+	}); // END CHANGE FURNITURE
+	
+}); // END READY
+
+//------------------ END Home Status Tab --------------------//
+
 //******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
@@ -1016,34 +1214,6 @@ return {
 //**************** end survey function******************
 
 //***************** home status function *************//
-function editehomeStatus()
-{
-	var action = $("#homeStatushdnAction").val();
-	var SurveyId = $('#SurveyId').val();
-	alert(action);
-	alert(SurveyId);
-	
-	
-	$.ajax({
-			url: baseURL+"Surveycont/"+action,
-			type: "POST",
-			data:$('#HomeStatusTab').serialize() + '&SurveyId=' + $('#SurveyId').val(),
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				if (returndb=='')
-				{
-					var form = $('#HomeStatusTab');
-					$('.alert-success', form).show();
-					$('#homeStatushdnAction').val('updatehomeStatus');										
-				}
-			}
-		});//END $.ajax
-}
 //********** home status valisation**
 var HomeStatusTabValidation = function () {
  var handleValidation = function() {
@@ -1759,6 +1929,44 @@ var FormWizard = function () {
 					},
 					txtarDiseaasedet: {
 						required: true
+					},
+					
+					// Home Status
+					drpHomeStatus: {
+						required: true
+					},
+					drpHomeType:{
+						required: true
+					},
+					drpCeilingType:{
+						required: true
+					},
+					txtCeilingdescription:{
+						 required: {
+							 depends: function(element) {
+								 if ($('#drpCeilingType').val() == '92')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpFurnitureLevel:{
+						required: true
+					},
+					txtarFurnitureneeds:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpFurnitureLevel').val() == '96')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
 					}
 					
                 },
@@ -1879,7 +2087,28 @@ var FormWizard = function () {
 					},
 					txtarDiseaasedet: {
 						required: "الرجاء إدخال قيمة"
+					},
+					
+					// Home Status
+					drpHomeStatus: {
+						required: "الرجاء إختيار قيمة"
+					},
+					drpHomeType:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpCeilingType:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtCeilingdescription:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpFurnitureLevel:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarFurnitureneeds:{
+						required: "الرجاء إدخال قيمة"
 					}
+	
                 },
 
                 errorPlacement: function (error, element) { // render error placement for each input type
