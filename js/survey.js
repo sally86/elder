@@ -1352,6 +1352,68 @@ $(document).ready(function(){
 }); // END READY
 
 //------------ END Elder Family Relationship Tab ---------------//
+//----------------- Family Psycho Status Tab -------------------//
+function add_family_psycho()
+{
+	if(!$("#drpPsychologicalStatus").valid())
+		return false;
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addfamilypsycho",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    drpPsychologicalStatus : $("#drpPsychologicalStatus").val()	
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#tbdFamilyPsycho").html(returndb);
+				
+				$("#drpPsychologicalStatus option:selected" ).attr("disabled","disabled");
+				$("#drpPsychologicalStatus").val('');
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+function delete_family_psycho(familypsychoid , psycholostatusid)
+{
+	$.ajax({
+			url: baseURL+"Surveycont/deletefamilypsycho",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    familypsychoid : familypsychoid
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#drpPsychologicalStatus option[value='"+psycholostatusid+"']").prop('disabled', false);
+				$("#drpPsychologicalStatus").val('');
+				$("#tbdFamilyPsycho").html(returndb);
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+//------------- END Family Psycho Status Tab -------------------//
 //******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
@@ -2493,7 +2555,12 @@ var FormWizard = function () {
 								 }
 							 }//END function
 						}//END required
-					} 
+					},
+					
+					// Family Psyco
+					drpPsychologicalStatus:{
+						required: true
+					}
 					
                 },
 
@@ -2717,7 +2784,12 @@ var FormWizard = function () {
 					},
 					txtarLegaladvicereasone:{
 						required: "الرجاء إدخال قيمة"
-					} 
+					},
+					
+					// Family Psyco
+					drpPsychologicalStatus:{
+						required: "الرجاء إختيار قيمة"
+					}
 	
                 },
 
