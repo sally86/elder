@@ -1007,7 +1007,7 @@ $readonly = '';
                                              * </span>
                                              </label>
                                             <div class="col-md-4">
-                                                <select class="form-control" id="drpHometype" name="drpHometype">
+                                                <select class="form-control" id="drpElderHometype" name="drpElderHometype">
                                                   <option value="">اختر...</option>
                                                    <?php
                                                     foreach($survey_Hometype as $row)

@@ -427,7 +427,7 @@ class Surveycont extends CI_Controller
 		$this->Surveymodel->update_elderRoom();
 		
 		extract($_POST);
-		echo $hdnHomeStatusId;
+		echo $hdnElderRoomId;
 		
 	}
 

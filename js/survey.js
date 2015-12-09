@@ -901,6 +901,142 @@ $(document).ready(function(){
 
 //------------------ END Home Status Tab --------------------//
 
+//---------------- Elder Room Status Tab --------------------//
+function editeElderRoom()
+{
+	var action = $("#hdnElderRoomAction").val();
+	
+	alert(action);
+	
+	if ( !validateHomeStatus() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 			,  $("#hdnSurveyId").val()		   			);
+	formData.append('hdnElderRoomId'				,  $("#hdnElderRoomId").val() 				);
+	formData.append('drpElderHometype'				,  $("#drpElderHometype").val()	   			);
+	formData.append('drpRoomtype'	  				,  $("#drpRoomtype").val()	   				);
+	formData.append('drpClothes'	  				,  $('#drpClothes').val()					);
+	formData.append('drpVentilation' 				,  $("#drpVentilation").val()				);
+	formData.append('drpLighting'					,  $("#drpLighting").val() 					);
+	formData.append('drpCloset'						,  $("#drpCloset").val() 					);
+	formData.append('drpBed'						,  $("#drpBed").val() 						);
+	formData.append('drpCupboard'					,  $("#drpCupboard").val() 					);
+	formData.append('drpMaintenance'				,  $("#drpMaintenance").val() 				);
+	formData.append('txtarRoommaintinancedet'		,  $("#txtarRoommaintinancedet").val() 		);
+	formData.append('drpBathroom'					,  $("#drpBathroom").val() 					);
+	formData.append('txtarBathroommaintinancedet'	,  $("#txtarBathroommaintinancedet").val() 	);
+	formData.append('drpHigiene'					,  $("#drpHigiene").val() 					);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#hdnElderRoomId").val(returndb);
+				$('#hdnElderRoomAction').val('updateelderRoom');	
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
+function validateHomeStatus()
+{
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpElderHometype").valid() )
+		valid = false;
+	if ( !$("#drpRoomtype").valid() )
+		valid = false;
+	if ( !$("#drpClothes").valid() )
+		valid = false;
+	if ( !$("#drpVentilation").valid() )
+		valid = false;
+	if ( !$("#drpLighting").valid() )
+		valid = false;
+	if ( !$("#drpCloset").valid() )
+		valid = false;
+	if ( !$("#drpBed").valid() )
+		valid = false;
+	if ( !$("#drpCupboard").valid() )
+		valid = false;
+	if ( !$("#drpMaintenance").valid() )
+		valid = false;
+	if ( !$("#txtarRoommaintinancedet").valid() )
+		valid = false;
+	if ( !$("#drpBathroom").valid() )
+		valid = false;
+	if ( !$("#txtarBathroommaintinancedet").valid() )
+		valid = false;
+	if ( !$("#drpHigiene").valid() )
+		valid = false;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+
+$(document).ready(function(){
+	
+	/********** Room Maintenance **********/
+	$('#drpMaintenance').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpMaintenance').val() == '110')
+			$("#dvRoommaintinancedet").css("display", "block");
+		else
+		{
+			$('#txtarRoommaintinancedet').val('');
+			$("#dvRoommaintinancedet").css("display", "none");
+		}
+		
+	}); // END CHANGE ROOM
+	
+	/********** Bathroom Maintenance **********/
+	$('#drpBathroom').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpBathroom').val() == '115' || $('#drpBathroom').val() == '116')
+			$("#dvBathroommaintinancedet").css("display", "block");
+		else
+		{
+			$('#txtarBathroommaintinancedet').val('');
+			$("#dvBathroommaintinancedet").css("display", "none");
+		}
+		
+	}); // END CHANGE BATHROOM
+	
+}); // END READY
+//-------------- END Elder Room Status Tab ------------------//
+
 //******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
@@ -1316,34 +1452,7 @@ return {
 
 //**************elder room fucntion******************//
 
-function editeElderRoom()
-{
-	var action = $("#elderRoomhdnAction").val();
-	var SurveyId = $('#SurveyId').val();
-	alert(action);
-	alert(SurveyId);
-	
-	
-	$.ajax({
-			url: baseURL+"Surveycont/"+action,
-			type: "POST",
-			data:$('#ElderRoomTab').serialize() + '&SurveyId=' + $('#SurveyId').val(),
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				if (returndb=='')
-				{
-					var form = $('#ElderRoomTab');
-					$('.alert-success', form).show();
-					$('#elderRoomhdnAction').val('updateelderRoom');										
-				}
-			}
-		});//END $.ajax
-}
+
 //********** home status valisation**
 var ElderRoomTabValidation = function () {
  var handleValidation = function() {
@@ -1967,6 +2076,65 @@ var FormWizard = function () {
 								 }
 							 }//END function
 						}//END required
+					},
+					
+					// Elder Room Status
+					drpElderHometype:{
+						required: true
+					},
+					drpRoomtype:{
+						required: true
+					},
+					drpClothes:{
+						required: true
+					},
+					drpVentilation:{
+						required: true
+					},
+					drpLighting:{
+						required: true
+					},
+					drpCloset:{
+						required: true
+					},
+					drpBed:{
+						required: true
+					},
+					drpCupboard:{
+						required: true
+					},
+					drpMaintenance:{
+						required: true
+					},
+					txtarRoommaintinancedet:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpMaintenance').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpBathroom:{
+						required: true
+					},
+					txtarBathroommaintinancedet:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpBathroom').val() == '115' || $('#drpBathroom').val() == '116')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpHigiene:{
+						required: true
 					}
 					
                 },
@@ -2107,6 +2275,47 @@ var FormWizard = function () {
 					},
 					txtarFurnitureneeds:{
 						required: "الرجاء إدخال قيمة"
+					},
+					
+					// Elder Room Status
+					drpElderHometype:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpRoomtype:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpClothes:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpVentilation:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpLighting:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpCloset:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpBed:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpCupboard:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpMaintenance:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarRoommaintinancedet:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpBathroom:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarBathroommaintinancedet:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpHigiene:{
+						required: "الرجاء إختيار قيمة"
 					}
 	
                 },

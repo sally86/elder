@@ -469,7 +469,7 @@ class Surveymodel extends CI_Model
 		extract($_POST);
 
 		$data['survey_id'] 		    		= $hdnSurveyId;
-		$data['home_type_id'] 				= $drpHometype;
+		$data['home_type_id'] 				= $drpElderHometype;
 		$data['room_type_id'] 				= $drpRoomtype;
 		$data['clothes_covers_status_id'] 	= $drpClothes;
 		$data['room_ventilation_id'] 		= $drpVentilation;
@@ -493,7 +493,7 @@ class Surveymodel extends CI_Model
 	{
 		extract($_POST);
 		
-		$data['home_type_id'] 				= $drpHometype;
+		$data['home_type_id'] 				= $drpElderHometype;
 		$data['room_type_id'] 				= $drpRoomtype;
 		$data['clothes_covers_status_id'] 	= $drpClothes;
 		$data['room_ventilation_id'] 		= $drpVentilation;
