@@ -7,7 +7,7 @@ function editeaidrecomend()
 	alert(action);
 //	action ="addaidrecomend";
 $.ajax({
-			url: baseURL+"Recomendcont/"+action,
+			url: baseURL+"Surveycont/"+action,
 			type: "POST",
 			data:  $("#Aidrecomend_form").serialize(),
 			error: function(xhr, status, error) {
@@ -36,7 +36,7 @@ function editemedicalaid()
 	
 	
 	$.ajax({
-			url: baseURL+"Recomendcont/"+action,
+			url: baseURL+"Surveycont/"+action,
 			type: "POST",
 			data: {hdnSurveyId: $("#hdnSurveyId").val(),
 			drpMedicalaidtype: $("#drpMedicalaidtype").val()},
@@ -66,7 +66,7 @@ function editehomeaid()
 	
 	
 	$.ajax({
-			url: baseURL+"Recomendcont/"+action,
+			url: baseURL+"Surveycont/"+action,
 			type: "POST",
 			data:   {hdnSurveyId: $("#hdnSurveyId").val(),
 			drpImprovementtype: $("#drpImprovementtype").val()},
@@ -105,7 +105,7 @@ function deletemedicalaidbyId(medicalaidId,medicationtypeid)
 	{
 	
 	$.ajax({
-			url: baseURL+"Recomendcont/deletemedicalaidbyId",
+			url: baseURL+"Surveycont/deletemedicalaidbyId",
 			type: "POST",
 			data: {medicalaidId: medicalaidId,hdnSurveyId: $("#hdnSurveyId").val(),
 			medicationtypeid:medicationtypeid},
@@ -144,7 +144,7 @@ function deletehomeaidbyId(homeaidId,hometypeid)
 	{
 	
 	$.ajax({
-			url: baseURL+"Recomendcont/deletehomeaidbyId",
+			url: baseURL+"Surveycont/deletehomeaidbyId",
 			type: "POST",
 			data: {homeaidId: homeaidId,
 			hdnSurveyId: $("#hdnSurveyId").val(),
