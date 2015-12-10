@@ -98,13 +98,13 @@ class Recomendcont extends CI_Controller
 				{
 				 
 					echo "<tr>";
-					echo "<td>" . $i++ . "</td>";
+					
 					echo '<td style="display:none;" id="surveyId_tb'.$i.'">'. $row->medical_aid_recomendation_id. "</td>";
 					echo '<td style="display:none;" id="medical_aid_type_id_tb'.$i.'">'. $row->medical_aid_type_id. "</td>";
 					echo '<td id="medicalaid_type'.$i.'">'. $row-> medicalaid_type . "</td>";
 					echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
 									  class="btn btn-circle red-sunglo btn-sm" 
-									  onclick="deletemedicalaidbyId('.$row->medical_aid_recomendation_id .')">
+									  onclick="deletemedicalaidbyId('.$row->medical_aid_recomendation_id.','. $row->medical_aid_type_id .')">
 									   <i id="iConst" class="fa fa-close"></i>
 									   </td>';
 					echo "</tr>";
@@ -133,13 +133,12 @@ function drawhomeaidTable()
 				{
 				 
 					echo "<tr>";
-					echo "<td>" . $i++ . "</td>";
 					echo '<td style="display:none;" id="surveyId_tb'.$i.'">'. $row->home_improvement_recomendation_id. "</td>";
 					echo '<td style="display:none;" id="improvement_type_id_id_tb'.$i.'">'. $row->improvement_type_id. "</td>";
 					echo '<td id="homeaid_type'.$i.'">'. $row-> homeaid_type . "</td>";
 					echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
 									  class="btn btn-circle red-sunglo btn-sm" 
-									  onclick="deletehomeaidbyId('.$row->home_improvement_recomendation_id .')">
+									  onclick="deletehomeaidbyId('.$row->home_improvement_recomendation_id.','. $row->improvement_type_id .')">
 									   <i id="iConst" class="fa fa-close"></i>
 									   </td>';
 					echo "</tr>";

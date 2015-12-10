@@ -4,6 +4,7 @@ function editeaidrecomend()
 {
 	var action = $("#hdnaidraction").val();
 	alert(action);
+	alert(action);
 //	action ="addaidrecomend";
 $.ajax({
 			url: baseURL+"Recomendcont/"+action,
@@ -46,6 +47,9 @@ function editemedicalaid()
 			complete: function(){},
 			success: function(returndb){
 				$("#tbmedicalaid").html(returndb);
+				
+				$("#drpMedicalaidtype option:selected" ).attr("disabled","disabled");
+				$("#drpMedicalaidtype").val('');
 				if(returndb == '')
 				{
 					
@@ -73,6 +77,9 @@ function editehomeaid()
 			complete: function(){},
 			success: function(returndb){
 			$("#tbhomeaid").html(returndb);
+			
+				$("#drpImprovementtype option:selected" ).attr("disabled","disabled");
+				$("#drpImprovementtype").val('');
 				if(returndb == '')
 				{
 					var form = $('#homeimprovement_form');
@@ -83,7 +90,7 @@ function editehomeaid()
 }
 
 
-function deletemedicalaidbyId(medicalaidId)
+function deletemedicalaidbyId(medicalaidId,medicationtypeid)
 {
 	var action = $("#maidaction").val();
 	alert(action);
@@ -100,7 +107,8 @@ function deletemedicalaidbyId(medicalaidId)
 	$.ajax({
 			url: baseURL+"Recomendcont/deletemedicalaidbyId",
 			type: "POST",
-			data: {medicalaidId: medicalaidId,hdnSurveyId: $("#hdnSurveyId").val()},
+			data: {medicalaidId: medicalaidId,hdnSurveyId: $("#hdnSurveyId").val(),
+			medicationtypeid:medicationtypeid},
 			error: function(xhr, status, error) {
   				alert(xhr.responseText);
 			},
@@ -108,6 +116,8 @@ function deletemedicalaidbyId(medicalaidId)
 			complete: function(){},
 			success: function(returndb){
 				$("#tbmedicalaid").html(returndb);
+				$("#drpMedicalaidtype option[value='"+medicationtypeid+"']").prop('disabled', false);
+				$("#drpMedicalaidtype").val('');
 				if(returndb == '')
 				{
 					
@@ -119,7 +129,7 @@ function deletemedicalaidbyId(medicalaidId)
 	}
 
 }
-function deletehomeaidbyId(homeaidId)
+function deletehomeaidbyId(homeaidId,hometypeid)
 {
 	//var action = $("#maidaction").val();
 	//alert(action);
@@ -136,7 +146,9 @@ function deletehomeaidbyId(homeaidId)
 	$.ajax({
 			url: baseURL+"Recomendcont/deletehomeaidbyId",
 			type: "POST",
-			data: {homeaidId: homeaidId,hdnSurveyId: $("#hdnSurveyId").val()},
+			data: {homeaidId: homeaidId,
+			hdnSurveyId: $("#hdnSurveyId").val(),
+			hometypeid:hometypeid},
 			error: function(xhr, status, error) {
   				alert(xhr.responseText);
 			},
@@ -144,6 +156,8 @@ function deletehomeaidbyId(homeaidId)
 			complete: function(){},
 			success: function(returndb){
 				$("#tbhomeaid").html(returndb);
+				$("#drpImprovementtype option[value='"+hometypeid+"']").prop('disabled', false);
+				$("#drpImprovementtype").val('');
 				if(returndb == '')
 				{
 					
