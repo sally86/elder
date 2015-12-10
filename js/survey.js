@@ -1373,15 +1373,13 @@ function add_elder_behaviour()
 			complete: function(){},
 			success: function(returndb){
 				
-				$("#tbdElderBehaviour").html(returndb);
-				
-				$("#drpBehaviour option:selected" ).attr("disabled","disabled");
-				
-				if($("#drpBehaviour").val() == "211")	// Pariah
+				if($("#drpBehaviour").val() == '211')	// Pariah
 				{
 					$("#dvPariahreasone").css("display", "block");
 				}
 				
+				$("#tbdElderBehaviour").html(returndb);
+				$("#drpBehaviour option:selected" ).attr("disabled","disabled");
 				$("#drpBehaviour").val('');
 			}
 		});//END $.ajax
@@ -1406,11 +1404,12 @@ function delete_elder_behaviour(elderbehaviourid , behaviourid)
 				$("#drpBehaviour option[value='"+behaviourid+"']").prop('disabled', false);
 				$("#tbdElderBehaviour").html(returndb);
 				
-				if($("#drpBehaviour").val() == "211")	// Pariah
+				if(behaviourid == '211')	// Pariah
 				{
 					$("#drpPariahreasone").val('');
 					$("#tbdElderPariah").html('');
 					$("#dvPariahreasone").css("display", "none");
+					$("#drpPariahreasone > option").prop('disabled', false);
 				}
 			}
 		});//END $.ajax
@@ -1445,7 +1444,7 @@ function add_elder_pariah()
 function delete_elder_pariah(elderpariahid, pariahreasonid)
 {
 	$.ajax({
-			url: baseURL+"Surveycont/deletebehaviour",
+			url: baseURL+"Surveycont/deletepariah",
 			type: "POST",
 			data:{ hdnSurveyId : $("#hdnSurveyId").val(),
 				   elderpariahid : elderpariahid,
@@ -2672,6 +2671,14 @@ var FormWizard = function () {
 						}//END required
 					},
 					
+					// Elder Behaviour
+					drpBehaviour :{
+						required: true
+					},
+					drpPariahreasone :{
+						required: true
+					},
+					
 					// Family Psyco
 					drpPsychologicalStatus:{
 						required: true
@@ -2899,6 +2906,14 @@ var FormWizard = function () {
 					},
 					txtarLegaladvicereasone:{
 						required: "الرجاء إدخال قيمة"
+					},
+					
+					// Elder Behaviour
+					drpBehaviour :{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpPariahreasone :{
+						required: "الرجاء إختيار قيمة"
 					},
 					
 					// Family Psyco
