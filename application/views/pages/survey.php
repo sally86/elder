@@ -1494,7 +1494,7 @@ $readonly = '';
                                                 </select>
                                               </div>
                                               <div class="col-md-2">
-                                                <button id="btnAdddisease" name="btnAdddisease" type="button" 
+                                                <button id="btnAddBehaviour" name="btnAddBehaviour" type="button" 
                                                 class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_behaviour()">
                                                 <i id="iConst" class="fa fa-plus"></i></button> 
                                               </div>

@@ -1352,6 +1352,121 @@ $(document).ready(function(){
 }); // END READY
 
 //------------ END Elder Family Relationship Tab ---------------//
+
+//------------------ Elder Behavior Tab ------------------------//
+function add_elder_behaviour()
+{
+	if(!$("#drpBehaviour").valid())
+		return false;
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addbehaviour",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    drpBehaviour : $("#drpBehaviour").val()
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#tbdElderBehaviour").html(returndb);
+				
+				$("#drpBehaviour option:selected" ).attr("disabled","disabled");
+				
+				if($("#drpBehaviour").val() == "211")	// Pariah
+				{
+					$("#dvPariahreasone").css("display", "block");
+				}
+				
+				$("#drpBehaviour").val('');
+			}
+		});//END $.ajax
+}
+function delete_elder_behaviour(elderbehaviourid , behaviourid)
+{
+	$.ajax({
+			url: baseURL+"Surveycont/deletebehaviour",
+			type: "POST",
+			data:{ hdnSurveyId : $("#hdnSurveyId").val(),
+				   elderbehaviourid : elderbehaviourid,
+				   behaviourid : behaviourid
+				},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#drpBehaviour option[value='"+behaviourid+"']").prop('disabled', false);
+				$("#tbdElderBehaviour").html(returndb);
+				
+				if($("#drpBehaviour").val() == "211")	// Pariah
+				{
+					$("#drpPariahreasone").val('');
+					$("#tbdElderPariah").html('');
+					$("#dvPariahreasone").css("display", "none");
+				}
+			}
+		});//END $.ajax
+}
+function add_elder_pariah()
+{
+	if(!$("#drpPariahreasone").valid())
+		return false;
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addpariah",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    drpPariahreasone : $("#drpPariahreasone").val()
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#tbdElderPariah").html(returndb);
+				
+				$("#drpPariahreasone option:selected" ).attr("disabled","disabled");
+				$("#drpPariahreasone").val('');
+				
+			}
+		});//END $.ajax
+}
+function delete_elder_pariah(elderpariahid, pariahreasonid)
+{
+	$.ajax({
+			url: baseURL+"Surveycont/deletebehaviour",
+			type: "POST",
+			data:{ hdnSurveyId : $("#hdnSurveyId").val(),
+				   elderpariahid : elderpariahid,
+				},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#drpPariahreasone option[value='"+pariahreasonid+"']").prop('disabled', false);
+				$("#tbdElderPariah").html(returndb);
+				
+			}
+		});//END $.ajax
+}
+
+//-----------------END Elder Behavior Tab ----------------------//
+
 //----------------- Family Psycho Status Tab -------------------//
 function add_family_psycho()
 {
