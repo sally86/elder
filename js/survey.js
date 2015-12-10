@@ -1528,6 +1528,132 @@ function delete_family_psycho(familypsychoid , psycholostatusid)
 		});//END $.ajax
 }
 //------------- END Family Psycho Status Tab -------------------//
+
+//------------------ Life Improvement Tab ----------------------//
+function editeLifeImprov()
+{
+	var action = $("#hdnlifeImprovaction").val();
+	
+	alert(action);
+	
+	if ( !validateLifeImprov() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'			,  $("#hdnSurveyId").val()			);
+	formData.append('drpElderWorkAbility'	,  $("#drpElderWorkAbility").val() 	);
+	formData.append('txtelderworktype'		,  $("#txtelderworktype").val()		);
+	formData.append('drpFamilyMember'		,  $("#drpFamilyMember").val()		);
+	formData.append('txtFamilyworktype'		,  $("#txtFamilyworktype").val()	);
+	formData.append('drpNeedtraining'		,  $("#drpNeedtraining").val()		);
+	formData.append('txtTrainigType'		,  $("#txtTrainigType").val()		);
+	formData.append('drpStartproject'		,  $("#drpStartproject").val()		);
+	formData.append('txtProjectType'		,  $("#txtProjectType").val()		);
+	formData.append('txtProjectBudget'		,  $("#txtProjectBudget").val()		);
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$('#hdnlifeImprovaction').val('updatelifeImprov');	
+			}
+		});//END $.ajax
+}
+function validateLifeImprov()
+{
+										 
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpElderWorkAbility").valid()  )
+		valid = false;
+	if ( !$("#txtelderworktype").valid()  )
+		valid = false;
+	if ( !$("#drpFamilyMember").valid()  )
+		valid = false;
+	if ( !$("#txtFamilyworktype").valid()  )
+		valid = false;
+	if ( !$("#drpNeedtraining").valid()  )
+		valid = false;
+	if ( !$("#txtTrainigType").valid()  )
+		valid = false;
+	if ( !$("#drpStartproject").valid()  )
+		valid = false;
+	if ( !$("#txtProjectType").valid()  )
+		valid = false;
+	if ( !$("#txtProjectBudget").valid()  )
+		valid = false;
+	
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+$(document).ready(function(){
+	
+	/********** Elder Work Ability **********/
+	$('#drpElderWorkAbility').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpElderWorkAbility').val() == '142')	// Can
+		{
+			$("#drpFamilyMember").val('');
+			$("#txtFamilyworktype").val('');
+		}
+		else
+		{
+			$('#txtelderworktype').val('');
+		}
+		
+	}); // END CHANGE ELDER WORK ABILITY
+	
+	/********** Need Training **********/
+	$('#drpNeedtraining').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpNeedtraining').val() == '111')
+			$("#txtTrainigType").val('');
+		
+	}); // END CHANGE NEED TRAINING
+	
+	/********** Start Project **********/
+	$('#drpStartproject').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpStartproject').val() == '111')
+		{
+			$("#txtProjectType").val('');
+			$("#txtProjectBudget").val('');
+		}
+		
+	}); // END CHANGE START PROJECT
+	
+}); // END READY
+//--------------- END Life Improvement Tab ---------------------//
 //******************form validation ***************************//
 var FamilyMemberTabValidation = function () {
  var handleValidation = function() {
@@ -2195,34 +2321,7 @@ return {
 
 //**************Life Improvemnt fucntion******************//
 
-function editeLifeImprov()
-{
-	var action = $("#lifeImprovhdnaction").val();
-	var SurveyId = $('#SurveyId').val();
-	alert(action);
-	alert(SurveyId);
-	
-	
-	$.ajax({
-			url: baseURL+"Surveycont/"+action,
-			type: "POST",
-			data:$('#LifeImprovementTab').serialize() + '&SurveyId=' + $('#SurveyId').val(),
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				if (returndb=='')
-				{
-					var form = $('#LifeImprovementTab');
-					$('.alert-success', form).show();
-					$('#lifeImprovhdnaction').val('updatelifeImprov');										
-				}
-			}
-		});//END $.ajax
-}
+
 //********** home status valisation**
 var LifeImprovTabValidation = function () {
  var handleValidation = function() {
@@ -2682,6 +2781,77 @@ var FormWizard = function () {
 					// Family Psyco
 					drpPsychologicalStatus:{
 						required: true
+					},
+					
+					// Life Improvement
+					drpElderWorkAbility: {
+                        required: true
+					},
+					txtelderworktype: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpElderWorkAbility').val() == '142')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+                    },
+					drpFamilyMember: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpElderWorkAbility').val() == '143')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+                    },
+					drpNeedtraining: {
+                        required: true
+                    },
+					txtTrainigType: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpNeedtraining').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpStartproject: {
+                        required: true
+                    },
+					txtProjectType: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpStartproject').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+                    },
+					txtProjectBudget: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpStartproject').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
 					}
 					
                 },
@@ -2919,6 +3089,32 @@ var FormWizard = function () {
 					// Family Psyco
 					drpPsychologicalStatus:{
 						required: "الرجاء إختيار قيمة"
+					},
+					
+					// Life Improvement
+					drpElderWorkAbility: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtelderworktype: {
+                        required: "الرجاء إدخال قيمة"
+                    },
+					drpFamilyMember: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					drpNeedtraining: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					txtTrainigType: {
+                        required: "الرجاء إدخال قيمة"
+					},
+					drpStartproject: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					txtProjectType: {
+                        required: "الرجاء إدخال قيمة"
+                    },
+					txtProjectBudget: {
+                        required: "الرجاء إدخال قيمة"
 					}
 	
                 },

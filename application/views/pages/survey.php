@@ -672,7 +672,7 @@ $readonly = '';
                                                   حـالة اسرة الاجتماعية والنفسية</a>
                                               </li>
                                               <li>
-                                                  <a href="#tab_6_11" data-toggle="tab" onclick="get_family_member()">
+                                                  <a href="#tab_6_11" data-toggle="tab">
                                                   التشغيل وتحسين مستوى الدخل</a>
                                               </li>
                                           </ul>
