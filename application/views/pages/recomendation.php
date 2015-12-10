@@ -144,9 +144,16 @@
                           تـم عملية حـفـظ البيـانات بنجـاح !
                       </div>
                      <input id="maidaction" name="maidaction" type="hidden" value="addmedicalaid" />
-                      <div class="form-group">
-                        <label class="control-label col-md-3">مساعدة طبية عينية &nbsp;&nbsp;&nbsp;                                        </label>
-                        <div class="col-md-4">
+                      <table class="table table-bordered table-striped">
+                          <thead>
+                           <tr>
+                            <th>
+                      <div class="col-md-3">
+                        مساعدة طبية عينية
+                       </div> 
+                        
+                        
+                        <div class="col-md-6">
                             <select class="form-control" id="drpMedicalaidtype" name="drpMedicalaidtype">
                                 <option value="">اختر...</option>
                                 <?php
@@ -156,31 +163,26 @@
 							  	}
 							 	?>
                             </select>
+                            
                         </div>
-                    </div>
+                    <div class="col-md-2">
+                                                <button id="btnAdddisease" name="btnAdddisease" type="button" class="btn btn-circle green-turquoise btn-sm" onclick="editemedicalaid()">
+                                                <i id="iConst" class="fa fa-plus"></i></button> 
+                                             </div>
+                                            </th>
+                                          </tr>
+                                         </thead>
+                                         <tbody id="tbmedicalaid">
+                                         
+                                          
+                                         </tbody>
+                                         </table>
                     
                   </div>
                   <!-- END FORM BODY -->
-                  <div class="form-actions">
-                      <div class="row">
-                          <div class="col-md-offset-3 col-md-9">
-                              <button type="button" class="btn blue-madison" onclick="editemedicalaid()">حـفـظ</button>
-                              <button type="button" class="btn default">الغاء الامر</button>
-                          </div>
-                      </div>
-                  </div>
               </form><br/>
                <!-- END FORM-->
-              <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                    <th>المساعدات الطبية</th>
-                </tr>
-               </thead>
-               <tbody id="tbmedicalaid">
-                
-               </tbody>
-               </table>   
+                 
               </fieldset>
               <fieldset><legend>السـكـن</legend><!-- home_improvement_recomendation_tb -->
               <form action="#" id="homeimprovement_form" class="form-horizontal">
@@ -195,9 +197,17 @@
                           تـم عملية حـفـظ البيـانات بنجـاح !
                       </div>
                        <input id="haidaction" name="haidaction" type="hidden" value="addhomeaid" />
-                      <div class="form-group">
-                        <label class="control-label col-md-3">تأهيل سكن وتحسين سبل عيش المسن &nbsp;&nbsp;&nbsp;                                        </label>
-                        <div class="col-md-4">
+                      <table class="table table-bordered table-striped">
+                          <thead>
+                           <tr>
+                            <th>
+                      <div class="col-md-3">
+						تأهيل سكن وتحسين سبل عيش المسن
+                       </div> 
+                        
+                        
+                        <div class="col-md-6">
+ 
                             <select class="form-control" id="drpImprovementtype" name="drpImprovementtype">
                                 <option value="">اختر...</option>
                                 <?php
@@ -208,30 +218,27 @@
 							 	?>
                             </select>
                         </div>
-                    </div>
+                  		<div class="col-md-2">
+                           <button id="btnaddhomeaid" name="btnaddhomeaid" type="button" 
+                           class="btn btn-circle green-turquoise btn-sm" onclick="editehomeaid()">
+                           <i id="iConst" class="fa fa-plus"></i></button> 
+                         </div>
+                        </th>
+                       </tr>
+                      </thead>
+                      <tbody id="tbhomeaid">
+                      
+                      </tbody>
+                   </table>
+                    
+                  
                     
                   </div>
                   <!-- END FORM BODY -->
-                  <div class="form-actions">
-                      <div class="row">
-                          <div class="col-md-offset-3 col-md-9">
-                              <button type="button" class="btn blue-madison" onclick="editehomeaid()">حـفـظ</button>
-                              <button type="button" class="btn default">الغاء الامر</button>
-                          </div>
-                      </div>
-                  </div>
+                  
               </form><br/>
                <!-- END FORM-->
-              <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                    <th>تأهيل سكن</th>
-                </tr>
-               </thead>
-               <tbody id="tbhomeaid">
-                
-               </tbody>
-               </table>   
+                 
               </fieldset>
           </div>
           <!-- END VALIDATION STATES-->
