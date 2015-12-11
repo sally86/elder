@@ -22,16 +22,7 @@ if (isset($employee_info))
               <div class="caption">
                   <i class="fa fa-briefcase"></i><?php echo $page_title;?>
               </div>
-              <div class="tools">
-                  <a href="javascript:;" class="collapse">
-                  </a>
-                  <a href="#portlet-config" data-toggle="modal" class="config">
-                  </a>
-                  <a href="javascript:;" class="reload">
-                  </a>
-                  <a href="javascript:;" class="remove">
-                  </a>
-              </div>
+             
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
@@ -40,7 +31,9 @@ if (isset($employee_info))
                   	<br/>
                       <div class="alert alert-danger display-hide">
                           <button class="close" data-close="alert"></button>
+                          <span id="spnMsg">
                           يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                          </span>
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>

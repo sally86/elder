@@ -13,6 +13,7 @@ class Employeemodel extends CI_Model
 		
 		return $query->result();
 	}
+	
 	function check_employee_id()
 	{
 		extract($_POST);
@@ -22,6 +23,7 @@ class Employeemodel extends CI_Model
 				  	WHERE 	national_id=$national_id";
 		 return $this->db->query($myquery);
 	}
+	
 	// Get All Employee do not have Account
 	function get_employee_hasnt_account()
 	{
@@ -149,49 +151,9 @@ class Employeemodel extends CI_Model
 		return $res->result();
 		
 	}
-	function count_get_search_employee($requestData)
+	function count_employee()
 	{
-
-		
-		$myquery = "SELECT 	national_id,emp_id,name,mobile,employee_id,email,
-							constjob.sub_constant_name job_title,job_title_id,is_active active_account
-				      FROM  employee_tb,sub_constant_tb constjob
-				     WHERE  job_title_id = constjob.sub_constant_id";
-		
-		if(isset($requestData['txtNationalid']) && $requestData['txtNationalid'] !='')
-		{
-			$myquery = $myquery." AND national_id = ".$requestData['txtNationalid'];
-		}
-		if(isset($requestData['txtEmpid']) && $requestData['txtEmpid'] !='')
-		{
-			$myquery = $myquery." AND emp_id = ".$requestData['txtEmpid'];
-		}
-		if(isset($requestData['txtName']) && $requestData['txtName'] !='')
-		{
-			$myquery = $myquery." AND name LIKE '%".$requestData['txtName']."%' ";
-		}
-		if(isset($requestData['drpJobtitle']) && $requestData['drpJobtitle'] !='')
-		{
-			$myquery = $myquery." AND job_title_id = ".$requestData['drpJobtitle'];
-		}
-		if(isset($requestData['txtMobile']) && $requestData['txtMobile'] !='')
-		{
-			$myquery = $myquery." AND mobile = LIKE '%".$requestData['txtMobile']."%' ";
-		}
-		
-		if(isset($requestData['txtEmail']) && $requestData['txtEmail'] !='')
-		{
-			$myquery = $myquery." AND email = ".$requestData['txtEmail'];
-		}
-		if(isset($requestData['drpIsactive']) && $requestData['drpIsactive'] !='')
-		{
-			$myquery = $myquery." AND is_active = ".$requestData['drpIsactive'];
-		}
-		
-		
-		$res = $this->db->query($myquery);
-		return count($res->result());
-		
+		return $this->db->count_all('employee_tb');		
 	}
 
 }

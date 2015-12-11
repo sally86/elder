@@ -11,7 +11,12 @@ function editemployee()
 			data:  $("#employee_form").serialize(),
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
+  				//alert(xhr.responseText);
+				$('#spnMsg').text('حدث خطأ أثناء عملية حفظ البانات ... الرجاء المحاولة مرة أخرى');
+				var form = $('#employee_form');
+				$('.alert-danger', form).show();
+				$('.alert-success', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
 			},
 			beforeSend: function(){},
 			complete: function(){},
@@ -20,6 +25,8 @@ function editemployee()
 				{
 					var form = $('#employee_form');
 					$('.alert-success', form).show();
+					$('.alert-danger', form).hide();
+					Metronic.scrollTo( $('.alert-danger', form), -200);
 				}
 			}
 		});//END $.ajax
@@ -87,7 +94,7 @@ var EmpFormValidation = function () {
             var form = $('#employee_form');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
-
+			
             form.validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block help-block-error', // default input error message class
@@ -170,6 +177,7 @@ var EmpFormValidation = function () {
                 invalidHandler: function (event, validator) { //display error alert on form submit   
                     successmsg.hide();
                     errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
                     Metronic.scrollTo(errormsg, -200);
                 },
 

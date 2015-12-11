@@ -15,6 +15,7 @@ function editUser()
 				$('#spnMsg').text('حدث خطأ أثناء عملية حفظ البانات ... الرجاء المحاولة مرة أخرى');
 				var form = $('#user_form');
 				$('.alert-danger', form).show();
+				$('.alert-success', form).hide();
 				Metronic.scrollTo( $('.alert-danger', form), -200);
 			},
 			beforeSend: function(){},
@@ -24,6 +25,7 @@ function editUser()
 				{
 					var form = $('#user_form');
 					$('.alert-success', form).show();
+					$('.alert-danger', form).hide();
 					Metronic.scrollTo( $('.alert-success', form), -200);
 				}
 				
@@ -133,7 +135,6 @@ var UserFormValidation = function () {
             var form = $('#user_form');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
-			$('#spnMag').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
 			
             // Unique Username
 			var response = true;
@@ -260,6 +261,7 @@ var UserFormValidation = function () {
                 invalidHandler: function (event, validator) { //display error alert on form submit   
                     successmsg.hide();
                     errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
                     Metronic.scrollTo(errormsg, -200);
                 },
 
