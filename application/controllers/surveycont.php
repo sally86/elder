@@ -321,30 +321,9 @@ class Surveycont extends CI_Controller
 	function addincomeresourcedet()
 	{
 		$this->load->model('Surveymodel');
-		$this->Surveymodel->income_resources_details_insert();
+		$IncomeResourcesId = $this->Surveymodel->income_resources_details_insert();
 		
-		extract($_POST);
-		
-		$rec = $this->Surveymodel->get_income_resources_details($hdnSurveyId);
-		$i=1;
-		foreach($rec as $row)
-		{
-			
-			echo '<tr>';
-			echo '<td>' . $i++ . '</td>';
-			echo '<td>' . $row->resource . '</td>';
-			echo '<td>' . $row->cash_income . '</td>';
-			echo '<td>' . $row->package_income . '</td>';
-			echo '<td>' . $row->package_cash_value . '</td>';
-			echo '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-								  class="btn btn-circle red-sunglo btn-sm" 
-								  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
-																	   . $row->resource_id .')">
-								   <i id="iConst" class="fa fa-close"></i></button>
-						  </div>';
-			echo "</td>";
-			echo "</tr>";
-		}
+		$this->drowincometable();
 		
 	}
 	function deleteincomeresourcedet()
@@ -352,34 +331,15 @@ class Surveycont extends CI_Controller
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->income_resources_details_delete();
 		
-		extract($_POST);
-		
-		$rec = $this->Surveymodel->get_income_resources_details($hdnSurveyId);
-		$i=1;
-		foreach($rec as $row)
-		{
-			
-			echo '<tr>';
-			echo '<td>' . $i++ . '</td>';
-			echo '<td>' . $row->resource . '</td>';
-			echo '<td>' . $row->cash_income . '</td>';
-			echo '<td>' . $row->package_income . '</td>';
-			echo '<td>' . $row->package_cash_value . '</td>';
-			echo '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-								  class="btn btn-circle red-sunglo btn-sm" 
-								  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
-																	   . $row->resource_id .')">
-								   <i id="iConst" class="fa fa-close"></i></button>
-						  </div>';
-			echo "</td>";
-			echo "</tr>";
-		}
+		$this->drowincometable();
 		
 	}
 	function addincomeresource()
 	{
 		$this->load->model('Surveymodel');
-		$this->Surveymodel->income_resources_insert();
+		$res = $this->Surveymodel->income_resources_insert();
+		
+		echo $res;
 		
 	}
 	function updateincomeresource()
@@ -387,6 +347,89 @@ class Surveycont extends CI_Controller
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->income_resources_update();
 		
+		extract($_POST);
+		
+		echo $hdnIncomeResourcesId;
+		
+	}
+	function drowincometable()
+	{
+		extract($_POST);
+		
+		$rec = $this->Surveymodel->get_income_resources_details($hdnSurveyId);
+		$i=1;
+		$j=1;
+		$org_row = "";
+		$total_cash = 0;
+		$total_package = 0;
+		foreach($rec as $row)
+		{
+			$total_cash = $total_cash + $row->cash_income;
+			$total_package = $total_package + $row->package_cash_value;
+			
+			if($row->resource_id == 75)
+			{
+				if ($j == 1)
+				{
+					$org = $row->resource;
+				}
+				$org_row = $org_row . '<tr><td>' . $j++ . '- ' . $row->organization . '</td>'
+									. '<td>' . $row->cash_income . '</td>'
+									. '<td>' . $row->package_income . '</td>'
+									. '<td>' . $row->package_cash_value . '</td>'
+									. '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+										  class="btn btn-circle red-sunglo btn-sm" 
+										  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
+																			   . $row->resource_id .',\''
+																			   . $row->organization_id .'\')">
+										   <i id="iConst" class="fa fa-close"></i></button>
+								  		 </div>
+								  </td></tr>';
+		
+			}
+			else
+			{
+				echo '<tr>';
+				echo '<td>' . $i++ . '</td>';
+				echo '<td>' . $row->resource . '</td>';
+				echo '<td>' . $row->cash_income . '</td>';
+				echo '<td>' . $row->package_income . '</td>';
+				echo '<td>' . $row->package_cash_value . '</td>';
+				echo '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+									  class="btn btn-circle red-sunglo btn-sm" 
+									  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
+																		   . $row->resource_id .',\''
+																		   . $row->organization_id .'\')">
+									   <i id="iConst" class="fa fa-close"></i></button>
+							  </div>';
+				echo "</td>";
+				echo "</tr>";
+			}
+			
+		}
+		
+		if ($j > 1)
+		{
+			echo '<tr>';
+			echo '<td rowspan="' .$j. '">' . $i++ . '</td>';
+			echo '<td> ' . $org . ' </td>';
+			echo '<td> &nbsp; </td>';
+			echo '<td> &nbsp; </td>';
+			echo '<td> &nbsp; </td>';
+			echo '<td> &nbsp; </td>';
+			echo "</tr>";
+			echo $org_row;
+		}
+		
+		// Total Row
+		echo '<tr class="bg-grey-steel">';
+		echo '<td> &nbsp; </td>';
+		echo '<td> المــجـموع الكـلي </td>';
+		echo '<td> '.$total_cash.' </td>';
+		echo '<td> &nbsp; </td>';
+		echo '<td> '.$total_package.' </td>';
+		echo '<td> &nbsp; </td>';
+		echo "</tr>";
 	}
 /*********************** END Income Resources TAB **********************/
 

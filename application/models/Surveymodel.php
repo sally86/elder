@@ -332,7 +332,7 @@ class Surveymodel extends CI_Model
 		extract($_POST);
 		
 		$data['survey_id'] 			= $hdnSurveyId;
-		if (isset($txtTotalincome) && $txtTotalincom != "")
+		if (isset($txtTotalincome) && $txtTotalincome != "")
 			$data['total_income'] 	= $txtTotalincome;
 		else
 			$data['total_income'] 	= NULL;
@@ -389,6 +389,8 @@ class Surveymodel extends CI_Model
 		
 		
 		$this->db->insert('income_resources_details_tb',$data);
+		
+		return $hdnIncomeResourcesId;
 		 
 	}
 	function income_resources_details_delete()

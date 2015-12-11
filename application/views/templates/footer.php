@@ -133,15 +133,15 @@
 		ElderInfoValidation.init();
 		
 		/*******Forms Validation *******************/
-		ElderTabValidation.init();
-		SurveyTabValidation.init();
-		FamilyMemberTabValidation.init();
-		FamilyMemberValidation.init();
+		//ElderTabValidation.init();
+		//SurveyTabValidation.init();
+		//FamilyMemberTabValidation.init();
+		//FamilyMemberValidation.init();
 		FollowupValidation.init();
-		HomeStatusTabValidation.init();
-		ElderRoomTabValidation.init();
-		ElderFamRelTabValidation.init();
-		LifeImprovTabValidation.init();
+		//HomeStatusTabValidation.init();
+		//ElderRoomTabValidation.init();
+		//ElderFamRelTabValidation.init();
+		//LifeImprovTabValidation.init();
 		/**************************/
 		FormWizard.init();
 	//***************Ajax table*******************/

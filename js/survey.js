@@ -130,207 +130,6 @@ function claculateAge()
 		}
 }
 
-
-//---------------------------------
-//--------------------------------------
-var ElderTabValidation = function () {
- var handleValidation = function() {
-        
-            var form = $('#ElderTab');
-            var errormsg = $('.alert-danger', form);
-            var successmsg = $('.alert-success', form);
-
-            form.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "", // validate all fields including form hidden input
-                rules: {
-					txtElderId: {
-                        required: true,
-						digits: true
-                    },
-					txtFname: {
-                        required: true
-                    },
-	                txtMname: {
-                        required: true
-                    },
-					txtThname: {
-                        required: true
-                    },
-	                txtLname: {
-                        required: true
-                    },
-					dpDob: {
-                        required: true
-                    },
-					drpElderstatus: {
-                        required: true
-                    },
-					drpGovernorate: {
-                        required: true
-                    },
-					txtRegion: {
-                        required: true
-                    },
-					txtFulladdress: {
-                        required: true
-					},
-					txtPhone: {
-                       digits: true,
-						minlength: 7
-					},
-					txtMobile1: {
-						digits: true,
-						minlength: 10,
-						required: true
-                    },
-					txtMobile1: {
-						digits: true,
-						minlength: 10,
-						required: true
-                    },
-					drpEducationlevel: {
-						required: true
-                    },
-					drpSpecialization: {
-						required: true
-                    },
-					drpCurrentjob: {
-						required: true
-                    },
-					drpPreviousjob: {
-						required: true
-                    },
-					drpInsurence: {
-						required: true
-                    }
-                },
-
-               messages: { // custom messages for radio buttons and checkboxes
-                    txtElderId: {
-						required: "الرجاء إدخال رقم الهوية",
-						digits: "الرجـاء ادخـال ارقـام فقط"
-                    },
-					txtFname: {
-                        required: "الرجاء ادخل الاسم"
-                    },
-                    txtMname: {
-                        required: "الرجاء ادخل الاسم"
-                    }
-					,
-                    txtThname: {
-                        required: "الرجاء ادخل الاسم"
-                    }
-					,
-                    txtLname: {
-                        required: "الرجاء ادخل الاسم"
-                    },
-					dpDob: {
-						required: "الرجاء إدخال تاريخ الميلاد"
-                    },
-					drpElderstatus: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpGovernorate: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					txtRegion: {
-						required: "الرجاء إدخال قيمة"
-                    },
-					txtFulladdress: {
-						required: "الرجاء إدخال قيمة"
-                    },
-					txtPhone: {
-						minlength: "رقم الهاتف يجب ان يكون 7 ارقام",
-						digits: "الرجـاء ادخـال ارقـام فقط"
-                    },
-					txtMobile1: {
-						minlength: "رقم الجوال يجب ان يكون 10 ارقام مبدوء ب 059",
-						digits: "الرجـاء ادخـال ارقـام فقط",
-						required: "الرجـاء ادخـال رقـم الجـوال"
-                    },
-					txtMobile2: {
-						minlength: "رقم الجوال يجب ان يكون 10 ارقام مبدوء ب 059",
-						digits: "الرجـاء ادخـال ارقـام فقط",
-						required: "الرجـاء ادخـال رقـم الجـوال"
-                    },
-					drpEducationlevel: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpSpecialization: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpCurrentjob: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpPreviousjob: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpInsurence: {
-						required: "الرجاء إختيار قيمة"
-                    }
-					
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
-                    } else if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.parents('.radio-list').size() > 0) { 
-                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                    } else if (element.parents('.radio-inline').size() > 0) { 
-                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-list').size() > 0) {
-                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-inline').size() > 0) { 
-                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
-                    } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
-                    }
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit   
-                    successmsg.hide();
-                    errormsg.show();
-                    Metronic.scrollTo(errormsg, -200);
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                   $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
-                },
-
-                success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                },
-
-                submitHandler: function (form) {
-                    errormsg.hide();
-					editeelder();
-                    //form[0].submit(); // submit the form
-                }
-
-            });
-    }
-return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };
-
-}();
 //-------------------- END Elder Tab --------------------//
 
 //-------------------- Visit Tab -----------------------//
@@ -706,7 +505,7 @@ function add_disease_details()
 //----------------------- Income Tab ------------------------//
 function add_income_resource_det()
 {
-	if ( !validateFamilymember() )
+	if ( !validateIncomeResourceDet() )
 		return;
 		
 	// Create a new FormData object.
@@ -717,7 +516,7 @@ function add_income_resource_det()
 	formData.append('hdnIncomeResourcesId'	, $("#hdnIncomeResourcesId").val() );
 	formData.append('drpIncomeSource'		,  $("#drpIncomeSource").val()	   );
 	formData.append('drpOrganization'	  	,  $("#drpOrganization").val()	   );
-	formData.append('txtCashincome'	  		,  $('txtCashincome').val()		   );
+	formData.append('txtCashincome'	  		,  $('#txtCashincome').val()	   );
 	formData.append('txtPackageincome' 		,  $("#txtPackageincome").val()	   );
 	formData.append('txtPackagecashvalue'	,  $("#txtPackagecashvalue").val() );
 
@@ -735,8 +534,13 @@ function add_income_resource_det()
 			complete: function(){},
 			success: function(returndb){
 				
-				$("#tbdIncomeSourceDet").html(returndb);
-				$("#drpIncomeSource option:selected" ).attr("disabled","disabled");
+				$("#hdnIncomeResourcesId").val(returndb.substr(0, returndb.indexOf('|') ) );
+				$("#tbdIncomeSourceDet").html(returndb.substr(returndb.indexOf('|')+1 ) );
+				
+				if ($("#drpIncomeSource").val() == '75')	// NGOs
+					$("#drpOrganization option:selected" ).attr("disabled","disabled");
+				else
+					$("#drpIncomeSource option:selected" ).attr("disabled","disabled");
 				
 				clearIncomeFields();
 				/*if(returndb == '')
@@ -748,7 +552,7 @@ function add_income_resource_det()
 			}
 		});//END $.ajax
 }
-function delete_income_resource_det(incomeresourcedetid,resourceid)
+function delete_income_resource_det(incomeresourcedetid,resourceid,orgid)
 {
 	$.ajax({
 			url: baseURL+"Surveycont/deleteincomeresourcedet",
@@ -764,9 +568,13 @@ function delete_income_resource_det(incomeresourcedetid,resourceid)
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
+				if(resourceid == '75')
+					$("#drpOrganization option[value='"+orgid+"']").prop('disabled', false);
+				else
+					$("#drpIncomeSource option[value='"+resourceid+"']").prop('disabled', false);
 				
-				$("#drpIncomeSource option[value='"+resourceid+"']").prop('disabled', false);
 				$("#tbdIncomeSourceDet").html(returndb);
+				
 				/*if(returndb == '')
 				{
 					var form = $('#familyMemberTab');
@@ -776,6 +584,45 @@ function delete_income_resource_det(incomeresourcedetid,resourceid)
 			}
 		});//END $.ajax
 }
+function edit_income_resource()
+{
+	if( !validateIncomeResource() )
+		return false;
+	
+	if($("#hdnIncomeResourcesId").val() == "")
+		var action = "addincomeresource";
+	else
+		var action = "updateincomeresource";
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 	, $("#hdnSurveyId").val()		   );
+	formData.append('hdnIncomeResourcesId'	, $("#hdnIncomeResourcesId").val() );
+	formData.append('txtTotalincome'		,  $("#txtTotalincome").val()	   );
+	formData.append('txtElderportion'	  	,  $("#txtElderportion").val()	   );
+	
+		
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data: formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#hdnIncomeResourcesId").val(returndb);
+				
+			}
+		});//END $.ajax
+}
+
 function clearIncomeFields()
 {
 	$("#drpIncomeSource").val('');
@@ -783,7 +630,85 @@ function clearIncomeFields()
 	$('#txtCashincome').val('');
 	$("#txtPackageincome").val('');
 	$("#txtPackagecashvalue").val('');
+	$("#drpOrganization").css("display", "none");
 }
+function validateIncomeResourceDet()
+{
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpIncomeSource").valid() )
+		valid = false;
+	if ( !$("#drpOrganization").valid() )
+		valid = false;
+	if ( !$("#txtCashincome").valid() )
+		valid = false;
+	if ( !$("#txtPackageincome").valid() )
+		valid = false;
+	if ( !$("#txtPackagecashvalue").valid() )
+		valid = false;
+		
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+function validateIncomeResource()
+{
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#txtTotalincome").valid() )
+		valid = false;
+	if ( !$("#txtElderportion").valid() )
+		valid = false;
+		
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+
+$(document).ready(function(){
+	
+	/********** Income Source **********/
+	$('#drpIncomeSource').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpIncomeSource').val() == '75')
+			$("#drpOrganization").css("display", "block");
+		else
+		{
+			$("#drpOrganization").css("display", "none");
+		}
+		
+	}); // END CHANGE INCOME SOURCE
+	
+	
+}); // END READY
+
 //--------------------- END Income Tab ----------------------//
 
 //-------------------- Home Status Tab ----------------------//
@@ -1654,141 +1579,7 @@ $(document).ready(function(){
 	
 }); // END READY
 //--------------- END Life Improvement Tab ---------------------//
-//******************form validation ***************************//
-var FamilyMemberTabValidation = function () {
- var handleValidation = function() {
-       
-            var form = $('#familyMemberTab');
-            var errormsg = $('.alert-danger', form);
-            var successmsg = $('.alert-success', form);
-			
-            form.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "", // validate all fields including form hidden input
-                rules: {
-					txtMemberId: {
-                        required: true,
-						digits: true
-                    },
-					txtMembername: {
-                        required: true
-                    },
-					dpMemDob: {
-                        required: true
-                    },
-					drpMemRelationship: {
-                        required: true
-                    },
-					drpMemStatus: {
-                        required: true
-                    },
-					drpMemEdulevel: {
-                        required: true
-                    },
-					drpMemHealth: {
-						required: true
-                    },
-					txtMemincome: {
-						required: true,
-						digits: true
-                    },
-					txtMemjob: {
-						required: true
-                    }
-				},
 
-               messages: { // custom messages for radio buttons and checkboxes
-                    txtMemberId: {
-						required: "الرجاء إدخال رقم الهوية",
-						digits: "الرجـاء ادخـال ارقـام فقط"
-                    },
-					txtMembername: {
-                        required: "الرجاء ادخل الاسم"
-                    },
-					dpMemDob: {
-						required: "الرجاء إدخال تاريخ الميلاد"
-                    },
-					drpMemRelationship: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpMemStatus: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpMemEdulevel: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpMemHealth: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					txtMemincome: {
-						required: "الرجاء إدخال قيمة",
-						digits: "الرجـاء ادخـال ارقـام فقط",
-                    },
-					txtMemjob: {
-						required: "الرجاء إدخال قيمة"
-                    }
-					
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
-                    } else if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.parents('.radio-list').size() > 0) { 
-                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                    } else if (element.parents('.radio-inline').size() > 0) { 
-                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-list').size() > 0) {
-                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-inline').size() > 0) { 
-                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
-                    } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
-                    }
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit   
-                    successmsg.hide();
-                    errormsg.show();
-                    Metronic.scrollTo(errormsg, -200);
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                   $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
-                },
-
-                success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                },
-
-                submitHandler: function (form) {
-                    errormsg.hide();
-					editefamilymember();
-                    //form[0].submit(); // submit the form
-                }
-
-            });
-    }
-return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };
-}();
-//**************** end family member function******************//
 
 //***************** survey *************//
 //-------------get servey data ----------------------//
@@ -1843,610 +1634,6 @@ else
 return;
 }
 
-
-//*********** Survey tab validation 
-var SurveyTabValidation = function () {
- var handleValidation = function() {
-        
-            var form = $('#SurveyTab');
-            var errormsg = $('.alert-danger', form);
-            var successmsg = $('.alert-success', form);
-
-            form.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "", // validate all fields including form hidden input
-                rules: {
-					txtFileid: {
-                        required: true,
-						digits: true
-                    },
-					dpVisitdate: {
-                        required: true
-                    }
-					,
-					txtVisittime: {
-                        required: true
-                    },
-					txtVisitendtime: {
-                        required: true
-                    },
-					drpResearcher: {
-                        required: true
-                    },
-					drpResearcherass1: {
-                        required: true
-                    },
-					drpResearcherass2: {
-						required: true
-                    }
-				},
-
-               messages: { // custom messages for radio buttons and checkboxes
-                    txtFileid: {
-						required: "الرجاء إدخال رقم الهوية",
-						digits: "الرجـاء ادخـال ارقـام فقط"
-                    },
-					dpVisitdate: {
-						required: "الرجاء إدخال تاريخ الميلاد"
-                    },
-					txtVisittime: {
-						required: "الرجاء إدخال الوقت"
-                    },
-					txtVisitendtime: {
-						required: "الرجاء إدخال الوقت"
-                    },
-					drpResearcher: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpResearcherass1: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpResearcherass2: {
-						required: "الرجاء إختيار قيمة"
-                    }
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
-                    } else if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.parents('.radio-list').size() > 0) { 
-                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                    } else if (element.parents('.radio-inline').size() > 0) { 
-                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-list').size() > 0) {
-                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-inline').size() > 0) { 
-                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
-                    } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
-                    }
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit   
-                    successmsg.hide();
-                    errormsg.show();
-                    Metronic.scrollTo(errormsg, -200);
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                   $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
-                },
-
-                success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                },
-
-                submitHandler: function (form) {
-                    errormsg.hide();
-					editesurvey();
-                    //form[0].submit(); // submit the form
-                }
-
-            });
-    }
-return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };}();
-	
-//**************** end survey function******************
-
-//***************** home status function *************//
-//********** home status valisation**
-var HomeStatusTabValidation = function () {
- var handleValidation = function() {
-        
-            var form = $('#HomeStatusTab');
-            var errormsg = $('.alert-danger', form);
-            var successmsg = $('.alert-success', form);
-
-            form.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "", // validate all fields including form hidden input
-                rules: {
-					drpHomeStatus: {
-                        required: true
-					},
-					drpHomeType: {
-                        required: true
-                    },
-					drpCeilingType: {
-                        required: true
-                    },
-					drpFurnitureLevel: {
-                        required: true
-                    }
-				},
-
-               messages: { // custom messages for radio buttons and checkboxes
-                    drpHomeStatus: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpHomeType: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpCeilingType: {
-						required: "الرجاء إختيار قيمة"
-                    },
-					drpFurnitureLevel: {
-						required: "الرجاء إختيار قيمة"
-                    }
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
-                    } else if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.parents('.radio-list').size() > 0) { 
-                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                    } else if (element.parents('.radio-inline').size() > 0) { 
-                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-list').size() > 0) {
-                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-inline').size() > 0) { 
-                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
-                    } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
-                    }
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit   
-                    successmsg.hide();
-                    errormsg.show();
-                    Metronic.scrollTo(errormsg, -200);
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                   $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
-                },
-
-                success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                },
-
-                submitHandler: function (form) {
-                    errormsg.hide();
-					editehomeStatus();
-                    //form[0].submit(); // submit the form
-                }
-
-            });
-    }
-return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };}();
-//*************** end home function************************//
-
-//**************elder room fucntion******************//
-
-
-//********** home status valisation**
-var ElderRoomTabValidation = function () {
- var handleValidation = function() {
-        
-            var form = $('#ElderRoomTab');
-            var errormsg = $('.alert-danger', form);
-            var successmsg = $('.alert-success', form);
-
-            form.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "", // validate all fields including form hidden input
-                rules: {
-					drpRoomtype: {
-                        required: true
-					},
-					drpClothes: {
-                        required: true
-                    },
-					drpVentilation: {
-                        required: true
-                    },
-					drpLighting: {
-                        required: true
-                    },
-					drpCloset: {
-                        required: true
-					},
-					drpCupboard: {
-                        required: true
-                    },
-					drpMaintenance: {
-                        required: true
-                    },
-					drpRestoration: {
-                        required: true
-                    },
-					drpBathroom: {
-                        required: true
-                    },
-					drpHigiene: {
-                        required: true
-                    }
-				},
-
-               messages: { // custom messages for radio buttons and checkboxes
-                    
-					drpRoomtype: {
-                        required: "الرجاء إختيار قيمة"
-					},
-					drpClothes: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpVentilation: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpLighting: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpCloset: {
-                        required: "الرجاء إختيار قيمة"
-					},
-					drpCupboard: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpMaintenance: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpRestoration: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpBathroom: {
-                        required:"الرجاء إختيار قيمة"
-                    },
-					drpHigiene: {
-                    required: "الرجاء إختيار قيمة"
-					}	
-                    
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
-                    } else if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.parents('.radio-list').size() > 0) { 
-                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                    } else if (element.parents('.radio-inline').size() > 0) { 
-                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-list').size() > 0) {
-                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-inline').size() > 0) { 
-                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
-                    } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
-                    }
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit   
-                    successmsg.hide();
-                    errormsg.show();
-                    Metronic.scrollTo(errormsg, -200);
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                   $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
-                },
-
-                success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                },
-
-                submitHandler: function (form) {
-                    errormsg.hide();
-					editeElderRoom();
-                    //form[0].submit(); // submit the form
-                }
-
-            });
-    }
-return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };}();
-//*************** elder room function************************//
-
-//**************elder family relation fucntion******************//
-
-
-//********** home status valisation**
-var ElderFamRelTabValidation = function () {
- var handleValidation = function() {
-        
-            var form = $('#ElderFamRelTab');
-            var errormsg = $('.alert-danger', form);
-            var successmsg = $('.alert-success', form);
-
-            form.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "", // validate all fields including form hidden input
-                rules: {
-					drpRespect: {
-                        required: true
-					},
-					drpPariah: {
-                        required: true
-                    },
-					drpCare: {
-                        required: true
-                    },
-					drpNeeds: {
-                        required: true
-                    },
-					drpPsycosupport: {
-                        required: true
-					}
-					
-				},
-
-               messages: { // custom messages for radio buttons and checkboxes
-                    
-					drpRespect: {
-                        required: "الرجاء إختيار قيمة"
-					},
-					drpPariah: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpCare: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpNeeds: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpPsycosupport: {
-                        required: "الرجاء إختيار قيمة"
-					}
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
-                    } else if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.parents('.radio-list').size() > 0) { 
-                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                    } else if (element.parents('.radio-inline').size() > 0) { 
-                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-list').size() > 0) {
-                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-inline').size() > 0) { 
-                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
-                    } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
-                    }
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit   
-                    successmsg.hide();
-                    errormsg.show();
-                    Metronic.scrollTo(errormsg, -200);
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                   $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
-                },
-
-                success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                },
-
-                submitHandler: function (form) {
-                    errormsg.hide();
-					editeElderFamRel();
-                    //form[0].submit(); // submit the form
-                }
-
-            });
-    }
-return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };}();
-//*************** end elder family relation function************************//
-
-//**************Life Improvemnt fucntion******************//
-
-
-//********** home status valisation**
-var LifeImprovTabValidation = function () {
- var handleValidation = function() {
-        
-            var form = $('#LifeImprovementTab');
-            var errormsg = $('.alert-danger', form);
-            var successmsg = $('.alert-success', form);
-
-            form.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "", // validate all fields including form hidden input
-                rules: {
-					drpElderWorkAbility: {
-                        required: true
-					},
-					txtelderworktype: {
-                        required: true
-                    },
-					drpFamilyMember: {
-                        required: true
-                    },
-					drpNeedtraining: {
-                        required: true
-                    },
-					txtTrainigType: {
-                        required: true
-					},
-					drpStartproject: {
-                        required: true
-                    },
-					txtProjectType: {
-                        required: true
-                    },
-					txtProjectBudget: {
-                        required: true
-					}
-					
-				},
-
-               messages: { // custom messages for radio buttons and checkboxes
-                    
-					drpElderWorkAbility: {
-                        required: "الرجاء إختيار قيمة"
-					},
-					txtelderworktype: {
-                        required: "الرجاء إدخال قيمة"
-                    },
-					drpFamilyMember: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpNeedtraining: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					txtTrainigType: {
-                        required: "الرجاء إدخال قيمة"
-					},
-					drpStartproject: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					txtProjectType: {
-                        required: "الرجاء إدخال قيمة"
-                    },
-					txtProjectBudget: {
-                        required: "الرجاء إدخال قيمة"
-					}
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
-                    } else if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.parents('.radio-list').size() > 0) { 
-                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                    } else if (element.parents('.radio-inline').size() > 0) { 
-                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-list').size() > 0) {
-                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-inline').size() > 0) { 
-                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
-                    } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
-                    }
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit   
-                    successmsg.hide();
-                    errormsg.show();
-                    Metronic.scrollTo(errormsg, -200);
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                   $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
-                },
-
-                success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                },
-
-                submitHandler: function (form) {
-                    errormsg.hide();
-					editeLifeImprov();
-                    //form[0].submit(); // submit the form
-                }
-
-            });
-    }
-return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };}();
-//*********************end life improvemnt function************//
 var FormWizard = function () {
 
 
@@ -2601,6 +1788,65 @@ var FormWizard = function () {
 					},
 					txtarDiseaasedet: {
 						required: true
+					},
+					
+					// Income Resouce
+					drpIncomeSource: {
+						required: true
+					},
+					drpOrganization: {
+						required: {
+							 depends: function(element) {
+								 if ($('#drpIncomeSource').val() == '75')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtCashincome: {
+						required: function(element) {
+							if ($('#txtPackageincome').val() == '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+						},
+						digits: true
+					},
+					txtPackageincome: {
+						required: function(element) {
+							if ($('#txtCashincome').val() == '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+						},
+					},
+					txtPackagecashvalue: {
+						required: {
+							 depends: function(element) {
+								 if ($('#txtPackageincome').val() != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						},//END required
+						digits: true
+					},
+					txtTotalincome: {
+						required: true,
+						digits: true
+					},
+					txtElderportion: {
+						required: true,
+						digits: true
 					},
 					
 					// Home Status
@@ -2972,6 +2218,33 @@ var FormWizard = function () {
 					},
 					txtarDiseaasedet: {
 						required: "الرجاء إدخال قيمة"
+					},
+					
+					// Income Resouce
+					drpIncomeSource: {
+						required: "الرجاء إختيار قيمة"
+					},
+					drpOrganization: {
+						required: "الرجاء إختيار قيمة"
+					},
+					txtCashincome: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					},
+					txtPackageincome: {
+						required: "الرجاء إدخال قيمة"
+					},
+					txtPackagecashvalue: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					},
+					txtTotalincome: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					},
+					txtElderportion: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
 					},
 					
 					// Home Status

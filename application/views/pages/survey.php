@@ -756,7 +756,8 @@ $readonly = '';
                                             	#
                                             </th>
                                             <th>
-                                            	مصدر الدخل
+                                            	مصدر الدخل <span class="font-red">
+                                          * </span>
                                             </th>
                                             <th>
                                             	القيمة المالية للدخل 
@@ -765,7 +766,8 @@ $readonly = '';
                                             	المساعدة العينية
                                             </th>
                                             <th>
-                                            	التقييم المالي للمساعدات العينية
+                                            	التقييم المالي<br />
+                                                للمساعدات العينية
                                             </th>
                                             <th>&nbsp;
                                             	
@@ -786,7 +788,8 @@ $readonly = '';
                                                   	}
                                                    ?>
                                               </select>
-                                              <select class="form-control input-sm" id="drpOrganization" name="drpOrganization">
+                                              <select class="form-control input-sm" id="drpOrganization" name="drpOrganization"
+                                               style="display:none">
                                                   <option value="">اختر الجمعية ...</option>
                                                   <?php
                                                     foreach($survey_Organization as $row)
@@ -803,7 +806,7 @@ $readonly = '';
                                             </th>
                                             <th>
                                             	<input type="text" id="txtPackageincome" name="txtPackageincome" 
-                                                  data-required="1" class="form-control input-sm input-xsmall"/>
+                                                  data-required="1" class="form-control input-sm"/>
                                             </th>
                                             <th>
                                             	<input type="text" id="txtPackagecashvalue" name="txtPackagecashvalue" 
@@ -856,8 +859,8 @@ $readonly = '';
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                <button type="button" class="btn default">الغاء الامر</button>
+                                                <button type="button" class="btn blue-madison" onclick="edit_income_resource()">
+                                                حـفـظ</button>
                                             </div>
                                         </div>
                                     </div>
