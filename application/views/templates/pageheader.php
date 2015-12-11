@@ -1,8 +1,8 @@
 <!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
-			<h3 class="page-title">
-			<?php echo $title;?> <small>blank page</small>
-			</h3>
+			<!--<h3 class="page-title">
+			<?php // echo $title;?> <small>blank page</small>
+			</h3>-->
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
 					<li>
@@ -10,16 +10,16 @@
 						<a href="home">Home</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
-					<li>
+					<!--<li>
 						<a href="#">Page Layouts</a>
 						<i class="fa fa-angle-right"></i>
-					</li>
+					</li>-->
 					<li>
 						<a href="#"><?php echo $title;?></a>
 					</li>
 				</ul>
 				<div class="page-toolbar">
-					<div class="btn-group pull-right">
+					<!--<div class="btn-group pull-right">
 						<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
 						Actions <i class="fa fa-angle-down"></i>
 						</button>
@@ -39,7 +39,7 @@
 								<a href="#">Separated link</a>
 							</li>
 						</ul>
-					</div>
+					</div>-->
 				</div>
 			</div>
 			<!-- END PAGE HEADER-->

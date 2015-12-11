@@ -32,7 +32,7 @@
 			<ul class="nav navbar-nav pull-right">
 				<!-- BEGIN NOTIFICATION DROPDOWN -->
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+				<!--<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<i class="icon-bell"></i>
 					<span class="badge badge-default">
@@ -138,12 +138,12 @@
 							</ul>
 						</li>
 					</ul>
-				</li>
+				</li>-->
 				<!-- END NOTIFICATION DROPDOWN -->
 
 				<!-- BEGIN INBOX DROPDOWN -->
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-				<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+				<!--<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<i class="icon-envelope-open"></i>
 					<span class="badge badge-default">
@@ -229,12 +229,12 @@
 							</ul>
 						</li>
 					</ul>
-				</li>
+				</li>-->
 				<!-- END INBOX DROPDOWN -->
 
 				<!-- BEGIN TODO DROPDOWN -->
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-				<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
+				<!--<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<i class="icon-calendar"></i>
 					<span class="badge badge-default">
@@ -327,7 +327,7 @@
 							</ul>
 						</li>
 					</ul>
-				</li>
+				</li>-->
 				<!-- END TODO DROPDOWN --> 
                 
                 <!-- BEGIN USER LOGIN DROPDOWN -->
@@ -336,11 +336,11 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<img alt="" class="img-circle" src="<?php echo base_url();?>assets/admin/layout/img/avatar3_small.jpg"/>
 					<span class="username username-hide-on-mobile">
-					Nick </span>
+					م. أسامة قاسم </span>
 					<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
-						<li>
+						<!--<li>
 							<a href="extra_profile.html">
 							<i class="icon-user"></i> My Profile </a>
 						</li>
@@ -361,14 +361,14 @@
 							</a>
 						</li>
 						<li class="divider">
-						</li>
+						</li>-->
 						<li>
 							<a href="extra_lock.html">
-							<i class="icon-lock"></i> Lock Screen </a>
+							<i class="icon-lock"></i> تغير كلمة المرور </a>
 						</li>
 						<li>
 							<a href="login.html">
-							<i class="icon-key"></i> Log Out </a>
+							<i class="icon-key"></i> تسجيل خروج </a>
 						</li>
 					</ul>
 				</li>
@@ -379,11 +379,11 @@
 				
 				<!-- BEGIN QUICK SIDEBAR TOGGLER -->
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-				<li class="dropdown dropdown-quick-sidebar-toggler">
+				<!--<li class="dropdown dropdown-quick-sidebar-toggler">
 					<a href="javascript:;" class="dropdown-toggle">
 					<i class="icon-logout"></i>
 					</a>
-				</li>
+				</li>-->
 				<!-- END QUICK SIDEBAR TOGGLER -->
 			</ul>
 		</div>
