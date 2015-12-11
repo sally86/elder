@@ -66,7 +66,10 @@ class Usermodel extends CI_Model
 		return $res->result();
 		
 	}
-	
+	function count_users()
+	{
+		return $this->db->count_all('users_tb');
+	}
 	// Insert User
 	function user_insart()
 	{

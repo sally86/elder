@@ -95,7 +95,6 @@ class User extends CI_Controller
 		$this->load->model('usermodel');
 		$rec = $this->usermodel->get_search_users($_REQUEST);
 		
-		
 		$i = 1;
 		$data = array();
 		foreach($rec as $row)
@@ -142,7 +141,7 @@ class User extends CI_Controller
 		} // End Foreach
 		
 		$totalFiltered = count($rec);
-		$totalData = 1;
+		$totalData = $this->usermodel->count_users();
 		//$records["draw"] = $sEcho;
 		$json_data = array(
 					"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 

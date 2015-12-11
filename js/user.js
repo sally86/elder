@@ -11,7 +11,11 @@ function editUser()
 			data:  $("#user_form").serialize(),
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
+  				//alert(xhr.responseText);
+				$('#spnMsg').text('حدث خطأ أثناء عملية حفظ البانات ... الرجاء المحاولة مرة أخرى');
+				var form = $('#user_form');
+				$('.alert-danger', form).show();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
 			},
 			beforeSend: function(){},
 			complete: function(){},
@@ -20,7 +24,10 @@ function editUser()
 				{
 					var form = $('#user_form');
 					$('.alert-success', form).show();
+					Metronic.scrollTo( $('.alert-success', form), -200);
 				}
+				
+				
 			}
 		});//END $.ajax
 }
@@ -126,7 +133,8 @@ var UserFormValidation = function () {
             var form = $('#user_form');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
-
+			$('#spnMag').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+			
             // Unique Username
 			var response = true;
 			$.validator.addMethod(

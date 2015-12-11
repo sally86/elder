@@ -1,12 +1,18 @@
 ﻿// JavaScript Document
 $(document).ready(function(){
 		
-	$("#drpUsertype").change(function(){
+	$("#drpUsertypeperm").change(function(){
         
+		if($("#drpUsertypeperm").val() == '')
+		{
+			$("#dvMenue").css("display","none");
+			return;
+		}
+		
 		$.ajax({
 			url: baseURL+"Usertypeperm/getmenue",
 			type: "POST",
-			data:  {user_type_id : $("#drpUsertype").val()},
+			data:  {user_type_id : $("#drpUsertypeperm").val()},
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
@@ -33,7 +39,7 @@ var ComponentsDropdowns = function () {
 			  $.ajax({
 				  url: baseURL+"Usertypeperm/addusertypepermession",
 				  type: "POST",
-				  data:  {user_type_id : $("#drpUsertype").val(),
+				  data:  {user_type_id : $("#drpUsertypeperm").val(),
 				  			    values : values},
 				  error: function(xhr, status, error) {
 					  //var err = eval("(" + xhr.responseText + ")");
@@ -51,7 +57,7 @@ var ComponentsDropdowns = function () {
 			   $.ajax({
 					url: baseURL+"Usertypeperm/deleteusertypepermession",
 					type: "POST",
-					data:  {user_type_id : $("#drpUsertype").val(),
+					data:  {user_type_id : $("#drpUsertypeperm").val(),
 								  values : values},
 					error: function(xhr, status, error) {
 						//var err = eval("(" + xhr.responseText + ")");

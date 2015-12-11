@@ -40,7 +40,7 @@
                   <thead>
                   <tr role="row" class="heading">
                       <th width="2%">
-                          <input type="checkbox" class="group-checkable">
+                          #
                       </th>
                       <th width="13%">
                            اسم المستخدم

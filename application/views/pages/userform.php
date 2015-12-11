@@ -21,16 +21,7 @@ if (isset($user_info))
               <div class="caption">
                   <i class="fa fa-user"></i> <?php echo $page_title;?>
               </div>
-              <div class="tools">
-                  <a href="javascript:;" class="collapse">
-                  </a>
-                  <a href="#portlet-config" data-toggle="modal" class="config">
-                  </a>
-                  <a href="javascript:;" class="reload">
-                  </a>
-                  <a href="javascript:;" class="remove">
-                  </a>
-              </div>
+              
           </div>
           
           <div id="confirm-reset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
@@ -60,7 +51,9 @@ if (isset($user_info))
                   	<br/>
                       <div class="alert alert-danger display-hide">
                           <button class="close" data-close="alert"></button>
+                          <span id="spnMsg">
                           يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                          </span>
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
@@ -195,7 +188,6 @@ if (isset($user_info))
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
                               <button type="submit" class="btn blue-madison">حـفـظ</button>
-                              <button type="button" class="btn default" onclick="count()">الغاء الامر</button>
                           </div>
                       </div>
                   </div>

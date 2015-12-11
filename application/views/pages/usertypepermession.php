@@ -8,16 +8,7 @@
               <div class="caption">
                   <i class="fa fa-user"></i>صلاحيات انواع المستخدمين
               </div>
-              <div class="tools">
-                  <a href="javascript:;" class="collapse">
-                  </a>
-                  <a href="#portlet-config" data-toggle="modal" class="config">
-                  </a>
-                  <a href="javascript:;" class="reload">
-                  </a>
-                  <a href="javascript:;" class="remove">
-                  </a>
-              </div>
+              
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
@@ -38,7 +29,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control select2me" id="drpUsertype" name="drpUsertype">
+                              <select class="form-control select2me" id="drpUsertypeperm" name="drpUsertypeperm">
                                   <option value="">اختر...</option>
                                   <?php 
                                   foreach($user_type as $row_user_type)
@@ -65,10 +56,7 @@
                   <!-- END FORM BODY -->
                   <div class="form-actions">
                       <div class="row">
-                          <div class="col-md-offset-3 col-md-9">
-                              <button type="submit" class="btn blue-madison">حـفـظ</button>
-                              <button type="button" class="btn default">الغاء الامر</button>
-                          </div>
+                          
                       </div>
                   </div>
               </form>
