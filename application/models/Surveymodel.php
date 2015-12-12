@@ -90,39 +90,46 @@ class Surveymodel extends CI_Model
 		$data['specialization_id'] 	= $drpSpecialization;
 		$data['current_job_id'] 	= $drpCurrentjob;
 		$data['previous_job_id'] 	= $drpPreviousjob;
-		$data['insurance_type_id'] = $drpInsurence;
-//		$data['death_date'] = $txtMobile;
+		$data['insurance_type_id']  = $drpInsurence;
+		$data['death_date'] 		= $dpDeathdate;
 
 		$this->db->where('elder_id',$txtElderId);
 		$this->db->update('elder_tb',$data);
 		
-		if($hdnSurveyId != "")
+		// From Survey
+		if(isset($hdnSurveyId))
 		{
-			$this->db->where('survey_id',$hdnSurveyId);
-			$this->db->update('survey_elder_info_tb',$data);
 			
-			$file_id = $hdnFileId;
-			$survey_id = $hdnSurveyId; 
-		}
-		elseif($hdnSurveyId == "")
-		{
-			// Insert survey_tb
-			$surveydata['file_id'] = $hdnFileId;
-			//$surveydata['created_by'] = $_SESSION['username'];
-			$this->db->insert('survey_tb',$surveydata);
-			
-			
-			// Insert survey_elder_info_tb
-			$survey_id = $this->db->insert_id();
-			$data['survey_id'] = $this->db->insert_id();
-			$this->db->insert('survey_elder_info_tb',$data);
-			
-			$file_id = $hdnFileId;
+			if($hdnSurveyId != "")
+			{
+				$this->db->where('survey_id',$hdnSurveyId);
+				$this->db->update('survey_elder_info_tb',$data);
+				
+				$file_id = $hdnFileId;
+				$survey_id = $hdnSurveyId; 
+			}
+			else if($hdnSurveyId == "")
+			{
+				// Insert survey_tb
+				$surveydata['file_id'] = $hdnFileId;
+				//$surveydata['created_by'] = $_SESSION['username'];
+				$this->db->insert('survey_tb',$surveydata);
+				
+				
+				// Insert survey_elder_info_tb
+				$survey_id = $this->db->insert_id();
+				$data['survey_id'] = $this->db->insert_id();
+				$this->db->insert('survey_elder_info_tb',$data);
+				
+				$file_id = $hdnFileId;
+			}
+			$outdata['survey_id'] = $survey_id;
+			$outdata['file_id']   = $file_id;
+			return $outdata;
 		}
 		
-		$outdata['file_id']   = $file_id;
-		$outdata['survey_id'] = $survey_id;
-		return $outdata;
+		return;
+		
 	}
 
 //-------------------------- END ELDER TAB ----------------------------/

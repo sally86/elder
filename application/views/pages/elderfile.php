@@ -28,16 +28,6 @@ if (isset($elder_file))
               <div class="caption">
                   <i class="fa fa-folder-open"></i>بيـانـات المـلـف (<?php echo $eldername;?>)
               </div>
-              <div class="tools">
-                  <a href="javascript:;" class="collapse">
-                  </a>
-                  <a href="#portlet-config" data-toggle="modal" class="config">
-                  </a>
-                  <a href="javascript:;" class="reload">
-                  </a>
-                  <a href="javascript:;" class="remove">
-                  </a>
-              </div>
           </div>
           <div class="portlet-body form">
           	<input id="hdnFileid" name="hdnFileid" type="hidden" value="<?php echo $elder_file_row->file_id;?>" />
@@ -47,7 +37,9 @@ if (isset($elder_file))
                   	<br/>
                       <div class="alert alert-danger display-hide">
                           <button class="close" data-close="alert"></button>
+                          <span id="spnMsg">
                           يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                          </span>
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
@@ -128,7 +120,7 @@ if (isset($elder_file))
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
                               <button id="btnSavefile" type="submit" class="btn blue-madison">حـفـظ</button>
-                              <button type="button" class="btn default">الغاء الامر</button>
+                              
                           </div>
                       </div>
                   </div>
@@ -148,16 +140,6 @@ if (isset($elder_file))
               <div class="caption">
                   <i class="fa fa-user"></i>بيـانـات العـضــو الشـخـصيــة (<?php echo $eldername;?>)
               </div>
-              <div class="tools">
-                  <a href="javascript:;" class="collapse">
-                  </a>
-                  <a href="#portlet-config" data-toggle="modal" class="config">
-                  </a>
-                  <a href="javascript:;" class="reload">
-                  </a>
-                  <a href="javascript:;" class="remove">
-                  </a>
-              </div>
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
@@ -166,7 +148,9 @@ if (isset($elder_file))
                   	<br/>
                       <div class="alert alert-danger display-hide">
                           <button class="close" data-close="alert"></button>
+                          <span id="spnMsgElder">
                           يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                          </span>
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
@@ -174,16 +158,28 @@ if (isset($elder_file))
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">تـصنيف الحـالة&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">تـصنيف الحـالة <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control select2me" id="drpFilestatus" name="drpFilestatus">
-                                  <option value="">اختر...</option>
-                                  <option value="pending">فعال</option>
-                              	  <option value="closed">ملغي</option>
-                              	  <option value="closed">مغلق</option>
-                              </select>
-                          </div>
+                            <select class="form-control" id="drpEldercategory" name="drpEldercategory">
+                                <option value="">اختر...</option>
+                                <?php
+                                foreach($eldercategory as $eldercategoryrow)
+                                {
+                                    $selected = '';
+									  
+									if ($elder_info_row->elder_category_id == $eldercategoryrow->sub_constant_id)
+										$selected = 'selected="selected"';
+									
+									echo ' <option value="'.$eldercategoryrow->sub_constant_id.'" '.$selected.'>'
+														   .$eldercategoryrow->sub_constant_name.'</option>';
+														   
+                                }
+                                ?>
+
+                            </select>
+                        </div>
                       </div>
                       
                       <div class="form-group">
@@ -220,7 +216,7 @@ if (isset($elder_file))
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                              <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
                                   <input type="text" class="form-control" readonly id="dpDob" name="dpDob"
                                   value="<?php if(isset($elder_info_row->dob)) echo $elder_info_row->dob;?>"
                                   >
@@ -239,10 +235,18 @@ if (isset($elder_file))
                           <div class="col-md-4">
                               <div class="radio-list" data-error-container="#form_2_membership_error">
                                   <label>
-                                  <input type="radio" id="rdSexMale" name="rdSex" value="1" checked="checked"/>
+                                  <input type="radio" id="rdSexMale" name="rdSex" value="1" 
+                                  <?php 
+								  	  if(isset($elder_info_row->sex_id) && $elder_info_row->sex_id == 1) echo 'checked="checked"';
+								  ?>
+                                  />
                                   ذكـر </label>
                                   <label>
-                                  <input type="radio" id="rdSexFemale" name="rdSex" value="2"/>
+                                  <input type="radio" id="rdSexFemale" name="rdSex" value="2"
+                                  <?php 
+								  	  if(isset($elder_info_row->sex_id) && $elder_info_row->sex_id == 2) echo 'checked="checked"';
+								  ?>
+                                  />
                                   انـثى </label>
                               </div>
                               <div id="form_2_membership_error">
@@ -462,7 +466,24 @@ if (isset($elder_file))
                               </select>
                           </div>
                       </div>
- 
+ 					  
+                      <div class="form-group">
+                          <label class="control-label col-md-3">تـاريخ الوفاة <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                  <input type="text" class="form-control" readonly id="dpDeathdate" name="dpDeathdate"
+                                  value="<?php if(isset($elder_info_row->death_date)) echo $elder_info_row->death_date;?>"
+                                  >
+                                  <span class="input-group-btn">
+                                  <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                  </span>
+                              </div>
+                              <!-- /input-group -->
+                          </div>
+                      </div>
+                      
                   </div>
                   <!-- END FORM BODY -->
                   <div class="form-actions">
@@ -489,16 +510,7 @@ if (isset($elder_file))
                 <div class="caption">
                     <i class="fa fa-file"></i>الأوراق الثبـــوتية للمسـن (<?php echo $eldername;?>)
                 </div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse">
-                    </a>
-                    <a href="#portlet-config" data-toggle="modal" class="config">
-                    </a>
-                    <a href="javascript:;" class="reload">
-                    </a>
-                    <a href="javascript:;" class="remove">
-                    </a>
-                </div>
+               
             </div>
             <div class="portlet-body form">
             <!-- BEGIN FORM-->
@@ -554,7 +566,8 @@ if (isset($elder_file))
                           </tr>
                           </thead>
                            <tbody id="tbdDoc">
-                           <?php 
+                           <?php
+						   echo count($elder_docs);
 						   foreach ($elder_docs as $elder_docs_row)
 						   {
 							   echo '<tr>';

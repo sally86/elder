@@ -91,7 +91,13 @@ function updatefile()
 			type: "POST",
 			data: $('#file_form').serialize() + '&hdnFileid=' + $('#hdnFileid').val(),
 			error: function(xhr, status, error) {
-  				alert(xhr.responseText);
+  				//alert(xhr.responseText);
+				
+				$('#spnMsg').text('حدث خطأ أثناء عملية حفظ البانات ... الرجاء المحاولة مرة أخرى');
+				var form = $('#file_form');
+				$('.alert-danger', form).show();
+				$('.alert-success', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
 			},
 			beforeSend: function(){},
 			complete: function(){},
@@ -100,6 +106,8 @@ function updatefile()
 				{
 					var form = $('#file_form');
 					$('.alert-success', form).show();
+					$('.alert-danger', form).hide();
+					Metronic.scrollTo( $('.alert-danger', form), -200);
 				}
 			}
 		});//END $.ajax
@@ -115,6 +123,12 @@ function updateElder()
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
+				
+				$('#spnMsgElder').text('حدث خطأ أثناء عملية حفظ البانات ... الرجاء المحاولة مرة أخرى');
+				var form = $('#elder_form');
+				$('.alert-danger', form).show();
+				$('.alert-success', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
 			},
 			beforeSend: function(){},
 			complete: function(){},
@@ -123,6 +137,8 @@ function updateElder()
 				{
 					var form = $('#elder_form');
 					$('.alert-success', form).show();
+					$('.alert-danger', form).hide();
+					Metronic.scrollTo( $('.alert-danger', form), -200);
 				}
 			}
 		});//END $.ajax
@@ -230,6 +246,7 @@ var FileFormValidation = function () {
                 invalidHandler: function (event, validator) { //display error alert on form submit   
                     successmsg.hide();
                     errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
                     Metronic.scrollTo(errormsg, -200);
                 },
 
@@ -430,6 +447,7 @@ var ElderInfoValidation = function () {
                 invalidHandler: function (event, validator) { //display error alert on form submit   
                     successmsg.hide();
                     errormsg.show();
+					$('#spnMsgElder').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
                     Metronic.scrollTo(errormsg, -200);
                 },
 
