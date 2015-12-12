@@ -47,7 +47,6 @@ class Elder extends CI_Controller
 	function eldergriddata()
 	{
 		$this->load->model('eldermodel');
-		$totalData=$this->eldermodel->count_get_search_elder($_REQUEST);
 		$rec = $this->eldermodel->get_search_elder($_REQUEST);
 		
 		
@@ -83,9 +82,9 @@ class Elder extends CI_Controller
 			$data[] = $nestedData;
 		} // End Foreach
 		
-//		$totalFiltered = count($rec);
-		$totalFiltered = $totalData;
-		//$totalData = 1;
+		$totalFiltered = count($rec);
+		$totalData=$this->eldermodel->count_elder();
+		
 		//$records["draw"] = $sEcho;
 		$json_data = array(
 					"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
