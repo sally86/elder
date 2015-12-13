@@ -567,7 +567,6 @@ if (isset($elder_file))
                           </thead>
                            <tbody id="tbdDoc">
                            <?php
-						   echo count($elder_docs);
 						   foreach ($elder_docs as $elder_docs_row)
 						   {
 							   echo '<tr>';

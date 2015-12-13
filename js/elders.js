@@ -21,7 +21,24 @@ function gotoElder(arg)
 			}
 		});//END $.ajax
 }
-
+function gotoFamilyMember(arg)
+{
+	$.ajax({
+			url: baseURL+"Elder/senddata",
+			type: "POST",
+			data:  {national_id : arg},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				window.location.href = baseURL+"familycont/familyform";
+				//alert(returndb);
+			}
+		});//END $.ajax
+}
 var ElderTableAjax = function () {
 
 // I removed Datepicker becuse it is not used here

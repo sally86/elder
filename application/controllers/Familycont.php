@@ -67,17 +67,17 @@ class Familycont extends CI_Controller
 		{
 			
 			echo "<tr>";
-			echo "<td>" . $i++ . "</td>";
-			echo "<td>" . $row->member_name . "</td>";
-			echo "<td>" . $row->member_id . "</td>";
-			echo "<td>" . $row->sex . "</td>";
-			echo "<td>" . $row->relationship ."</td>";
-			echo "<td>" . $row->fmstatus ."</td>";
-			echo "<td>" . $row->dob . "</td>";
+			echo "<td>" . $i++ 					. "</td>";
+			echo "<td>" . $row->member_name 	. "</td>";
+			echo "<td>" . $row->member_id 		. "</td>";
+			echo "<td>" . $row->sex 			. "</td>";
+			echo "<td>" . $row->relationship 	. "</td>";
+			echo "<td>" . $row->fmstatus 		. "</td>";
+			echo "<td>" . $row->dob 			. "</td>";
 			echo "<td>" . $row->education_level . "</td>";
-			echo "<td>" . $row->health_status . "</td>";
-			echo "<td>" . $row->job . "</td>";
-			echo "<td>" . $row->income_shekel . "</td>";
+			echo "<td>" . $row->health_status 	. "</td>";
+			echo "<td>" . $row->job 			. "</td>";
+			echo "<td>" . $row->income_shekel 	. "</td>";
 			echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
                               class="btn btn-circle red-sunglo btn-sm" 
                               onclick="deleteFamilybyId('. $row->family_member_id .')">
@@ -156,7 +156,7 @@ class Familycont extends CI_Controller
 
 	}
 
-function updatefamilymember()
+	function updatefamilymember()
 	{
 		$this->load->model('Familymodel');
 		$this->Familymodel->update_familyMember();
@@ -169,55 +169,55 @@ function updatefamilymember()
 		$this->drawfamilyTable();
 		
 	}
-function drawfamilyTable()
-{		
-		extract($_POST);
-		
-		$this->load->model('Familymodel');
-		$rec = $this->Familymodel->get_familyMember_by_elder_id($txtElderId);
-//	$this->data['familymember_info'] =$this->Familymodel->get_familyMember_by_elder_id($_SESSION['update']);
-		
-				$i=1;
-				foreach($rec as $row)
-				{
-				 
-					echo "<tr>";
-					echo "<td>" . $i++ . "</td>";
-					echo '<td id="member_name_td'.$i.'">'. $row->member_name . "</td>";
-					echo '<td id="member_id_td'.$i.'">'. $row->member_id . "</td>";
-					echo '<td>'. $row->sex . "</td>";
-					echo '<td style="display:none;" id="surveyId_tb'.$i.'">'. $row->survey_id . "</td>";
-					echo '<td style="display:none;" id="sex_td'.$i.'">'. $row->member_sex_id . "</td>";
-					echo '<td>'. $row->relationship ."</td>";
-					echo '<td style="display:none;" id="relationship_td'.$i.'">'. $row->relationship_id ."</td>";
-					echo '<td>'. $row->fmstatus ."</td>";
-					echo '<td style="display:none;" id="fmstatus_td'.$i.'">'. $row->status_id ."</td>";
-					echo '<td id="dob_td'.$i.'">'. $row->dob . "</td>";
-					echo '<td>'. $row->education_level . "</td>";
-					echo '<td style="display:none;" id="education_level_td'.$i.'">'. $row->education_level_id . "</td>";
-					echo '<td>'. $row->health_status . "</td>";
-					echo '<td style="display:none;" id="health_status_td'.$i.'">'. $row->health_status_id . "</td>";
-					echo '<td id="job_td'.$i.'">'. $row->job . "</td>";
-					echo '<td id="income_shekel_td'.$i.'">'. $row->income_shekel . "</td>";
-					echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-									  class="btn btn-circle red-sunglo btn-sm" 
-									  onclick="deleteFamilybyId('. $row->family_member_id .')">
-									   <i id="iConst" class="fa fa-close"></i>
-									   <button id="btnUpdatedoc" name="btnUpdatedoc" type="button" 
-									  class="btn btn-circle red-sunglo btn-sm" 
-									  onclick="updateFamilymember('.$i.')">
-									   <i id="iConst" class="fa fa-edit"></i>
-							  </button></td>';
-					echo "</tr>";
-					
-					
-					
-				}
-
-}
+	function drawfamilyTable()
+	{		
+			extract($_POST);
+			
+			$this->load->model('Familymodel');
+			$rec = $this->Familymodel->get_familyMember_by_elder_id($txtElderId);
+	//	$this->data['familymember_info'] =$this->Familymodel->get_familyMember_by_elder_id($_SESSION['update']);
+			
+					$i=1;
+					foreach($rec as $row)
+					{
+					 
+						echo "<tr>";
+						echo "<td>" . $i++ . "</td>";
+						echo '<td id="member_name_td'.$i.'">'. $row->member_name . "</td>";
+						echo '<td id="member_id_td'.$i.'">'. $row->member_id . "</td>";
+						echo '<td>'. $row->sex . "</td>";
+						echo '<td style="display:none;" id="surveyId_tb'.$i.'">'. $row->survey_id . "</td>";
+						echo '<td style="display:none;" id="sex_td'.$i.'">'. $row->member_sex_id . "</td>";
+						echo '<td>'. $row->relationship ."</td>";
+						echo '<td style="display:none;" id="relationship_td'.$i.'">'. $row->relationship_id ."</td>";
+						echo '<td>'. $row->fmstatus ."</td>";
+						echo '<td style="display:none;" id="fmstatus_td'.$i.'">'. $row->status_id ."</td>";
+						echo '<td id="dob_td'.$i.'">'. $row->dob . "</td>";
+						echo '<td>'. $row->education_level . "</td>";
+						echo '<td style="display:none;" id="education_level_td'.$i.'">'. $row->education_level_id . "</td>";
+						echo '<td>'. $row->health_status . "</td>";
+						echo '<td style="display:none;" id="health_status_td'.$i.'">'. $row->health_status_id . "</td>";
+						echo '<td id="job_td'.$i.'">'. $row->job . "</td>";
+						echo '<td id="income_shekel_td'.$i.'">'. $row->income_shekel . "</td>";
+						echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+										  class="btn btn-circle red-sunglo btn-sm" 
+										  onclick="deleteFamilybyId('. $row->family_member_id .')">
+										   <i id="iConst" class="fa fa-close"></i>
+										   <button id="btnUpdatedoc" name="btnUpdatedoc" type="button" 
+										  class="btn btn-circle red-sunglo btn-sm" 
+										  onclick="updateFamilymember('.$i.')">
+										   <i id="iConst" class="fa fa-edit"></i>
+								  </button></td>';
+						echo "</tr>";
+						
+						
+						
+					}
 	
-function familyform()
-{
+	}
+	
+	function familyform()
+	{
 		//$this->load->model('Familymodel');
 		//$this->data['familymember_info'] =$this->Familymodel->get_familyMember_by_elder_id();
 		$this->load->model('constantmodel');
@@ -236,14 +236,14 @@ function familyform()
 		
 	
 	
-}
-function senddata()
-{
+	}
+	function senddata()
+	{
 		extract($_POST);
 		$_SESSION['update'] = $elder_id;
-}
+	}
 //*************************check family member id ****************************
-function check_familymember_id()
+	function check_familymember_id()
 	{
 		$this->load->model('Familymodel');
 		$rec=$this->Familymodel->check_familyMember_id();
@@ -259,26 +259,25 @@ function check_familymember_id()
 			unset($temp); // Release the contained value of the variable from the last loop
 			$temp = array();
 
-			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
-		
-		$temp['member_name'] = $row->member_name;
-		$temp['member_sex_id'] = $row->member_sex_id;
-		$temp['relationship_id'] = $row->relationship_id;
-		$temp['status_id'] = $row->status_id;
-		$temp['dob'] = $row->dob;
-		$temp['education_level'] = $row->education_level_id;
-		$temp['health_status_id'] = $row->health_status_id;
-		$temp['income_shekel'] = $row->income_shekel;
-		$temp['job'] = $row->job;
+			$temp['elder_id'] 			= $row->elder_id;
+			$temp['member_name'] 		= $row->member_name;
+			$temp['member_sex_id'] 		= $row->member_sex_id;
+			$temp['relationship_id'] 	= $row->relationship_id;
+			$temp['status_id'] 			= $row->status_id;
+			$temp['dob'] 				= $row->dob;
+			$temp['education_level'] 	= $row->education_level_id;
+			$temp['health_status_id'] 	= $row->health_status_id;
+			$temp['income_shekel'] 		= $row->income_shekel;
+			$temp['job'] 				= $row->job;
 		
 			array_push($output,$temp);
 			
-			
-			header('Access-Control-Allow-Origin: *');
-			header("Content-Type: application/json");
-			echo json_encode($output);
 		}
-}	
+		
+		header('Access-Control-Allow-Origin: *');
+		header("Content-Type: application/json");
+		echo json_encode($output);
+	}	
 //**************************family_member_id*************************
 }
 

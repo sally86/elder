@@ -2,15 +2,17 @@
 
 class Familymodel extends CI_Model
 {
-//*********************get elder name and survey ID**********//	
-function get_elder_by_id($elderid)
+	//*********************get elder name and survey ID**********//	
+	function get_elder_by_id($elderid)
 	{
 		// Get elder id from POST otherwise get elder id from function arg $elderid
 		
 		
-		$myquery = "SELECT	e.elder_id,CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
-					FROM 	elder_tb e
-					WHERE 	e.elder_id = ".$elderid;
+		$myquery = "SELECT	e.elder_id, s.survey_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
+					FROM 	elder_tb e, survey_tb s, file_tb f
+					WHERE 	e.elder_id = f.elder_id
+					  AND	f.file_id  = s.file_id
+					  AND   e.elder_id = ".$elderid;
 		
 		$res = $this->db->query($myquery);
 		return $res->result();

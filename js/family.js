@@ -5,8 +5,6 @@ function editefamilymem()
 	var action = $("#hdnActionFM").val();
 	//alert(action);
 	
-	if ( !validateFamilymem() )
-		return;
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -43,7 +41,7 @@ function editefamilymem()
 				$("#spnCountFamily").html(countFM);
 				
 				$("#tbdFamilyMember").html(returndb);
-				clearFamilymemberFields();
+				clearFamilymembFields();
 				/*if(returndb == '')
 				{
 					var form = $('#familyMemberTab');
@@ -77,7 +75,7 @@ function deleteFamilybyId(familymemberid)
 			success: function(returndb){
 				
 			$("#tbdFamilyMember").html(returndb);
-				clearFamilymemberFields();
+				clearFamilymembFields();
 			}
 		});//END $.ajax
 		
@@ -89,7 +87,19 @@ function updateFamilymember(i)
 
 	$("#txtMembername").val($('#tbdFamilyMember #member_name_td'+i).html());
 	document.getElementById('txtMemberId').value =$('#tbdFamilyMember #member_id_td'+i).html();
-	$("#rdMemSex").val($('#tbdFamilyMember #sex_td'+i).html());
+	
+	if($('#tbdFamilyMember #sex_td'+i).html() == '1')
+	{
+		$("#rdMemSexFemale").parent().removeClass("checked");
+		$("#rdMemSexMale").parent().addClass("checked");
+	}
+	else if ($('#tbdFamilyMember #sex_td'+i).html() == '2')
+	{
+		$("#rdMemSexMale").parent().removeClass("checked");
+		$("#rdMemSexFemale").parent().addClass("checked");
+		
+	}
+		
 	document.getElementById('drpMemRelationship').value =$('#tbdFamilyMember #relationship_td'+i).html();
 	document.getElementById('drpMemStatus').value =$('#tbdFamilyMember #fmstatus_td'+i).html();
 	$('#dvdpMemDob').datepicker({ dateFormat: 'yyyy-mm-dd' }); // format to show
@@ -108,7 +118,6 @@ function clearFamilymembFields()
 {
 	  $("#txtMemberId").val('');
 	  $("#txtMembername").val('');
-	  $('input[name=rdMemSex]:checked').val('1');
 	  $("#drpMemRelationship").val('');
 	  $("#drpMemStatus").val('');
 	  $("#dpMemDob").val('');
@@ -116,55 +125,22 @@ function clearFamilymembFields()
 	  $("#drpMemHealth").val('');
 	  $("#txtMemincome").val('');
 	  $("#txtMemjob").val('');
+	  $('#hdnActionFM').val('addfamilymember');
+	  $("#rdMemSexFemale").parent().removeClass("checked");
+	  $("#rdMemSexMale").parent().addClass("checked");
+	  
+	   var form = $('#familymemberform');
+       var errormsg = $('.alert-danger', form);
+	   errormsg.hide();
+	   $('.help-block').text('');
 	
-}
-
-
-function validateFamilymem()
-{
-	var form = $('#familymemberform');
-    var error = $('.alert-danger', form);
-	
-	var valid = true;
-	
-	if ( !$("#txtMemberId").valid() )
-		valid = false;
-	if ( !$("#txtMembername").valid() )
-		valid = false;
-	if ( !$("#drpMemRelationship").valid() )
-		valid = false;
-	if ( !$("#drpMemStatus").valid() )
-		valid = false;
-	if ( !$("#dpMemDob").valid() )
-		valid = false;
-	if ( !$("#drpMemEdulevel").valid() )
-		valid = false;
-	if ( !$("#drpMemHealth").valid() )
-		valid = false;
-	if ( !$("#txtMemincome").valid() )
-		valid = false;
-	if ( !$("#txtMemjob").valid() )
-		valid = false;
-	
-	if(!valid)
-	{
-		
-		error.show();
-        Metronic.scrollTo(error, -200);
-	}
-	else
-	{
-		error.hide();
-	}
-		
-	return valid;
 }
 //-------------ELDER check ID ----------------------//
 function check_familyId(){	
 
  	var MemberId = document.getElementById('txtMemberId').value;
-if (MemberId !='')
-{
+	if (MemberId !='')
+	{
 		$.ajax({
 			url: baseURL+"Familycont/check_familymember_id",
 			type: "POST",
@@ -177,25 +153,22 @@ if (MemberId !='')
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-	//			alert(returndb);
-//				alert(returndb[0]['txtFname']);
-				if(returndb !=null)
-			
-				{
-					
 	
+				if(returndb !=0)
+				{
+					// If member is from elder family -> Update
+					if (returndb[0]['elder_id'] == $('#txtElderId').val())
+						$('#hdnActionFM').val('updatefamilymember');
 					
-				$('#hdnActionFM').val('updatefamilymember');
-				$('#txtMembername').val(returndb[0]['member_name']);
-				$('#rdMemSex').val(returndb[0]['member_sex_id']);
-				$('#drpMemRelationship').val(returndb[0]['relationship_id']);
-				$('#drpMemStatus').val(returndb[0]['status_id']);
-				$('#dpMemDob').val(returndb[0]['dob']);
-				$('#drpMemEdulevel').val(returndb[0]['education_level']);
-				$('#drpMemHealth').val(returndb[0]['health_status_id']);
-				$('#txtMemincome').val(returndb[0]['income_shekel']);
-				$('#txtMemjob').val(returndb[0]['job']);
-				
+					$('#txtMembername')		.val(returndb[0]['member_name']);
+					$('#rdMemSex')			.val(returndb[0]['member_sex_id']);
+					$('#drpMemRelationship').val(returndb[0]['relationship_id']);
+					$('#drpMemStatus')		.val(returndb[0]['status_id']);
+					$('#dpMemDob')			.val(returndb[0]['dob']);
+					$('#drpMemEdulevel')	.val(returndb[0]['education_level']);
+					$('#drpMemHealth')		.val(returndb[0]['health_status_id']);
+					$('#txtMemincome')		.val(returndb[0]['income_shekel']);
+					$('#txtMemjob')			.val(returndb[0]['job']);
 			
 				}
 			}
@@ -301,6 +274,7 @@ var FamilyMemberValidation = function () {
                     } else {
                         error.insertAfter(element); // for other inputs, just perform default behavior
                     }
+					error.addClass('font-red');
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit   
