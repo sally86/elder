@@ -5,10 +5,7 @@ function editefollowup()
 {
 	var action = $("#hdnAction").val();
 	alert(action);
-	alert( $("#hdnfollowupId").val());
-	
-	if ( !validateFollowup() )
-		return;
+	//alert( $("#hdnfollowupId").val());
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -32,7 +29,7 @@ function editefollowup()
 			processData: false,
     		contentType: false,
 			error: function(xhr, status, error) {
-  				alert(xhr.responseText);
+  			alert(xhr.responseText);
 			},
 			beforeSend: function(){},
 			complete: function(){},
@@ -101,10 +98,7 @@ function updateFollowup(i)
 
 function clearFollowupFields()
 {	  $("#hdnfollowupId").val('');
-	  //$("#txtElderId").val('');
 	  $("#dpVisitdate").val('');
-	 // $('txtVisittime').val('1');
-	 // $("#txtVisitendtime").val('');
 	  $("#drpResearcher").val('');
 	  $("#txtVisitreason").val('');
 	  $("#txtnotes").val('');
@@ -116,8 +110,8 @@ function clearFollowupFields()
 function check_emp_id(){	
 
  	var national_id = document.getElementById('txtNationalId').value;
-if (national_id !='')
-{
+	if (national_id !='')
+	{
 		$.ajax({
 			url: baseURL+"Employee/check_id",
 			type: "POST",
@@ -142,45 +136,9 @@ if (national_id !='')
 			}
 		});//END $.ajax	
 	
-}
-else
-return;
-}
-
-function validateFollowup()
-{
-	var form = $('#followupform');
-    var error = $('.alert-danger', form);
-	
-	var valid = true;
-	
-	if ( !$("#dpVisitdate").valid() )
-		valid = false;
-	//if ( !$("#txtVisittime").valid() )
-		//valid = false;
-	//if ( !$("#txtVisitendtime").valid() )
-		//valid = false;
-	if ( !$("#txtVisitreason").valid() )
-		valid = false;
-	if ( !$("#txtnotes").valid() )
-		valid = false;
-	if ( !$("#txtRecommendation").valid() )
-		valid = false;
-	if ( !$("#drpResearcher").valid() )
-		valid = false;
-	
-	if(!valid)
-	{
-		
-		error.show();
-        Metronic.scrollTo(error, -200);
 	}
 	else
-	{
-		error.hide();
-	}
-		
-	return valid;
+	return;
 }
 
 //******************form validation ***************************//
@@ -202,15 +160,7 @@ var FollowupValidation = function () {
                     },
 					dpVisitdate: {
                         required: true
-                    }
-					/*,
-					txtVisittime: {
-                        required: true
                     },
-					txtVisitendtime: {
-                        required: true
-                    }
-					*/,
 					txtVisitreason: {
                         required: true
                     },
@@ -229,15 +179,7 @@ var FollowupValidation = function () {
                     },
 					dpVisitdate: {
 						required: "الرجاء إدخال تاريخ الزيارة"
-                    }
-					/*,
-					txtVisittime: {
-						required: "الرجاء إختيار الوقت"
                     },
-					txtVisitendtime: {
-						required: "الرجاء إختيار الوقت"
-                    }
-					*/,
 					txtVisitreason: {
 						required: "الرجاء إدخال قيمة"
                     },
@@ -266,6 +208,7 @@ var FollowupValidation = function () {
                     } else {
                         error.insertAfter(element); // for other inputs, just perform default behavior
                     }
+					error.addClass('font-red');
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit   

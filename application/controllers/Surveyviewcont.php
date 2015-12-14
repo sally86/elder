@@ -32,7 +32,7 @@ class Surveyviewcont extends CI_Controller
 		}
 	}
 	//************************************Get survey Data to update*******************//
-function survey()
+	function survey()
 	{
 		$this->load->model('constantmodel');
 		$this->data['survey_Filestatus'] = $this->constantmodel->get_sub_constant(51);
@@ -84,7 +84,7 @@ function survey()
 		
 	}
 	
-function viewsurvey()
+	function viewsurvey()
 	{
 		$this->load->model('constantmodel');
 
@@ -94,9 +94,9 @@ function viewsurvey()
 	function surveygriddata()
 	{
 		$this->load->model('Surveyviewmodel');
-		$totalData=$this->Surveyviewmodel->count_get_search_survey($_REQUEST);
+		$totalData=$this->Surveyviewmodel->count_get_search_survey();
 		$rec = $this->Surveyviewmodel->get_search_survey($_REQUEST);
-		
+		$totalFiltered = count($rec);
 		
 		$i = 1;
 		$data = array();
@@ -119,8 +119,7 @@ function viewsurvey()
 			$data[] = $nestedData;
 		} // End Foreach
 		
-//		$totalFiltered = count($rec);
-		$totalFiltered = $totalData;
+		
 		//$totalData = 1;
 		//$records["draw"] = $sEcho;
 		$json_data = array(

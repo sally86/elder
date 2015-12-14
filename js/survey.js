@@ -1584,13 +1584,29 @@ $(document).ready(function(){
 function editeaidrecomend()
 {
 	var action = $("#hdnaidraction").val();
-	alert(action);
-	alert(action);
-//	action ="addaidrecomend";
-$.ajax({
+	alert($("#hdnSurveyId").val());
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'				,  $("#hdnSurveyId").val()				);
+	formData.append('hdnAidsRecomendationId'	,  $("#hdnAidsRecomendationId").val()	);
+	formData.append('drpCashaidtype'			,  $("#drpCashaidtype").val() 			);
+	formData.append('txtCashaidamount'			,  $("#txtCashaidamount").val()			);
+	formData.append('drpNutritiontype'			,  $("#drpNutritiontype").val()			);
+	formData.append('txtNutritiondetails'		,  $("#txtNutritiondetails").val()		);
+	formData.append('txtarPsychologicalsupport'	,  $("#txtarPsychologicalsupport").val());
+	formData.append('txtarSocialsupport'		,  $("#txtarSocialsupport").val()		);
+	formData.append('txtarEntertainment'		,  $("#txtarEntertainment").val()		);
+	
+	
+	
+	$.ajax({
 			url: baseURL+"Surveycont/"+action,
 			type: "POST",
-			data:  $("#Aidrecomend_form").serialize(),
+			data:formData,
+			processData: false,
+    		contentType: false,
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
 				alert('error');
@@ -1602,14 +1618,14 @@ $.ajax({
 				if(returndb == '')
 				{
 					$("#hdnaidraction").val("updateaidrecomend");
-					var form = $('#Aidrecomend_form');
-					$('.alert-success', form).show();
+					//var form = $('#Aidrecomend_form');
+					//$('.alert-success', form).show();
 				}
 			}
 		});//END $.ajax	
 	
 }
-function editemedicalaid()
+function addmedicalaid()
 {
 	var action = $("#maidaction").val();
 	alert(action);
@@ -1639,7 +1655,7 @@ function editemedicalaid()
 			}
 		});//END $.ajax
 }
-function editehomeaid()
+function addhomeaid()
 {
 	var action = $("#haidaction").val();
 	alert(action);

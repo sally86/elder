@@ -4,10 +4,12 @@ class Followupmodel extends CI_Model
 {
 	function get_followup_by_elderid($elderid)
 	{
-		$myquery = "SELECT follow_up_id, researcher_id,visit_date, visit_time, visit_end_time,visit_reason,notes,recommendation,employee_tb.name as Researcher_name
-					FROM   follow_up_tb,employee_tb
-					WHERE  follow_up_tb.researcher_id=employee_tb.national_id
-					AND    follow_up_tb.elder_id= ".$elderid;
+		$myquery = "SELECT  follow_up_id, researcher_id,visit_date, visit_time, visit_end_time, visit_reason,notes,
+							recommendation, employee_tb.name as Researcher_name
+					  FROM  follow_up_tb,employee_tb
+					 WHERE  follow_up_tb.researcher_id = employee_tb.employee_id
+					   AND  follow_up_tb.elder_id = " . $elderid . "
+				  ORDER BY  visit_date DESC";
 		
 		$res = $this->db->query($myquery);
 		return $res->result();
@@ -16,9 +18,6 @@ class Followupmodel extends CI_Model
 	// Get Elder By ID
 	function get_elder_byid($elderid)
 	{
-		// Get elder id from POST otherwise get elder id from function arg $elderid
-		
-		
 		$myquery = "SELECT	e.elder_id,CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
 					FROM 	elder_tb e
 					WHERE 	e.elder_id = ".$elderid;

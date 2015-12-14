@@ -5,9 +5,9 @@ class Surveyviewmodel extends CI_Model
 
 //***************** survey search function*****************************//
 
-function get_search_survey($requestData)
+	function get_search_survey($requestData)
 	{
-				date_default_timezone_set('Asia/Gaza');   
+		date_default_timezone_set('Asia/Gaza');   
 		$today_date = date('Y-m-d');
 		$columns = array( 
 			1 => 'Researcher_name',
@@ -15,12 +15,13 @@ function get_search_survey($requestData)
 			3 => 'visit_date'
 						);
 		
-$myquery = "SELECT 		survey_tb.survey_id,elder_tb.elder_id,survey_tb.file_id,visit_date,survey_tb.researcher_id,
-						CONCAT(elder_tb.first_name,' ',elder_tb.middle_name,' ',elder_tb.third_name,' ',elder_tb.last_name) as Elder_name,employee_tb.name as Researcher_name 
-			FROM 		survey_tb,employee_tb,elder_tb,file_tb
-			WHERE 		survey_tb.researcher_id=employee_tb.national_id
-			AND 		survey_tb.file_id=file_tb.file_id
-			AND 		file_tb.elder_id=elder_tb.elder_id";
+		$myquery = "SELECT survey_tb.survey_id,elder_tb.elder_id,survey_tb.file_id,visit_date,survey_tb.researcher_id,
+						   CONCAT(elder_tb.first_name,' ',elder_tb.middle_name,' ',elder_tb.third_name,' ',elder_tb.last_name) 
+						   as Elder_name, employee_tb.name as Researcher_name 
+					  FROM survey_tb,employee_tb,elder_tb,file_tb
+					 WHERE survey_tb.researcher_id=employee_tb.national_id
+					   AND survey_tb.file_id=file_tb.file_id
+					   AND file_tb.elder_id=elder_tb.elder_id";
 		
 		
 		if(isset($requestData['txtResearchername']) && $requestData['txtResearchername'] !='')
@@ -57,49 +58,9 @@ $myquery = "SELECT 		survey_tb.survey_id,elder_tb.elder_id,survey_tb.file_id,vis
 		return $res->result();
 		
 	}
-	function count_get_search_survey($requestData)
+	function count_get_search_survey()
 	{
-		
-				date_default_timezone_set('Asia/Gaza');   
-		$today_date = date('Y-m-d');
-
-$myquery = "SELECT 		survey_tb.survey_id,survey_tb.file_id,visit_date,survey_tb.researcher_id,
-						CONCAT(elder_tb.first_name,' ',elder_tb.middle_name,' ',elder_tb.third_name,' ',elder_tb.last_name) as Elder_name,employee_tb.name as Researcher_name 
-			FROM 		survey_tb,employee_tb,elder_tb,file_tb
-			WHERE 		survey_tb.researcher_id=employee_tb.national_id
-			AND 		survey_tb.file_id=file_tb.file_id
-			AND 		file_tb.elder_id=elder_tb.elder_id";
-		
-		
-		if(isset($requestData['txtResearchername']) && $requestData['txtResearchername'] !='')
-		{
-			$myquery = $myquery." AND employee_tb.name LIKE '%".$requestData['txtResearchername']."%' ";
-		}
-		
-		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
-		{
-			$myquery = $myquery." AND CONCAT(elder_tb.first_name,' ',elder_tb.middle_name,' ',elder_tb.third_name,' ',elder_tb.last_name)  LIKE '%".$requestData['txtElderName']."%' ";
-		}
-		if(!isset($requestData['dpAppfrom']) && !isset($requestData['dpAppto']))
-		{
-			$myquery = $myquery." AND DATE_FORMAT(visit_date,'%Y-%m-%d')>= '$today_date'";
-		}
-		if(isset($requestData['dpAppfrom']) && $requestData['dpAppfrom'] != ''
-		   && isset($requestData['dpAppto']) && $requestData['dpAppto'] != '')
-		{
-			$myquery = $myquery." AND visit_date between '".$requestData['dpAppfrom']."' and '".$requestData['dpAppto']."'";
-		}
-		if(isset($requestData['dpAppfrom']) && $requestData['dpAppfrom'] != ''
-		   && (isset($requestData['dpAppto']) && $requestData['dpAppto'] == ''))
-		{
-			$myquery = $myquery." AND visit_date >= '".$requestData['dpAppfrom']."'";
-		}
-
-		
-		
-		$res = $this->db->query($myquery);
-		return count($res->result());
-		
+		return $this->db->count_all('survey_tb');
 	}
 
 //******************end survey search function************************//

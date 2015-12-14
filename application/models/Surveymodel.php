@@ -91,7 +91,9 @@ class Surveymodel extends CI_Model
 		$data['current_job_id'] 	= $drpCurrentjob;
 		$data['previous_job_id'] 	= $drpPreviousjob;
 		$data['insurance_type_id']  = $drpInsurence;
-		$data['death_date'] 		= $dpDeathdate;
+		
+		if(isset($dpDeathdate))
+			$data['death_date'] 		= $dpDeathdate;
 
 		$this->db->where('elder_id',$txtElderId);
 		$this->db->update('elder_tb',$data);
@@ -865,18 +867,18 @@ function get_homeStatus_info()
 
 //********************Recomndtion function**************//
 
-function insert_aidrecomend()
+	function insert_aidrecomend()
 	{
 		extract($_POST);
 
-		$data['survey_id'] 		  = $hdnSurveyId;
-		$data['cash_aid_type_id'] = $drpCashaidtype;
-		$data['cash_aid_amount'] = $txtCashaidamount;
-		$data['nutrition_type_id'] = $drpNutritiontype;
-		$data['nutrition_details'] = $txtNutritiondetails;
-		$data['psychological_support'] = $chbxPsychologicalsupport;
-		$data['social_support'] = $chbxSocialsupport;
-		$data['entertainment'] = $chbxEntertainment;
+		$data['survey_id'] 				= $hdnSurveyId;
+		$data['cash_aid_type_id'] 		= $drpCashaidtype;
+		$data['cash_aid_amount'] 		= $txtCashaidamount;
+		$data['nutrition_type_id'] 		= $drpNutritiontype;
+		$data['nutrition_details'] 		= $txtNutritiondetails;
+		$data['psychological_support'] 	= $txtarPsychologicalsupport;
+		$data['social_support'] 		= $txtarSocialsupport;
+		$data['entertainment'] 			= $txtarEntertainment;
 		
 		$this->db->insert('aids_recomendation_tb',$data);
 	}
@@ -902,18 +904,18 @@ function insert_aidrecomend()
 		$this->db->insert('home_improvement_recomendation_tb',$data);
 	}
 //*******************updates*****************//
-function update_aidrecomend()
+	function update_aidrecomend()
 	{
 		extract($_POST);
 
-	//	$data['survey_id'] 		  = $hdnSurveyId;
-		$data['cash_aid_type_id'] = $drpCashaidtype;
-		$data['cash_aid_amount'] = $txtCashaidamount;
-		$data['nutrition_type_id'] = $drpNutritiontype;
-		$data['nutrition_details'] = $txtNutritiondetails;
-		$data['psychological_support'] = $chbxPsychologicalsupport;
-		$data['social_support'] = $chbxSocialsupport;
-		$data['entertainment'] = $chbxEntertainment;
+		$data['survey_id'] 		  		= $hdnSurveyId;
+		$data['cash_aid_type_id'] 		= $drpCashaidtype;
+		$data['cash_aid_amount'] 		= $txtCashaidamount;
+		$data['nutrition_type_id'] 		= $drpNutritiontype;
+		$data['nutrition_details'] 		= $txtNutritiondetails;
+		$data['psychological_support'] 	= $txtarPsychologicalsupport;
+		$data['social_support'] 		= $txtarSocialsupport;
+		$data['entertainment'] 			= $txtarEntertainment;
 		
 		$this->db->where('survey_id',$hdnSurveyId);
 		$this->db->update('aids_recomendation_tb',$data);

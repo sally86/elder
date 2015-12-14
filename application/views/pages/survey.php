@@ -1743,14 +1743,7 @@ $readonly = '';
                                           تمت عملية حـفـظ البيـانات بنجـاح !
                                       </div>
                                        <input id="hdnaidraction" name="hdnaidraction" type="hidden" value="addaidrecomend" />
-                                       
-                                     <div class="form-group">
-                                        <label class="control-label col-md-3">رقم الإستبانة &nbsp;&nbsp;&nbsp </label>
-                                        <div class="col-md-4">
-                                            <input type="text" id="hdnSurveyId" name="hdnSurveyId" class="form-control"/>
-                                        </div>
-                                    </div>
-                                   
+                                   		<input id="hdnAidsRecomendationId" name="hdnAidsRecomendationId" type="hidden" value="" />
                                       <div class="form-group">
                                         <label class="control-label col-md-3">مساعدة مادية &nbsp;&nbsp;&nbsp;                                        </label>
                                         <div class="col-md-4">
@@ -1759,9 +1752,10 @@ $readonly = '';
                                                  <?php
                                                 foreach($survey_CashAidType as $row)
                                                 {
-                                                    echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                    echo '<option value="'.$row->sub_constant_id.'">'
+															.$row->sub_constant_name.'</option>';
                                                 }
-                                                                ?>
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
@@ -1781,7 +1775,8 @@ $readonly = '';
                                                  <?php
                                                 foreach($survey_NutritionType as $row)
                                                 {
-                                                    echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                    echo '<option value="'.$row->sub_constant_id.'">'
+														.$row->sub_constant_name.'</option>';
                                                 }
                                                 ?>
                                             </select>
@@ -1799,8 +1794,10 @@ $readonly = '';
                                         <label class="control-label col-md-3">دعم نفسي  &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
                                             <div class="checkbox-list" data-error-container="#form_2_services_error">
-                                                <label>
-                                                <input type="checkbox" value="1" id="chbxPsychologicalsupport" name="chbxPsychologicalsupport" /></label>
+                                                <!--<label>
+                                                <input type="checkbox" value="1" id="chbxPsychologicalsupport" name="chbxPsychologicalsupport" /></label>-->
+                                                <textarea id="txtarPsychologicalsupport" name="txtarPsychologicalsupport" 
+                                                        class="form-control"></textarea>
                                             </div>
                                           </div>
                                    </div>
@@ -1808,20 +1805,24 @@ $readonly = '';
                                    <div class="form-group">
                                         <label class="control-label col-md-3">دعم اجتماعي &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <div class="checkbox-list" data-error-container="#form_2_services_error">
+                                            <!--<div class="checkbox-list" data-error-container="#form_2_services_error">
                                                 <label>
                                                 <input type="checkbox" value="1" id="chbxSocialsupport" name="chbxSocialsupport" /></label>
-                                            </div>
+                                            </div>-->
+                                              <textarea id="txtarSocialsupport" name="txtarSocialsupport" 
+                                                        class="form-control"></textarea>
                                           </div>
                                    </div>
                                    
                                    <div class="form-group">
                                         <label class="control-label col-md-3">ترفيه &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <div class="checkbox-list" data-error-container="#form_2_services_error">
+                                            <!--<div class="checkbox-list" data-error-container="#form_2_services_error">
                                                 <label>
                                                 <input type="checkbox" value="1" id="chbxEntertainment" name="chbxEntertainment" /></label>
-                                            </div>
+                                            </div>-->
+                                            <textarea id="txtarEntertainment" name="txtarEntertainment" 
+                                                        class="form-control"></textarea>
                                           </div>
                                    </div>
                                    
@@ -1864,14 +1865,16 @@ $readonly = '';
                                                 <?php
                                                 foreach($survey_PsychologicalSupport as $row)
                                                 {
-                                                    echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                    echo '<option value="'.$row->sub_constant_id.'">'
+															.$row->sub_constant_name.'</option>';
                                                 }
                                                 ?>
                                             </select>
                                             
                                         </div>
-                                    <div class="col-md-2">
-                                          <button id="btnAdddisease" name="btnAdddisease" type="button" class="btn btn-circle green-turquoise btn-sm" onclick="editemedicalaid()">
+                                    	<div class="col-md-2">
+                                          <button id="btnAddmedicalaid" name="btnAddmedicalaid" type="button" 
+                                           class="btn btn-circle green-turquoise btn-sm" onclick="addmedicalaid()">
                                           <i id="iConst" class="fa fa-plus"></i></button> 
                                        </div>
                                       </th>
@@ -1915,14 +1918,15 @@ $readonly = '';
                                                 <?php
                                                 foreach($survey_HomeImprovRecomend as $row)
                                                 {
-                                                    echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                    echo '<option value="'.$row->sub_constant_id.'">'
+															.$row->sub_constant_name.'</option>';
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                         <div class="col-md-2">
                                            <button id="btnaddhomeaid" name="btnaddhomeaid" type="button" 
-                                           class="btn btn-circle green-turquoise btn-sm" onclick="editehomeaid()">
+                                           class="btn btn-circle green-turquoise btn-sm" onclick="addhomeaid()">
                                            <i id="iConst" class="fa fa-plus"></i></button> 
                                          </div>
                                         </th>
