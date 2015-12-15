@@ -367,7 +367,7 @@
 							<i class="icon-lock"></i> تغير كلمة المرور </a>
 						</li>
 						<li>
-							<a href="login.html">
+							<a href="<?php echo base_url();?>logout">
 							<i class="icon-key"></i> تسجيل خروج </a>
 						</li>
 					</ul>

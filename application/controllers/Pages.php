@@ -51,6 +51,11 @@ class Pages extends CI_Controller
 		
 	}
 	/*******************EMPLOYEE*******************************/
-	
+	function logout()
+	{
+		$this->session->unset_userdata('logged_in');
+   		session_destroy();
+   		redirect('login', 'refresh');
+	}
 }
 ?>
