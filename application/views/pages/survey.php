@@ -827,14 +827,14 @@ $readonly = '';
                               		 <fieldset><legend>ملخص الدخل</legend>
                                      <div class="form-body">
                                       <br/>
-                                        <div class="alert alert-danger display-hide">
+                                        <!--<div class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
                                             يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                         </div>
                                         <div class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button>
                                             Your form validation is successful!
-                                        </div>
+                                        </div>-->
                                         
                                         <div class="form-group">
                                           <label class="control-label col-md-3">المجموع الكلي للدخل  <span class="required">
@@ -872,14 +872,14 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_5">
                                      <div class="form-body">
                                         <br/>
-                                          <div class="alert alert-danger display-hide">
+                                          <!--<div class="alert alert-danger display-hide">
                                               <button class="close" data-close="alert"></button>
                                               يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                           </div>
                                           <div class="alert alert-success display-hide">
                                               <button class="close" data-close="alert"></button>
                                                 تـم عملية حـفـظ البيـانات بنجـاح !
-                                          </div>
+                                          </div>-->
                                           <input id="hdnHomeStatusAction" name="hdnHomeStatusAction" type="hidden" 
                                           value="<?php echo $homeStatusction;?>" />
                                           <input id="hdnHomeStatusId" name="hdnHomeStatusId" type="hidden" 
@@ -993,14 +993,14 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_6">
                                      <div class="form-body">
                                       <br/>
-                                        <div class="alert alert-danger display-hide">
+                                        <!--<div class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
                                             يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                         </div>
                                         <div class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button>
                                             تـم عملية حـفـظ البيـانات بنجـاح !
-                                        </div>
+                                        </div>-->
                                         <input id="hdnElderRoomAction" name="hdnElderRoomAction" type="hidden" 
                                           value="<?php echo $elderRoomaction;?>" />
                                         <input id="hdnElderRoomId" name="hdnElderRoomId" type="hidden" value="" />
@@ -1326,14 +1326,14 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_8">
                                      <div class="form-body">
                                       <br/>
-                                        <div class="alert alert-danger display-hide">
+                                        <!--<div class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
                                             يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                         </div>
                                         <div class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button>
                                             تـم عملية حـفـظ البيـانات بنجـاح !
-                                        </div>
+                                        </div>-->
                                         <input id="hdnelderFamRelAction" name="hdnelderFamRelAction" type="hidden" 
                                         	value="<?php echo $elderFamRelAction;?>" />
                                         
@@ -1590,14 +1590,14 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_11">
                                      <div class="form-body">
                                         <br/>
-                                          <div class="alert alert-danger display-hide">
+                                          <!--<div class="alert alert-danger display-hide">
                                               <button class="close" data-close="alert"></button>
                                               يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                           </div>
                                           <div class="alert alert-success display-hide">
                                               <button class="close" data-close="alert"></button>
                                               تـم عملية حـفـظ البيـانات بنجـاح !
-                                          </div>
+                                          </div>-->
                                           <input id="hdnlifeImprovaction" name="hdnlifeImprovaction" type="hidden" 
                                           value="<?php echo $lifeImprovAction;?>" />
                                           <div class="form-group">
@@ -1734,14 +1734,6 @@ $readonly = '';
                                     <fieldset><legend>مســاعدات</legend>
                                     <div class="form-body">
                                     <br/>
-                                      <div class="alert alert-danger display-hide">
-                                          <button class="close" data-close="alert"></button>
-                                          يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                      </div>
-                                      <div class="alert alert-success display-hide">
-                                          <button class="close" data-close="alert"></button>
-                                          تمت عملية حـفـظ البيـانات بنجـاح !
-                                      </div>
                                        <input id="hdnaidraction" name="hdnaidraction" type="hidden" value="addaidrecomend" />
                                    		<input id="hdnAidsRecomendationId" name="hdnAidsRecomendationId" type="hidden" value="" />
                                       <div class="form-group">
@@ -1793,23 +1785,16 @@ $readonly = '';
                                     <div class="form-group">
                                         <label class="control-label col-md-3">دعم نفسي  &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <div class="checkbox-list" data-error-container="#form_2_services_error">
-                                                <!--<label>
-                                                <input type="checkbox" value="1" id="chbxPsychologicalsupport" name="chbxPsychologicalsupport" /></label>-->
-                                                <textarea id="txtarPsychologicalsupport" name="txtarPsychologicalsupport" 
-                                                        class="form-control"></textarea>
-                                            </div>
+                                           <textarea id="txtarPsychologicalsupport" name="txtarPsychologicalsupport" 
+                                              class="form-control"></textarea>
+                                            
                                           </div>
                                    </div>
                                    
                                    <div class="form-group">
                                         <label class="control-label col-md-3">دعم اجتماعي &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <!--<div class="checkbox-list" data-error-container="#form_2_services_error">
-                                                <label>
-                                                <input type="checkbox" value="1" id="chbxSocialsupport" name="chbxSocialsupport" /></label>
-                                            </div>-->
-                                              <textarea id="txtarSocialsupport" name="txtarSocialsupport" 
+                                           <textarea id="txtarSocialsupport" name="txtarSocialsupport" 
                                                         class="form-control"></textarea>
                                           </div>
                                    </div>
@@ -1817,10 +1802,6 @@ $readonly = '';
                                    <div class="form-group">
                                         <label class="control-label col-md-3">ترفيه &nbsp;&nbsp;&nbsp </label>
                                         <div class="col-md-4">
-                                            <!--<div class="checkbox-list" data-error-container="#form_2_services_error">
-                                                <label>
-                                                <input type="checkbox" value="1" id="chbxEntertainment" name="chbxEntertainment" /></label>
-                                            </div>-->
                                             <textarea id="txtarEntertainment" name="txtarEntertainment" 
                                                         class="form-control"></textarea>
                                           </div>
@@ -1832,8 +1813,9 @@ $readonly = '';
                                   <div class="form-actions">
                                       <div class="row">
                                           <div class="col-md-offset-3 col-md-9">
-                                              <button type="button" class="btn blue-madison" onclick="editeaidrecomend()">حـفـظ</button>
-                                              <button type="button" class="btn default">الغاء الامر</button>
+                                              <button type="button" class="btn blue-madison" onclick="editeaidrecomend()">
+                                              حـفـظ</button>
+                                              
                                           </div>
                                       </div>
                                   </div>
@@ -1841,14 +1823,7 @@ $readonly = '';
                                     <fieldset><legend>مساعدات طبية</legend>
                                     <div class="form-body">
                                     <br/>
-                                      <div class="alert alert-danger display-hide">
-                                          <button class="close" data-close="alert"></button>
-                                          يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                      </div>
-                                      <div class="alert alert-success display-hide">
-                                          <button class="close" data-close="alert"></button>
-                                          تـم عملية حـفـظ البيـانات بنجـاح !
-                                      </div>
+                                      
                                      <input id="maidaction" name="maidaction" type="hidden" value="addmedicalaid" />
                                       <table class="table table-bordered table-striped">
                                           <thead>
@@ -1893,14 +1868,7 @@ $readonly = '';
                                     <fieldset><legend>السـكـن</legend>
                                     <div class="form-body">
                                     <br/>
-                                      <div class="alert alert-danger display-hide">
-                                          <button class="close" data-close="alert"></button>
-                                          يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                      </div>
-                                      <div class="alert alert-success display-hide">
-                                          <button class="close" data-close="alert"></button>
-                                          تـم عملية حـفـظ البيـانات بنجـاح !
-                                      </div>
+                                      
                                        <input id="haidaction" name="haidaction" type="hidden" value="addhomeaid" />
                                       <table class="table table-bordered table-striped">
                                           <thead>
@@ -1923,6 +1891,10 @@ $readonly = '';
                                                 }
                                                 ?>
                                             </select>
+                                            <div id="dvImprovementdet" style="display:none" class="margin-top-10">
+                                            	<input type="text" id="txtImprovementdet" name="txtImprovementdet" 
+                                                 class="form-control" placeholder=""/>
+                                            </div>
                                         </div>
                                         <div class="col-md-2">
                                            <button id="btnaddhomeaid" name="btnaddhomeaid" type="button" 
@@ -1947,12 +1919,12 @@ $readonly = '';
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <a href="javascript:;" class="btn default button-previous">
-                                    <i class="m-icon-swapleft"></i> Back </a>
+                                    <i class="m-icon-swapleft"></i> رجـوع </a>
                                     <a href="javascript:;" class="btn blue button-next">
-                                    Continue <i class="m-icon-swapright m-icon-white"></i>
+                                    متـابـعة <i class="m-icon-swapright m-icon-white"></i>
                                     </a>
                                     <a href="javascript:;" class="btn green button-submit">
-                                    Submit <i class="m-icon-swapright m-icon-white"></i>
+                                    إنـــهاء <i class="m-icon-swapright m-icon-white"></i>
                                     </a>
                                 </div>
                             </div>

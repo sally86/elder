@@ -22,7 +22,11 @@ function check_elder_id(){
 			success: function(returndb){
 	//			alert(returndb);
 //				alert(returndb[0]['txtFname']);
-				if(returndb !=0){					
+				if(returndb !=0){
+					alert ("تم ادخال استبانة للعضو مسبقا");
+					$('#txtElderId').val('');
+					$('#txtElderId').focus();
+					return;
 				  $('#hdnAction').val('updateelder');
 				  $('#hdnFileId').val(returndb[0]['hdnFileId']);
 				  $('#drpEldercategory').val(returndb[0]['drpEldercategory']);
@@ -716,7 +720,7 @@ function editeHomeStatus()
 {
 	var action = $("#hdnHomeStatusAction").val();
 	
-	alert(action);
+	//alert(action);
 	
 	if ( !validateHomeStatus() )
 		return;
@@ -831,7 +835,7 @@ function editeElderRoom()
 {
 	var action = $("#hdnElderRoomAction").val();
 	
-	alert(action);
+	//alert(action);
 	
 	if ( !validateHomeStatus() )
 		return;
@@ -1166,7 +1170,7 @@ function editeElderFamRel()
 {
 	var action = $("#hdnelderFamRelAction").val();
 	
-	alert(action);
+	//alert(action);
 	
 	if ( !validateElderFamRel() )
 		return;
@@ -1459,7 +1463,7 @@ function editeLifeImprov()
 {
 	var action = $("#hdnlifeImprovaction").val();
 	
-	alert(action);
+	//alert(action);
 	
 	if ( !validateLifeImprov() )
 		return;
@@ -1584,7 +1588,10 @@ $(document).ready(function(){
 function editeaidrecomend()
 {
 	var action = $("#hdnaidraction").val();
-	alert($("#hdnSurveyId").val());
+	
+	if( !validateAidRecommendation() )
+		return;
+	
 	// Create a new FormData object.
 	var formData = new FormData();
 	
@@ -1628,8 +1635,10 @@ function editeaidrecomend()
 function addmedicalaid()
 {
 	var action = $("#maidaction").val();
-	alert(action);
+	//alert(action);
 	
+	if(  !$("#drpMedicalaidtype").valid() )
+		return;
 	
 	$.ajax({
 			url: baseURL+"Surveycont/"+action,
@@ -1658,14 +1667,17 @@ function addmedicalaid()
 function addhomeaid()
 {
 	var action = $("#haidaction").val();
-	alert(action);
+	//alert(action);
 	
+	if( !validateHomeAid() )
+		return;
 	
 	$.ajax({
 			url: baseURL+"Surveycont/"+action,
 			type: "POST",
 			data:   {hdnSurveyId: $("#hdnSurveyId").val(),
-			drpImprovementtype: $("#drpImprovementtype").val()},
+					 drpImprovementtype: $("#drpImprovementtype").val(),
+					 txtImprovementdet: $('#txtImprovementdet').val()},
 			error: function(xhr, status, error) {
   				alert(xhr.responseText);
 			},
@@ -1676,11 +1688,8 @@ function addhomeaid()
 			
 				$("#drpImprovementtype option:selected" ).attr("disabled","disabled");
 				$("#drpImprovementtype").val('');
-				if(returndb == '')
-				{
-					var form = $('#homeimprovement_form');
-					$('.alert-success', form).show();
-				}
+				$('#txtImprovementdet').val('');
+				$("#dvImprovementdet").css("display", "none");
 			}
 		});//END $.ajax
 }
@@ -1689,7 +1698,7 @@ function addhomeaid()
 function deletemedicalaidbyId(medicalaidId,medicationtypeid)
 {
 	var action = $("#maidaction").val();
-	alert(action);
+	//alert(action);
 	
 		var r = confirm('هل انت متأكد من عملية الحذف');
 	if (r == true) {
@@ -1764,6 +1773,92 @@ function deletehomeaidbyId(homeaidId,hometypeid)
 		});//END $.ajax
 	}
 }
+function validateAidRecommendation()
+{
+										 
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpCashaidtype").valid()  )
+		valid = false;
+	if ( !$("#txtCashaidamount").valid()  )
+		valid = false;
+	if ( !$("#drpNutritiontype").valid()  )
+		valid = false;
+	if ( !$("#txtNutritiondetails").valid()  )
+		valid = false;
+	
+	
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+function validateHomeAid()
+{
+										 
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpImprovementtype").valid()  )
+		valid = false;
+	if ( !$("#txtImprovementdet").valid()  )
+		valid = false;
+	
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+
+$(document).ready(function(){
+	
+	/********** Home Improvement Type **********/
+	$('#drpImprovementtype').change(function(event) {							
+		event.preventDefault();
+		
+		if($('#drpImprovementtype').val() == '168' || $('#drpImprovementtype').val() == '169')
+		{
+			$("#dvImprovementdet").css("display", "block");
+			
+			if($('#drpImprovementtype').val() == '168')
+				$('#txtImprovementdet').attr('placeholder','فيمة الإيجار الشهري');
+			else if($('#drpImprovementtype').val() == '169')
+				$('#txtImprovementdet').attr('placeholder','تحديد الأشياء الأخرى');
+		}
+		else
+		{
+			$('#txtImprovementdet').val('');
+			$("#dvImprovementdet").css("display", "none");
+		}
+		
+	}); // END CHANGE CEILING
+	
+	
+}); // END READY
+
 //-------------------END Recomindation Tab ---------------------//
 
 //***************** survey *************//
@@ -2283,7 +2378,76 @@ var FormWizard = function () {
 								 }
 							 }//END function
 						}//END required
-					}
+					},
+					
+					// Aids Recommendations
+					drpCashaidtype: {
+                        required: {
+							 depends: function(element) {
+								 if ($.trim($('#txtCashaidamount').val()) != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtCashaidamount: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpCashaidtype').val() != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						},//END required
+						digits:true
+					},
+					drpNutritiontype: {
+                        required: {
+							 depends: function(element) {
+								 if ($.trim($('#txtNutritiondetails').val()) != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtNutritiondetails: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpNutritiontype').val() != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpMedicalaidtype: {
+                        required: true
+					},
+					drpImprovementtype: {
+                        required: true
+					},
+					txtImprovementdet: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpImprovementtype').val() == '168' || $('#drpImprovementtype').val() == '169')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
 					
                 },
 
@@ -2573,7 +2737,31 @@ var FormWizard = function () {
                     },
 					txtProjectBudget: {
                         required: "الرجاء إدخال قيمة"
-					}
+					},
+					
+					// Aids Recommendations
+					drpCashaidtype: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtCashaidamount: {
+                        required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					},
+					drpNutritiontype: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtNutritiondetails: {
+                        required: "الرجاء إدخال قيمة"
+					},
+					drpMedicalaidtype: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					drpImprovementtype: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtImprovementdet: {
+                        required: "الرجاء إدخال قيمة"
+					},
 	
                 },
 
@@ -2628,7 +2816,7 @@ var FormWizard = function () {
             });
 
             var displayConfirm = function() {
-                $('#tab4 .form-control-static', form).each(function(){
+                $('#tab5 .form-control-static', form).each(function(){
                     var input = $('[name="'+$(this).attr("data-display")+'"]', form);
                     if (input.is(":radio")) {
                         input = $('[name="'+$(this).attr("data-display")+'"]:checked', form);
@@ -2683,8 +2871,7 @@ var FormWizard = function () {
                 'nextSelector': '.button-next',
                 'previousSelector': '.button-previous',
                 onTabClick: function (tab, navigation, index, clickedIndex) {
-                    alert('hi');
-					return false;
+                    return false;
                     /*
                     success.hide();
                     error.hide();
@@ -2753,7 +2940,7 @@ var FormWizard = function () {
 								
 							});//END $.ajax
 					}
-					else if (index == 3){
+					else if (index == 3 || index == 4){
 						
 						handleTitle(tab, navigation, index);
 									
@@ -2779,7 +2966,7 @@ var FormWizard = function () {
 
             $('#form_wizard_1').find('.button-previous').hide();
             $('#form_wizard_1 .button-submit').click(function () {
-                alert('Finished! Hope you like it :)');
+                alert('تم إنهـاء إضـافة الاستبانة بنجـاح)');
             }).hide();
         }
 

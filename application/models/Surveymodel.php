@@ -872,10 +872,15 @@ function get_homeStatus_info()
 		extract($_POST);
 
 		$data['survey_id'] 				= $hdnSurveyId;
-		$data['cash_aid_type_id'] 		= $drpCashaidtype;
+		
+		if ($drpCashaidtype != "")
+			$data['cash_aid_type_id'] 	= $drpCashaidtype;
 		$data['cash_aid_amount'] 		= $txtCashaidamount;
-		$data['nutrition_type_id'] 		= $drpNutritiontype;
+		
+		if ($drpNutritiontype != "")
+			$data['nutrition_type_id'] 	= $drpNutritiontype;
 		$data['nutrition_details'] 		= $txtNutritiondetails;
+		
 		$data['psychological_support'] 	= $txtarPsychologicalsupport;
 		$data['social_support'] 		= $txtarSocialsupport;
 		$data['entertainment'] 			= $txtarEntertainment;
@@ -897,11 +902,12 @@ function get_homeStatus_info()
 	{
 		extract($_POST);
 
-		$data['survey_id'] 		  = $hdnSurveyId;
+		$data['survey_id'] 		  	 = $hdnSurveyId;
 		$data['improvement_type_id'] = $drpImprovementtype;
-		
+		$data['improvement_details'] = $txtImprovementdet;
 		
 		$this->db->insert('home_improvement_recomendation_tb',$data);
+		
 	}
 //*******************updates*****************//
 	function update_aidrecomend()
@@ -968,7 +974,8 @@ function delete_medicalaid()
 	
 function get_homeaid_by_survey_id($surveyid)
 {
-	$myquery = "	SELECT	home_improvement_recomendation_id,improvement_type_id,homeaid.sub_constant_name homeaid_type
+	$myquery = "	SELECT	home_improvement_recomendation_id, improvement_type_id, homeaid.sub_constant_name homeaid_type,
+							improvement_details
 					FROM 	home_improvement_recomendation_tb,sub_constant_tb homeaid
 					WHERE   improvement_type_id = homeaid.sub_constant_id	
 					AND     survey_id = ".$surveyid;

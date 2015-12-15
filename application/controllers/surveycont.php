@@ -997,37 +997,46 @@ function get_homeStatus_data()
 
 
 	}
-function deletemedicalaidbyId()
-{
-	$this->load->model('Surveymodel');
-	$this->Surveymodel->delete_medicalaid();
-	$this->drawmedicalaidTable();
-}
-function drawhomeaidTable()
+	function deletemedicalaidbyId()
 	{
-				extract($_POST);
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->delete_medicalaid();
+		$this->drawmedicalaidTable();
+	}
+	function drawhomeaidTable()
+	{
+		extract($_POST);
 		
 		$this->load->model('Surveymodel');
 		$rec = $this->Surveymodel->get_homeaid_by_survey_id($hdnSurveyId);
 		
-				$i=1;
-				foreach($rec as $row)
-				{
-				 
-					echo "<tr>";
-					echo '<td style="display:none;" id="surveyId_tb'.$i.'">'. $row->home_improvement_recomendation_id. "</td>";
-					echo '<td style="display:none;" id="improvement_type_id_id_tb'.$i.'">'. $row->improvement_type_id. "</td>";
-					echo '<td id="homeaid_type'.$i.'">'. $row-> homeaid_type . "</td>";
-					echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-									  class="btn btn-circle red-sunglo btn-sm" 
-									  onclick="deletehomeaidbyId('.$row->home_improvement_recomendation_id.','. $row->improvement_type_id .')">
-									   <i id="iConst" class="fa fa-close"></i>
-									   </td>';
-					echo "</tr>";
-					
-					
-					
-				}
+		$i=1;
+		foreach($rec as $row)
+		{
+		 	if ($row->improvement_type_id == 168)
+				$details = "فيمة الإيجار الشهري : ";
+			else if ($row->improvement_type_id == 169)
+				$details = "تفصيل الأشياء الأخرى : ";
+			else
+				$details = "";
+				
+			echo "<tr>";
+			echo '<td style="display:none;" id="surveyId_tb'.$i.'">'. $row->home_improvement_recomendation_id. "</td>";
+			echo '<td style="display:none;" id="improvement_type_id_id_tb'.$i.'">'. $row->improvement_type_id. "</td>";
+			echo '<td id="homeaid_type'.$i.'">
+					<div class="col-md-3">'. $row-> homeaid_type . '</div>
+					<div class="col-md-6">'. $details . ' ' . $row-> improvement_details.'</div></td>';
+			echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+							  class="btn btn-circle red-sunglo btn-sm" 
+							  onclick="deletehomeaidbyId('.$row->home_improvement_recomendation_id.','
+														  . $row->improvement_type_id .')">
+							   <i id="iConst" class="fa fa-close"></i>
+							   </td>';
+			echo "</tr>";
+			
+			
+			
+		}
 
 
 	}
