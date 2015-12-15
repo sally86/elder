@@ -16,7 +16,7 @@ class Employee extends CI_Controller
 			$this->load->view('templates/header',$data);
 			$this->load->view('pages/'.$page,$data);
 		}
-		else
+		else if($this->session->userdata('logged_in'))
 		{
 			$this->data['title'] = $page;
 			$this->$page();
@@ -30,6 +30,11 @@ class Employee extends CI_Controller
 			$this->load->view('templates/quicksidebar.php');
 			$this->load->view('templates/footer');
 		}
+		else
+   		{
+     		//If no session, redirect to login page
+     		redirect('login', 'refresh');
+   		}
 	}
 	
 	/********************/

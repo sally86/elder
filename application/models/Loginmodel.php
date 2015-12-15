@@ -9,7 +9,7 @@ class Loginmodel extends CI_Model
 		
 		$this->db->from('users_tb');
 		$this->db->where("user_name", $username);
-		$this->db->where('passward', $password);
+		$this->db->where('passward', MD5($password));
 		
 		$query = $this->db->get();
 		

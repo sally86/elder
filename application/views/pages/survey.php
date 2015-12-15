@@ -28,16 +28,7 @@ $readonly = '';
                     <i class="fa fa-gift"></i> إستمارة بيانات حالة "كبار السن" - <span class="step-title">
                     خطوة 1 من 5 </span>
                 </div>
-                <div class="tools hidden-xs">
-                    <a href="javascript:;" class="collapse">
-                    </a>
-                    <a href="#portlet-config" data-toggle="modal" class="config">
-                    </a>
-                    <a href="javascript:;" class="reload">
-                    </a>
-                    <a href="javascript:;" class="remove">
-                    </a>
-                </div>
+                
             </div>
             <div class="portlet-body form">
                 <form action="#" class="form-horizontal" id="submit_form" method="POST">
