@@ -8,7 +8,7 @@ class Elderfilemodel extends CI_Model
 	{
 		$myquery = "SELECT fl.file_id, fl.elder_id, fl.file_status_id, filestatus.sub_constant_name file_status, fl.close_date, 				
 						   fl.close_reason_id, closeres.sub_constant_name closeres, fl.created_on, fl.created_by
-					  FROM elders.file_tb fl 
+					  FROM file_tb fl 
 						LEFT OUTER JOIN sub_constant_tb filestatus ON fl.file_status_id = filestatus.sub_constant_id
 							LEFT OUTER JOIN sub_constant_tb closeres ON fl.close_reason_id = closeres.sub_constant_id
 					 WHERE fl.elder_id = ".$elderid;
