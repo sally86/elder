@@ -88,11 +88,14 @@ class Elderfilecont extends CI_Controller
 		extract($_POST);
 		$rec = $this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc($fileid);
 		
+		if ($_SERVER['SERVER_NAME'] == "localhost") $dir = "elder";
+		else $dir = "app";
+		
 		foreach ($rec as $elder_docs_row)
 		{			
 			echo '<tr>';
 		    echo '<td>'.$elder_docs_row->doc_type.'</td>';
-		    echo '<td><a href="/elder/docuploads/'.$elder_docs_row->doc_path.'">'
+		    echo '<td><a href="/'.$dir.'/docuploads/'.$elder_docs_row->doc_path.'">'
 		   			   .$elder_docs_row->doc_path.'</a></td>';
 		   	echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
 					class="btn btn-circle red-sunglo btn-sm" 
@@ -114,11 +117,14 @@ class Elderfilecont extends CI_Controller
 		extract($_POST);
 		$rec = $this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc($fileid);
 		
+		if ($_SERVER['SERVER_NAME'] == "localhost") $dir = "elder";
+		else $dir = "app"; 
+		
 		foreach ($rec as $elder_docs_row)
 		{			
 			echo '<tr>';
 		    echo '<td>'.$elder_docs_row->doc_type.'</td>';
-		    echo '<td><a href="/elder/docuploads/'.$elder_docs_row->doc_path.'">'
+		    echo '<td><a href="/'.$dir.'/docuploads/'.$elder_docs_row->doc_path.'">'
 		   			   .$elder_docs_row->doc_path.'</a></td>';
 		   	echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
 					class="btn btn-circle red-sunglo btn-sm" 

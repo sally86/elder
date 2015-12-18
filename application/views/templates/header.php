@@ -82,5 +82,6 @@ License: You must have a valid license purchased only from themeforest(the above
 var baseURL = "<?php echo base_url(); ?>";
 </script>
 
+
 </head>
 <!-- END HEAD -->
