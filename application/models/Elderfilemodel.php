@@ -67,7 +67,7 @@ class Elderfilemodel extends CI_Model
 		
 		
 		// Upload File
-		$target_dir = $_SERVER["DOCUMENT_ROOT"]."/elder/uploads/";
+		$target_dir = $_SERVER["DOCUMENT_ROOT"]."/elder/docuploads/";
 		$target_file = $target_dir . $newfilename;
 		
 		move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
@@ -83,7 +83,7 @@ class Elderfilemodel extends CI_Model
 		$this->db->delete('elder_doc_tb');
 		
 		// Delete File
-		unlink($_SERVER["DOCUMENT_ROOT"]."/elder/uploads/".$filename);
+		unlink($_SERVER["DOCUMENT_ROOT"]."/elder/docuploads/".$filename);
 	}
 	
 }

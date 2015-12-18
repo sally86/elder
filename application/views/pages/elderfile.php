@@ -2,7 +2,7 @@
 $eldername = '';
 if (isset($elder_file))
 {
-	unset($_SESSION['update']);
+	//unset($_SESSION['update']);
 	foreach($elder_file as $elder_file_row);
 	foreach($elder_info as $elder_info_row);
 	
@@ -571,7 +571,7 @@ if (isset($elder_file))
 						   {
 							   echo '<tr>';
 							   echo '<td>'.$elder_docs_row->doc_type.'</td>';
-							   echo '<td><a href="/elder/uploads/'.$elder_docs_row->doc_path.'">'
+							   echo '<td><a href="/elder/docuploads/'.$elder_docs_row->doc_path.'">'
 							   .$elder_docs_row->doc_path.'</a></td>';
 							   echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
 							   			class="btn btn-circle red-sunglo btn-sm" 

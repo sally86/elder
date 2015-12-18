@@ -92,7 +92,7 @@ class Elderfilecont extends CI_Controller
 		{			
 			echo '<tr>';
 		    echo '<td>'.$elder_docs_row->doc_type.'</td>';
-		    echo '<td><a href="/elder/uploads/'.$elder_docs_row->doc_path.'">'
+		    echo '<td><a href="/elder/docuploads/'.$elder_docs_row->doc_path.'">'
 		   			   .$elder_docs_row->doc_path.'</a></td>';
 		   	echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
 					class="btn btn-circle red-sunglo btn-sm" 
@@ -118,7 +118,7 @@ class Elderfilecont extends CI_Controller
 		{			
 			echo '<tr>';
 		    echo '<td>'.$elder_docs_row->doc_type.'</td>';
-		    echo '<td><a href="/elder/uploads/'.$elder_docs_row->doc_path.'">'
+		    echo '<td><a href="/elder/docuploads/'.$elder_docs_row->doc_path.'">'
 		   			   .$elder_docs_row->doc_path.'</a></td>';
 		   	echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
 					class="btn btn-circle red-sunglo btn-sm" 
