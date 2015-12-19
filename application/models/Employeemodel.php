@@ -35,7 +35,7 @@ class Employeemodel extends CI_Model
 		return $res->result();
 	}
 	// Search Employee 
-	/*function search_employee_hasnt_account($empname)
+	function search_employee_hasnt_account($empname)
 	{
 		$myquery = "SELECT employee_id, name, emp_id
 				  	  FROM employee_tb
@@ -46,7 +46,7 @@ class Employeemodel extends CI_Model
 		
 		$res = $this->db->query($myquery);
 		return $res->result();
-	}*/
+	}
 	function get_employee_info($national_id)
 	{
 		$myquery = "SELECT 	national_id, emp_id, name , sex_id , job_title_id ,mobile,
