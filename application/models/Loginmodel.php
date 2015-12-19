@@ -7,17 +7,27 @@ class Loginmodel extends CI_Model
 	{
 		extract($_POST);
 		
-		$this->db->from('users_tb');
+		/*$this->db->from('users_tb');
 		$this->db->where("user_name", $username);
-		$this->db->where('passward', MD5($password));
-		
-		$query = $this->db->get();
+		$this->db->where('passward', MD5($password));*/
 		
 		
-		if ($query->num_rows() > 0)
+	$myquery = "SELECT  u.user_name, u.passward, u.employee_id, u.is_active, u.user_type_id, e.name
+				  FROM  users_tb u, employee_tb e
+				 WHERE  u.employee_id = e.employee_id
+				   AND  u.user_name = '".$username."'
+				  AND 	u.passward = '".MD5($password)."'";
+		
+		$res = $this->db->query($myquery);
+		
+		//$query = $res->result();
+		//$query = $this->db->get();
+		
+		
+		if ($res->num_rows() > 0)
 		{
 			
-			$result = $query->result();
+			$result = $res->result();
 			$sess_array = array();
 			 foreach($result as $row)
 			 {
@@ -25,7 +35,8 @@ class Loginmodel extends CI_Model
 				 {
 					 $sess_array = array(
 					   //'id' => $row->id,
-					   'username' => $row->user_name
+					   'username' => $row->user_name,
+					   'name' => $row->name
 					 );
 					 /*$menu_array = array(
 										 
