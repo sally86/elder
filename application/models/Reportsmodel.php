@@ -29,12 +29,12 @@ class Reportsmodel extends CI_Model
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND file_id = ".$requestData['txtFileid'];
+			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
 		}
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
 		{
-			$myquery = $myquery." AND elder_id = ".$requestData['txtElderid'];
+			$myquery = $myquery." AND e.elder_id = ".$requestData['txtElderid'];
 		}
 		
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
