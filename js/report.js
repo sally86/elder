@@ -46,7 +46,7 @@ var ElderInfoRptAjax = function () {
                     [10, "asc"]
                 ], // set first column as a default sort by asc
 				
-				"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l>r><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+				"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 				"tableTools": {
 					"sSwfPath": baseURL+"assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
 					"aButtons": [{
@@ -100,11 +100,11 @@ var ElderInfoRptAjax = function () {
                 return;
             }
 
-            console.log('me 1');
+            //console.log('me 1');
             //initPickers();
             handleRecords();
 			
-			console.log('me 2');
+			//console.log('me 2');
 			
         }
 
@@ -113,19 +113,30 @@ var ElderInfoRptAjax = function () {
 }();
 
 $(document).ready(function(){
+						   
 	
-	$('#ToolTables_Elderinforpt_ajax_1').live('click', function() {
-		alert('hi');
+	$('#ToolTables_Elderinforpt_ajax_1').live('click', function(e) {
+		e.preventDefault();
 		$('#trNoprint').css({ display: "none" });
 		
-		//var table = $('#Elderinforpt_ajax').DataTable();
+		//var table = $('#Elderinforpt_ajax').dataTable();
+		
+		//table.fnSetColumnVis( 11, false );
+		//table.fnSetColumnVis( 11, true );
+		/*alert("Table"+table);
+		alert(table.column(0));*/
 		
 		// Get the column API object
-        //var column = table.column( $(this).attr('data-column') );
+       /* var column = table.column("file_id");
+		
+		alert(column.visible());*/
  		
         // Toggle the visibility
-		//if (column == "")
-        //column.visible( false );
+		/*if (column == "file_id")
+		{
+			alert('hi2');
+        column.visible( false );
+		}*/
 		
 	  });
 	
