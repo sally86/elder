@@ -216,11 +216,16 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li <?php if($title == 'elderinforpt') echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
-					<span class="arrow "></span>
+					<?php if($title == 'elderinforpt')
+					echo '<span class="selected"></span>
+						  <span class="arrow open"></span>'; 
+					else
+						echo '<span class="arrow "></span>';
+					?>
 					</a>
 					<ul class="sub-menu">
 						<li>
@@ -238,8 +243,8 @@
                             <i class="icon-docs"></i>
 							عـرض بحث ميداني</a>
 						</li>
-                        <li>
-							<a href="charts_flotcharts.html">
+                        <li <?php if($title == 'elderinforpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/elderinforpt">
                             <i class="icon-folder"></i>
 							تقـرير أعضاء الجمعية</a>
 						</li>
@@ -253,7 +258,7 @@
                             <i class="icon-wallet"></i>
 							مصــادر الدخل</a>
 						</li>
-                        <li>
+                        <li >
 							<a href="charts_flotcharts.html">
                             <i class="icon-graph"></i>
 							المؤشـرات القيـاسية</a>

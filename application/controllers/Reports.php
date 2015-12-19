@@ -1,5 +1,5 @@
 <?php
-class Elder extends CI_Controller 
+class Reports extends CI_Controller 
 {
 	public $data;
 	
@@ -36,72 +36,54 @@ class Elder extends CI_Controller
      		redirect('login', 'refresh');
    		}
 	}
-	function elders()
+	
+	// Elder Person Info Report
+	function elderinforpt()
 	{
 		$this->load->model('constantmodel');
 
 		$this->data['elder_governorate'] = $this->constantmodel->get_sub_constant(22);
+		$this->data['elder_status'] 	 = $this->constantmodel->get_sub_constant(2);
 	}
-	
-	function senddata()
+	function elderinfogriddata()
 	{
-		extract($_POST);
-		$_SESSION['update'] = $national_id;
-	}
-	
-	function eldergriddata()
-	{
-		$this->load->model('eldermodel');
-		$rec = $this->eldermodel->get_search_elder($_REQUEST);
-		
+		$this->load->model('reportsmodel');
+		$rec = $this->reportsmodel->get_eldr_info_rpt($_REQUEST);
 		
 		$i = 1;
 		$data = array();
 		foreach($rec as $row)
 		{
 			$nestedData=array();
-			
-			if ($row->isDeadElder == 1)
-				$isDead = '<i class="fa fa-user font-green"></i>';
-			else
-				$isDead= '<i class="fa fa-user font-red-sunglo"></i>';
-				
-			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
-			  <i class="fa fa-edit"></i> تعديل </a>';*/
-			
-			/*$btn='<a class="btn default btn-xs purple" onclick="gotoElder(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i> تعديل </a>';*/
-			$btn='<a class="btn default btn-xs purple" onclick="gotoFamilyMember(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i>تعديل بيانات العائلة </a>';
-			
+						
 			$nestedData[] = $i++;
+			$nestedData[] = $row->file_id;
 			$nestedData[] = $row->elder_id;
 			$nestedData[] = $row->name;
+			$nestedData[] = $row->age;
+			$nestedData[] = $row->status;
+			$nestedData[] = $row->full_address;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
 			$nestedData[] = $row->mobile_second;
-			$nestedData[] = $row->Eder_governorate;
-			$nestedData[] = $isDead;
-			$nestedData[] = $btn;
+			$nestedData[] = $row->governorate;
+			$nestedData[] = '';
 			
 			$data[] = $nestedData;
 		} // End Foreach
 		
 		$totalFiltered = count($rec);
-		$totalData=$this->eldermodel->count_elder();
-		
+		$totalData = count($rec);
 		//$records["draw"] = $sEcho;
 		$json_data = array(
 					"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
-					"recordsTotal"    => intval( $totalData ),  // total number of records
-					"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
-					"data"            => $data   // total data array
+					"recordsTotal"    => intval( $totalData ),  		// total number of records
+					"recordsFiltered" => intval( $totalFiltered ),		// total number of records after searching, if there is no searching then totalFiltered = totalData
+					"data"            => $data   						// total data array
 					);
 		
 		echo json_encode($json_data);  // send data as json format
 	}
-	/************************************************************/
-	
 	
 }
 ?>

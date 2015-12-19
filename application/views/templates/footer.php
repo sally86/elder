@@ -29,6 +29,7 @@
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!---->
 <!-- BEGIN AJAX TABLE PLUGINS -->
@@ -114,9 +115,9 @@
 <script src="<?php echo base_url();?>js/family.js"></script>
 <script src="<?php echo base_url();?>js/followup.js"></script>
 <!--<script src="<?php //echo base_url();?>js/recomendation.js"></script>-->
-
 <script src="<?php echo base_url();?>js/usertypepermession.js"></script>
 <script src="<?php echo base_url();?>js/elderfile.js"></script>
+<script src="<?php echo base_url();?>js/report.js"></script>
 <!-- END OUR SCRIPTS -->
 
 <script>
@@ -149,6 +150,7 @@
 		EmpTableAjax.init();
 		ElderTableAjax.init();
 		SurveyTableAjax.init();
+		ElderInfoRptAjax.init();
 		//***************end Ajax table*******************/
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();

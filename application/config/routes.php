@@ -63,6 +63,9 @@ $route['followupcont/(:any)'] = 'followupcont/view/$1';
 $route['surveyviewcont/(:any)'] = 'surveyviewcont/view/$1';
 $route['usertypeperm/(:any)'] = 'usertypeperm/view/$1';
 $route['elderfilecont/(:any)'] = 'elderfilecont/view/$1';
+
+$route['reports/(:any)'] = 'reports/view/$1';
+
 $route['(:any)'] = 'pages/view/$1';
 $route['default_controller'] = 'pages/view';
 $route['404_override'] = '';
