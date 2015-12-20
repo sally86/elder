@@ -161,7 +161,7 @@ var GenderRptAjax = function () {
 					"type": "POST"
                 },
                 "order": [
-                    [1, "asc"]
+                    [5, "asc"]
                 ], // set first column as a default sort by asc
 				
 				"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
