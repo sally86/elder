@@ -155,6 +155,7 @@
 		//********** Report **********************/
 		ElderInfoRptAjax.init();
 		GenderRptAjax.init();
+		EduRptAjax.init();
 		//***************end Ajax table*******************/
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();

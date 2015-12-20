@@ -216,11 +216,11 @@
 						</li>
 					</ul>
 				</li>
-				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt') echo 'class="active open"';?>>
+				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt') echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
-					<?php if($title == 'elderinforpt')
+					<?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
@@ -228,7 +228,22 @@
 					?>
 					</a>
 					<ul class="sub-menu">
-						<li>
+                        <li <?php if($title == 'elderinforpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/elderinforpt">
+                            <i class="icon-folder"></i>
+							تقـرير أعضاء الجمعية</a>
+						</li>
+                        <li <?php if($title == 'genderrpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/genderrpt">
+                            <i class="icon-pie-chart"></i>
+							تقـرير ديموغرافي بأعضاء الجمعية</a>
+						</li>
+                        <li <?php if($title == 'edurpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/edurpt">
+                            <i class="icon-graduation"></i>
+							تقـرير المستوى التعليمي</a>
+						</li>
+                        <li>
 							<a href="charts_amcharts.html">
                             <i class="icon-users"></i>
 							تقرير المستخدمين</a>
@@ -242,16 +257,6 @@
 							<a href="charts_flotcharts.html">
                             <i class="icon-docs"></i>
 							عـرض بحث ميداني</a>
-						</li>
-                        <li <?php if($title == 'elderinforpt') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>reports/elderinforpt">
-                            <i class="icon-folder"></i>
-							تقـرير أعضاء الجمعية</a>
-						</li>
-                        <li <?php if($title == 'genderrpt') echo 'class="active open"';?>>
-							<a href="<?php echo base_url();?>reports/genderrpt">
-                            <i class="icon-pie-chart"></i>
-							تقـرير ديموغرافي بأعضاء الجمعية</a>
 						</li>
                         <li>
 							<a href="charts_flotcharts.html">
