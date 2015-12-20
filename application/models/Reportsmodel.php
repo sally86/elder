@@ -84,5 +84,65 @@ class Reportsmodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+	
+	// Gender Report
+	function get_eldr_gender_rpt($requestData)
+	{
+		$columns = array( 
+			1 => 'file_id',
+			2 => 'elder_id',
+			3 => 'name',
+			4 => 'sex',
+			5 => 'gov.sub_constant_name');
+		
+		$myquery = "SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+							e.sex_id, sx.sub_constant_name as sex,
+							e.governorate_id, gov.sub_constant_name as governorate,
+							f.file_id, f.file_status_id
+ 					 FROM	elder_tb e, file_tb f, sub_constant_tb sx, sub_constant_tb gov
+					WHERE 	e.elder_id = f.elder_id
+					  AND	e.sex_id = sx.sub_constant_id
+					  AND	e.governorate_id = gov.sub_constant_id
+					  AND 	f.file_status_id = 170";
+		
+		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
+		{
+			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+		}
+		
+		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
+		{
+			$myquery = $myquery." AND e.elder_id = ".$requestData['txtElderid'];
+		}
+		
+		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
+		{
+			$myquery = $myquery." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
+			LIKE '%".$requestData['txtElderName']."%' ";
+		}
+		if(isset($requestData['drpSex']) && $requestData['drpSex'] !='')
+		{
+			$myquery = $myquery." AND sex_id = ".$requestData['drpSex'];
+		}
+		
+		if(isset($requestData['drpGovernorate']) && $requestData['drpGovernorate'] !='')
+		{
+			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
+		}
+		
+		
+		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
+		
+		if ($requestData['length'] > 0)
+			$myquery = $myquery." LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
+	
+	
+	
+	
+	
 }
 ?>

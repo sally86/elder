@@ -216,7 +216,7 @@
 						</li>
 					</ul>
 				</li>
-				<li <?php if($title == 'elderinforpt') echo 'class="active open"';?>>
+				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt') echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
@@ -248,8 +248,8 @@
                             <i class="icon-folder"></i>
 							تقـرير أعضاء الجمعية</a>
 						</li>
-                        <li>
-							<a href="charts_flotcharts.html">
+                        <li <?php if($title == 'genderrpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/genderrpt">
                             <i class="icon-pie-chart"></i>
 							تقـرير ديموغرافي بأعضاء الجمعية</a>
 						</li>

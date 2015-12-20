@@ -152,7 +152,9 @@
 		EmpTableAjax.init();
 		ElderTableAjax.init();
 		SurveyTableAjax.init();
+		//********** Report **********************/
 		ElderInfoRptAjax.init();
+		GenderRptAjax.init();
 		//***************end Ajax table*******************/
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
