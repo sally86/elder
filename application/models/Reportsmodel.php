@@ -256,6 +256,7 @@ class Reportsmodel extends CI_Model
                             e.governorate_id, gov.sub_constant_name as governorate,
 							f.file_id, f.file_status_id,
                             ir.total_income, ir.elder_portion, ";
+							
 		$from = " FROM 	elder_tb e, file_tb f, survey_tb s, income_resources_tb ir, sub_constant_tb gov";
 		
 		$where = " WHERE 	e.elder_id = f.elder_id
@@ -292,8 +293,12 @@ class Reportsmodel extends CI_Model
 		}
 		if(isset($requestData['drpIncomeres']) && $requestData['drpIncomeres'] !='')
 		{
-			$resource_query = $resource_query." AND irdet.resource_id = ".$requestData['drpIncomeres'];
-			$where = $where." AND ($resource_query) != ''";
+			/*$resource_query = $resource_query." AND irdet.resource_id = ".$requestData['drpIncomeres'];
+			$where = $where." AND ($resource_query) != ''";*/
+			$from = $from . ", income_resources_details_tb oirdet";
+			$where = $where." AND oirdet.income_resources_id = ir.income_resources_id";
+			$where = $where." AND oirdet.resource_id = ".$requestData['drpIncomeres'];
+			
 		}
 		if(isset($requestData['txtTotalincome']) && $requestData['txtTotalincome'] !='')
 		{
