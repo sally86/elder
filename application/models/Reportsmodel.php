@@ -326,5 +326,105 @@ class Reportsmodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+	
+	
+	// Home Report
+	function get_home_status_rpt($requestData)
+	{
+		$columns = array( 
+			1 => 'file_id',
+			2 => 'name', 
+			3 => 'phone', 
+			4 => 'mobile_first',
+			5 => 'mobile_second',
+			6 => 'sts.sub_constant_name',
+			7 => 'tp.sub_constant_name', 
+			8 => 'cl.sub_constant_name',
+			9 => 'ceiling_description',
+			10 => 'fr.sub_constant_name',
+			11 => 'furniture_needs',
+			12 => 'gov.sub_constant_name');
+		
+		$myquery = "  SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+							e.phone, mobile_first, e.mobile_second,
+                            h.home_situation_id, sts.sub_constant_name as home_situation,
+                            h.home_type_id, tp.sub_constant_name as home_type,
+                            h.ceiling_type_id, cl.sub_constant_name as ceiling_type,
+                            h.ceiling_description,
+                            h.furniture_level_id, fr.sub_constant_name as furniture_level,
+                            h.furniture_needs,
+                            e.governorate_id, gov.sub_constant_name as governorate,
+							f.file_id, f.file_status_id
+ 					FROM 	elder_tb e, file_tb f,  survey_tb s, home_status_tb h, sub_constant_tb sts, sub_constant_tb tp,
+							sub_constant_tb cl, sub_constant_tb fr, sub_constant_tb gov
+					WHERE 	e.elder_id = f.elder_id
+					  AND	s.file_id = f.file_id
+                      AND	s.survey_id = h.survey_id
+					  AND	h.home_situation_id = sts.sub_constant_id
+					  AND	h.home_type_id = tp.sub_constant_id
+					  AND	h.ceiling_type_id = cl.sub_constant_id
+					  AND	h.furniture_level_id = fr.sub_constant_id
+                      AND	e.governorate_id = gov.sub_constant_id
+                      AND 	f.file_status_id = 170";
+		
+		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
+		{
+			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+		}
+		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
+		{
+			$myquery = $myquery." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
+			LIKE '%".$requestData['txtElderName']."%' ";
+		}
+		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
+		{
+			$myquery = $myquery." AND phone = ".$requestData['txtPhone'];
+		}
+		if(isset($requestData['txtMobile1']) && $requestData['txtMobile1'] !='')
+		{
+			$myquery = $myquery." AND mobile_first = ".$requestData['txtMobile1'];
+		}
+		if(isset($requestData['txtMobile2']) && $requestData['txtMobile2'] !='')
+		{
+			$myquery = $myquery." AND e.mobile_second = ".$requestData['txtMobile2'];
+		}
+		if(isset($requestData['drpSituation']) && $requestData['drpSituation'] !='')
+		{
+			$myquery = $myquery." AND h.home_situation_id = ".$requestData['drpSituation'];
+		}
+		if(isset($requestData['drpHometype']) && $requestData['drpHometype'] !='')
+		{
+			$myquery = $myquery." AND h.home_type_id = ".$requestData['drpHometype'];
+		}
+		if(isset($requestData['drpCeilingtype']) && $requestData['drpCeilingtype'] !='')
+		{
+			$myquery = $myquery." AND h.ceiling_type_id = ".$requestData['drpCeilingtype'];
+		}
+		if(isset($requestData['txtCellingdesc']) && $requestData['txtCellingdesc'] !='')
+		{
+			$myquery = $myquery." AND h.ceiling_description LIKE '%".$requestData['txtCellingdesc']."%' ";
+		}
+		if(isset($requestData['drpFurniturelevel']) && $requestData['drpFurniturelevel'] !='')
+		{
+			$myquery = $myquery." AND h.furniture_level_id = ".$requestData['drpFurniturelevel'];
+		}
+		if(isset($requestData['txtFurnitureneed']) && $requestData['txtFurnitureneed'] !='')
+		{
+			$myquery = $myquery." AND h.furniture_needs LIKE '%".$requestData['txtFurnitureneed']."%' ";
+		}
+		if(isset($requestData['drpGovernorate']) && $requestData['drpGovernorate'] !='')
+		{
+			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
+		}
+		
+		
+		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
+		
+		if ($requestData['length'] > 0)
+			$myquery = $myquery." LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
 }
 ?>

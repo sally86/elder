@@ -216,12 +216,14 @@
 						</li>
 					</ul>
 				</li>
-				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt'  || $title == 'incomerpt') 
+				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt'  || $title == 'incomerpt' 
+						  || $title == 'elderhomerpt') 
 					echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
-					<?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt' || $title == 'incomerpt')
+					<?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt' || $title == 'incomerpt'
+						  || $title == 'elderhomerpt')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
@@ -254,15 +256,15 @@
                             <i class="icon-wallet"></i>
 							مصــادر الدخل</a>
 						</li>
+						<li <?php if($title == 'elderhomerpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/elderhomerpt">
+                            <i class="icon-home"></i>
+							وضع السكن</a>
+						</li>
                         <li>
 							<a href="charts_amcharts.html">
                             <i class="icon-users"></i>
 							تقرير المستخدمين</a>
-						</li>
-						<li>
-							<a href="charts_flotcharts.html">
-                            <i class="icon-briefcase"></i>
-							تقرير الموظفين</a>
 						</li>
                         <li>
 							<a href="charts_flotcharts.html">

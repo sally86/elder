@@ -157,6 +157,7 @@
 		GenderRptAjax.init();
 		EduRptAjax.init();
 		IncomeRptAjax.init();
+		HomeRptAjax.init();
 		//***************end Ajax table*******************/
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
