@@ -159,6 +159,7 @@
 		IncomeRptAjax.init();
 		HomeRptAjax.init();
 		RoomRptAjax.init();
+		MaintenanceRptAjax.init();
 		//***************end Ajax table*******************/
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();

@@ -217,13 +217,13 @@
 					</ul>
 				</li>
 				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt'  || $title == 'incomerpt' 
-						  || $title == 'elderhomerpt' || $title == 'elderroomrpt') 
+						  || $title == 'elderhomerpt' || $title == 'elderroomrpt' || $title == 'maintenancerpt') 
 					echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
 					<?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt' || $title == 'incomerpt'
-						  || $title == 'elderhomerpt'  || $title == 'elderroomrpt')
+						  || $title == 'elderhomerpt'  || $title == 'elderroomrpt' || $title == 'maintenancerpt')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
@@ -265,6 +265,11 @@
 							<a href="<?php echo base_url();?>reports/elderroomrpt">
                             <i class="icon-home"></i>
 							تقرير وصف السكن</a>
+						</li>
+                        <li <?php if($title == 'maintenancerpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/maintenancerpt">
+                            <i class="icon-settings"></i>
+							تقرير صيانة سكن كبير السن  </a>
 						</li>
                         <li>
 							<a href="charts_amcharts.html">
