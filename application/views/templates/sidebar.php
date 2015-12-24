@@ -217,13 +217,13 @@
 					</ul>
 				</li>
 				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt'  || $title == 'incomerpt' 
-						  || $title == 'elderhomerpt') 
+						  || $title == 'elderhomerpt' || $title == 'elderroomrpt') 
 					echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
 					<?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt' || $title == 'incomerpt'
-						  || $title == 'elderhomerpt')
+						  || $title == 'elderhomerpt'  || $title == 'elderroomrpt')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
@@ -254,12 +254,17 @@
                         <li <?php if($title == 'incomerpt') echo 'class="active open"';?>>
 							<a href="<?php echo base_url();?>reports/incomerpt">
                             <i class="icon-wallet"></i>
-							مصــادر الدخل</a>
+							تقرير مصــادر الدخل</a>
 						</li>
 						<li <?php if($title == 'elderhomerpt') echo 'class="active open"';?>>
 							<a href="<?php echo base_url();?>reports/elderhomerpt">
                             <i class="icon-home"></i>
-							وضع السكن</a>
+							تقرير وضع السكن</a>
+						</li>
+                        <li <?php if($title == 'elderroomrpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/elderroomrpt">
+                            <i class="icon-home"></i>
+							تقرير وصف السكن</a>
 						</li>
                         <li>
 							<a href="charts_amcharts.html">

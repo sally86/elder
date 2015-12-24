@@ -426,5 +426,128 @@ class Reportsmodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+	
+	//  Elder Room Report
+	function get_elder_room_rpt($requestData)
+	{
+		$columns = array( 
+			1 => 'file_id',
+			2 => 'name', 
+			3 => 'phone', 
+			4 => 'mobile_first',
+			5 => 'mobile_second',
+			6 => 'ht.sub_constant_name',
+			7 => 'rt.sub_constant_name', 
+			8 => 'cst.sub_constant_name',
+			9 => 'rv.sub_constant_name',
+			10 => 'rl.sub_constant_name',
+			11 => 'hc.sub_constant_name',
+			12 => 'hb.sub_constant_name',
+			13 => 'hmc.sub_constant_name',
+			14 => 'hig.sub_constant_name',
+			15 => 'gov.sub_constant_name');
+		
+		$myquery = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+					    e.phone, mobile_first, e.mobile_second,
+					    er.home_type_id, ht.sub_constant_name as home_type,
+					    er.room_type_id, rt.sub_constant_name as room_type,
+					    er.clothes_covers_status_id, cst.sub_constant_name as clothes_covers_status,
+					    er.room_ventilation_id, rv.sub_constant_name as room_ventilation,
+					    er.room_lighting_id, rl.sub_constant_name as room_lighting,
+					    er.has_closet, hc.sub_constant_name as has_closet,
+					    er.has_good_bed, hb.sub_constant_name as has_good_bed,
+					    er.has_medicine_cupboard, hmc.sub_constant_name as has_medicine_cupboard,
+					    er.elder_higiene_id, hig.sub_constant_name as elder_higiene,
+                        e.governorate_id, gov.sub_constant_name as governorate,
+						f.file_id, f.file_status_id
+				FROM    elder_tb e, file_tb f,  survey_tb s, elder_room_tb er, sub_constant_tb ht, sub_constant_tb rt,
+						sub_constant_tb cst, sub_constant_tb rv, sub_constant_tb rl, sub_constant_tb hc, 
+                        sub_constant_tb hb, sub_constant_tb hmc, sub_constant_tb hig, sub_constant_tb gov
+                WHERE 	e.elder_id = f.elder_id
+				  AND	s.file_id = f.file_id
+				  AND	s.survey_id = er.survey_id
+				  AND	er.home_type_id = ht.sub_constant_id
+				  AND	er.room_type_id = rt.sub_constant_id
+				  AND	er.clothes_covers_status_id = cst.sub_constant_id
+				  AND	er.room_ventilation_id = rv.sub_constant_id
+                  AND	er.room_lighting_id = rl.sub_constant_id
+                  AND	er.has_closet = hc.sub_constant_id
+                  AND	er.has_good_bed = hb.sub_constant_id
+                  AND	er.has_medicine_cupboard = hmc.sub_constant_id
+                  AND	er.elder_higiene_id = hig.sub_constant_id
+				  AND	e.governorate_id = gov.sub_constant_id
+				  AND 	f.file_status_id = 170";
+		
+		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
+		{
+			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+		}
+		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
+		{
+			$myquery = $myquery." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
+			LIKE '%".$requestData['txtElderName']."%' ";
+		}
+		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
+		{
+			$myquery = $myquery." AND phone = ".$requestData['txtPhone'];
+		}
+		if(isset($requestData['txtMobile1']) && $requestData['txtMobile1'] !='')
+		{
+			$myquery = $myquery." AND mobile_first = ".$requestData['txtMobile1'];
+		}
+		if(isset($requestData['txtMobile2']) && $requestData['txtMobile2'] !='')
+		{
+			$myquery = $myquery." AND e.mobile_second = ".$requestData['txtMobile2'];
+		}
+		if(isset($requestData['drpHometype']) && $requestData['drpHometype'] !='')
+		{
+			$myquery = $myquery." AND er.home_type_id = ".$requestData['drpHometype'];
+		}
+		if(isset($requestData['drpRoomtype']) && $requestData['drpRoomtype'] !='')
+		{
+			$myquery = $myquery." AND er.room_type_id = ".$requestData['drpRoomtype'];
+		}
+		if(isset($requestData['drpClothes']) && $requestData['drpClothes'] !='')
+		{
+			$myquery = $myquery." AND er.clothes_covers_status_id = ".$requestData['drpClothes'];
+		}
+		if(isset($requestData['drpVentilation']) && $requestData['drpVentilation'] !='')
+		{
+			$myquery = $myquery." AND er.room_ventilation_id = ".$requestData['drpVentilation'];
+		}
+		if(isset($requestData['drpLighting']) && $requestData['drpLighting'] !='')
+		{
+			$myquery = $myquery." AND er.room_lighting_id = ".$requestData['drpLighting'];
+		}
+		if(isset($requestData['drpCloset']) && $requestData['drpCloset'] !='')
+		{
+			$myquery = $myquery." AND er.has_closet = ".$requestData['drpCloset'];
+		}
+		if(isset($requestData['drpBed']) && $requestData['drpBed'] !='')
+		{
+			$myquery = $myquery." AND er.has_good_bed = ".$requestData['drpBed'];
+		}
+		if(isset($requestData['drpCupboard']) && $requestData['drpCupboard'] !='')
+		{
+			$myquery = $myquery." AND er.has_medicine_cupboard = ".$requestData['drpCupboard'];
+		}
+		if(isset($requestData['drpHigiene']) && $requestData['drpHigiene'] !='')
+		{
+			$myquery = $myquery." AND er.elder_higiene_id = ".$requestData['drpHigiene'];
+		}
+		if(isset($requestData['drpGovernorate']) && $requestData['drpGovernorate'] !='')
+		{
+			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
+		}
+		
+		
+		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
+		
+		if ($requestData['length'] > 0)
+			$myquery = $myquery." LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
 }
 ?>
