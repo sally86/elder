@@ -512,5 +512,107 @@ class Reportsmodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+	
+	//  Life Improvement Report
+	function get_life_improvement_rpt($requestData)
+	{
+		$columns = array( 
+			1 => 'file_id',
+			2 => 'name', 
+			3 => 'phone', 
+			4 => 'mobile_first',
+			5 => 'mobile_second',
+			6 => 'wrk.sub_constant_name',
+			6 => 'elder_work_type',
+			6 => 'fm.sub_constant_name',
+			6 => 'tr.sub_constant_name',
+			7 => 'elder_training_type', 
+			8 => 'prj.sub_constant_name',
+			9 => 'project_type',
+			10 => 'project_budget');
+		
+		$myquery = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+					    e.phone, mobile_first, e.mobile_second,
+					    lf.elder_work_ability_id, wrk.sub_constant_name as elder_work_ability,
+					    lf.elder_work_type,
+					    lf.family_member_id, fm.sub_constant_name as family_member,
+					    lf.is_elder_need_training, tr.sub_constant_name as elder_need_training,
+                        lf.elder_training_type,
+                        lf.can_start_project, prj.sub_constant_name as can_start_proj,
+                        lf.project_type, lf.project_budget,
+                        f.file_id, f.file_status_id
+				FROM    elder_tb e, file_tb f,  survey_tb s, life_improvement_tb lf
+							LEFT OUTER JOIN sub_constant_tb wrk ON lf.elder_work_ability_id = wrk.sub_constant_id
+                            LEFT OUTER JOIN sub_constant_tb fm  ON lf.family_member_id = fm.sub_constant_id
+                            LEFT OUTER JOIN sub_constant_tb tr  ON lf.is_elder_need_training = tr.sub_constant_id
+                            LEFT OUTER JOIN sub_constant_tb prj ON lf.can_start_project = prj.sub_constant_id
+                WHERE 	e.elder_id = f.elder_id
+				  AND	s.file_id = f.file_id
+				  AND	s.survey_id = lf.survey_id
+				  AND 	f.file_status_id = 170";
+		
+		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
+		{
+			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+		}
+		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
+		{
+			$myquery = $myquery." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
+			LIKE '%".$requestData['txtElderName']."%' ";
+		}
+		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
+		{
+			$myquery = $myquery." AND phone = ".$requestData['txtPhone'];
+		}
+		if(isset($requestData['txtMobile1']) && $requestData['txtMobile1'] !='')
+		{
+			$myquery = $myquery." AND mobile_first = ".$requestData['txtMobile1'];
+		}
+		if(isset($requestData['txtMobile2']) && $requestData['txtMobile2'] !='')
+		{
+			$myquery = $myquery." AND e.mobile_second = ".$requestData['txtMobile2'];
+		}
+		if(isset($requestData['drpWorkability']) && $requestData['drpWorkability'] !='')
+		{
+			$myquery = $myquery." AND lf.elder_work_ability_id = ".$requestData['drpWorkability'];
+		}
+		if(isset($requestData['txtWorktype']) && $requestData['txtWorktype'] !='')
+		{
+			$myquery = $myquery." AND lf.elder_work_type LIKE '%".$requestData['txtWorktype']."%'";
+		}
+		if(isset($requestData['drpFamilymember']) && $requestData['drpFamilymember'] !='')
+		{
+			$myquery = $myquery." AND lf.family_member_id = ".$requestData['drpFamilymember'];
+		}
+		if(isset($requestData['drpNeedtraining']) && $requestData['drpNeedtraining'] !='')
+		{
+			$myquery = $myquery." AND lf.is_elder_need_training = ".$requestData['drpNeedtraining'];
+		}
+		if(isset($requestData['drpGovernorate']) && $requestData['drpGovernorate'] !='')
+		{
+			$myquery = $myquery." AND lf.elder_training_type LIKE '%".$requestData['txtProjecttype']."%'";
+		}
+		if(isset($requestData['drpStartproject']) && $requestData['drpStartproject'] !='')
+		{
+			$myquery = $myquery." AND lf.can_start_project = ".$requestData['drpStartproject'];
+		}
+		if(isset($requestData['txtProjecttype']) && $requestData['txtProjecttype'] !='')
+		{
+			$myquery = $myquery." AND lf.project_type LIKE '%".$requestData['txtProjecttype']."%'";
+		}
+		if(isset($requestData['txtProjebudget']) && $requestData['txtProjebudget'] !='')
+		{
+			$myquery = $myquery." AND lf.project_budget = ".$requestData['txtProjebudget'];
+		}
+		
+		
+		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
+		
+		if ($requestData['length'] > 0)
+			$myquery = $myquery." LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
 }
 ?>

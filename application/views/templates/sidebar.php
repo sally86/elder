@@ -217,13 +217,15 @@
 					</ul>
 				</li>
 				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt'  || $title == 'incomerpt' 
-						  || $title == 'elderhomerpt' || $title == 'elderroomrpt' || $title == 'maintenancerpt') 
+						  || $title == 'elderhomerpt' || $title == 'elderroomrpt' || $title == 'maintenancerpt' 
+						  || $title == 'lifeimprovementrpt') 
 					echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
 					<?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt' || $title == 'incomerpt'
-						  || $title == 'elderhomerpt'  || $title == 'elderroomrpt' || $title == 'maintenancerpt')
+						  || $title == 'elderhomerpt'  || $title == 'elderroomrpt' || $title == 'maintenancerpt'
+						  || $title == 'lifeimprovementrpt')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
@@ -274,12 +276,12 @@
                         <li>
 							<a href="charts_amcharts.html">
                             <i class="icon-users"></i>
-							تقرير المستخدمين</a>
+							تقرير حالة الأسرة مع المسن</a>
 						</li>
-                        <li>
-							<a href="charts_flotcharts.html">
+                        <li<?php if($title == 'lifeimprovementrpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/lifeimprovementrpt">
                             <i class="icon-docs"></i>
-							عـرض بحث ميداني</a>
+							تقرير التشغيل وتحسين مستوى الأسرة</a>
 						</li>
                         <li >
 							<a href="charts_flotcharts.html">

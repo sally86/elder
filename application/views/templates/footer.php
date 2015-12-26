@@ -160,6 +160,7 @@
 		HomeRptAjax.init();
 		RoomRptAjax.init();
 		MaintenanceRptAjax.init();
+		LifeimprovementRptAjax.init();
 		//***************end Ajax table*******************/
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
