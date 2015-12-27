@@ -261,8 +261,8 @@ class Reportsmodel extends CI_Model
 			3 => 'phone', 
 			4 => 'mobile_first',
 			5 => 'mobile_second',
-			6 => '('.$family_query.')',
-			7 => '('.$resource_query.')',
+			6 => 'count_family_member',
+			7 => 'resource',
 			8 => 'ir.total_income', 
 			9 => 'ir.elder_portion',
 			10 => 'gov.sub_constant_name');
@@ -523,13 +523,13 @@ class Reportsmodel extends CI_Model
 			4 => 'mobile_first',
 			5 => 'mobile_second',
 			6 => 'wrk.sub_constant_name',
-			6 => 'elder_work_type',
-			6 => 'fm.sub_constant_name',
-			6 => 'tr.sub_constant_name',
-			7 => 'elder_training_type', 
-			8 => 'prj.sub_constant_name',
-			9 => 'project_type',
-			10 => 'project_budget');
+			7 => 'elder_work_type',
+			8 => 'fm.sub_constant_name',
+			9 => 'tr.sub_constant_name',
+			10 => 'elder_training_type', 
+			11 => 'prj.sub_constant_name',
+			12 => 'project_type',
+			13 => 'project_budget');
 		
 		$myquery = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 					    e.phone, mobile_first, e.mobile_second,
@@ -604,6 +604,162 @@ class Reportsmodel extends CI_Model
 		{
 			$myquery = $myquery." AND lf.project_budget = ".$requestData['txtProjebudget'];
 		}
+		
+		
+		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
+		
+		if ($requestData['length'] > 0)
+			$myquery = $myquery." LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
+	
+	// Aid Recomendation Report
+	function get_aid_recomendation_rpt($requestData)
+	{
+		$columns = array( 
+			1 => 'file_id',
+			2 => 'name', 
+			3 => 'phone', 
+			4 => 'mobile_first',
+			5 => 'mobile_second',
+			6 => 'cash_aid_type_id',
+			7 => 'cash_aid_amount',
+			8 => 'medical_aid',
+			9 => 'home_improvment',
+			10 => 'home_rent',
+			11 => 'other_home_aids',
+			12 => 'nutrition_type_id',
+			13 => 'nutrition_details',
+			14 => 'psychological_support',
+			15 => 'social_support',
+			16 => 'entertainment');
+		
+		$home_aid_search = '0';	
+		$home_aid_where = "";
+		
+		$select = "SELECT DISTINCT(s.survey_id), e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+							e.phone, mobile_first, e.mobile_second,
+							ad.cash_aid_type_id, csh.sub_constant_name as cash_aid_type,
+							ad.cash_aid_amount, ad.psychological_support, ad.social_support, ad.entertainment,
+							ad.nutrition_type_id, ntr.sub_constant_name as nutrition_type,
+							ad.nutrition_details,
+							(SELECT improvement_details 
+							 	   FROM home_improvement_recomendation_tb 
+							 	  WHERE survey_id = s.survey_id
+								    AND improvement_type_id = 168) as home_rent,
+							(SELECT improvement_details 
+							 	   FROM home_improvement_recomendation_tb 
+							 	  WHERE survey_id = s.survey_id
+								    AND improvement_type_id = 169) as other_home_aids,
+							(SELECT GROUP_CONCAT(imptp.sub_constant_name SEPARATOR ' - ')
+								   FROM home_improvement_recomendation_tb hmimp, sub_constant_tb imptp
+								  WHERE hmimp.improvement_type_id = imptp.sub_constant_id
+									AND hmimp.survey_id = s.survey_id)  as home_improvment,
+							(SELECT GROUP_CONCAT(medtp.sub_constant_name SEPARATOR ' - ')
+								   FROM medical_aid_recomendation_tb medc, sub_constant_tb medtp
+								  WHERE medc.medical_aid_type_id = medtp.sub_constant_id
+									AND medc.survey_id = s.survey_id)  as medical_aid,
+							f.file_id, f.file_status_id ";
+							
+		$from = "FROM    elder_tb e, file_tb f,  survey_tb s 
+								LEFT OUTER JOIN aids_recomendation_tb ad ON  s.survey_id = ad.survey_id 
+								LEFT OUTER JOIN sub_constant_tb csh ON ad.cash_aid_type_id = csh.sub_constant_id
+								LEFT OUTER JOIN sub_constant_tb ntr ON ad.nutrition_type_id = ntr.sub_constant_id ";
+								
+		$where = "WHERE 	e.elder_id = f.elder_id
+					  AND	s.file_id = f.file_id
+					  AND	s.survey_id IN (
+								SELECT survey_id FROM aids_recomendation_tb 
+								UNION SELECT survey_id FROM home_improvement_recomendation_tb
+								UNION SELECT survey_id FROM medical_aid_recomendation_tb)
+					  AND 	f.file_status_id = 170";
+		
+		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
+		{
+			$where = $where." AND f.file_id = ".$requestData['txtFileid'];
+		}
+		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
+		{
+			$where = $where." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
+			LIKE '%".$requestData['txtElderName']."%' ";
+		}
+		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
+		{
+			$where = $where." AND phone = ".$requestData['txtPhone'];
+		}
+		if(isset($requestData['txtMobile1']) && $requestData['txtMobile1'] !='')
+		{
+			$where = $where." AND mobile_first = ".$requestData['txtMobile1'];
+		}
+		if(isset($requestData['txtMobile2']) && $requestData['txtMobile2'] !='')
+		{
+			$where = $where." AND e.mobile_second = ".$requestData['txtMobile2'];
+		}
+		if(isset($requestData['drpCashType']) && $requestData['drpCashType'] !='')
+		{
+			$where = $where." AND ad.cash_aid_type_id = ".$requestData['drpCashType'];
+		}
+		if(isset($requestData['txtCash']) && $requestData['txtCash'] !='')
+		{
+			$where = $where." AND ad.cash_aid_amount = ".$requestData['txtCash'];
+		}
+		if(isset($requestData['txtPsychosupport']) && $requestData['txtPsychosupport'] !='')
+		{
+			$where = $where." AND ad.psychological_support LIKE '%".$requestData['txtPsychosupport']."%'";
+		}
+		if(isset($requestData['txtSocialsupport']) && $requestData['txtSocialsupport'] !='')
+		{
+			$where = $where." AND ad.social_support LIKE '%".$requestData['txtSocialsupport']."%'";
+		}
+		if(isset($requestData['txtEntertainment']) && $requestData['txtEntertainment'] !='')
+		{
+			$where = $where." AND ad.entertainment LIKE '%".$requestData['txtEntertainment']."%'";
+		}
+		if(isset($requestData['drpNutritiontype']) && $requestData['drpNutritiontype'] !='')
+		{
+			$where = $where." AND ad.nutrition_type_id = ".$requestData['drpNutritiontype'];
+		}
+		if(isset($requestData['txtNutritiondet']) && $requestData['txtNutritiondet'] !='')
+		{
+			$where = $where." AND ad.nutrition_details LIKE '%".$requestData['txtNutritiondet']."%'";
+		}
+		if(isset($requestData['drpHomeimprovment']) && $requestData['drpHomeimprovment'] !='')
+		{
+			$home_aid_search = " 1";
+			
+			$from = $from . ", home_improvement_recomendation_tb ohmimp";
+			$where = $where." AND ohmimp.survey_id = s.survey_id";
+			$home_aid_where = " AND ohmimp.improvement_type_id = ".$requestData['drpHomeimprovment'];
+		}
+		if(isset($requestData['txtRent']) && $requestData['txtRent'] !='')
+		{
+			$home_aid_search = "01";
+			$from  = $from . ", home_improvement_recomendation_tb ohmrnt";
+			$where = $where. "  AND ohmrnt.survey_id = s.survey_id";
+			$home_aid_where = " AND ohmrnt.improvement_type_id = 168
+						  	    AND ohmrnt.improvement_details = ".$requestData['txtRent'];
+			
+		}
+		if(isset($requestData['txtOtheraids']) && $requestData['txtOtheraids'] !='')
+		{
+			$from = $from . ", home_improvement_recomendation_tb ohmoth";
+			$where = $where." AND ohmoth.survey_id = s.survey_id";
+			$where = $where." AND ohmoth.improvement_type_id = 169
+							  AND ohmoth.improvement_details LIKE '%".$requestData['txtOtheraids']."%'";
+		}
+		if(isset($requestData['drpMedicalaid']) && $requestData['drpMedicalaid'] !='')
+		{
+			$from = $from . ", medical_aid_recomendation_tb omedc";
+			$where = $where." AND omedc.survey_id = s.survey_id";
+			$where = $where." AND omedc.medical_aid_type_id = ".$requestData['drpMedicalaid'];
+			
+		}
+		
+		$myquery = "$select
+ 					$from
+					$where $home_aid_where";
 		
 		
 		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];

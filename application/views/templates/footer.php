@@ -161,6 +161,7 @@
 		RoomRptAjax.init();
 		MaintenanceRptAjax.init();
 		LifeimprovementRptAjax.init();
+		AidrecomendationRptAjax.init();
 		//***************end Ajax table*******************/
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();

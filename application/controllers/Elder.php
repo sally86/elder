@@ -69,8 +69,8 @@ class Elder extends CI_Controller
 			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
 			  <i class="fa fa-edit"></i> تعديل </a>';*/
 			
-			/*$btn='<a class="btn default btn-xs purple" onclick="gotoElder(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i> تعديل </a>';*/
+			$btn='<a class="btn default btn-xs purple" onclick="gotoElder(\''.$row->elder_id.'\')">
+			  <i class="fa fa-edit"></i> تعديل </a>';
 			$btn='<a class="btn default btn-xs purple" onclick="gotoFamilyMember(\''.$row->elder_id.'\')">
 			  <i class="fa fa-edit"></i>تعديل بيانات العائلة </a>';
 			

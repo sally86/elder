@@ -6,7 +6,7 @@
       <div class="portlet">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-briefcase"></i>تقرير تشغيل وتحسين مستوى الأسرة
+                  <i class="fa fa-briefcase"></i>تقرير توصيات الادارة
               </div>
           </div>
           <div class="portlet-body">
@@ -16,7 +16,7 @@
                       </span>
                       <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> طباعة</button>
                   </div>
-                  <table class="table table-striped table-bordered table-hover" id="Lifeimprovementerpt_ajax">
+                  <table class="table table-striped table-bordered table-hover" id="Aidrecomendationrpt_ajax">
                   <thead>
                   <tr role="row" class="heading">
                       <th width="2%">
@@ -38,28 +38,37 @@
                            جوال 2
                       </th>
                       <th>
-                           قدرة المسن على العمل 
+                           نوع المساعدة المادية  
                       </th>
                       <th>
-                           طبيعة العمل المطلوب
+                           قيمة المساعدة المادية 
                       </th>
                       <th>
-                          امكانية تشغيل أحد أفراد الأسرة
+                          نوع المساعدة الطبية
                       </th>
                       <th>
-                          طبيعة العمل 
+                          تأهيل السكن 
                       </th>
                       <th>
-                          نوع التدريب المطلوب
+                          ايجار بيت 
                       </th>
                       <th>
-                           عمل مشروع
+                          مستلزمات سكن أخرى 
                       </th>
                       <th>
-                           طبيعة المشروع
+                          تغذية المسن 
                       </th>
                       <th>
-                           التكلفة
+                          نوع الغذاء
+                      </th>
+                      <th>
+                           الدعم النفسي
+                      </th>
+                      <th>
+                           الدعم الإجتماعي 
+                      </th>
+                      <th>
+                           الترفيه
                       </th>
                       <th>&nbsp;
                            
@@ -84,24 +93,10 @@
                          <input type="text" class="form-control form-filter input-sm" id="txtMobile2" name="txtMobile2">
                       </td>
                       <td>
-                      	 <select class="form-control form-filter input-sm" id="drpWorkability" name="drpWorkability">
+                      	 <select class="form-control form-filter input-sm" id="drpCashType" name="drpCashType">
                             <option value="">اختر...</option>
                             <?php
-							  foreach($elder_elderWorkAbility as $row)
-							  {
-                      			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-							  }
-							  ?>
-                          </select>
-                      </td>
-                       <td>
-                         <input type="text" class="form-control form-filter input-sm" id="txtWorktype" name="txtWorktype">
-                      </td>
-                      <td>
-                      	 <select class="form-control form-filter input-sm" id="drpFamilymember" name="drpFamilymember">
-                            <option value="">اختر...</option>
-                            <?php
-							  foreach($elder_familyMember as $row)
+							  foreach($elder_CashAidType as $row)
 							  {
                       			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
 							  }
@@ -109,10 +104,13 @@
                           </select>
                       </td>
                       <td>
-                          <select class="form-control form-filter input-sm" id="drpNeedtraining" name="drpNeedtraining">
+                         <input type="text" class="form-control form-filter input-sm" id="txtCash" name="txtCash">
+                      </td>
+                      <td>
+                          <select class="form-control form-filter input-sm" id="drpMedicalaid" name="drpMedicalaid">
                             <option value="">اختر...</option>
                             <?php
-							  foreach($elder_choice as $row)
+							  foreach($elder_MedicalAid as $row)
 							  {
                       			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
 							  }
@@ -120,13 +118,10 @@
                         </select>
                       </td>
                       <td>
-                          <input type="text" class="form-control form-filter input-sm" id="txtTrainingtype" name="txtTrainingtype">
-                      </td>
-                      <td>
-                          <select class="form-control form-filter input-sm" id="drpStartproject" name="drpStartproject">
+                          <select class="form-control form-filter input-sm" id="drpHomeimprovment" name="drpHomeimprovment">
                             <option value="">اختر...</option>
                             <?php
-							  foreach($elder_choice as $row)
+							  foreach($elder_HomeImprovRecomend as $row)
 							  {
                       			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
 							  }
@@ -134,11 +129,35 @@
                         </select>
                       </td>
                       <td>
-                        <input type="text" class="form-control form-filter input-sm" id="txtProjecttype" name="txtProjecttype">
+                          <input type="text" class="form-control form-filter input-sm" id="txtRent" name="txtRent">
                       </td>
                       <td>
-                        <input type="text" class="form-control form-filter input-sm" id="txtProjebudget" name="txtProjebudget">
+                          <input type="text" class="form-control form-filter input-sm" id="txtOtheraids" name="txtOtheraids">
                       </td>
+                      <td>
+                      	 <select class="form-control form-filter input-sm" id="drpNutritiontype" name="drpNutritiontype">
+                            <option value="">اختر...</option>
+                            <?php
+							  foreach($elder_NutritionType as $row)
+							  {
+                      			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+							  }
+							  ?>
+                          </select>
+                      </td>
+                      <td>
+                          <input type="text" class="form-control form-filter input-sm" id="txtNutritiondet" name="txtNutritiondet">
+                      </td>
+                      <td>
+                         <input type="text" class="form-control form-filter input-sm" id="txtPsychosupport" name="txtPsychosupport">
+                      </td>
+                      <td>
+                         <input type="text" class="form-control form-filter input-sm" id="txtSocialsupport" name="txtSocialsupport">
+                      </td>
+                      <td>
+                         <input type="text" class="form-control form-filter input-sm" id="txtEntertainment" name="txtEntertainment">
+                      </td>
+                      
                       <td>
                          <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i> </button>
                          <button class="btn btn-sm red filter-cancel"><i class="fa fa-times"></i> </button>

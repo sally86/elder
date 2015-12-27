@@ -218,14 +218,14 @@
 				</li>
 				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt'  || $title == 'incomerpt' 
 						  || $title == 'elderhomerpt' || $title == 'elderroomrpt' || $title == 'maintenancerpt' 
-						  || $title == 'lifeimprovementrpt') 
+						  || $title == 'lifeimprovementrpt' || $title == 'aidrecomendationrpt') 
 					echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
 					<?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt' || $title == 'incomerpt'
 						  || $title == 'elderhomerpt'  || $title == 'elderroomrpt' || $title == 'maintenancerpt'
-						  || $title == 'lifeimprovementrpt')
+						  || $title == 'lifeimprovementrpt' || $title == 'aidrecomendationrpt')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
@@ -278,10 +278,15 @@
                             <i class="icon-users"></i>
 							تقرير حالة الأسرة مع المسن</a>
 						</li>
-                        <li<?php if($title == 'lifeimprovementrpt') echo 'class="active open"';?>>
+                        <li <?php if($title == 'lifeimprovementrpt') echo 'class="active open"';?>>
 							<a href="<?php echo base_url();?>reports/lifeimprovementrpt">
                             <i class="icon-docs"></i>
 							تقرير التشغيل وتحسين مستوى الأسرة</a>
+						</li>
+                        <li <?php if($title == 'aidrecomendationrpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/aidrecomendationrpt">
+                            <i class="icon-pencil"></i>
+							قـرارات وتـوصيات الادارة</a>
 						</li>
                         <li >
 							<a href="charts_flotcharts.html">
@@ -297,12 +302,7 @@
 							<a href="charts_flotcharts.html">
                             <i class="icon-pointer"></i>
 							الزيارات الميدانية لعضو</a>
-						</li>
-                        <li>
-							<a href="charts_flotcharts.html">
-                            <i class="icon-pencil"></i>
-							قـرارات وتـوصيات الادارة</a>
-						</li>
+						</li>  
 					</ul>
 				</li>
 			</ul>

@@ -110,9 +110,12 @@ class Surveyviewcont extends CI_Controller
 			$nestedData=array();
 			
 			
-			$btn='<a class="btn default btn-xs purple" onclick="gotoSurvey(\''.$row->survey_id.'\')">
+			/*$btn='<a class="btn default btn-xs purple" onclick="gotoSurvey(\''.$row->survey_id.'\')">
 			  <i class="fa fa-edit"></i> تعديل </a>
 			  <a class="btn default btn-xs purple" onclick="gotoFollowup(\''.$row->elder_id.'\')">
+			  <i class="fa fa-edit"></i> ملف المتابعة </a>';*/
+			
+			$btn='<a class="btn default btn-xs purple" onclick="gotoFollowup(\''.$row->elder_id.'\')">
 			  <i class="fa fa-edit"></i> ملف المتابعة </a>';
 			
 			$nestedData[] = $i++;
