@@ -770,5 +770,24 @@ class Reportsmodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+	
+	function get_dead_rpt()
+	{
+		$myquery = "SELECT COUNT(elder_id) dead FROM elder_tb WHERE death_date IS NOT NULL";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
+	function get_file_num_rpt()
+	{
+		$myquery = "SELECT COUNT(file_id) as file_count, file_status_id, s.sub_constant_name as file_status
+					  FROM sub_constant_tb s LEFT OUTER JOIN file_tb ON file_status_id = s.sub_constant_id
+					 WHERE s.constant_id = 51
+				     GROUP BY file_status_id, s.sub_constant_name
+				     ORDER BY s.sub_constant_id";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
 }
 ?>

@@ -510,5 +510,15 @@ class Reports extends CI_Controller
 		
 		echo json_encode($json_data);  // send data as json format
 	}
+	
+	//******************************* Statistical Report ****************************//
+	function statisticalrpt()
+	{
+		$this->load->model('reportsmodel');
+		
+		$this->data['dead'] = $this->reportsmodel->get_dead_rpt();
+		$this->data['file'] = $this->reportsmodel->get_file_num_rpt();
+			
+	}
 }
 ?>
