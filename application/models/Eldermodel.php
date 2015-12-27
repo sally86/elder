@@ -51,9 +51,10 @@ class Eldermodel extends CI_Model
 			$myquery = $myquery." AND elder_id = ".$requestData['txtElderid'];
 		}
 		
-		if(isset($requestData['txtName']) && $requestData['txtName'] !='')
+		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
-			$myquery = $myquery." AND name LIKE '%".$requestData['txtName']."%' ";
+			$myquery = $myquery." AND CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name)
+			LIKE '%".$requestData['txtElderName']."%' ";
 		}
 		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
 		{

@@ -50,7 +50,7 @@
                           <input type="text" class="form-control form-filter input-sm" id="txtElderid" name="txtElderid">
                       </td>
                       <td>
-                          <input type="text" class="form-control form-filter input-sm" id="txtName" name="txtName">
+                          <input type="text" class="form-control form-filter input-sm" id="txtElderName" name="txtElderName">
                       </td>
                       <td>
                           <input type="text" class="form-control form-filter input-sm" id="txtPhone" name="txtPhone">
