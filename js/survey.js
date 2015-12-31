@@ -2,6 +2,27 @@
 
 //-------------------- Elder Tab --------------------//
 
+//-------check drpEducationlevel type-------------//
+
+function educationlevel_change(){	
+
+ 	var edicationLevel_code = $('#drpEducationlevel').find('option:selected').val();
+
+	if (edicationLevel_code <27)
+	{
+		 document.getElementById("divSpecialization").style.display = "none";		
+		
+	}
+	else
+	{
+
+		  document.getElementById("divSpecialization").style.display = "block";
+	}
+	}
+
+//-----end drpEducationlevel type
+
+
 //	ELDER check ID 
 function check_elder_id(){	
 

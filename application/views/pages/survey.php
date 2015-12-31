@@ -262,7 +262,7 @@ $readonly = '';
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control" id="drpEducationlevel" name="drpEducationlevel">
+                                            <select class="form-control" id="drpEducationlevel" name="drpEducationlevel" onchange="educationlevel_change();">
                                                 <option value="">اختر...</option>
    													<?php
 												  		foreach($survey_Educationlevel as $row)
@@ -275,11 +275,11 @@ $readonly = '';
                                         </div>
                                     </div>
                                     
-                                    <div class="form-group">
+                                    <div id=divSpecialization class="form-group">
                                         <label class="control-label col-md-3">التخصص <span class="required">
                                         * </span>
                                         </label>
-                                        <div class="col-md-4">
+                                        <div  class="col-md-4">
                                             <select class="form-control" id="drpSpecialization" name="drpSpecialization">
                                                 <option value="">اختر...</option>
                                                 <?php
