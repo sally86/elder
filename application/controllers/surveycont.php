@@ -76,6 +76,7 @@ class Surveycont extends CI_Controller
 		$this->data['survey_ElderBehaviour'] = $this->constantmodel->get_sub_constant(43);
 		$this->data['survey_ElderPariah'] = $this->constantmodel->get_sub_constant(56);
 		$this->data['survey_Organization'] = $this->constantmodel->get_sub_constant(57);
+		$this->data['survey_Hiring'] = $this->constantmodel->get_sub_constant(69);
 		
 		
 		$this->load->model('Employeemodel');
@@ -134,8 +135,8 @@ class Surveycont extends CI_Controller
 			$temp['rdSex'] 		 		= $row->sex_id;
 			$temp['drpElderstatus'] 	= $row->status_id;
 			$temp['drpGovernorate'] 	= $row->governorate_id;
-			$temp['txtRegion'] 			= $row->region;
-			$temp['txtFulladdress'] 	= $row->full_address;
+			$temp['drpRegion'] 			= $row->region;
+			$temp['drpFulladdress'] 	= $row->full_address;
 			$temp['txtPhone'] 			= $row->phone;
 			$temp['txtMobile1'] 		= $row->mobile_first;
 			$temp['txtMobile2'] 		= $row->mobile_second;
@@ -771,7 +772,23 @@ class Surveycont extends CI_Controller
 		$this->load->model('Surveymodel');
 		$this->Surveymodel->update_lifeImprovement();
 	}
-	
+//************** Coopertive Family************//
+
+	function addcooperFamily()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->insert_cooperFamily();
+		
+	}
+	function updatecooperFamily()
+	{
+		$this->load->model('Surveymodel');
+		$this->Surveymodel->update_cooperFamily();
+	}
+
+
+
+//***************end Coopertive Family*********//	
 	
 	/*function getfamilymember()
 	{
@@ -1052,7 +1069,69 @@ function deletehomeaidbyId()
 	$this->drawhomeaidTable();
 }
 
-	
+
+function get_region()
+	{
+		$this->load->model('Surveymodel');
+		$rec=$this->Surveymodel->get_region_list();
+		$SurveyId=0;
+		if (count($rec) == 0)
+		{
+			echo 0;
+			return;
+		}
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+		
+		$temp['sub_constant_id'] = $row->sub_constant_id;
+		$temp['sub_constant_name'] = $row->sub_constant_name ;
+		
+			array_push($output,$temp);
+			
+			
+			
+		}
+		header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
+
+}	
+function get_fulladdress()
+	{
+		$this->load->model('Surveymodel');
+		$rec=$this->Surveymodel->get_fulladress_list();
+		$SurveyId=0;
+		if (count($rec) == 0)
+		{
+			echo 0;
+			return;
+		}
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+		
+		$temp['sub_constant_id'] = $row->sub_constant_id;
+		$temp['sub_constant_name'] = $row->sub_constant_name ;
+		
+			array_push($output,$temp);
+			
+			
+			
+		}
+		header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
+
+}	
 	
 }
 

@@ -21,6 +21,58 @@ function educationlevel_change(){
 	}
 
 //-----end drpEducationlevel type
+function governorate_change(){	
+
+ 	var governorate_code = $('#drpGovernorate').find('option:selected').val();
+	
+	$.ajax({
+			url: baseURL+"Surveycont/get_region",
+			type: "POST",
+			data:  {governorateCode:governorate_code},
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				var i=0;
+				$('#drpRegion').empty();
+				$('#drpFulladdress').empty();
+//				alert(returndb[0]['sub_constant_id']+returndb[0]['sub_constant_name']);
+				$('#drpRegion').append("<option>أختر ....</option>");
+				for (i=0;i<returndb.length;++i)
+			//	alert(returndb[i]['sub_constant_id']+returndb[i]['sub_constant_name']);
+				$('#drpRegion').append('<option value= "'+ returndb[i]['sub_constant_id'] + '">' + returndb[i]['sub_constant_name'] +'</option>');
+				
+			}
+		});//END $.ajax
+}
+
+function region_change(){	
+
+ 	var region_code = $('#drpRegion').find('option:selected').val();
+	
+	$.ajax({
+			url: baseURL+"Surveycont/get_fulladdress",
+			type: "POST",
+			data:  {regionCode:region_code},
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				var i=0;
+				$('#drpFulladdress').empty();
+//				alert(returndb[0]['sub_constant_id']+returndb[0]['sub_constant_name']);
+				$('#drpFulladdress').append("<option>أختر ....</option>");
+				for (i=0;i<returndb.length;++i)
+			//	alert(returndb[i]['sub_constant_id']+returndb[i]['sub_constant_name']);
+				$('#drpFulladdress').append('<option value= "'+ returndb[i]['sub_constant_id'] + '">' + returndb[i]['sub_constant_name'] +'</option>');
+				
+			}
+		});//END $.ajax
+}
 
 
 //	ELDER check ID 
@@ -70,8 +122,8 @@ function check_elder_id(){
 				  $('#rdSex').val(returndb[0]['rdSex']);
 				  $('#drpElderstatus').val(returndb[0]['drpElderstatus']);
 				  $('#drpGovernorate').val(returndb[0]['drpGovernorate']);
-				  $('#txtRegion').val(returndb[0]['txtRegion']);
-				  $('#txtFulladdress').val(returndb[0]['txtFulladdress']);
+				  $('#drpRegion').val(returndb[0]['drpRegion']);
+				  $('#drpFulladdress').val(returndb[0]['drpFulladdress']);
 				  $('#txtPhone').val(returndb[0]['txtPhone']);
 				  $('#txtMobile1').val(returndb[0]['txtMobile1']);
 				  $('#txtMobile2').val(returndb[0]['txtMobile2']);
@@ -92,8 +144,8 @@ function check_elder_id(){
 					$('#rdSex').val(1);
 					$('#drpElderstatus').val('');
 					$('#drpGovernorate').val('');
-					$('#txtRegion').val('');
-					$('#txtFulladdress').val('');
+					$('#drpRegion').val('');
+					$('#drpFulladdress').val('');
 					$('#txtPhone').val('');
 					$('#txtMobile1').val('');
 					$('#txtMobile2').val('');
@@ -817,6 +869,7 @@ function validateHomeStatus()
 		
 	return valid;
 }
+
 $(document).ready(function(){
 	
 	/********** Ceiling **********/
@@ -1604,7 +1657,78 @@ $(document).ready(function(){
 	
 }); // END READY
 //--------------- END Life Improvement Tab ---------------------//
+//******************cooperative family*************************//
 
+
+function editeCooperativFamily()
+{
+	var action = $("#hdncooperativFamily").val();
+	
+	//alert(action);
+	
+	if ( !validateCooperativFamily() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'			,  $("#hdnSurveyId").val()			);
+	formData.append('drpIScooperative'	,  $("#drpIScooperative").val() 	);
+	formData.append('drpcooperPersonetype'		,  $("#drpcooperPersonetype").val()		);
+	formData.append('txtcooperPersoneId'		,  $("#txtcooperPersoneId").val()		);
+	formData.append('txtcooperPersoneName'		,  $("#txtcooperPersoneName").val()	);
+	formData.append('txtcooperPersoneMobile'		,  $("#txtcooperPersoneMobile").val()		);
+	formData.append('txtcooperPersoneAddress'		,  $("#txtcooperPersoneAddress").val()		);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$('#hdncooperativFamily').val('updatecooperFamily');	
+			}
+		});//END $.ajax
+}
+function validateCooperativFamily()
+{
+										 
+	var form = $('#submit_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpIScooperative").valid()  )
+		valid = false;
+	if ( !$("#txtcooperPersoneId").valid()  )
+		valid = false;
+	
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+
+//****************end cooperative family************************//
 //-------------------- Recomindation Tab -----------------------//
 function editeaidrecomend()
 {
@@ -2004,10 +2128,10 @@ var FormWizard = function () {
 					drpGovernorate: {
                         required: true
                     },
-					txtRegion: {
+					drpRegion: {
                         required: true
                     },
-					txtFulladdress: {
+					drpFulladdress: {
                         required: true
 					},
 					txtPhone: {
@@ -2470,6 +2594,13 @@ var FormWizard = function () {
 						}//END required
 					},
 					
+					drpIScooperative: {
+                        required: true
+					},
+					txtcooperPersoneId: {
+                        digits: true
+					}
+					
                 },
 
                messages: { // custom messages for radio buttons and checkboxes
@@ -2504,11 +2635,11 @@ var FormWizard = function () {
 					drpGovernorate: {
 						required: "الرجاء إختيار قيمة"
                     },
-					txtRegion: {
-						required: "الرجاء إدخال قيمة"
+					drpRegion: {
+						required: "الرجاء إختيار قيمة"
                     },
-					txtFulladdress: {
-						required: "الرجاء إدخال قيمة"
+					drpFulladdress: {
+						required: "الرجاء إختيار قيمة"
                     },
 					txtPhone: {
 						minlength: "رقم الهاتف يجب ان يكون 7 ارقام",
@@ -2783,6 +2914,12 @@ var FormWizard = function () {
 					txtImprovementdet: {
                         required: "الرجاء إدخال قيمة"
 					},
+					drpIScooperative: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtcooperPersoneId: {
+                        digits: "الرجـاء ادخـال ارقـام فقط"
+					}
 	
                 },
 

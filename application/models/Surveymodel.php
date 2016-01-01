@@ -23,8 +23,8 @@ class Surveymodel extends CI_Model
 		$data['sex_id'] 			= $rdSex;
 		$data['status_id'] 			= $drpElderstatus;
 		$data['governorate_id'] 	= $drpGovernorate;
-		$data['region'] 			= $txtRegion;
-		$data['full_address'] 		= $txtFulladdress;
+		$data['region'] 			= $drpRegion;
+		$data['full_address'] 		= $drpFulladdress;
 		$data['phone'] 				= $txtPhone;
 		$data['mobile_first'] 		= $txtMobile1;
 		$data['mobile_second'] 		= $txtMobile2;
@@ -81,8 +81,8 @@ class Surveymodel extends CI_Model
 		$data['sex_id'] 			= $rdSex;
 		$data['status_id'] 			= $drpElderstatus;
 		$data['governorate_id'] 	= $drpGovernorate;
-		$data['region'] 			= $txtRegion;
-		$data['full_address'] 		= $txtFulladdress;
+		$data['region'] 			= $drpRegion;
+		$data['full_address'] 		= $drpFulladdress;
 		$data['phone'] 				= $txtPhone;
 		$data['mobile_first'] 		= $txtMobile1;
 		$data['mobile_second'] 		= $txtMobile2;
@@ -817,6 +817,41 @@ class Surveymodel extends CI_Model
 		$this->db->update('life_improvement_tb ',$data);
 		
 	}
+//*******************Cooperative Family**************//
+
+
+	function insert_cooperFamily()
+	{
+		extract($_POST);
+
+		$data['survey_id'] 					 = $hdnSurveyId;
+		$data['is_cooperative_family'] 		 = $drpIScooperative;
+		$data['cooperative_persone_type_id'] = $drpcooperPersonetype;
+		$data['cooperative_persone_id'] 	 = $txtcooperPersoneId;
+		$data['cooperative_persone_name']    = $txtcooperPersoneName;
+		$data['cooperative_persone_mobile']  = $txtcooperPersoneMobile;
+		$data['cooperative_persone_address'] = $txtcooperPersoneAddress;
+		
+		$this->db->insert('family_cooperation_tb',$data);
+		
+	}
+	function update_cooperFamily()
+	{
+		extract($_POST);
+
+		
+		$data['is_cooperative_family'] 		 = $drpIScooperative;
+		$data['cooperative_persone_type_id'] = $drpcooperPersonetype;
+		$data['cooperative_persone_id'] 	 = $txtcooperPersoneId;
+		$data['cooperative_persone_name']    = $txtcooperPersoneName;
+		$data['cooperative_persone_mobile']  = $txtcooperPersoneMobile;
+		$data['cooperative_persone_address'] = $txtcooperPersoneAddress;
+					
+		$this->db->where('survey_id',$hdnSurveyId);
+		$this->db->update('family_cooperation_tb ',$data);
+		
+	}
+//*******************End Cooperative Family**********//	
 //--------------------- END LIFE IMPROVEMENT TAB -----------------------/	
 	function insert_survey()
 	{
@@ -836,6 +871,21 @@ class Surveymodel extends CI_Model
 	}
 
 
+
+function get_region_list()
+	{	extract($_POST);
+		$this->db->where('parent_id',$governorateCode);
+		$query = $this->db->get('sub_constant_tb ');
+		return $query->result();
+		
+	}
+function get_fulladress_list()
+	{	extract($_POST);
+		$this->db->where('parent_id',$regionCode);
+		$query = $this->db->get('sub_constant_tb ');
+		return $query->result();
+		
+	}
 
 function get_survey_info()
 	{	extract($_POST);

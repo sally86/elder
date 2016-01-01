@@ -6,6 +6,7 @@ $homeStatusction="addhomeStatus";
 $elderRoomaction="addelderRoom";
 $elderFamRelAction="addelderFamRel";
 $lifeImprovAction="addelifeImprov";
+$cooperativFamilyAction="addcooperFamily";
 $page_title = "اضـــافة موظف";
 $readonly = '';
 /*if (isset($elder_info))
@@ -203,7 +204,7 @@ $readonly = '';
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control" id="drpGovernorate" name="drpGovernorate">
+                                            <select class="form-control" id="drpGovernorate" name="drpGovernorate" onchange="governorate_change()">
                                                 <option value="">اختر...</option>
 													<?php
 												  	foreach($survey_Governorate as $row)
@@ -214,9 +215,34 @@ $readonly = '';
                                             </select>
                                         </div>
                                     </div>
-                                    
+                <!-- -------------------- change the Area with drplist  --->
+                
+				                <div class="form-group">
+                                        <label class="control-label col-md-3">المدينة <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <select class="form-control" id="drpRegion" name="drpRegion" onchange="region_change();">
+                                                <option value="">اختر...</option>
+													
+                                            </select>
+                                        </div>
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                        <label class="control-label col-md-3"> الحي <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <select class="form-control" id="drpFulladdress" name="drpFulladdress">
+                                                <option value="">اختر...</option>
+													
+                                            </select>
+                                        </div>
+                                  </div>
+                <!-- 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">المنطقـة <span class="required">
+                                        <label class="control-label col-md-3">المنطقـة <span class="required"	>
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
@@ -232,7 +258,7 @@ $readonly = '';
                                             <textarea name="txtFulladdress" id="txtFulladdress" cols="70" rows="2" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                                          
+                     -->                                     
                                     <div class="form-group">
                                         <label class="control-label col-md-3">رقم الهاتف &nbsp;&nbsp;&nbsp;
                                         </label>
@@ -657,6 +683,10 @@ $readonly = '';
                                               <li>
                                                   <a href="#tab_6_9" data-toggle="tab">
                                                   عـلاقـة المسن بالأسرة والمجتـمع</a>
+                                              </li>
+                                              <li>
+                                                  <a href="#tab_6_12" data-toggle="tab">
+                                                  علاقة الاسرة مع الباحث</a>
                                               </li>
                                               <li>
                                                   <a href="#tab_6_10" data-toggle="tab">
@@ -1537,6 +1567,92 @@ $readonly = '';
                                           </div>
                                          </div>   
                                      </div><!-- END tab_6_9-->
+                                     <!-- ** END Elder-Family Relationship **-->
+                                      <!-- ** Elder-Family Relationship **-->
+                                     <div class="tab-pane fade" id="tab_6_12">
+                                    	<div class="col-md-12">
+                                     <input id="hdncooperativFamily" name="hdncooperativFamily" type="hidden" value="<?php echo $cooperativFamilyAction;?>" />-->
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">تعاون الاسرة مع الباحث <span class="required">
+                                             * </span>
+                                             </label>
+                                            <div class="col-md-4">
+                                                <select class="form-control" id="drpIScooperative" name="drpIScooperative">
+                                                  <option value="">اختر...</option>
+                                                   <?php
+                                                    foreach($survey_Choice as $row)
+                                                    {
+                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                  }
+                                                   ?>
+                                              </select>
+                                            </div>
+                                        </div>
+                                        
+                                         <div class="form-group">
+                                            <label class="control-label col-md-3">يمكن الاستعانة بمن <span class="required">
+                                             * </span>
+                                             </label>
+                                            <div class="col-md-4">
+                                                <select class="form-control" id="drpcooperPersonetype" name="drpcooperPersonetype">
+                                                  <option value="">اختر...</option>
+                                                   <?php
+                                                    foreach($survey_Hiring as $row)
+                                                    {
+                                                      echo '<option value="'.$row->sub_constant_id.'">'
+													  		.$row->sub_constant_name.'</option>';
+                                                  }
+                                                   ?>
+                                              </select>
+                                            </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">رقم الهوية <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtcooperPersoneId" name="txtcooperPersoneId" data-required="1" 
+                                            class="form-control"  />
+                                        </div>
+                                    </div>
+                                        <div class="form-group">
+                                        <label class="control-label col-md-3">الاسم بالكامل <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtcooperPersoneName" name="txtcooperPersoneName" data-required="1" 
+                                            class="form-control"  />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">رقم الجوال   &nbsp;&nbsp;&nbsp;
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtcooperPersoneMobile" name="txtcooperPersoneMobile" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">العنوان <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtcooperPersoneAddress" name="txtcooperPersoneAddress" data-required="1" 
+                                            class="form-control"  />
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-3 col-md-9">
+                                                <button type="button" class="btn blue-madison" onclick="editeCooperativFamily();">
+                                                حـفـظ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+     
+                  
+                                     </div><!-- END tab_6_12-->
                                      <!-- ** END Elder-Family Relationship **-->
                                      <!-- ** Family Status **-->
                                      <div class="tab-pane fade" id="tab_6_10">
