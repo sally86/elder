@@ -110,6 +110,8 @@ class Reports extends CI_Controller
 			$nestedData[] = $row->file_id;
 			$nestedData[] = $row->elder_id;
 			$nestedData[] = $row->name;
+			$nestedData[] = $row->phone;
+			$nestedData[] = $row->mobile_first;
 			$nestedData[] = $row->sex;
 			$nestedData[] = $row->governorate;
 			$nestedData[] = '';

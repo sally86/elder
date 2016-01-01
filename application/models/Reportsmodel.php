@@ -92,10 +92,12 @@ class Reportsmodel extends CI_Model
 			1 => 'file_id',
 			2 => 'elder_id',
 			3 => 'name',
-			4 => 'sex',
-			5 => 'gov.sub_constant_name');
+			4 => 'phone',
+			5 => 'mobile_first',
+			6 => 'sex',
+			7 => 'gov.sub_constant_name');
 		
-		$myquery = "SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$myquery = "SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,e.phone,e.mobile_first,
 							e.sex_id, sx.sub_constant_name as sex,
 							e.governorate_id, gov.sub_constant_name as governorate,
 							f.file_id, f.file_status_id
@@ -119,6 +121,14 @@ class Reportsmodel extends CI_Model
 		{
 			$myquery = $myquery." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
 			LIKE '%".$requestData['txtElderName']."%' ";
+		}
+		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
+		{
+			$myquery = $myquery." AND phone = ".$requestData['txtPhone'];
+		}
+		if(isset($requestData['txtMobile1']) && $requestData['txtMobile1'] !='')
+		{
+			$myquery = $myquery." AND mobile_first = ".$requestData['txtMobile1'];
 		}
 		if(isset($requestData['drpSex']) && $requestData['drpSex'] !='')
 		{

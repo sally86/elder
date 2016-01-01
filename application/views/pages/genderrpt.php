@@ -32,13 +32,19 @@
                            اســم العضو
                       </th>
                       <th>
+                           تلفون
+                      </th>
+                      <th>
+                           جوال
+                      </th>
+                      <th>
                            النوع الطبيعي
                       </th>
                       <th>
                            المحـــافـظــة
                       </th>
-                      <th>
-                           &nbsp;
+                      <th>&nbsp;
+                           
                       </th>
                   </tr>
                   <tr id="trNoprint" role="row" class="filter" style="white-space: nowrap;">
@@ -52,6 +58,12 @@
                       </td>
                       <td>
                           <input type="text" class="form-control form-filter input-sm" id="txtElderName" name="txtElderName">
+                      </td>
+                      <td>
+                          <input type="text" class="form-control form-filter input-sm" id="txtPhone" name="txtPhone">
+                      </td>
+                      <td>
+                          <input type="text" class="form-control form-filter input-sm" id="txtMobile1" name="txtMobile1">
                       </td>
                       <td>
                           <select class="form-control form-filter input-sm" id="drpSex" name="drpSex">
