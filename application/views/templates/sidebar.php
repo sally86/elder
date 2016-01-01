@@ -248,8 +248,8 @@
                             <i class="icon-graduation"></i>
 							تقـرير المستوى التعليمي</a>
 						</li>
-                        <li>
-							<a href="charts_amcharts.html">
+                        <li <?php if($title == 'elderhealthrpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/elderhealthrpt">
                             <i class="icon-heart"></i>
 							تقرير الحالة الصحية</a>
 						</li>

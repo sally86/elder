@@ -185,6 +185,58 @@ class Reports extends CI_Controller
 		echo json_encode($json_data);  // send data as json format
 	}
 	
+	//******************************* Health Report ****************************//
+	
+	function elderhealthrpt()
+	{
+		$this->load->model('constantmodel');
+
+		$this->data['elder_sex'] 	 = $this->constantmodel->get_sub_constant(1);
+		$this->data['elder_elderdisease'] = $this->constantmodel->get_sub_constant(54);
+		$this->data['elder_medicationavailable'] = $this->constantmodel->get_sub_constant(41);
+		$this->data['elder_governorate'] = $this->constantmodel->get_sub_constant(22);
+		
+	}
+	function elderhealthgriddata()
+	{
+		$this->load->model('reportsmodel');
+		$rec = $this->reportsmodel->get_elder_health_rpt($_REQUEST);
+		
+		$i = 1;
+		$data = array();
+		foreach($rec as $row)
+		{
+			$nestedData=array();
+						
+			$nestedData[] = $i++;
+			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->elder_id;
+			$nestedData[] = $row->name;
+			$nestedData[] = $row->sex;
+			$nestedData[] = $row->phone;
+			$nestedData[] = $row->mobile_first;
+			$nestedData[] = $row->mobile_second;
+			$nestedData[] = $row->elder_disease;
+			$nestedData[] = $row->elder_medicine;
+			$nestedData[] = $row->governorate;
+			$nestedData[] = '';
+			
+			$data[] = $nestedData;
+		} // End Foreach
+		
+		$totalFiltered = count($rec);
+		$totalData = count($rec);
+		//$records["draw"] = $sEcho;
+		$json_data = array(
+					"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+					"recordsTotal"    => intval( $totalData ),  		// total number of records
+					"recordsFiltered" => intval( $totalFiltered ),		// total number of records after searching, if there is no searching then totalFiltered = totalData
+					"data"            => $data   						// total data array
+					);
+		
+		echo json_encode($json_data);  // send data as json format
+	}
+	
 	//******************************* Income Report ****************************//
 	function incomerpt()
 	{

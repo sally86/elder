@@ -156,6 +156,7 @@
 		ElderInfoRptAjax.init();
 		GenderRptAjax.init();
 		EduRptAjax.init();
+		ElderHealthRptAjax.init();
 		IncomeRptAjax.init();
 		HomeRptAjax.init();
 		RoomRptAjax.init();
