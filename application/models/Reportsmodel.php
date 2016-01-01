@@ -236,86 +236,141 @@ class Reportsmodel extends CI_Model
 	}
 	
 	// Health Report
-	function get_health_rpt($requestData)
+	function get_elder_health_rpt($requestData)
 	{
 		$columns = array( 
 			1 => 'file_id',
 			2 => 'elder_id',
-			3 => 'name', 
-			4 => 'phone', 
-			5 => 'mobile_first',
-			6 => 'mobile_second',
-			7 => 'spc.sub_constant_name',
-			8 => 'cjb.sub_constant_name', 
-			9 => 'pjb.sub_constant_name',
+			3 => 'name',
+			4 => 'sex',
+			5 => 'phone', 
+			6 => 'mobile_first',
+			7 => 'mobile_second',
+			8 => 'elder_disease',
+			9 => 'elder_medicine', 
 			10 => 'gov.sub_constant_name');
 		
-		$myquery = "SELECT DISTINCT(s.survey_id), e.elder_id, 
+		$select = "SELECT DISTINCT(s.survey_id), e.elder_id, 
 							  CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
-							  e.phone, mobile_first, e.mobile_second, e.sex_id,
+							  e.phone, mobile_first, e.mobile_second, 
+							  e.sex_id, sx.sub_constant_name as sex,
+							  e.governorate_id, gov.sub_constant_name as governorate,
 							 (SELECT GROUP_CONCAT(dis.sub_constant_name SEPARATOR ' - ')
 										 FROM elder_disease_tb edt, elder_disease_det_tb edis, sub_constant_tb dis
 										WHERE edt.elder_disease_id = edis.elder_disease_id
 										  AND	edis.disease_id = dis.sub_constant_id
 										  AND edt.survey_id = s.survey_id)  as elder_disease,
-							 (SELECT GROUP_CONCAT(CONCAT(emed.medicine_name,' ',med.sub_constant_name,' ',emed.unavailable_reason) 
-											  SEPARATOR ' - ')
+							 (SELECT GROUP_CONCAT(CONCAT('-',emed.medicine_name,' | ',med.sub_constant_name,' | ',emed.unavailable_reason) 
+											  SEPARATOR '<br />')
 										 FROM medication_availability_tb emed, sub_constant_tb med 
 										WHERE emed.survey_id = s.survey_id
-										  AND emed.availability_status_id = med.sub_constant_id) as elder_medicine
-					  FROM    elder_tb e, file_tb f,  survey_tb s
+										  AND emed.availability_status_id = med.sub_constant_id) as elder_medicine,
+							e.governorate_id, gov.sub_constant_name as governorate,
+							f.file_id, f.file_status_id ";
+		$from = "FROM    elder_tb e, file_tb f,  survey_tb s, sub_constant_tb sx, sub_constant_tb gov ";
+		$where = "WHERE 	e.elder_id = f.elder_id
+						AND	s.file_id = f.file_id
+						AND	s.survey_id IN (
+									  SELECT distinct(edt.survey_id) FROM elder_disease_tb edt, elder_disease_det_tb eddt
+										  WHERE edt.elder_disease_id = eddt.elder_disease_id
+									  UNION SELECT survey_id FROM medication_availability_tb)
+						AND	e.sex_id = sx.sub_constant_id
+					    AND	e.governorate_id = gov.sub_constant_id
+						AND f.file_status_id = 170";
+		
+		$myquery = "SELECT DISTINCT(s.survey_id), e.elder_id, 
+							  CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+							  e.phone, mobile_first, e.mobile_second, 
+							  e.sex_id, sx.sub_constant_name as sex,
+							  e.governorate_id, gov.sub_constant_name as governorate,
+							 (SELECT GROUP_CONCAT(dis.sub_constant_name SEPARATOR ' - ')
+										 FROM elder_disease_tb edt, elder_disease_det_tb edis, sub_constant_tb dis
+										WHERE edt.elder_disease_id = edis.elder_disease_id
+										  AND	edis.disease_id = dis.sub_constant_id
+										  AND edt.survey_id = s.survey_id)  as elder_disease,
+							 (SELECT GROUP_CONCAT(CONCAT('-',emed.medicine_name,' | ',med.sub_constant_name,' | ',emed.unavailable_reason) 
+											  SEPARATOR '<br />')
+										 FROM medication_availability_tb emed, sub_constant_tb med 
+										WHERE emed.survey_id = s.survey_id
+										  AND emed.availability_status_id = med.sub_constant_id) as elder_medicine,
+							e.governorate_id, gov.sub_constant_name as governorate,
+							f.file_id, f.file_status_id
+					   FROM    elder_tb e, file_tb f,  survey_tb s, sub_constant_tb sx, sub_constant_tb gov
 					  WHERE 	e.elder_id = f.elder_id
 						AND	s.file_id = f.file_id
 						AND	s.survey_id IN (
 									  SELECT distinct(edt.survey_id) FROM elder_disease_tb edt, elder_disease_det_tb eddt
 										  WHERE edt.elder_disease_id = eddt.elder_disease_id
 									  UNION SELECT survey_id FROM medication_availability_tb)
-						AND 	f.file_status_id = 170";
+						AND	e.sex_id = sx.sub_constant_id
+					    AND	e.governorate_id = gov.sub_constant_id
+						AND f.file_status_id = 170";
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+			$where = $where." AND f.file_id = ".$requestData['txtFileid'];
 		}
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
 		{
-			$myquery = $myquery." AND e.elder_id = ".$requestData['txtElderid'];
+			$where = $where." AND e.elder_id = ".$requestData['txtElderid'];
 		}
 		
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
-			$myquery = $myquery." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
+			$where = $where." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
 			LIKE '%".$requestData['txtElderName']."%' ";
+		}
+		if(isset($requestData['drpSex']) && $requestData['drpSex'] !='')
+		{
+			$where = $where." AND sex_id = ".$requestData['drpSex'];
 		}
 		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
 		{
-			$myquery = $myquery." AND phone = ".$requestData['txtPhone'];
+			$where = $where." AND phone = ".$requestData['txtPhone'];
 		}
 		if(isset($requestData['txtMobile1']) && $requestData['txtMobile1'] !='')
 		{
-			$myquery = $myquery." AND mobile_first = ".$requestData['txtMobile1'];
+			$where = $where." AND mobile_first = ".$requestData['txtMobile1'];
 		}
 		if(isset($requestData['txtMobile2']) && $requestData['txtMobile2'] !='')
 		{
-			$myquery = $myquery." AND mobile_second = LIKE '%".$requestData['txtMobile2']."%' ";
+			$where = $where." AND mobile_second = LIKE '%".$requestData['txtMobile2']."%' ";
 		}
-		if(isset($requestData['drpSpecialization']) && $requestData['drpSpecialization'] !='')
+		if(isset($requestData['drpDisease']) && $requestData['drpDisease'] !='')
 		{
-			$myquery = $myquery." AND specialization_id = ".$requestData['drpSpecialization'];
+			$from  = $from .", elder_disease_tb oedt, elder_disease_det_tb oedis ";
+			$where = $where." AND oedt.elder_disease_id = oedis.elder_disease_id ";
+			$where = $where." AND oedt.survey_id = s.survey_id";
+			$where = $where." AND oedis.disease_id = ".$requestData['drpDisease'];
 		}
-		if(isset($requestData['drpCurrentJob']) && $requestData['drpCurrentJob'] !='')
+		if((isset($requestData['txtMedication']) 		    && $requestData['txtMedication'] !='') 		  
+		  || (isset($requestData['drpMedicationAvailable']) && $requestData['drpMedicationAvailable'] !='') 
+		  || (isset($requestData['txtUnavailablersn']) 	    && $requestData['txtUnavailablersn'] !=''))
 		{
-			$myquery = $myquery." AND current_job_id = ".$requestData['drpCurrentJob'];
-		}
-		if(isset($requestData['drpPreviousjob']) && $requestData['drpPreviousjob'] !='')
-		{
-			$myquery = $myquery." AND previous_job_id = ".$requestData['drpPreviousjob'];
+			
+			$from  = $from .", medication_availability_tb oemed ";
+			$where = $where." AND oemed.survey_id = s.survey_id ";
+			
+			
+			if(isset($requestData['txtMedication']) && $requestData['txtMedication'] !='')
+				$where = $where." AND oemed.medicine_name LIKE '%".$requestData['txtMedication']."%' ";
+				
+			if(isset($requestData['drpMedicationAvailable']) && $requestData['drpMedicationAvailable'] !='')
+				$where = $where." AND oemed.availability_status_id = ".$requestData['drpMedicationAvailable'];
+			
+			if(isset($requestData['txtUnavailablersn']) && $requestData['txtUnavailablersn'] !='')
+				$where = $where." AND oemed.unavailable_reason LIKE '%".$requestData['txtUnavailablersn']."%' ";
+				
 		}
 		if(isset($requestData['drpGovernorate']) && $requestData['drpGovernorate'] !='')
 		{
-			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
+			$where = $where." AND e.governorate_id = ".$requestData['drpGovernorate'];
 		}
 		
+		$myquery = "$select
+ 					$from
+					$where";
 		
 		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
 		
