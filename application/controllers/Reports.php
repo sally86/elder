@@ -181,6 +181,8 @@ function get_fulladdress()
 			$nestedData[] = $row->mobile_first;
 			$nestedData[] = $row->sex;
 			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->region_desc;
+			$nestedData[] = $row->fulladdress;
 			$nestedData[] = '';
 			
 			$data[] = $nestedData;

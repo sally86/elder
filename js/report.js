@@ -114,7 +114,7 @@ var ElderInfoRptAjax = function () {
 }();
 //*************Get region********//
 
-function elderInforpt_governorate_change(){	
+function reports_governorate_change(){	
 
  	var governorate_code = $('#drpGovernorate').find('option:selected').val();
 	
@@ -141,7 +141,7 @@ function elderInforpt_governorate_change(){
 		});//END $.ajax
 }
 
-function elderInforpt_region_change(){	
+function reports_region_change(){	
 
  	var region_code = $('#drpRegion').find('option:selected').val();
 	

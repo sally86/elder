@@ -101,7 +101,7 @@
                          <input type="text" class="form-control form-filter input-sm" id="txtMobile2" name="txtMobile2">
                       </td>
                       <td>
-                         <select class="form-control form-filter input-sm" id="drpGovernorate" name="drpGovernorate" onchange="elderInforpt_governorate_change();">
+                         <select class="form-control form-filter input-sm" id="drpGovernorate" name="drpGovernorate" onchange="reports_governorate_change();">
                             <option value="">اختر...</option>
                             <?php
 							  foreach($elder_governorate as $row)
@@ -112,7 +112,7 @@
                         </select>
                       </td>
                       <td>
-                         <select class="form-control form-filter input-sm" id="drpRegion" name="drpRegion" onchange="elderInforpt_region_change();">
+                         <select class="form-control form-filter input-sm" id="drpRegion" name="drpRegion" onchange="reports_region_change();">
                             <option value="">اختر...</option>
                            
                         </select>
