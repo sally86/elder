@@ -1,5 +1,5 @@
 <?php
-class Surveyviewcont extends CI_Controller 
+class Surveyupdatecont extends CI_Controller 
 {
 	public $data;
 	
@@ -36,8 +36,15 @@ class Surveyviewcont extends CI_Controller
      		redirect('login', 'refresh');
    		}
 	}
+	
+	function senddata()
+	{
+		extract($_POST);
+		$_SESSION['update'] = $national_id;
+	}
+	
 	//************************************Get survey Data to update*******************//
-	function survey()
+	function surveyupdate()
 	{
 		$this->load->model('constantmodel');
 		$this->data['survey_Filestatus'] = $this->constantmodel->get_sub_constant(51);
@@ -76,7 +83,7 @@ class Surveyviewcont extends CI_Controller
 		$this->load->model('Employeemodel');
 		$this->data['survey_employee_info'] = $this->Employeemodel->get_all_employee();
 		
-		if(isset($_SESSION['update']))
+		/*if(isset($_SESSION['update']))
 		{
 			$this->load->model('Surveyviewmodel');
 			$this->data['survey_info'] = $this->Surveyviewmodel->get_survey_info($_SESSION['update']);
@@ -85,65 +92,9 @@ class Surveyviewcont extends CI_Controller
 			$this->data['elderFamilyRelation_info'] = $this->Surveyviewmodel->get_elderFamilyRelation_info($_SESSION['update']);
 			$this->data['lifeImprovement_info'] = $this->Surveyviewmodel->get_lifeImprovement_info($_SESSION['update']);
 			
-		}
+		}*/
 		
 	}
-	
-	function viewsurvey()
-	{
-		$this->load->model('constantmodel');
-
-		$this->data['emp_job_title'] = $this->constantmodel->get_sub_constant(3);
-	}
-	//******************************************Ajax Table***************************//
-	function surveygriddata()
-	{
-		$this->load->model('Surveyviewmodel');
-		$totalData=$this->Surveyviewmodel->count_get_search_survey();
-		$rec = $this->Surveyviewmodel->get_search_survey($_REQUEST);
-		$totalFiltered = count($rec);
-		
-		$i = 1;
-		$data = array();
-		foreach($rec as $row)
-		{
-			$nestedData=array();
-			
-			$btn='<a class="btn default btn-xs purple" onclick="gotoSurveyUpdate(\''.$row->survey_id.'\')">
-			  <i class="fa fa-edit"></i> تعديل </a>
-			  <a class="btn default btn-xs purple" onclick="gotoFollowup(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i> ملف المتابعة </a>';
-			
-			/*$btn='<a class="btn default btn-xs purple" onclick="gotoFollowup(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i> ملف المتابعة </a>';*/
-			
-			$nestedData[] = $i++;
-			$nestedData[] = $row->Researcher_name;
-			$nestedData[] = $row->Elder_name;
-			$nestedData[] = $row->visit_date;
-			$nestedData[] = $btn;
-			
-			$data[] = $nestedData;
-		} // End Foreach
-		
-		
-		//$totalData = 1;
-		//$records["draw"] = $sEcho;
-		$json_data = array(
-					"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
-					"recordsTotal"    => intval( $totalData ),  // total number of records
-					"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
-					"data"            => $data   // total data array
-					);
-		
-		echo json_encode($json_data);  // send data as json format
-	}
-	/************************************************************/
 	
 }
-function senddata()
-	{
-		extract($_POST);
-		$_SESSION['update'] = $survey_id;
-	}
 ?>

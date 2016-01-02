@@ -56,6 +56,7 @@ $route['user/(:any)'] = 'user/view/$1';
 $route['employee/(:any)'] = 'employee/view/$1';
 $route['elder/(:any)'] = 'elder/view/$1';
 $route['surveycont/(:any)'] = 'surveycont/view/$1';
+$route['surveyupdatecont/(:any)'] = 'surveyupdatecont/view/$1';
 $route['familycont/(:any)'] = 'familycont/view/$1';
 $route['recomendcont/(:any)'] = 'recomendcont/view/$1';
 

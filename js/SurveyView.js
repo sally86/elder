@@ -83,12 +83,12 @@ var SurveyTableAjax = function () {
 
     };
 }();
-function gotoSurvey(arg)
-{//alert(arg);
+function gotoSurveyUpdate(arg)
+{
 	$.ajax({
-			url: baseURL+"Surveyviewcont/senddata",
+			url: baseURL+"Surveyupdatecont/senddata",
 			type: "POST",
-			data:  {survey_id : arg},
+			data:  {national_id : arg},
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
@@ -96,7 +96,7 @@ function gotoSurvey(arg)
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				window.location.href = baseURL+"surveyviewcont/survey";
+				window.location.href = baseURL+"surveyupdatecont/surveyupdate";
 				//alert(returndb);
 			}
 		});//END $.ajax

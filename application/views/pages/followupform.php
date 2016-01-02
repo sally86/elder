@@ -192,7 +192,8 @@ if (isset($elder_info))
 									  class="btn btn-circle red-sunglo btn-sm" 
 									  onclick="updateFollowup('.$i.')">
 									   <i id="iConst" class="fa fa-edit"></i>
-							  </button></td>';
+							  </button>
+							  </td>';
 					echo "</tr>";
 					
 					
