@@ -65,42 +65,171 @@ class Surveyviewmodel extends CI_Model
 
 //******************end survey search function************************//
 //*****************get survey info to update************************//
-function get_survey_info()
+function get_elder_info($elderId)
 	{	extract($_POST);
-		$this->db->where('file_id',$file_id);
+		$this->db->where('elder_id',$elderId);
+		$query = $this->db->get('elder_tb');
+		return $query->result();
+		
+	}
+function get_survey_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
 		$query = $this->db->get('survey_tb');
 		return $query->result();
 		
 	}
-function get_homeStatus_info()
+function get_homeStatus_info($SurveyId)
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
 		$query = $this->db->get('home_status_tb');
 		return $query->result();
 		
 	}
-function get_elderRoom_info()
+function get_elderRoom_info($SurveyId)
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
 		$query = $this->db->get('elder_room_tb');
 		return $query->result();
 		
 	}
-function get_elderFamilyRelation_info()
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('family_elder_relationship_tb');
-		return $query->result();
-		
-	}
-function get_lifeImprovement_info()
+function get_lifeImprovement_info($SurveyId)
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
 		$query = $this->db->get('life_improvement_tb');
 		return $query->result();
 		
 	}
+function get_aidsRecomendation_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('aids_recomendation_tb');
+		return $query->result();
+		
+	}
+function get_elderBehaviour_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('elder_behaviour_tb');
+		return $query->result();
+		
+	}
+function get_elderDiseaseDet_info($elderDiseaseId)
+	{	extract($_POST);
+		$this->db->where('elder_disease_id',$elderDiseaseId);
+		$query = $this->db->get('elder_disease_det_tb ');
+		return $query->result();
+		
+	}
+function get_elderDisease_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('elder_disease_tb ');
+		return $query->result();
+		
+	}
+/*function get_elderDoc_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('elder_doc_tb');
+		return $query->result();
+		;
+	}*/
+function get_elderInteresting_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('elder_interesting_tb');
+		return $query->result();
+		
+	}
+function get_elderPariah_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('elder_pariah_tb');
+		return $query->result();
+		
+	}
+function get_familyCooperation_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('family_cooperation_tb');
+		return $query->result();
+		
+	}
+function get_familyRelationship_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('family_elder_relationship_tb');
+		return $query->result();
+		
+	}
+function get_familyMember_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('family_member_tb');
+		return $query->result();
+		
+	}
+function get_followUp_info($elderId)
+	{	extract($_POST);
+		$this->db->where('elder_id',$elderId);
+		$query = $this->db->get('follow_up_tb');
+		return $query->result();
+		
+	}
 
+function get_familyPsyStatus_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('family_psychological_status_tb');
+		return $query->result();
+		
+	}
+function get_homeImprovRecomend_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('home_improvement_recomendation_tb');
+		return $query->result();
+		
+	}
+function get_incomeResources_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('income_resources_tb');
+		return $query->result();
+		
+	}
+
+function get_incomeResourcesDetails_info($incomeResourcesId)
+	{	extract($_POST);
+		$this->db->where('income_resources_id',$incomeResourcesId);
+		$query = $this->db->get('income_resources_details_tb');
+		return $query->result();
+		
+	}
+function get_medicalAidRecomend_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('medical_aid_recomendation_tb');
+		return $query->result();
+		
+	}
+
+function get_medicationAvailability_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('medication_availability_tb');
+		return $query->result();
+		
+	}
+function get_medicationNeed_info($SurveyId)
+	{	extract($_POST);
+		$this->db->where('survey_id',$SurveyId);
+		$query = $this->db->get('medication_need_tb');
+		return $query->result();
+		
+	}
+	
 //*****************end get survey data to update********************//
 
 }

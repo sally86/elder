@@ -40,7 +40,8 @@ class Surveyupdatecont extends CI_Controller
 	function senddata()
 	{
 		extract($_POST);
-		$_SESSION['update'] = $national_id;
+		$_SESSION['update'] = $SurveyId;
+		$_SESSION['elder_id']=$elderId;
 	}
 	
 	//************************************Get survey Data to update*******************//
@@ -83,16 +84,40 @@ class Surveyupdatecont extends CI_Controller
 		$this->load->model('Employeemodel');
 		$this->data['survey_employee_info'] = $this->Employeemodel->get_all_employee();
 		
-		/*if(isset($_SESSION['update']))
+		if(isset($_SESSION['update']))
 		{
 			$this->load->model('Surveyviewmodel');
+			$this->data['elder_info'] = $this->Surveyviewmodel->get_elder_info($_SESSION['elder_id']);
 			$this->data['survey_info'] = $this->Surveyviewmodel->get_survey_info($_SESSION['update']);
 			$this->data['homeStatus_info'] = $this->Surveyviewmodel->get_homeStatus_info($_SESSION['update']);
 			$this->data['elderRoom_info'] = $this->Surveyviewmodel->get_elderRoom_info($_SESSION['update']);
-			$this->data['elderFamilyRelation_info'] = $this->Surveyviewmodel->get_elderFamilyRelation_info($_SESSION['update']);
+//			$this->data['elderFamilyRelation_info'] = $this->Surveyviewmodel->get_elderFamilyRelation_info($_SESSION['update']);
 			$this->data['lifeImprovement_info'] = $this->Surveyviewmodel->get_lifeImprovement_info($_SESSION['update']);
 			
-		}*/
+			$this->data['medicationNeed_info'] = $this->Surveyviewmodel->get_medicationNeed_info($_SESSION['update']);
+			$this->data['medicationAvailability_info'] = $this->Surveyviewmodel->get_medicationAvailability_info($_SESSION['update']);
+			$this->data['medicalAidRecomend_info'] = $this->Surveyviewmodel->get_medicalAidRecomend_info($_SESSION['update']);
+			$this->data['incomeResources_info'] = $this->Surveyviewmodel->get_incomeResources_info($_SESSION['update']);
+			foreach($this->data['incomeResources_info'] as $row)
+				$this->data['incomeResourcesDetails_info'] = $this->Surveyviewmodel->get_incomeResourcesDetails_info($row->income_resources_id);
+			
+			$this->data['homeImprovRecomend_info'] = $this->Surveyviewmodel->get_homeImprovRecomend_info($_SESSION['update']);
+			$this->data['followUp_info'] = $this->Surveyviewmodel->get_followUp_info($_SESSION['elder_id']);
+			
+			$this->data['familyMember_info'] = $this->Surveyviewmodel->get_familyMember_info($_SESSION['update']);
+			$this->data['familyRelationship_info'] = $this->Surveyviewmodel->get_familyRelationship_info($_SESSION['update']);
+			$this->data['familyCooperation_info'] = $this->Surveyviewmodel->get_familyCooperation_info($_SESSION['update']);
+			$this->data['elderPariah_info'] = $this->Surveyviewmodel->get_elderPariah_info($_SESSION['update']);
+			$this->data['elderInteresting_info'] = $this->Surveyviewmodel->get_elderInteresting_info($_SESSION['update']);
+			//$this->data['elderDoc_info'] = $this->Surveyviewmodel->get_elderDoc_info($_SESSION['update']);
+			$this->data['elderDisease_info'] = $this->Surveyviewmodel->get_elderDisease_info($_SESSION['update']);
+			foreach($this->data['incomeResources_info'] as $row)
+				$this->data['elderDiseaseDet_info'] = $this->Surveyviewmodel->get_elderDiseaseDet_info($row->elder_disease_id);
+	
+			$this->data['elderBehaviour_info'] = $this->Surveyviewmodel->get_elderBehaviour_info($_SESSION['update']);
+			$this->data['aidsRecomendation_info'] = $this->Surveyviewmodel->get_aidsRecomendation_info($_SESSION['update']);
+																					
+		}
 		
 	}
 	

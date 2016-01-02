@@ -83,12 +83,13 @@ var SurveyTableAjax = function () {
 
     };
 }();
-function gotoSurveyUpdate(arg)
+function gotoSurveyUpdate(arg1,arg2)
 {
+alert('arg1: '+arg1+'  arg2 :'+arg2);
 	$.ajax({
 			url: baseURL+"Surveyupdatecont/senddata",
 			type: "POST",
-			data:  {national_id : arg},
+			data:  {SurveyId : arg1,elderId:arg2},
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);

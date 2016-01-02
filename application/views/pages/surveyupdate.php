@@ -1,3 +1,102 @@
+<?php
+if (isset($elder_info))
+{
+	foreach($elder_info as $elder_info_row);
+	
+}
+
+if (isset($survey_info))
+{
+	foreach($survey_info as $survey_info_row);
+	
+}
+if (isset($homeStatus_info))
+{
+	foreach($homeStatus_info as $homeStatus_row);
+}
+if (isset($elderRoom_info))
+{
+	foreach($elderRoom_info as $elderRoom_row);
+}
+if (isset($lifeImprovement_info))
+{
+	foreach($lifeImprovement_info as $lifeImprovement_row);
+}
+if (isset($medicationNeed_info))
+{
+	foreach($medicationNeed_info as $medicationNeed_row);
+}
+if (isset($medicationAvailability_info))
+{
+	foreach($medicationAvailability_info as $medicationAvailability_row);
+}
+if (isset($medicalAidRecomend_info))
+{
+	foreach($medicalAidRecomend_info as $medicalAidRecomend_row);
+}
+if (isset($incomeResources_info))
+{
+	foreach($incomeResources_info as $incomeResources_row);
+}
+if (isset($incomeResourcesDetails_info))
+{
+	foreach($incomeResourcesDetails_info as $incomeResourcesDetails_row);
+}
+if (isset($homeImprovRecomend_info))
+{
+	foreach($homeImprovRecomend_info as $homeImprovRecomend_row);
+}
+if (isset($followUp_info))
+{
+	foreach($followUp_info as $followUp_row);
+};
+if (isset($familyMember_info))
+{
+	foreach($familyMember_info as $familyMember_row);
+}
+if (isset($familyRelationship_info))
+{
+	foreach($familyRelationship_info as $familyRelationship_row);
+}
+if (isset($familyCooperation_info))
+{
+	foreach($familyCooperation_info as $familyCooperation_row);
+}
+if (isset($elderPariah_info))
+{
+	foreach($elderPariah_info as $elderPariah_row);
+}
+if (isset($elderInteresting_info))
+{
+	foreach($elderInteresting_info as $elderInteresting_row);
+}
+if (isset($elderDoc_info))
+{
+	foreach($elderDoc_info as $elderDoc_row);
+}
+if (isset($elderDisease_info))
+{
+	foreach($elderDisease_info as $elderDisease_row);
+}
+if (isset($elderDiseaseDet_info))
+{
+	foreach($elderDiseaseDet_info as $elderDiseaseDet_row);
+}
+if (isset($elderBehaviour_info))
+{
+	foreach($elderBehaviour_info as $elderBehaviour_row);
+}
+if (isset($aidsRecomendation_info))
+{
+	foreach($aidsRecomendation_info as $aidsRecomendation_row);
+}
+
+
+
+
+
+
+?>
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
 <div class="row">
@@ -206,7 +305,7 @@
                                             </label>
                                             <div class="col-md-4">
                                                 <input type="text" id="txtPhone" name="txtPhone" class="form-control"
-                                                 value="<?php if(isset($elder_info_row->phone)) echo $elder_info_row->phone;?>"
+                                           ;      value="<?php if(isset($elder_info_row->phone)) echo $elder_info_row->phone;?>"
                                                 />
                                             </div>
                                         </div>
@@ -411,7 +510,7 @@
                                         </label>
                                         <div class="col-md-4">
                                           <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                              <input type="text" class="form-control" readonly id="dpVisitdate" name="dpVisitdate">
+                                              <input type="text" class="form-control" readonly id="dpVisitdate" name="dpVisitdate" value="<?php if(isset($survey_info_row->visit_date)) echo $survey_info_row->visit_date;?>">
                                               <span class="input-group-btn">
                                               <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                               </span>
@@ -426,7 +525,7 @@
                                         </label>
                                         <div class="col-md-3">
                                             <div class="input-group">
-												<input type="text" id="txtVisittime" name="txtVisittime" readonly 
+												<input type="text" id="txtVisittime" name="txtVisittime"  value="<?php if(isset($survey_info_row->visit_time)) echo $survey_info_row->visit_time;?>" 
                                                 class="form-control timepicker timepicker-24" >
 												<span class="input-group-btn">
 												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
@@ -441,7 +540,7 @@
                                         </label>
                                         <div class="col-md-3">
 											<div class="input-group">
-												<input type="text" id="txtVisitendtime" name="txtVisitendtime" readonly 
+												<input type="text" id="txtVisitendtime" name="txtVisitendtime" value="<?php if(isset($survey_info_row->visit_end_time)) echo $survey_info_row->visit_end_time;?>"
                                                 class="form-control timepicker timepicker-24" >
 												<span class="input-group-btn">
 												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
@@ -458,9 +557,12 @@
                                             <select class="form-control" id="drpResearcher" name="drpResearcher">
                                                 <option value="">اختر...</option>
                                                 <?php
-												 foreach($survey_employee_info as $row)
+												 foreach($survey_employee_info as $employee_info_row)
 												 {
-                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+													 if ($survey_info_row->researcher_id == $employee_info_row->national_id)
+                                                          $selected = 'selected="selected"';
+                                                        
+                      								echo '<option value="'.$employee_info_row->national_id.'"'.$selected.'>'.$employee_info_row->name.'</option>';
 							  					  }
 							 					?>
 
@@ -477,7 +579,10 @@
                                                  <?php
 												  foreach($survey_employee_info as $row)
 												  {
-                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+													   if ($survey_info_row->researcher_assistant_fst_id == $employee_info_row->national_id)
+                                                          $selected = 'selected="selected"';
+                                                    
+                      								echo '<option value="'.$row->national_id.'"'.$selected.'>'.$row->name.'</option>';
 							  					}
 							 					 ?>
 
@@ -494,7 +599,10 @@
                                                  <?php
 												  foreach($survey_employee_info as $row)
 												  {
-                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+													 if ($survey_info_row->researcher_assistant_sec_id == $employee_info_row->national_id)
+                                                          $selected = 'selected="selected"';
+                                                      
+                      								echo '<option value="'.$row->national_id.'"'.$selected.'>'.$row->name.'</option>';
 							  					}
 							 					 ?>
 
@@ -692,7 +800,39 @@
                                         </tr>
                                         </thead>
                                         <tbody id="tbdFamilyMember">
-                                        
+                                        <?php 
+										
+										$i=1;
+		foreach($familyMember_info as $row)
+		{
+			
+			echo "<tr>";
+			echo "<td>" . $i++ 					. "</td>";
+			echo "<td>" . $row->member_name 	. "</td>";
+			echo "<td>" . $row->member_id 		. "</td>";
+			echo "<td>" . $row->sex 			. "</td>";
+			echo "<td>" . $row->relationship 	. "</td>";
+			echo "<td>" . $row->fmstatus 		. "</td>";
+			echo "<td>" . $row->dob 			. "</td>";
+			echo "<td>" . $row->education_level . "</td>";
+			echo "<td>" . $row->health_status 	. "</td>";
+			echo "<td>" . $row->job 			. "</td>";
+			echo "<td>" . $row->income_shekel 	. "</td>";
+			echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+                              class="btn btn-circle red-sunglo btn-sm" 
+                              onclick="deleteFamilybyId('. $row->family_member_id .')">
+                               <i id="iConst" class="fa fa-close"></i>
+                      </button></td>';
+			echo "</tr>";
+			
+			
+			
+		}
+	
+		
+										
+										
+										?>
                                         </tbody>
                                       	</table>
                         </div>
