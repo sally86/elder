@@ -236,6 +236,9 @@ function get_fulladdress()
 			$nestedData[] = $row->current_job;
 			$nestedData[] = $row->previous_job;
 			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->region_desc;
+			$nestedData[] = $row->fulladdress;
+	
 			$nestedData[] = '';
 			
 			$data[] = $nestedData;

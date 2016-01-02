@@ -207,23 +207,28 @@ function get_fulladress_list()
 			7 => 'spc.sub_constant_name',
 			8 => 'cjb.sub_constant_name', 
 			9 => 'pjb.sub_constant_name',
-			10 => 'gov.sub_constant_name');
+			10 => 'gov.sub_constant_name',
+			11 => 'region_desc',
+			12=> 'fulladdress');
 		
 		$myquery = "SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second,
 							e.specialization_id, spc.sub_constant_name as specialization,
                             e.current_job_id, cjb.sub_constant_name as current_job,
                             e.previous_job_id, pjb.sub_constant_name as previous_job,
-							e.governorate_id, gov.sub_constant_name as governorate,
+							e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
+							address.sub_constant_name as fulladdress,
 							f.file_id, f.file_status_id
- 					FROM 	elder_tb e, file_tb f, sub_constant_tb spc, sub_constant_tb cjb,
-							sub_constant_tb pjb, sub_constant_tb gov
+ 					FROM 	elder_tb e
+					LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
+					LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+					LEFT 	OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+					LEFT 	OUTER JOIN sub_constant_tb spc  ON e.specialization_id= spc.sub_constant_id
+					LEFT 	OUTER JOIN sub_constant_tb cjb  ON e.current_job_id= cjb.sub_constant_id
+					LEFT 	OUTER JOIN sub_constant_tb pjb  ON e.previous_job_id= pjb.sub_constant_id
+							, file_tb f
 					WHERE 	e.elder_id = f.elder_id
-					  AND	e.specialization_id = spc.sub_constant_id
-					  AND	e.current_job_id = cjb.sub_constant_id
-					  AND	e.previous_job_id = pjb.sub_constant_id
-					  AND	e.governorate_id = gov.sub_constant_id
-					  AND 	f.file_status_id = 170";
+					AND 	f.file_status_id = 170";
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
@@ -268,7 +273,14 @@ function get_fulladress_list()
 		{
 			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
 		}
-		
+		if(isset($requestData['drpRegion']) && $requestData['drpRegion'] !='')
+		{
+			$myquery = $myquery." AND e.region = ".$requestData['drpRegion'];
+		}
+		if(isset($requestData['drpAddress']) && $requestData['drpAddress'] !='')
+		{
+			$myquery = $myquery." AND e.full_address = ".$requestData['drpAddress'];
+		}
 		
 		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
 		
