@@ -20,7 +20,7 @@ class Reportsmodel extends CI_Model
 							TIMESTAMPDIFF(YEAR,e.dob,CURDATE()) as age,
 							e.full_address, e.phone, e.mobile_first, e.mobile_second,
 							e.status_id, sts.sub_constant_name as status,
-							e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,address.sub_constant_name as fulladdress,
+							e.governorate_id,e.region,e.full_address, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,address.sub_constant_name as fulladdress,
 							f.file_id, f.file_status_id
  					FROM 	elder_tb e
 					LEFT 	OUTER JOIN sub_constant_tb sts  ON e.status_id      = sts.sub_constant_id

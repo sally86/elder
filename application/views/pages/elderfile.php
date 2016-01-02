@@ -296,7 +296,7 @@ if (isset($elder_file))
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control select2me" id="drpGovernorate" name="drpGovernorate">
+                              <select class="form-control select2me" id="drpGovernorate" name="drpGovernorate" onchange="governorate_change()">
                                   <?php 
 								  foreach ($governorate as $governorate_row)
 								  {
@@ -312,7 +312,7 @@ if (isset($elder_file))
                               </select>
                           </div>
                       </div>
-                      
+                   <!--   
                       <div class="form-group">
                           <label class="control-label col-md-3">المنطقـة <span class="required">
                           * </span>
@@ -333,7 +333,56 @@ if (isset($elder_file))
                               </textarea>
                           </div>
                       </div>
-                                            
+                       -->
+                       <!-- -------------------- change the Area with drplist  --->
+                
+				                <div class="form-group">
+                                        <label class="control-label col-md-3">المدينة <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <select class="form-control" id="drpRegion" name="drpRegion" onchange="region_change();">
+                                                <option value="">اختر...</option>
+									<?php 
+									foreach ($region as $region_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->region == $region_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$region_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$region_row->sub_constant_name.'</option>';
+								  }
+								  ?>
+									
+									?>				
+                                            </select>
+                                        </div>
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                        <label class="control-label col-md-3"> الحي <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <select class="form-control" id="drpFulladdress" name="drpFulladdress">
+                                                <option value="">اختر...</option>
+									<?php 
+									foreach ($fulladdress as $fulladdress_row)
+								  {
+									  $selected = '';
+									  
+									  if ($elder_info_row->full_address == $fulladdress_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  
+									  echo ' <option value="'.$fulladdress_row->sub_constant_id.'" '.$selected.'>'
+									  						 .$fulladdress_row->sub_constant_name.'</option>';
+								  }
+								  ?>				
+                                            </select>
+                                        </div>
+                                  </div>                     
                       <div class="form-group">
                           <label class="control-label col-md-3">رقم الهاتف <span class="required">
                           * </span>

@@ -323,10 +323,10 @@ var ElderInfoValidation = function () {
 					drpGovernorate: {
                         required: true
                     },
-					txtRegion: {
+					drpRegion: {
                         required: true
                     },
-					txtFulladdress: {
+					drpFulladdress: {
                         required: true
 					},
 					txtPhone: {
@@ -388,11 +388,11 @@ var ElderInfoValidation = function () {
 					drpGovernorate: {
 						required: "الرجاء إختيار قيمة"
                     },
-					txtRegion: {
-						required: "الرجاء إدخال قيمة"
+					drpRegion: {
+						required: "الرجاء إختيار قيمة"
                     },
-					txtFulladdress: {
-						required: "الرجاء إدخال قيمة"
+					drpFulladdress: {
+						required: "الرجاء إختيار قيمة"
                     },
 					txtPhone: {
 						minlength: "رقم الهاتف يجب ان يكون 7 ارقام",

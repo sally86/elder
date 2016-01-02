@@ -64,5 +64,22 @@ class Constantmodel extends CI_Model
 		$this->db->where('sub_constant_id',$hdnSubConstid);
 		$this->db->update('sub_constant_tb',$data);
 	}
+//************* get parent*********//
+function get_region_list($governorateCode)
+	{	
+		$this->db->where('parent_id',$governorateCode);
+		$query = $this->db->get('sub_constant_tb ');
+		return $query->result();
+		
+	}
+function get_fulladress_list($regionCode)
+	{	
+		$this->db->where('parent_id',$regionCode);
+		$query = $this->db->get('sub_constant_tb ');
+		return $query->result();
+		
+	}
+
+//************end get parent********//	
 }
 ?>

@@ -47,6 +47,9 @@ class Elderfilecont extends CI_Controller
 		$this->data['eldercategory']   = $this->constantmodel->get_sub_constant(53);
 		$this->data['status']          = $this->constantmodel->get_sub_constant(2);
 		$this->data['governorate']     = $this->constantmodel->get_sub_constant(22);
+		$this->data['governorate']     = $this->constantmodel->get_sub_constant(22);
+
+		
 		$this->data['education_level'] = $this->constantmodel->get_sub_constant(23);
 		$this->data['specialization']  = $this->constantmodel->get_sub_constant(24);
 		$this->data['current_job']     = $this->constantmodel->get_sub_constant(25);
@@ -59,7 +62,11 @@ class Elderfilecont extends CI_Controller
 			$this->load->model('eldermodel');
 			$this->data['elder_file'] = $this->elderfilemodel->get_elder_file($_SESSION['update']);
 			$this->data['elder_info'] = $this->eldermodel->get_elder_by_id($_SESSION['update']);
-			
+			foreach ($this->data['elder_info'] as $row);
+				{	
+					$this->data['region']     = $this->constantmodel->get_region_list($row->governorate_id);
+					$this->data['fulladdress']     = $this->constantmodel->get_region_list($row->region);
+				}
 			foreach ($this->data['elder_file'] as $row);
 			$this->data['elder_docs'] = $this->elderfilemodel->get_elder_doc($row->file_id);
 			
