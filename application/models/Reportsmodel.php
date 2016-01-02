@@ -324,8 +324,8 @@ function get_fulladress_list()
 							 FROM 	medication_availability_tb emed, sub_constant_tb med 
 							 WHERE  emed.survey_id = s.survey_id
 							 AND    emed.availability_status_id = med.sub_constant_id) as elder_medicine,
-									e.governorate_id, gov.sub_constant_name as governorate,
 									f.file_id, f.file_status_id ";
+									
 		$from = "FROM  		  elder_tb e
 				 LEFT 		OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
 				 LEFT 		OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
@@ -356,8 +356,7 @@ function get_fulladress_list()
 							FROM   medication_availability_tb emed, sub_constant_tb med 
 							WHERE  emed.survey_id = s.survey_id
 							AND    emed.availability_status_id = med.sub_constant_id) as elder_medicine,
-								   e.governorate_id, gov.sub_constant_name as governorate,
-							       f.file_id, f.file_status_id
+								   f.file_id, f.file_status_id
 					   		FROM   elder_tb e
 							LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
 						 	LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
@@ -473,11 +472,13 @@ function get_fulladress_list()
 		$select = "SELECT 	ir.income_resources_id, s.survey_id, e.elder_id, 
 							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second,
-                            e.governorate_id, gov.sub_constant_name as governorate,
+                            e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
+							address.sub_constant_name as fulladdress,
 							f.file_id, f.file_status_id,
                             ir.total_income, ir.elder_portion, ";
 							
-		$from = " FROM 	elder_tb e, file_tb f, survey_tb s, income_resources_tb ir, sub_constant_tb gov";
+		$from = " FROM 	elder_tb e
+				 , file_tb f, survey_tb s, income_resources_tb ir, sub_constant_tb gov";
 		
 		$where = " WHERE 	e.elder_id = f.elder_id
 					 AND	s.file_id = f.file_id
@@ -495,7 +496,9 @@ function get_fulladress_list()
 			7 => 'resource',
 			8 => 'ir.total_income', 
 			9 => 'ir.elder_portion',
-			10 => 'gov.sub_constant_name');
+			10 => 'gov.sub_constant_name',
+			11 => 'region_desc',
+			12=> 'fulladdress');
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
@@ -542,6 +545,14 @@ function get_fulladress_list()
 		if(isset($requestData['drpGovernorate']) && $requestData['drpGovernorate'] !='')
 		{
 			$where = $where." AND e.governorate_id = ".$requestData['drpGovernorate'];
+		}
+		if(isset($requestData['drpRegion']) && $requestData['drpRegion'] !='')
+		{
+			$where = $where." AND e.region = ".$requestData['drpRegion'];
+		}
+		if(isset($requestData['drpAddress']) && $requestData['drpAddress'] !='')
+		{
+			$where = $where." AND e.full_address = ".$requestData['drpAddress'];
 		}
 		
 		$myquery = "$select
