@@ -400,6 +400,9 @@ function get_fulladdress()
 			$nestedData[] = $row->furniture_level;
 			$nestedData[] = $row->furniture_needs;
 			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->region_desc;
+			$nestedData[] = $row->fulladdress;
+	
 			$nestedData[] = '';
 			
 			$data[] = $nestedData;
@@ -462,6 +465,9 @@ function get_fulladdress()
 			$nestedData[] = $row->has_medicine_cupboard;
 			$nestedData[] = $row->elder_higiene;
 			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->region_desc;
+			$nestedData[] = $row->fulladdress;
+	
 			$nestedData[] = '';
 			
 			$data[] = $nestedData;
@@ -513,6 +519,9 @@ function get_fulladdress()
 			$nestedData[] = $row->bathroom_status;
 			$nestedData[] = $row->bathroom_maintenance_details;
 			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->region_desc;
+			$nestedData[] = $row->fulladdress;
+	
 			$nestedData[] = '';
 			
 			$data[] = $nestedData;

@@ -588,7 +588,9 @@ function get_fulladress_list()
 			9 => 'ceiling_description',
 			10 => 'fr.sub_constant_name',
 			11 => 'furniture_needs',
-			12 => 'gov.sub_constant_name');
+			12 => 'gov.sub_constant_name',
+			13 => 'region_desc',
+			14=> 'fulladdress');
 		
 		$myquery = "  SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second,
@@ -598,10 +600,15 @@ function get_fulladress_list()
                             h.ceiling_description,
                             h.furniture_level_id, fr.sub_constant_name as furniture_level,
                             h.furniture_needs,
-                            e.governorate_id, gov.sub_constant_name as governorate,
-							f.file_id, f.file_status_id
- 					FROM 	elder_tb e, file_tb f,  survey_tb s, home_status_tb h, sub_constant_tb sts, sub_constant_tb tp,
-							sub_constant_tb cl, sub_constant_tb fr, sub_constant_tb gov
+                            e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
+							address.sub_constant_name as fulladdress,f.file_id, f.file_status_id
+ 					FROM 	elder_tb e
+					LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
+				  	LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+				  	LEFT 	OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+				
+					, file_tb f,  survey_tb s, home_status_tb h, sub_constant_tb sts, sub_constant_tb tp,
+							sub_constant_tb cl, sub_constant_tb fr
 					WHERE 	e.elder_id = f.elder_id
 					  AND	s.file_id = f.file_id
                       AND	s.survey_id = h.survey_id
@@ -609,7 +616,6 @@ function get_fulladress_list()
 					  AND	h.home_type_id = tp.sub_constant_id
 					  AND	h.ceiling_type_id = cl.sub_constant_id
 					  AND	h.furniture_level_id = fr.sub_constant_id
-                      AND	e.governorate_id = gov.sub_constant_id
                       AND 	f.file_status_id = 170";
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
@@ -661,6 +667,14 @@ function get_fulladress_list()
 		{
 			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
 		}
+		if(isset($requestData['drpRegion']) && $requestData['drpRegion'] !='')
+		{
+			$myquery = $myquery." AND e.region = ".$requestData['drpRegion'];
+		}
+		if(isset($requestData['drpAddress']) && $requestData['drpAddress'] !='')
+		{
+			$myquery = $myquery." AND e.full_address = ".$requestData['drpAddress'];
+		}
 		
 		
 		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
@@ -690,7 +704,9 @@ function get_fulladress_list()
 			12 => 'hb.sub_constant_name',
 			13 => 'hmc.sub_constant_name',
 			14 => 'hig.sub_constant_name',
-			15 => 'gov.sub_constant_name');
+			15 => 'gov.sub_constant_name',
+			16 => 'region_desc',
+			17=> 'fulladdress');
 		
 		$myquery = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 					    e.phone, mobile_first, e.mobile_second,
@@ -703,11 +719,16 @@ function get_fulladress_list()
 					    er.has_good_bed, hb.sub_constant_name as has_good_bed,
 					    er.has_medicine_cupboard, hmc.sub_constant_name as has_medicine_cupboard,
 					    er.elder_higiene_id, hig.sub_constant_name as elder_higiene,
-                        e.governorate_id, gov.sub_constant_name as governorate,
-						f.file_id, f.file_status_id
-				FROM    elder_tb e, file_tb f,  survey_tb s, elder_room_tb er, sub_constant_tb ht, sub_constant_tb rt,
+                        e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
+							address.sub_constant_name as fulladdress,f.file_id, f.file_status_id
+				FROM    elder_tb e
+				LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
+			  	LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+			  	LEFT 	OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+				
+				, file_tb f,  survey_tb s, elder_room_tb er, sub_constant_tb ht, sub_constant_tb rt,
 						sub_constant_tb cst, sub_constant_tb rv, sub_constant_tb rl, sub_constant_tb hc, 
-                        sub_constant_tb hb, sub_constant_tb hmc, sub_constant_tb hig, sub_constant_tb gov
+                        sub_constant_tb hb, sub_constant_tb hmc, sub_constant_tb hig
                 WHERE 	e.elder_id = f.elder_id
 				  AND	s.file_id = f.file_id
 				  AND	s.survey_id = er.survey_id
@@ -720,7 +741,6 @@ function get_fulladress_list()
                   AND	er.has_good_bed = hb.sub_constant_id
                   AND	er.has_medicine_cupboard = hmc.sub_constant_id
                   AND	er.elder_higiene_id = hig.sub_constant_id
-				  AND	e.governorate_id = gov.sub_constant_id
 				  AND 	f.file_status_id = 170";
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
@@ -784,6 +804,14 @@ function get_fulladress_list()
 		{
 			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
 		}
+		if(isset($requestData['drpRegion']) && $requestData['drpRegion'] !='')
+		{
+			$myquery = $myquery." AND e.region = ".$requestData['drpRegion'];
+		}
+		if(isset($requestData['drpAddress']) && $requestData['drpAddress'] !='')
+		{
+			$myquery = $myquery." AND e.full_address = ".$requestData['drpAddress'];
+		}
 		
 		
 		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
@@ -808,7 +836,9 @@ function get_fulladress_list()
 			7 => 'room_maintenance_details', 
 			8 => 'bth.sub_constant_name',
 			9 => 'bathroom_maintenance_details',
-			10 => 'gov.sub_constant_name');
+			10 => 'gov.sub_constant_name',
+			11 => 'region_desc',
+			12=> 'fulladdress');
 		
 		$myquery = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 					    e.phone, mobile_first, e.mobile_second,
@@ -816,16 +846,20 @@ function get_fulladress_list()
 					    er.room_maintenance_details,
 					    er.bathroom_status_id, bth.sub_constant_name as bathroom_status,
 					    er.bathroom_maintenance_details,
-                        e.governorate_id, gov.sub_constant_name as governorate,
-						f.file_id, f.file_status_id
-				FROM    elder_tb e, file_tb f,  survey_tb s, elder_room_tb er, sub_constant_tb rm,
-						sub_constant_tb bth, sub_constant_tb gov
+                        e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
+							address.sub_constant_name as fulladdress,f.file_id, f.file_status_id
+				FROM    elder_tb e
+				LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
+			  	LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+			  	LEFT 	OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+			
+				, file_tb f,  survey_tb s, elder_room_tb er, sub_constant_tb rm,
+						sub_constant_tb bth
                 WHERE 	e.elder_id = f.elder_id
 				  AND	s.file_id = f.file_id
 				  AND	s.survey_id = er.survey_id
 				  AND	er.room_need_maintenance = rm.sub_constant_id
 				  AND	er.bathroom_status_id = bth.sub_constant_id
-				  AND	e.governorate_id = gov.sub_constant_id
 				  AND 	f.file_status_id = 170";
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
@@ -869,7 +903,15 @@ function get_fulladress_list()
 		{
 			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
 		}
-		
+			if(isset($requestData['drpRegion']) && $requestData['drpRegion'] !='')
+		{
+			$myquery = $myquery." AND e.region = ".$requestData['drpRegion'];
+		}
+		if(isset($requestData['drpAddress']) && $requestData['drpAddress'] !='')
+		{
+			$myquery = $myquery." AND e.full_address = ".$requestData['drpAddress'];
+		}
+	
 		
 		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
 		

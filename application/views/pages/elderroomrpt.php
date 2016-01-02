@@ -67,6 +67,13 @@
                       <th>
                            المحـــافـظــة
                       </th>
+                       <th>
+                          المدينة 
+                      </th>
+                      <th>
+                           الحي
+                      </th>
+
                       <th>&nbsp;
                            
                       </th>
@@ -189,7 +196,7 @@
                         </select>
                       </td>
                       <td>
-                         <select class="form-control form-filter input-sm" id="drpGovernorate" name="drpGovernorate">
+                         <select class="form-control form-filter input-sm" id="drpGovernorate" name="drpGovernorate" onchange="reports_governorate_change();">
                             <option value="">اختر...</option>
                             <?php
 							  foreach($elder_governorate as $row)
@@ -197,6 +204,19 @@
                       			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
 							  }
 							  ?>
+                        </select>
+                      </td>
+                       <td>
+                         <select class="form-control form-filter input-sm" id="drpRegion" name="drpRegion" onchange="reports_region_change();">
+                            <option value="">اختر...</option>
+                           
+                        </select>
+                      </td>
+                      <td>
+                          
+                          <select class="form-control form-filter input-sm" id="drpAddress" name="drpAddress">
+                            <option value="">اختر...</option>
+                           
                         </select>
                       </td>
                       <td>
