@@ -291,6 +291,9 @@ function get_fulladdress()
 			$nestedData[] = $row->elder_disease;
 			$nestedData[] = $row->elder_medicine;
 			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->region_desc;
+			$nestedData[] = $row->fulladdress;
+	
 			$nestedData[] = '';
 			
 			$data[] = $nestedData;

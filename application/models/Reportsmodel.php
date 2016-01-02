@@ -304,63 +304,73 @@ function get_fulladress_list()
 			7 => 'mobile_second',
 			8 => 'elder_disease',
 			9 => 'elder_medicine', 
-			10 => 'gov.sub_constant_name');
+			10 => 'gov.sub_constant_name',
+			11 => 'region_desc',
+			12=> 'fulladdress');
 		
-		$select = "SELECT DISTINCT(s.survey_id), e.elder_id, 
-							  CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
-							  e.phone, mobile_first, e.mobile_second, 
-							  e.sex_id, sx.sub_constant_name as sex,
-							  e.governorate_id, gov.sub_constant_name as governorate,
-							 (SELECT GROUP_CONCAT(dis.sub_constant_name SEPARATOR ' - ')
-										 FROM elder_disease_tb edt, elder_disease_det_tb edis, sub_constant_tb dis
-										WHERE edt.elder_disease_id = edis.elder_disease_id
-										  AND	edis.disease_id = dis.sub_constant_id
-										  AND edt.survey_id = s.survey_id)  as elder_disease,
-							 (SELECT GROUP_CONCAT(CONCAT('-',emed.medicine_name,' | ',med.sub_constant_name,' | ',emed.unavailable_reason) 
-											  SEPARATOR '<br />')
-										 FROM medication_availability_tb emed, sub_constant_tb med 
-										WHERE emed.survey_id = s.survey_id
-										  AND emed.availability_status_id = med.sub_constant_id) as elder_medicine,
-							e.governorate_id, gov.sub_constant_name as governorate,
-							f.file_id, f.file_status_id ";
-		$from = "FROM    elder_tb e, file_tb f,  survey_tb s, sub_constant_tb sx, sub_constant_tb gov ";
+		$select = "SELECT  	DISTINCT(s.survey_id), e.elder_id, 
+							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+							e.phone, mobile_first, e.mobile_second, 
+							e.sex_id, sx.sub_constant_name as sex,
+							e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
+							address.sub_constant_name as fulladdress,
+							(SELECT GROUP_CONCAT(dis.sub_constant_name SEPARATOR ' - ')
+							 FROM 	elder_disease_tb edt, elder_disease_det_tb edis, sub_constant_tb dis
+							 WHERE 	edt.elder_disease_id = edis.elder_disease_id
+							 AND	edis.disease_id = dis.sub_constant_id
+							 AND 	edt.survey_id = s.survey_id)  as elder_disease,
+							(SELECT GROUP_CONCAT(CONCAT('-',emed.medicine_name,' | ',med.sub_constant_name,' | ',emed.unavailable_reason) 
+							 SEPARATOR '<br />')
+							 FROM 	medication_availability_tb emed, sub_constant_tb med 
+							 WHERE  emed.survey_id = s.survey_id
+							 AND    emed.availability_status_id = med.sub_constant_id) as elder_medicine,
+									e.governorate_id, gov.sub_constant_name as governorate,
+									f.file_id, f.file_status_id ";
+		$from = "FROM  		  elder_tb e
+				 LEFT 		OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
+				 LEFT 		OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+				 LEFT 		OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+				 LEFT 		OUTER JOIN sub_constant_tb sx  ON e.sex_id= sx.sub_constant_id
+					 		, file_tb f,  survey_tb s ";
 		$where = "WHERE 	e.elder_id = f.elder_id
-						AND	s.file_id = f.file_id
-						AND	s.survey_id IN (
-									  SELECT distinct(edt.survey_id) FROM elder_disease_tb edt, elder_disease_det_tb eddt
-										  WHERE edt.elder_disease_id = eddt.elder_disease_id
-									  UNION SELECT survey_id FROM medication_availability_tb)
-						AND	e.sex_id = sx.sub_constant_id
-					    AND	e.governorate_id = gov.sub_constant_id
-						AND f.file_status_id = 170";
+				  AND		s.file_id = f.file_id
+				  AND		s.survey_id IN (
+							SELECT 	distinct(edt.survey_id) FROM elder_disease_tb edt, elder_disease_det_tb eddt
+							WHERE 	edt.elder_disease_id = eddt.elder_disease_id
+							UNION 	SELECT survey_id FROM medication_availability_tb)
+				  AND f.file_status_id = 170";
 		
-		$myquery = "SELECT DISTINCT(s.survey_id), e.elder_id, 
-							  CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
-							  e.phone, mobile_first, e.mobile_second, 
-							  e.sex_id, sx.sub_constant_name as sex,
-							  e.governorate_id, gov.sub_constant_name as governorate,
-							 (SELECT GROUP_CONCAT(dis.sub_constant_name SEPARATOR ' - ')
-										 FROM elder_disease_tb edt, elder_disease_det_tb edis, sub_constant_tb dis
-										WHERE edt.elder_disease_id = edis.elder_disease_id
-										  AND	edis.disease_id = dis.sub_constant_id
-										  AND edt.survey_id = s.survey_id)  as elder_disease,
+		$myquery = "SELECT  DISTINCT(s.survey_id), e.elder_id, 
+							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+							e.phone, mobile_first, e.mobile_second, 
+							e.sex_id, sx.sub_constant_name as sex,
+							e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
+							address.sub_constant_name as fulladdress,
+							(SELECT GROUP_CONCAT(dis.sub_constant_name SEPARATOR ' - ')
+							 FROM   elder_disease_tb edt, elder_disease_det_tb edis, sub_constant_tb dis
+							 WHERE  edt.elder_disease_id = edis.elder_disease_id
+							 AND	edis.disease_id = dis.sub_constant_id
+							 AND edt.survey_id = s.survey_id)  as elder_disease,
 							 (SELECT GROUP_CONCAT(CONCAT('-',emed.medicine_name,' | ',med.sub_constant_name,' | ',emed.unavailable_reason) 
-											  SEPARATOR '<br />')
-										 FROM medication_availability_tb emed, sub_constant_tb med 
-										WHERE emed.survey_id = s.survey_id
-										  AND emed.availability_status_id = med.sub_constant_id) as elder_medicine,
-							e.governorate_id, gov.sub_constant_name as governorate,
-							f.file_id, f.file_status_id
-					   FROM    elder_tb e, file_tb f,  survey_tb s, sub_constant_tb sx, sub_constant_tb gov
-					  WHERE 	e.elder_id = f.elder_id
-						AND	s.file_id = f.file_id
-						AND	s.survey_id IN (
-									  SELECT distinct(edt.survey_id) FROM elder_disease_tb edt, elder_disease_det_tb eddt
-										  WHERE edt.elder_disease_id = eddt.elder_disease_id
-									  UNION SELECT survey_id FROM medication_availability_tb)
-						AND	e.sex_id = sx.sub_constant_id
-					    AND	e.governorate_id = gov.sub_constant_id
-						AND f.file_status_id = 170";
+							  SEPARATOR '<br />')
+							FROM   medication_availability_tb emed, sub_constant_tb med 
+							WHERE  emed.survey_id = s.survey_id
+							AND    emed.availability_status_id = med.sub_constant_id) as elder_medicine,
+								   e.governorate_id, gov.sub_constant_name as governorate,
+							       f.file_id, f.file_status_id
+					   		FROM   elder_tb e
+							LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
+						 	LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+							LEFT 	OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+							LEFT 	OUTER JOIN sub_constant_tb sx  ON e.sex_id= sx.sub_constant_id
+					   				, file_tb f,  survey_tb s
+					  		WHERE 	e.elder_id = f.elder_id
+							AND		s.file_id = f.file_id
+							AND		s.survey_id IN (
+									SELECT 	distinct(edt.survey_id) FROM elder_disease_tb edt, elder_disease_det_tb eddt
+									WHERE 	edt.elder_disease_id = eddt.elder_disease_id
+									UNION 	SELECT survey_id FROM medication_availability_tb)
+							AND 	f.file_status_id = 170";
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
@@ -423,6 +433,15 @@ function get_fulladress_list()
 		{
 			$where = $where." AND e.governorate_id = ".$requestData['drpGovernorate'];
 		}
+		if(isset($requestData['drpRegion']) && $requestData['drpRegion'] !='')
+		{
+			$where = $where." AND e.region = ".$requestData['drpRegion'];
+		}
+		if(isset($requestData['drpAddress']) && $requestData['drpAddress'] !='')
+		{
+			$where = $where." AND e.full_address = ".$requestData['drpAddress'];
+		}
+		
 		
 		$myquery = "$select
  					$from
