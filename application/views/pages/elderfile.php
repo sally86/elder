@@ -71,8 +71,18 @@ if (isset($elder_file))
 								  ?>
                               </select>
                           </div>
+                          
                       </div>
-                      
+                      <div class="form-group">
+                                        <label class="control-label col-md-3">رقم الملف الورقي <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtFiledocId" name="txtFiledocId" data-required="1" 
+                                            class="form-control" />
+                                        </div>
+                                    </div>
+                                    
                       <div id="dvClose" 
 					  		<?php if ($elder_file_row->file_status_id == 172) echo 'style="display:block"';
 									else echo 'style="display:none"'; ?>

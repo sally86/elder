@@ -35,6 +35,7 @@ class Elderfilemodel extends CI_Model
 		extract($_POST);
 		
 		$data['file_status_id']  = $drpFilestatus;
+		$data['file_doc_id']  = $txtFiledocId;
 		if($dpClose == '')
 			$data['close_date'] 	 = NULL;
 		else
