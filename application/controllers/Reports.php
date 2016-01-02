@@ -62,11 +62,12 @@ class Reports extends CI_Controller
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->age;
 			$nestedData[] = $row->status;
-			$nestedData[] = $row->full_address;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
 			$nestedData[] = $row->mobile_second;
 			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->region_desc;
+			$nestedData[] = $row->fulladdress;
 			$nestedData[] = '';
 			
 			$data[] = $nestedData;
@@ -84,7 +85,73 @@ class Reports extends CI_Controller
 		
 		echo json_encode($json_data);  // send data as json format
 	}
+//************get region**********
+function get_region()
+	{
+		$this->load->model('Reportsmodel');
+		$rec=$this->Reportsmodel->get_region_list();
+		$SurveyId=0;
+		if (count($rec) == 0)
+		{
+			echo 0;
+			return;
+		}
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+		
+		$temp['sub_constant_id'] = $row->sub_constant_id;
+		$temp['sub_constant_name'] = $row->sub_constant_name ;
+		
+			array_push($output,$temp);
+			
+			
+			
+		}
+		header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
+
+}	
+function get_fulladdress()
+	{
+		$this->load->model('Reportsmodel');
+		$rec=$this->Reportsmodel->get_fulladress_list();
+		$SurveyId=0;
+		if (count($rec) == 0)
+		{
+			echo 0;
+			return;
+		}
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+		
+		$temp['sub_constant_id'] = $row->sub_constant_id;
+		$temp['sub_constant_name'] = $row->sub_constant_name ;
+		
+			array_push($output,$temp);
+			
+			
+			
+		}
+		header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
+
+}	
 	
+
+
+//******end get region	
 	
 	
 	//******************************* Genger Report ****************************//

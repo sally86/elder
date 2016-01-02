@@ -38,9 +38,6 @@
                            الحالة الاجتماعية
                       </th>
                       <th>
-                           العنوان بالتفصيل
-                      </th>
-                      <th>
                            الهاتف
                       </th>
                       <th>
@@ -51,6 +48,12 @@
                       </th>
                       <th>
                            المحـــافـظــة
+                      </th>
+                      <th>
+                          المدينة 
+                      </th>
+                      <th>
+                           الحي
                       </th>
                       <th>&nbsp;
                            
@@ -87,9 +90,7 @@
 							  ?>
                         </select>
                       </td>
-                      <td>
-                          <input type="text" class="form-control form-filter input-sm" id="txtAddress" name="txtAddress">
-                      </td>
+                      
                       <td>
                           <input type="text" class="form-control form-filter input-sm" id="txtPhone" name="txtPhone">
                       </td>
@@ -100,7 +101,7 @@
                          <input type="text" class="form-control form-filter input-sm" id="txtMobile2" name="txtMobile2">
                       </td>
                       <td>
-                         <select class="form-control form-filter input-sm" id="drpGovernorate" name="drpGovernorate">
+                         <select class="form-control form-filter input-sm" id="drpGovernorate" name="drpGovernorate" onchange="elderInforpt_governorate_change();">
                             <option value="">اختر...</option>
                             <?php
 							  foreach($elder_governorate as $row)
@@ -108,6 +109,19 @@
                       			echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
 							  }
 							  ?>
+                        </select>
+                      </td>
+                      <td>
+                         <select class="form-control form-filter input-sm" id="drpRegion" name="drpRegion" onchange="elderInforpt_region_change();">
+                            <option value="">اختر...</option>
+                           
+                        </select>
+                      </td>
+                      <td>
+                          
+                          <select class="form-control form-filter input-sm" id="drpAddress" name="drpAddress">
+                            <option value="">اختر...</option>
+                           
                         </select>
                       </td>
                       <td>

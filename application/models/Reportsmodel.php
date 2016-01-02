@@ -9,23 +9,27 @@ class Reportsmodel extends CI_Model
 			3 => 'name',
 			4 => 'dob',
 			5 => 'status', 
-			6 => 'full_address', 
-			7 => 'phone', 
-			8 => 'mobile_first',
-			9 => 'mobile_second',
-			10 => 'gov.sub_constant_name');
+			6 => 'phone', 
+			7 => 'mobile_first',
+			8 => 'mobile_second',
+			9 => 'gov.sub_constant_name',
+			10 => 'region_desc',
+			11 => 'fulladdress');
 		
 		$myquery = "SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							TIMESTAMPDIFF(YEAR,e.dob,CURDATE()) as age,
 							e.full_address, e.phone, e.mobile_first, e.mobile_second,
 							e.status_id, sts.sub_constant_name as status,
-							e.governorate_id, gov.sub_constant_name as governorate,
+							e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,address.sub_constant_name as fulladdress,
 							f.file_id, f.file_status_id
- 					FROM 	elder_tb e, file_tb f, sub_constant_tb sts, sub_constant_tb gov
+ 					FROM 	elder_tb e
+					LEFT 	OUTER JOIN sub_constant_tb sts  ON e.status_id      = sts.sub_constant_id
+					LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
+					LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+					LEFT 	OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+					, file_tb f
 					WHERE 	e.elder_id = f.elder_id
-					  AND	e.governorate_id = gov.sub_constant_id
-					  AND	e.status_id = sts.sub_constant_id
-                      AND 	f.file_status_id = 170";
+	                AND 	f.file_status_id = 170";
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
@@ -54,10 +58,7 @@ class Reportsmodel extends CI_Model
 		{
 			$myquery = $myquery." AND status_id = ".$requestData['drpStatus'];
 		}
-		if(isset($requestData['txtAddress']) && $requestData['txtAddress'] !='')
-		{
-			$myquery = $myquery." AND full_address LIKE '%".$requestData['txtAddress']."%' ";
-		}
+	
 		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
 		{
 			$myquery = $myquery." AND phone = ".$requestData['txtPhone'];
@@ -74,7 +75,14 @@ class Reportsmodel extends CI_Model
 		{
 			$myquery = $myquery." AND e.governorate_id = ".$requestData['drpGovernorate'];
 		}
-		
+		if(isset($requestData['drpRegion']) && $requestData['drpRegion'] !='')
+		{
+			$myquery = $myquery." AND e.region = ".$requestData['drpRegion'];
+		}
+		if(isset($requestData['drpAddress']) && $requestData['drpAddress'] !='')
+		{
+			$myquery = $myquery." AND e.full_address = ".$requestData['drpAddress'];
+		}
 		
 		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
 		
@@ -84,6 +92,29 @@ class Reportsmodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+//***********get region list
+
+
+function get_region_list()
+	{	extract($_POST);
+		$this->db->where('parent_id',$governorateCode);
+		$query = $this->db->get('sub_constant_tb ');
+		return $query->result();
+		
+	}
+function get_fulladress_list()
+	{	extract($_POST);
+		$this->db->where('parent_id',$regionCode);
+		$query = $this->db->get('sub_constant_tb ');
+		return $query->result();
+		
+	}
+
+
+//*****end region list
+
+//-----end elder info rep
+	
 	
 	// Gender Report
 	function get_eldr_gender_rpt($requestData)

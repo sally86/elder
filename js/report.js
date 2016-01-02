@@ -112,7 +112,63 @@ var ElderInfoRptAjax = function () {
     };
 
 }();
+//*************Get region********//
 
+function elderInforpt_governorate_change(){	
+
+ 	var governorate_code = $('#drpGovernorate').find('option:selected').val();
+	
+	$.ajax({
+			url: baseURL+"Reports/get_region",
+			type: "POST",
+			data:  {governorateCode:governorate_code},
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				var i=0;
+				$('#drpRegion').empty();
+				$('#drpFulladdress').empty();
+//				alert(returndb[0]['sub_constant_id']+returndb[0]['sub_constant_name']);
+				$('#drpRegion').append("<option value=''>أختر ....</option>");
+				for (i=0;i<returndb.length;++i)
+			//	alert(returndb[i]['sub_constant_id']+returndb[i]['sub_constant_name']);
+				$('#drpRegion').append('<option value= "'+ returndb[i]['sub_constant_id'] + '">' + returndb[i]['sub_constant_name'] +'</option>');
+				
+			}
+		});//END $.ajax
+}
+
+function elderInforpt_region_change(){	
+
+ 	var region_code = $('#drpRegion').find('option:selected').val();
+	
+	$.ajax({
+			url: baseURL+"Reports/get_fulladdress",
+			type: "POST",
+			data:  {regionCode:region_code},
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				var i=0;
+				$('#drpAddress').empty();
+//				alert(returndb[0]['sub_constant_id']+returndb[0]['sub_constant_name']);
+				$('#drpAddress').append("<option value=''>أختر ....</option>");
+				for (i=0;i<returndb.length;++i)
+			//	alert(returndb[i]['sub_constant_id']+returndb[i]['sub_constant_name']);
+				$('#drpAddress').append('<option value= "'+ returndb[i]['sub_constant_id'] + '">' + returndb[i]['sub_constant_name'] +'</option>');
+				
+			}
+		});//END $.ajax
+}
+
+
+//**********end Get region******//
 //--------------------------- END Elder Info Report -------------------------------//
 
 
