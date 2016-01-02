@@ -342,6 +342,8 @@ function get_fulladdress()
 			$nestedData[] = $row->total_income;
 			$nestedData[] = $row->elder_portion;
 			$nestedData[] = $row->governorate;
+			$nestedData[] = $row->region_desc;
+			$nestedData[] = $row->fulladdress;
 			$nestedData[] = '';
 			
 			$data[] = $nestedData;

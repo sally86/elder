@@ -478,12 +478,15 @@ function get_fulladress_list()
                             ir.total_income, ir.elder_portion, ";
 							
 		$from = " FROM 	elder_tb e
-				 , file_tb f, survey_tb s, income_resources_tb ir, sub_constant_tb gov";
+				  LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
+				  LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+				  LEFT 	OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+							
+				 , file_tb f, survey_tb s, income_resources_tb ir";
 		
 		$where = " WHERE 	e.elder_id = f.elder_id
 					 AND	s.file_id = f.file_id
 					 AND	s.survey_id = ir.survey_id
-                     AND	e.governorate_id = gov.sub_constant_id
                      AND 	f.file_status_id = 170";
 					  
 		$columns = array( 
