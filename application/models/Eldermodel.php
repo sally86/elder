@@ -13,12 +13,19 @@ class Eldermodel extends CI_Model
 			$elderid = $elder_id;
 		}
 		
-		$myquery = "SELECT e.elder_id, e.elder_category_id, e.first_name, e.middle_name, e.third_name, e.last_name,
-							e.dob, e.sex_id, e.status_id, e.governorate_id, e.region, e.full_address, e.phone, 
+		$myquery = "SELECT 	e.elder_id, e.elder_category_id, e.first_name, e.middle_name, 
+							e.third_name, e.last_name,
+							e.dob, e.sex_id, e.status_id, e.governorate_id,e.region,e.full_address,
+							reg.sub_constant_name as region_desc,
+							address.sub_constant_name as fulladdress,e.phone, 
         					e.mobile_first, e.mobile_second, e.education_level_id, e.specialization_id, 
         					e.current_job_id, e.previous_job_id, e.insurance_type_id, e.death_date,
         					f.file_id, f.file_status_id
-					 FROM elder_tb e, file_tb f
+					 FROM 	elder_tb e
+					 LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id= gov.sub_constant_id
+					 LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
+					 LEFT 	OUTER JOIN sub_constant_tb address  ON e.full_address= address.sub_constant_id
+							, file_tb f
 					WHERE e.elder_id = f.elder_id
 					  AND e.elder_id = ".$elderid;
 		
