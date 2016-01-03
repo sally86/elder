@@ -108,11 +108,15 @@ function get_aidsRecomendation_info($SurveyId)
 		
 	}
 function get_elderBehaviour_info($SurveyId)
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('elder_behaviour_tb');
-		return $query->result();
+	{
+		$myquery = "SELECT eb.elder_behaviour_id, eb.survey_id, eb.behaviour_id, bhv.sub_constant_name behaviour
+					  FROM elder_behaviour_tb eb, sub_constant_tb bhv
+					 WHERE eb.behaviour_id = bhv.sub_constant_id
+  					   AND eb.survey_id = ".$SurveyId;
 		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
 	}
 function get_elderDisease_info($SurveyId)
 	{
@@ -151,11 +155,15 @@ function get_elderInteresting_info($SurveyId)
 		
 	}
 function get_elderPariah_info($SurveyId)
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('elder_pariah_tb');
-		return $query->result();
+	{
+		$myquery = "SELECT ep.elder_pariah_id, ep.survey_id, ep.elder_pariah_reason_id, prh.sub_constant_name pariah_reason
+					  FROM elder_pariah_tb ep, sub_constant_tb prh
+					 WHERE ep.elder_pariah_reason_id = prh.sub_constant_id
+  					   AND ep.survey_id = ".$SurveyId;
 		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
 	}
 function get_familyCooperation_info($SurveyId)
 	{	extract($_POST);
@@ -210,12 +218,18 @@ function get_familyPsyStatus_info($SurveyId)
 		
 	}
 function get_homeImprovRecomend_info($SurveyId)
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('home_improvement_recomendation_tb');
-		return $query->result();
+	{
+	$myquery = "	SELECT	home_improvement_recomendation_id, improvement_type_id, homeaid.sub_constant_name homeaid_type,
+							improvement_details
+					FROM 	home_improvement_recomendation_tb,sub_constant_tb homeaid
+					WHERE   improvement_type_id = homeaid.sub_constant_id	
+					AND     survey_id = ".$SurveyId;
 		
-	}
+		$res = $this->db->query($myquery);
+		return $res->result();
+		
+}
+
 function get_incomeResources_info($SurveyId)
 
 	{
@@ -245,12 +259,16 @@ function get_incomeResourcesDetails_info($SurveyId)
 	}
 
 function get_medicalAidRecomend_info($SurveyId)
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('medical_aid_recomendation_tb');
-		return $query->result();
+	{
+	$myquery = "	SELECT	medical_aid_recomendation_id,medical_aid_type_id,medication.sub_constant_name medicalaid_type
+					FROM 	medical_aid_recomendation_tb,sub_constant_tb medication
+					WHERE   medical_aid_type_id      = medication.sub_constant_id	
+					AND     survey_id = ".$SurveyId;
 		
-	}
+		$res = $this->db->query($myquery);
+		return $res->result();
+		
+}
 
 function get_medicationAvailability_info($SurveyId)
 	{
