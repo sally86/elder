@@ -218,14 +218,16 @@
 				</li>
 				<li <?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt'  || $title == 'incomerpt' 
 						  || $title == 'elderhomerpt' || $title == 'elderroomrpt' || $title == 'maintenancerpt' 
-						  || $title == 'lifeimprovementrpt' || $title == 'aidrecomendationrpt' || $title == 'statisticalrpt') 
+						  || $title == 'lifeimprovementrpt' || $title == 'aidrecomendationrpt' || $title == 'statisticalrpt'
+						  || $title == 'familyelderrelationrpt') 
 					echo 'class="active open"';?>>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">التقــارير</span>
 					<?php if($title == 'elderinforpt' || $title == 'genderrpt' || $title == 'edurpt' || $title == 'incomerpt'
 						  || $title == 'elderhomerpt'  || $title == 'elderroomrpt' || $title == 'maintenancerpt'
-						  || $title == 'lifeimprovementrpt' || $title == 'aidrecomendationrpt' || $title == 'statisticalrpt')
+						  || $title == 'lifeimprovementrpt' || $title == 'aidrecomendationrpt' || $title == 'statisticalrpt'
+						  || $title == 'familyelderrelationrpt')
 					echo '<span class="selected"></span>
 						  <span class="arrow open"></span>'; 
 					else
@@ -273,8 +275,8 @@
                             <i class="icon-settings"></i>
 							تقرير صيانة سكن كبير السن  </a>
 						</li>
-                        <li>
-							<a href="charts_amcharts.html">
+                        <li <?php if($title == 'familyelderrelationrpt') echo 'class="active open"';?>>
+							<a href="<?php echo base_url();?>reports/familyelderrelationrpt">
                             <i class="icon-users"></i>
 							تقرير حالة الأسرة مع المسن</a>
 						</li>

@@ -161,6 +161,7 @@
 		HomeRptAjax.init();
 		RoomRptAjax.init();
 		MaintenanceRptAjax.init();
+		FamilyelderrelationRptAjax.init();
 		LifeimprovementRptAjax.init();
 		AidrecomendationRptAjax.init();
 		//***************end Ajax table*******************/

@@ -823,6 +823,150 @@ function get_fulladress_list()
 		return $res->result();
 	}
 	
+	// Family Elder Relationship
+	function get_family_elder_Relation_rpt($requestData)
+	{
+			$columns = array( 
+			1 => 'file_id',
+			2 => 'name', 
+			3 => 'phone', 
+			4 => 'mobile_first',
+			5 => 'mobile_second',
+			6 => 'r.sub_constant_name',
+			7 => 'c.sub_constant_name', 
+			8 => 'psup.sub_constant_name',
+			9 => 'pn.sub_constant_name',
+			10 => 'p.sub_constant_name',
+			11 => 'family_psycho',
+			12 => 'elder_behaviour',
+			13 => 'elder_pariah_reason',
+			14 => 'is_cooperative',
+			15 => 'cooperative_persone_name');
+		
+		$select = "SELECT s.survey_id, e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+					    e.phone, mobile_first, e.mobile_second, 
+                        fer.respect, r.sub_constant_name is_respect,
+                        fer.pariah, p.sub_constant_name is_pariah,
+                        fer.care, c.sub_constant_name is_care,
+                        fer.provision_needs, pn.sub_constant_name is_provision_needs,
+                        fer.psychological_support, psup.sub_constant_name is_psychological_support,
+                        fco.is_cooperative_family, coo.sub_constant_name is_cooperative,
+                        fco.cooperative_persone_name,
+                        (SELECT GROUP_CONCAT(psych.sub_constant_name SEPARATOR ' - ')
+									FROM family_psychological_status_tb fp, sub_constant_tb psych
+								   WHERE fp.psychological_status_id = psych.sub_constant_id
+									 AND fp.survey_id = s.survey_id)  as family_psycho,
+						(SELECT GROUP_CONCAT(beh.sub_constant_name SEPARATOR ' - ')
+									FROM elder_behaviour_tb eb, sub_constant_tb beh
+								   WHERE eb.behaviour_id = beh.sub_constant_id
+									 AND eb.survey_id = s.survey_id)  as elder_behaviour,
+						(SELECT GROUP_CONCAT(prh.sub_constant_name SEPARATOR ' - ')
+									FROM elder_pariah_tb ep, sub_constant_tb prh
+								   WHERE ep.elder_pariah_reason_id = prh.sub_constant_id
+									 AND ep.survey_id = s.survey_id)  as elder_pariah_reason,
+                        f.file_id, f.file_status_id ";
+						
+		$from = "FROM   elder_tb e, file_tb f,  survey_tb s 
+						  LEFT 	OUTER JOIN family_elder_relationship_tb fer ON s.survey_id = fer.survey_id
+						  LEFT 	OUTER JOIN sub_constant_tb r     ON fer.respect = r.sub_constant_id
+						  LEFT 	OUTER JOIN sub_constant_tb p     ON fer.pariah = p.sub_constant_id
+						  LEFT 	OUTER JOIN sub_constant_tb c     ON fer.care = c.sub_constant_id
+						  LEFT 	OUTER JOIN sub_constant_tb pn    ON fer.provision_needs = pn.sub_constant_id
+						  LEFT 	OUTER JOIN sub_constant_tb psup  ON fer.psychological_support = psup.sub_constant_id
+						  LEFT	OUTER JOIN family_cooperation_tb fco ON s.survey_id = fco.survey_id
+						  LEFT 	OUTER JOIN sub_constant_tb coo  ON fco.is_cooperative_family = coo.sub_constant_id ";
+						  
+		$where = "WHERE   e.elder_id = f.elder_id
+					AND	  s.file_id = f.file_id
+					AND   s.survey_id IN (SELECT survey_id FROM family_elder_relationship_tb 
+										   UNION SELECT survey_id FROM family_psychological_status_tb
+										   UNION SELECT survey_id FROM elder_behaviour_tb
+										   UNION SELECT survey_id FROM elder_pariah_tb
+										   UNION SELECT survey_id FROM family_cooperation_tb)
+					AND    f.file_status_id = 170";
+					
+		
+		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
+		{
+			$where = $where." AND f.file_id = ".$requestData['txtFileid'];
+		}
+		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
+		{
+			$where = $where." AND CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) 
+			LIKE '%".$requestData['txtElderName']."%' ";
+		}
+		if(isset($requestData['txtPhone']) && $requestData['txtPhone'] !='')
+		{
+			$where = $where." AND phone = ".$requestData['txtPhone'];
+		}
+		if(isset($requestData['txtMobile1']) && $requestData['txtMobile1'] !='')
+		{
+			$where = $where." AND mobile_first = ".$requestData['txtMobile1'];
+		}
+		if(isset($requestData['txtMobile2']) && $requestData['txtMobile2'] !='')
+		{
+			$where = $where." AND e.mobile_second = ".$requestData['txtMobile2'];
+		}
+		if(isset($requestData['drpRespect']) && $requestData['drpRespect'] !='')
+		{
+			$where = $where." AND fer.respect = ".$requestData['drpRespect'];
+		}
+		if(isset($requestData['drpCare']) && $requestData['drpCare'] !='')
+		{
+			$where = $where." AND fer.care = ".$requestData['drpCare'];
+		}
+		if(isset($requestData['drpPsychologicalsupport']) && $requestData['drpPsychologicalsupport'] !='')
+		{
+			$where = $where." AND fer.psychological_support = ".$requestData['drpPsychologicalsupport'];
+		}
+		if(isset($requestData['drpProvisionneeds']) && $requestData['drpProvisionneeds'] !='')
+		{
+			$where = $where." AND fer.provision_needs = ".$requestData['drpProvisionneeds'];
+		}
+		if(isset($requestData['drpPariah']) && $requestData['drpPariah'] !='')
+		{
+			$where = $where." AND fer.pariah = ".$requestData['drpPariah'];
+		}
+		if(isset($requestData['drpPsychologicalstatus']) && $requestData['drpPsychologicalstatus'] !='')
+		{
+			$from = $from . ", family_psychological_status_tb ofp";
+			$where = $where." AND ofp.survey_id = s.survey_id";
+			$where = $where." AND ofp.psychological_status_id = ".$requestData['drpPsychologicalstatus'];
+		}
+		if(isset($requestData['drpElderbehaviour']) && $requestData['drpElderbehaviour'] !='')
+		{
+			$from = $from . ", elder_behaviour_tb oeb";
+			$where = $where." AND oeb.survey_id = s.survey_id";
+			$where = $where." AND oeb.behaviour_id = ".$requestData['drpElderbehaviour'];
+		}
+		if(isset($requestData['drpElderpariah']) && $requestData['drpElderpariah'] !='')
+		{
+			$from = $from . ", elder_pariah_tb oep";
+			$where = $where." AND oep.survey_id = s.survey_id";
+			$where = $where." AND oep.elder_pariah_reason_id = ".$requestData['drpElderpariah'];
+		}
+		if(isset($requestData['drpIscooperative']) && $requestData['drpIscooperative'] !='')
+		{
+			$where = $where." AND fco.is_cooperative_family = ".$requestData['drpIscooperative'];
+		}
+		if(isset($requestData['txtCooperativepersonename']) && $requestData['txtCooperativepersonename'] !='')
+		{
+			$where = $where." AND fco.cooperative_persone_name LIKE '%".$requestData['txtCooperativepersonename']."%' ";
+		}
+		
+		$myquery = "$select
+ 					$from
+					$where";
+		
+		$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
+		
+		if ($requestData['length'] > 0)
+			$myquery = $myquery." LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
+	
 	//  Maintenance Report
 	function get_maintenance_rpt($requestData)
 	{

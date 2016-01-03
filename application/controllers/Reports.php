@@ -540,6 +540,62 @@ function get_fulladdress()
 		echo json_encode($json_data);  // send data as json format
 	}
 	
+	//**************************** Family Elder Relation Report ***************************//
+	function familyelderrelationrpt()
+	{
+		$this->load->model('constantmodel');
+		
+		$this->data['elder_psychologicalstatus'] = $this->constantmodel->get_sub_constant(44);
+		$this->data['elder_elderbehaviour'] = $this->constantmodel->get_sub_constant(43);
+		$this->data['elder_elderpariah'] = $this->constantmodel->get_sub_constant(56);
+		$this->data['elder_choice'] = $this->constantmodel->get_sub_constant(38);
+		
+	}
+	function familyelderrelationgriddata()
+	{
+		$this->load->model('reportsmodel');
+		$rec = $this->reportsmodel->get_family_elder_Relation_rpt($_REQUEST);
+		
+		$i = 1;
+		$data = array();
+		foreach($rec as $row)
+		{
+			$nestedData=array();
+						
+			$nestedData[] = $i++;
+			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->name;
+			$nestedData[] = $row->phone;
+			$nestedData[] = $row->mobile_first;
+			$nestedData[] = $row->mobile_second;
+			$nestedData[] = $row->is_respect;
+			$nestedData[] = $row->is_care;
+			$nestedData[] = $row->is_psychological_support;
+			$nestedData[] = $row->is_provision_needs;
+			$nestedData[] = $row->is_pariah;
+			$nestedData[] = $row->family_psycho;
+			$nestedData[] = $row->elder_behaviour;
+			$nestedData[] = $row->elder_pariah_reason;
+			$nestedData[] = $row->is_cooperative;
+			$nestedData[] = $row->cooperative_persone_name;
+	
+			$nestedData[] = '';
+			
+			$data[] = $nestedData;
+		} // End Foreach
+		
+		$totalFiltered = count($rec);
+		$totalData = count($rec);
+		//$records["draw"] = $sEcho;
+		$json_data = array(
+					"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+					"recordsTotal"    => intval( $totalData ),  		// total number of records
+					"recordsFiltered" => intval( $totalFiltered ),		// total number of records after searching, if there is no searching then totalFiltered = totalData
+					"data"            => $data   						// total data array
+					);
+		
+		echo json_encode($json_data);  // send data as json format
+	}
 	//******************************* Life Improvement Report ****************************//
 	function lifeimprovementrpt()
 	{
