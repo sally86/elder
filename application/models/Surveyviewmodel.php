@@ -163,13 +163,29 @@ function get_familyRelationship_info($SurveyId)
 		return $query->result();
 		
 	}
-function get_familyMember_info($SurveyId)
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('family_member_tb');
-		return $query->result();
+function get_familyMember_info($elder_id)
+
+	{
 		
+		
+		$myquery = "SELECT fm.family_member_id, fm.survey_id, fm.elder_id, fm.member_id, fm.member_name, fm.dob, fm.income_shekel, 		
+						fm.job, fm.member_sex_id, sex.sub_constant_name sex,
+        				fm.relationship_id, rel.sub_constant_name relationship,
+        				fm.status_id, stat.sub_constant_name fmstatus,
+        				fm.education_level_id, edu.sub_constant_name education_level,
+        				fm.health_status_id, hlt.sub_constant_name health_status
+					 FROM family_member_tb fm
+					  LEFT OUTER JOIN sub_constant_tb sex  ON fm.member_sex_id      = sex.sub_constant_id
+					  LEFT OUTER JOIN sub_constant_tb rel  ON fm.relationship_id    = rel.sub_constant_id
+					  LEFT OUTER JOIN sub_constant_tb stat ON fm.status_id          = stat.sub_constant_id
+					  LEFT OUTER JOIN sub_constant_tb edu  ON fm.education_level_id = edu.sub_constant_id
+					  LEFT OUTER JOIN sub_constant_tb hlt  ON fm.health_status_id 	= hlt.sub_constant_id
+				  WHERE fm.elder_id = ".$elder_id;
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
 	}
+
 function get_followUp_info($elderId)
 	{	extract($_POST);
 		$this->db->where('elder_id',$elderId);

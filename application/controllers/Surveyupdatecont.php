@@ -104,7 +104,7 @@ class Surveyupdatecont extends CI_Controller
 			$this->data['homeImprovRecomend_info'] = $this->Surveyviewmodel->get_homeImprovRecomend_info($_SESSION['update']);
 			$this->data['followUp_info'] = $this->Surveyviewmodel->get_followUp_info($_SESSION['elder_id']);
 			
-			$this->data['familyMember_info'] = $this->Surveyviewmodel->get_familyMember_info($_SESSION['update']);
+			$this->data['familyMember_info'] = $this->Surveyviewmodel->get_familyMember_info($_SESSION['elder_id']);
 			$this->data['familyRelationship_info'] = $this->Surveyviewmodel->get_familyRelationship_info($_SESSION['update']);
 			$this->data['familyCooperation_info'] = $this->Surveyviewmodel->get_familyCooperation_info($_SESSION['update']);
 			$this->data['elderPariah_info'] = $this->Surveyviewmodel->get_elderPariah_info($_SESSION['update']);

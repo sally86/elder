@@ -50,10 +50,10 @@ if (isset($followUp_info))
 {
 	foreach($followUp_info as $followUp_row);
 };
-if (isset($familyMember_info))
+/*if (isset($familyMember_info))
 {
 	foreach($familyMember_info as $familyMember_row);
-}
+}*/
 if (isset($familyRelationship_info))
 {
 	foreach($familyRelationship_info as $familyRelationship_row);
@@ -802,32 +802,32 @@ if (isset($aidsRecomendation_info))
                                         <tbody id="tbdFamilyMember">
                                         <?php 
 										
-										$i=1;
-		foreach($familyMember_info as $row)
-		{
-			
-			echo "<tr>";
-			echo "<td>" . $i++ 					. "</td>";
-			echo "<td>" . $row->member_name 	. "</td>";
-			echo "<td>" . $row->member_id 		. "</td>";
-			echo "<td>" . $row->sex 			. "</td>";
-			echo "<td>" . $row->relationship 	. "</td>";
-			echo "<td>" . $row->fmstatus 		. "</td>";
-			echo "<td>" . $row->dob 			. "</td>";
-			echo "<td>" . $row->education_level . "</td>";
-			echo "<td>" . $row->health_status 	. "</td>";
-			echo "<td>" . $row->job 			. "</td>";
-			echo "<td>" . $row->income_shekel 	. "</td>";
-			echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-                              class="btn btn-circle red-sunglo btn-sm" 
-                              onclick="deleteFamilybyId('. $row->family_member_id .')">
-                               <i id="iConst" class="fa fa-close"></i>
-                      </button></td>';
-			echo "</tr>";
-			
-			
-			
-		}
+											$i=1;
+											foreach($familyMember_info as $row)
+											{
+												
+												echo "<tr>";
+												echo "<td>" . $i++ 					. "</td>";
+												echo "<td>" . $row->member_name 	. "</td>";
+												echo "<td>" . $row->member_id 		. "</td>";
+												echo "<td>" . $row->sex 			. "</td>";
+												echo "<td>" . $row->relationship 	. "</td>";
+												echo "<td>" . $row->fmstatus 		. "</td>";
+												echo "<td>" . $row->dob 			. "</td>";
+												echo "<td>" . $row->education_level . "</td>";
+												echo "<td>" . $row->health_status 	. "</td>";
+												echo "<td>" . $row->job 			. "</td>";
+												echo "<td>" . $row->income_shekel 	. "</td>";
+												echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+																  class="btn btn-circle red-sunglo btn-sm" 
+																  onclick="deleteFamilybyId('. $row->family_member_id .')">
+																   <i id="iConst" class="fa fa-close"></i>
+														  </button></td>';
+												echo "</tr>";
+												
+												
+												
+											}
 	
 		
 										
