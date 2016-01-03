@@ -26,10 +26,10 @@ if (isset($medicationNeed_info))
 {
 	foreach($medicationNeed_info as $medicationNeed_row);
 }
-if (isset($medicationAvailability_info))
+/*if (isset($medicationAvailability_info))
 {
 	foreach($medicationAvailability_info as $medicationAvailability_row);
-}
+}*/
 if (isset($medicalAidRecomend_info))
 {
 	foreach($medicalAidRecomend_info as $medicalAidRecomend_row);
@@ -928,7 +928,27 @@ if (isset($aidsRecomendation_info))
                                           </tr>
                                          </thead>
                                          <tbody id="tbdElderDisease">
-                                         
+                                        <?php 
+										foreach($elderDisease_info as $row)
+											{
+												
+												echo '<tr>';
+												echo '<td>';
+												echo '<div class="col-md-11">';
+												echo '<span class="font-blue">' . $row->disease .'</span></div>';
+												echo '<div class="col-md-1"><button id="btnDeletedoc" 
+														name="btnDeletedoc" type="button" 
+														class="btn btn-circle red-sunglo btn-sm" 
+														onclick="delete_elder_disease('. $row->elder_disease_det_id .','. $row->disease_id .')">
+																	   <i id="iConst" class="fa fa-close"></i>
+															  </div>';
+												echo "</td>";
+												echo "</tr>";
+											}
+																			
+										
+										
+										?> 
                                           
                                          </tbody>
                                          </table>
@@ -942,7 +962,9 @@ if (isset($aidsRecomendation_info))
                                                     </label>
                                                     <div class="col-md-6">
                                                        <textarea id="txtarDiseaasedet" name="txtarDiseaasedet" 
-                                                        class="form-control input-large"></textarea>
+                                                        class="form-control input-large"><?php 
+														if(isset($elderDiseaseDet_row->elder_disease_details)) 
+															echo $elderDiseaseDet_row->elder_disease_details;?></textarea>
                                                     </div>
                                                     <div class="col-md-2">
                                                     	<button id="btnAdddiseaasedet" name="btnAdddiseaasedet" type="button" 
@@ -1036,6 +1058,81 @@ if (isset($aidsRecomendation_info))
                                           </tr>
                                         </thead>
                                         <tbody id="tbdIncomeSourceDet">
+        <?PHP
+                                        $i=1;
+		$j=1;
+		$org_row = "";
+		$total_cash = 0;
+		$total_package = 0;
+		foreach($incomeResources_info as $row)
+		{
+			$total_cash = $total_cash + $row->cash_income;
+			$total_package = $total_package + $row->package_cash_value;
+			
+			if($row->resource_id == 75)
+			{
+				if ($j == 1)
+				{
+					$org = $row->resource;
+				}
+				$org_row = $org_row . '<tr><td>' . $j++ . '- ' . $row->organization . '</td>'
+									. '<td>' . $row->cash_income . '</td>'
+									. '<td>' . $row->package_income . '</td>'
+									. '<td>' . $row->package_cash_value . '</td>'
+									. '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+										  class="btn btn-circle red-sunglo btn-sm" 
+										  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
+																			   . $row->resource_id .',\''
+																			   . $row->organization_id .'\')">
+										   <i id="iConst" class="fa fa-close"></i></button>
+								  		 </div>
+								  </td></tr>';
+		
+			}
+			else
+			{
+				echo '<tr>';
+				echo '<td>' . $i++ . '</td>';
+				echo '<td>' . $row->resource . '</td>';
+				echo '<td>' . $row->cash_income . '</td>';
+				echo '<td>' . $row->package_income . '</td>';
+				echo '<td>' . $row->package_cash_value . '</td>';
+				echo '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+									  class="btn btn-circle red-sunglo btn-sm" 
+									  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
+																		   . $row->resource_id .',\''
+																		   . $row->organization_id .'\')">
+									   <i id="iConst" class="fa fa-close"></i></button>
+							  </div>';
+				echo "</td>";
+				echo "</tr>";
+			}
+			
+		}
+		
+		if ($j > 1)
+		{
+			echo '<tr>';
+			echo '<td rowspan="' .$j. '">' . $i++ . '</td>';
+			echo '<td> ' . $org . ' </td>';
+			echo '<td> &nbsp; </td>';
+			echo '<td> &nbsp; </td>';
+			echo '<td> &nbsp; </td>';
+			echo '<td> &nbsp; </td>';
+			echo "</tr>";
+			echo $org_row;
+		}
+		
+		// Total Row
+		echo '<tr class="bg-grey-steel">';
+		echo '<td> &nbsp; </td>';
+		echo '<td> المــجـموع الكـلي </td>';
+		echo '<td> '.$total_cash.' </td>';
+		echo '<td> &nbsp; </td>';
+		echo '<td> '.$total_package.' </td>';
+		echo '<td> &nbsp; </td>';
+		echo "</tr>";
+        ?>
                                         </tbody>
                                      </table>
                                      </fieldset>
@@ -1059,7 +1156,7 @@ if (isset($aidsRecomendation_info))
                                           * </span>
                                           </label>
                                           <div class="col-md-4">
-                                            <input type="text" id="txtTotalincome" name="txtTotalincome" data-required="1" class="form-control"/>
+                                            <input type="text" id="txtTotalincome" name="txtTotalincome" data-required="1" class="form-control" value="<?php if(isset($incomeResourcesDetails_row->total_income)) echo $incomeResourcesDetails_row->total_income;?>"/>
                                           </div>
                                         </div>
                                         
@@ -1068,7 +1165,7 @@ if (isset($aidsRecomendation_info))
                                           * </span>
                                           </label>
                                           <div class="col-md-4">
-                                            <input type="text" id="txtElderportion" name="txtElderportion" data-required="1" class="form-control"/>
+                                            <input type="text" id="txtElderportion" name="txtElderportion" data-required="1" class="form-control" value="<?php if(isset($incomeResourcesDetails_row->elder_portion)) echo $incomeResourcesDetails_row->elder_portion;?>"/>
                                           </div>
                                         </div>
                                         
@@ -1117,10 +1214,14 @@ if (isset($aidsRecomendation_info))
                                                     <option value="">اختر...</option>
                                                     
                                                      <?php
-                                                      foreach($survey_HomeStatus as $row)
+													 $selected="";
+                                                      foreach($survey_HomeStatus as $survey_HomeStatus_row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'
-																.$row->sub_constant_name.'</option>';
+										 if ($homeStatus_row->home_situation_id == $survey_HomeStatus_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                              echo '<option value="'.$survey_HomeStatus_row->sub_constant_id.'"'.$selected.'>'
+																.$survey_HomeStatus_row->sub_constant_name.'</option>';
+																$selected="";
                                                     }
                                                      ?>
     
@@ -1137,10 +1238,14 @@ if (isset($aidsRecomendation_info))
                                                     <option value="">اختر...</option>
     
                                                      <?php
-                                                      foreach($survey_HomeType as $row)
+ 													 $selected="";
+                                                      foreach($survey_HomeType as $survey_HomeType_row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                    }
+													  if ($homeStatus_row->home_type_id == $survey_HomeType_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                        echo '<option value="'.$survey_HomeType_row->sub_constant_id.'"'.$selected.'>'.$survey_HomeType_row->sub_constant_name.'</option>';
+       													 $selected="";
+													}
                                                      ?>
                                                 </select>
                                               </div>
@@ -1154,10 +1259,14 @@ if (isset($aidsRecomendation_info))
                                                   <select class="form-control" id="drpCeilingType" name="drpCeilingType">
                                                     <option value="">اختر...</option>
                                                       <?php
-                                                      foreach($survey_CeilingType as $row)
+  													 $selected="";
+                                                      foreach($survey_CeilingType as $survey_CeilingType_row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                    }
+													  if ($homeStatus_row->ceiling_type_id == $survey_CeilingType_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                  echo '<option value="'.$survey_CeilingType_row->sub_constant_id.'"'.$selected.'>'.$survey_CeilingType_row->sub_constant_name.'</option>';
+                                                    $selected="";
+													}
                                                      ?>
                                                 </select>
                                               </div>
@@ -1169,7 +1278,7 @@ if (isset($aidsRecomendation_info))
                                                </label>
                                               <div class="col-md-4">
                                                   <input type="text" id="txtCeilingdescription" name="txtCeilingdescription"
-                                                   data-required="1" class="form-control"/>
+                                                   data-required="1" class="form-control" value="<?php if(isset($homeStatus_row->ceiling_description)) echo $homeStatus_row->ceiling_description;?>"/>
                                               </div>
                                           </div>
                                           
@@ -1181,10 +1290,13 @@ if (isset($aidsRecomendation_info))
                                                   <select class="form-control" id="drpFurnitureLevel" name="drpFurnitureLevel">
                                                     <option value="">اختر...</option>
                                                     <?php
-                                                      foreach($survey_FurnitureLevel as $row)
+													$selected="";
+                                                      foreach($survey_FurnitureLevel as $survey_FurnitureLevel_row)
                                                       {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'
-																.$row->sub_constant_name.'</option>';
+													  if ($homeStatus_row->furniture_level_id== $survey_FurnitureLevel_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                        echo '<option value="'.$survey_FurnitureLevel_row->sub_constant_id.'"'.$selected.'>'.$survey_FurnitureLevel_row->sub_constant_name.'</option>';
+														$selected="";
                                                       }
                                                      ?>
                                                 </select>
@@ -1197,7 +1309,7 @@ if (isset($aidsRecomendation_info))
                                                </label>
                                               <div class="col-md-4">
                                                    <textarea id="txtarFurnitureneeds" name="txtarFurnitureneeds" 
-                                                        class="form-control input-large"></textarea>
+                                                        class="form-control input-large"><?php if(isset($homeStatus_row->furniture_needs)) echo $homeStatus_row->furniture_needs;?></textarea>
                                               </div>
                                           </div>
                                           
@@ -1243,11 +1355,15 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpElderHometype" name="drpElderHometype">
                                                   <option value="">اختر...</option>
                                                    <?php
-                                                    foreach($survey_Hometype as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'
-													  		.$row->sub_constant_name.'</option>';
-                                                  }
+												   $selected="";
+                                                    foreach($survey_Hometype as $survey_Hometype_row)
+                                                    {  if ($elderRoom_row->home_type_id == $survey_Hometype_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+														
+                                         echo '<option value="'.$survey_Hometype_row->sub_constant_id.'"'.$selected.'>'
+													  		.$survey_Hometype_row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1261,9 +1377,14 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpRoomtype" name="drpRoomtype">
                                                   <option value="">اختر...</option>
                                                    <?php
-                                                    foreach($survey_Roomtype as $row)
+												   $selected="";
+                                                    foreach($survey_Roomtype as $survey_Roomtype_row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+														if ($elderRoom_row->room_type_id == $survey_Roomtype_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+														
+                                                      echo '<option value="'.$survey_Roomtype_row->sub_constant_id.'"'.$selected.'>'.$survey_Roomtype_row->sub_constant_name.'</option>';
+													   $selected="";
                                                   }
                                                    ?>
                                               </select>
@@ -1278,10 +1399,14 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpClothes" name="drpClothes">
                                                   <option value="">اختر...</option>
                                                   <?php
-                                                    foreach($survey_Clothes as $row)
+												  $selected="";
+                                                    foreach($survey_Clothes as $survey_Clothes_row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+														if ($elderRoom_row->clothes_covers_status_id == $survey_Clothes_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$survey_Clothes_row->sub_constant_id.'"'.$selected.'>'.$survey_Clothes_row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                               </select>
@@ -1296,10 +1421,15 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpVentilation" name="drpVentilation">
                                                   <option value="">اختر...</option>
                                                   <?php
-                                                    foreach($survey_Ventilation as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+												  $selected="";
+												  
+                                                    foreach($survey_Ventilation as $survey_Ventilation_row)
+                                                    {if ($elderRoom_row->room_ventilation_id == $survey_Ventilation_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+														
+                                                      echo '<option value="'.$survey_Ventilation_row->sub_constant_id.'"'.$selected.'>'.$survey_Ventilation_row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1313,10 +1443,14 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpLighting" name="drpLighting">
                                                   <option value="">اختر...</option>
                                                      <?php
-                                                    foreach($survey_Lighting as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+													 $selected="";
+                                                    foreach($survey_Lighting as $survey_Lighting_row)
+                                                    {if ($elderRoom_row->room_lighting_id == $survey_Lighting_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+														
+                                                      echo '<option value="'.$survey_Lighting_row->sub_constant_id.'"'.$selected.'>'.$survey_Lighting_row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1330,10 +1464,13 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpCloset" name="drpCloset">
                                                   <option value="">اختر...</option>
                                                         <?php
-                                                    foreach($survey_Choice as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+														$selected="";
+                                                    foreach($survey_Choice as $survey_Choice_row)
+                                                    {if ($elderRoom_row->has_closet == $survey_Choice_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                      echo '<option value="'.$survey_Choice_row->sub_constant_id.'"'.$selected.'>'.$survey_Choice_row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1347,10 +1484,13 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpBed" name="drpBed">
                                                   <option value="">اختر...</option>
                                                   <?php
-                                                    foreach($survey_Choice as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+												  $selected="";
+                                                    foreach($survey_Choice as $survey_Choice_row)
+                                                    {if ($elderRoom_row->has_good_bed == $survey_Choice_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$survey_Choice_row->sub_constant_id.'"'.$selected.'>'.$survey_Choice_row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1364,10 +1504,13 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpCupboard" name="drpCupboard">
                                                   <option value="">اختر...</option>
                                                   <?php
-                                                    foreach($survey_Choice as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+												  $selected="";
+                                                    foreach($survey_Choice as $survey_Choice_row)
+                                                    {if ($elderRoom_row->has_medicine_cupboard == $survey_Choice_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$survey_Choice_row->sub_constant_id.'"'.$selected.'>'.$survey_Choice_row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1381,9 +1524,12 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpMaintenance" name="drpMaintenance">
                                                   <option value="">اختر...</option>
                                                   <?php
-                                                    foreach($survey_Choice as $row)
-                                                    {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+												  $selected="";
+                                                    foreach($survey_Choice as $survey_Choice_row)
+                                                    {if ($elderRoom_row->room_need_maintenance == $survey_Choice_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$survey_Choice_row->sub_constant_id.'"'.$selected.'>'.$survey_Choice_row->sub_constant_name.'</option>';
+													  $selected="";
                                                   }
                                                    ?>
                                               </select>
@@ -1396,7 +1542,7 @@ if (isset($aidsRecomendation_info))
                                              </label>
                                             <div class="col-md-4">
                                             	<textarea id="txtarRoommaintinancedet" name="txtarRoommaintinancedet" 
-                                                  class="form-control input-large"></textarea>
+                                                  class="form-control input-large"><?php if(isset($elderRoom_row->room_maintenance_details)) echo $elderRoom_row->room_maintenance_details;?></textarea>
                                             </div>
                                         </div>
                                         
@@ -1408,10 +1554,14 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpBathroom" name="drpBathroom">
                                                   <option value="">اختر...</option>
                                                   <?php
-                                                    foreach($survey_Bathroom as $row)
+												  $selected="";
+                                                    foreach($survey_Bathroom as $survey_Bathroom_row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+														if ($elderRoom_row->bathroom_status_id == $survey_Bathroom_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$survey_Bathroom_row->sub_constant_id.'"'.$selected.'>'.$survey_Bathroom_row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1424,7 +1574,7 @@ if (isset($aidsRecomendation_info))
                                              </label>
                                             <div class="col-md-4">
                                             	<textarea id="txtarBathroommaintinancedet" name="txtarBathroommaintinancedet" 
-                                                  class="form-control input-large"></textarea>
+                                                  class="form-control input-large"><?php if(isset($elderRoom_row->bathroom_maintenance_details)) echo $elderRoom_row->bathroom_maintenance_details;?></textarea>
                                             </div>
                                         </div>
                                         
@@ -1436,11 +1586,15 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpHigiene" name="drpHigiene">
                                                   <option value="">اختر...</option>
                                                 <?php
-                                                    foreach($survey_Higiene as $row)
+												$selected="";
+                                                    foreach($survey_Higiene as $survey_Higiene_row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'
-													  .$row->sub_constant_name.'</option>';
-                                                  }
+														if ($elderRoom_row->elder_higiene_id == $survey_Higiene_row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                       echo '<option value="'.$survey_Higiene_row->sub_constant_id.'"'.$selected.'>'
+													  .$survey_Higiene_row->sub_constant_name.'</option>';
+                                                 $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1507,7 +1661,25 @@ if (isset($aidsRecomendation_info))
                                       </tr>
                                      </thead>
                                      <tbody id="tbdMedication">
-                                      
+                                      <?php 
+									  
+									  foreach($medicationAvailability_info as $row)
+										{
+											
+											echo '<tr>';
+											echo '<td>'. $row->medicine_name .'</td>';
+											echo '<td>'. $row->availability_status .'</td>';
+											echo '<td>'. $row->unavailable_reason .'</td>';
+											echo '<td><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+															  class="btn btn-circle red-sunglo btn-sm" 
+															  onclick="delete_medication_availability('. $row->medication_availability_id .')">
+															   <i id="iConst" class="fa fa-close"></i></button>';
+											echo "</td>";
+											echo "</tr>";
+										}
+									  
+									  
+									  ?>
                                      </tbody>
                                      </table>   
                                      </fieldset><!-- END fieldset Mication Available-->
@@ -1550,7 +1722,23 @@ if (isset($aidsRecomendation_info))
 
                                      </thead>
                                      <tbody id="tbdMedicationneed">
-                                      
+                                      <?php 
+									  foreach($medicationNeed_info as $row)
+										{
+											
+											echo '<tr>';
+											echo '<td>'. $row->medication_type .'</td>';
+											echo '<td>'. $row->medication_details .'</td>';
+											echo '<td><button id="btnDeleteMedicneed" name="btnDeleteMedicneed" type="button" 
+															  class="btn btn-circle red-sunglo btn-sm" 
+															  onclick="delete_medication_need('. $row->medication_need_id  .
+																							  ','. $row->medication_type_id .')"">
+															   <i id="iConst" class="fa fa-close"></i></button>';
+											echo "</td>";
+											echo "</tr>";
+										}
+									  
+									  ?>
                                      </tbody>
                                      </table>   
                                      </fieldset><!-- END fieldset Mication Needs-->
@@ -1582,10 +1770,14 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpRespect" name="drpRespect">
                                                   <option value="">اختر...</option>
                                                    <?php
+												   $selected="";
                                                     foreach($survey_Choice as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+														if ($familyRelationship_row->respect == $row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                           echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'.$row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1599,10 +1791,14 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpPariah" name="drpPariah">
                                                   <option value="">اختر...</option>
                                                    <?php
+												   $selected="";
                                                     foreach($survey_Choice as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'
+														if ($familyRelationship_row->pariah == $row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'
 													  		.$row->sub_constant_name.'</option>';
+															$selected="";
                                                   }
                                                    ?>
                                               </select>
@@ -1617,9 +1813,13 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpCare" name="drpCare">
                                                   <option value="">اختر...</option>
                                                    <?php
+												   $selected="";
                                                     foreach($survey_Choice as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+														if ($familyRelationship_row->care == $row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                     echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'.$row->sub_constant_name.'</option>';
+													  $selected="";
                                                   }
                                                    ?>
                                               </select>
@@ -1634,10 +1834,14 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpPsycosupport" name="drpPsycosupport">
                                                   <option value="">اختر...</option>
                                                    <?php
+												    $selected="";
                                                     foreach($survey_Choice as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+														if ($familyRelationship_row->psychological_support == $row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'.$row->sub_constant_name.'</option>';
+                                                   $selected="";
+												  }
                                                    ?>
                                               </select>
                                             </div>
@@ -1651,10 +1855,15 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpNeeds" name="drpNeeds">
                                                   <option value="">اختر...</option>
                                                    <?php
+												    $selected="";
                                                     foreach($survey_Choice as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
-                                                  }
+														if ($familyRelationship_row->provision_needs == $row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'.$row->sub_constant_name.'</option>';
+                                                  $selected="";
+												  }
+												  
                                                    ?>
                                               </select>
                                             </div>
@@ -1666,7 +1875,7 @@ if (isset($aidsRecomendation_info))
                                              </label>
                                             <div class="col-md-4">
                                                 <textarea id="txtarNeedreasone" name="txtarNeedreasone" 
-                                                  class="form-control input-large"></textarea>
+                                                  class="form-control input-large"><?php if(isset($familyRelationship_row->no_provision_needs_reason)) echo $familyRelationship_row->no_provision_needs_reason;?></textarea>
                                             </div>
                                         </div>
                                         
@@ -1678,9 +1887,13 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpLegaladvice" name="drpLegaladvice">
                                                   <option value="">اختر...</option>
                                                    <?php
+												   $selected ="";
                                                     foreach($survey_Choice as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+														if ($familyRelationship_row->legal_advice == $row->sub_constant_id)
+                                                          $selected = 'selected="selected"';
+                                                      echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'.$row->sub_constant_name.'</option>';
+													  $selected ="";
                                                   }
                                                    ?>
                                               </select>

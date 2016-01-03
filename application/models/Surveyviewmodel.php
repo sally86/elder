@@ -114,20 +114,28 @@ function get_elderBehaviour_info($SurveyId)
 		return $query->result();
 		
 	}
-function get_elderDiseaseDet_info($elderDiseaseId)
-	{	extract($_POST);
-		$this->db->where('elder_disease_id',$elderDiseaseId);
-		$query = $this->db->get('elder_disease_det_tb ');
-		return $query->result();
+function get_elderDisease_info($SurveyId)
+	{
+		
+		$myquery = "SELECT  ed.elder_disease_id, ed.survey_id, ed.elder_disease_details, 
+							det.elder_disease_det_id, det.disease_id, dis.sub_constant_name disease
+					  FROM  elder_disease_tb ed, elder_disease_det_tb det, sub_constant_tb dis
+					 WHERE  ed.elder_disease_id = det.elder_disease_id
+					   AND  det.disease_id = dis.sub_constant_id
+  					   AND  ed.survey_id = ".$SurveyId;
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
 		
 	}
-function get_elderDisease_info($SurveyId)
+function get_elderDiseaseDet_info($SurveyId)
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('elder_disease_tb ');
+		$query = $this->db->get('elder_disease_tb');
 		return $query->result();
 		
-	}
+	}	
 /*function get_elderDoc_info($SurveyId)
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
@@ -209,6 +217,26 @@ function get_homeImprovRecomend_info($SurveyId)
 		
 	}
 function get_incomeResources_info($SurveyId)
+
+	{
+		$myquery = "SELECT ird.income_resources_details_id, ird.income_resources_id, ird.cash_income,
+						   ird.package_income, ird.package_cash_value,
+						   ird.resource_id, res.sub_constant_name resource,
+						   ird.organization_id, org.sub_constant_name organization,total_income,elder_portion
+					  FROM income_resources_tb ir, sub_constant_tb res, income_resources_details_tb ird
+						LEFT OUTER JOIN sub_constant_tb org ON ird.organization_id = org.sub_constant_id
+					 WHERE ir.income_resources_id =  ird.income_resources_id
+					   AND ird.resource_id = res.sub_constant_id
+   					   AND ir.survey_id = ".$SurveyId."
+				  ORDER BY ird.resource_id";
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
+	}
+
+
+function get_incomeResourcesDetails_info($SurveyId)
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
 		$query = $this->db->get('income_resources_tb');
@@ -216,13 +244,6 @@ function get_incomeResources_info($SurveyId)
 		
 	}
 
-function get_incomeResourcesDetails_info($incomeResourcesId)
-	{	extract($_POST);
-		$this->db->where('income_resources_id',$incomeResourcesId);
-		$query = $this->db->get('income_resources_details_tb');
-		return $query->result();
-		
-	}
 function get_medicalAidRecomend_info($SurveyId)
 	{	extract($_POST);
 		$this->db->where('survey_id',$SurveyId);
@@ -232,18 +253,28 @@ function get_medicalAidRecomend_info($SurveyId)
 	}
 
 function get_medicationAvailability_info($SurveyId)
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('medication_availability_tb');
-		return $query->result();
+	{
+		$myquery = "SELECT ma.medication_availability_id, ma.survey_id, ma.medicine_name,
+	   						ma.availability_status_id, avstat.sub_constant_name availability_status, ma.unavailable_reason
+					  FROM  medication_availability_tb ma, sub_constant_tb avstat
+					 WHERE  ma.availability_status_id = avstat.sub_constant_id
+  					   AND  ma.survey_id = ".$SurveyId;
 		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
 	}
 function get_medicationNeed_info($SurveyId)
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('medication_need_tb');
-		return $query->result();
+{
+		$myquery = "SELECT  mn.medication_need_id, mn.survey_id, mn.medication_type_id, typ.sub_constant_name medication_type,
+							mn.medication_details
+					  FROM	medication_need_tb mn, sub_constant_tb typ
+					 WHERE  mn.medication_type_id = typ.sub_constant_id
+  					   AND  mn.survey_id = ".$SurveyId;
 		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
 	}
 	
 //*****************end get survey data to update********************//
