@@ -558,7 +558,7 @@ if (isset($aidsRecomendation_info))
                                                 <option value="">اختر...</option>
                                                 <?php
 												 foreach($survey_employee_info as $employee_info_row)
-												 {
+												 {$selected ="";
 													 if ($survey_info_row->researcher_id == $employee_info_row->national_id)
                                                           $selected = 'selected="selected"';
                                                         
@@ -578,7 +578,7 @@ if (isset($aidsRecomendation_info))
                                                 <option value="">اختر...</option>
                                                  <?php
 												  foreach($survey_employee_info as $row)
-												  {
+												  {$selected ="";
 													   if ($survey_info_row->researcher_assistant_fst_id == $employee_info_row->national_id)
                                                           $selected = 'selected="selected"';
                                                     
@@ -598,7 +598,7 @@ if (isset($aidsRecomendation_info))
                                                 <option value="">اختر...</option>
                                                  <?php
 												  foreach($survey_employee_info as $row)
-												  {
+												  {$selected ="";
 													 if ($survey_info_row->researcher_assistant_sec_id == $employee_info_row->national_id)
                                                           $selected = 'selected="selected"';
                                                       
