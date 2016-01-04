@@ -3,6 +3,10 @@ if (isset($elder_info))
 {
 	foreach($elder_info as $elder_info_row);
 	
+	if(count($elder_info) > 0)
+		$ction = "updateelder";
+	else
+		$ction = "addelder";
 }
 
 if (isset($survey_info))
@@ -10,30 +14,53 @@ if (isset($survey_info))
 	foreach($survey_info as $survey_info_row);
 	
 }
+// Home Status
 if (isset($homeStatus_info))
 {
 	foreach($homeStatus_info as $homeStatus_row);
+	
+	if(count($homeStatus_info) > 0)
+		$homeStatusction = "updatehomeStatus";
+	else
+		$homeStatusction = "addhomeStatus";
 }
+
+// Elder Room
 if (isset($elderRoom_info))
 {
 	foreach($elderRoom_info as $elderRoom_row);
+	
+	if(count($elderRoom_info) > 0)
+		$elderRoomaction = "updateelderRoom";
+	else
+		$elderRoomaction = "addelderRoom";
 }
+
+// Life Improvement 
 if (isset($lifeImprovement_info))
 {
 	foreach($lifeImprovement_info as $lifeImprovement_row);
+	
+	if(count($lifeImprovement_info) > 0)
+		$lifeImprovAction = "updatelifeImprov";
+	else
+		$lifeImprovAction = "addelifeImprov";
 }
-if (isset($medicationNeed_info))
+
+// Medication Needs
+/*if (isset($medicationNeed_info))
 {
 	foreach($medicationNeed_info as $medicationNeed_row);
-}
+	
+}*/
 /*if (isset($medicationAvailability_info))
 {
 	foreach($medicationAvailability_info as $medicationAvailability_row);
 }*/
-if (isset($medicalAidRecomend_info))
+/*if (isset($medicalAidRecomend_info))
 {
 	foreach($medicalAidRecomend_info as $medicalAidRecomend_row);
-}
+}*/
 if (isset($incomeResources_info))
 {
 	foreach($incomeResources_info as $incomeResources_row);
@@ -41,11 +68,12 @@ if (isset($incomeResources_info))
 if (isset($incomeResourcesDetails_info))
 {
 	foreach($incomeResourcesDetails_info as $incomeResourcesDetails_row);
+	
 }
-if (isset($homeImprovRecomend_info))
+/*if (isset($homeImprovRecomend_info))
 {
 	foreach($homeImprovRecomend_info as $homeImprovRecomend_row);
-}
+}*/
 if (isset($followUp_info))
 {
 	foreach($followUp_info as $followUp_row);
@@ -57,35 +85,45 @@ if (isset($followUp_info))
 if (isset($familyRelationship_info))
 {
 	foreach($familyRelationship_info as $familyRelationship_row);
+	
+	if(count($familyRelationship_info) > 0)
+		$elderFamRelAction = "updateelderFamRel";
+	else
+		$elderFamRelAction = "addelderFamRel";
 }
 if (isset($familyCooperation_info))
 {
 	foreach($familyCooperation_info as $familyCooperation_row);
+	
+	if(count($familyCooperation_info) > 0)
+		$cooperativFamilyAction = "updatecooperFamily";
+	else
+		$cooperativFamilyAction = "addcooperFamily";
 }
-if (isset($elderPariah_info))
+/*if (isset($elderPariah_info))
 {
 	foreach($elderPariah_info as $elderPariah_row);
-}
+}*/
 if (isset($elderInteresting_info))
 {
 	foreach($elderInteresting_info as $elderInteresting_row);
 }
-if (isset($elderDoc_info))
+/*if (isset($elderDoc_info))
 {
 	foreach($elderDoc_info as $elderDoc_row);
-}
-if (isset($elderDisease_info))
+}*/
+/*if (isset($elderDisease_info))
 {
 	foreach($elderDisease_info as $elderDisease_row);
-}
+}*/
 if (isset($elderDiseaseDet_info))
 {
 	foreach($elderDiseaseDet_info as $elderDiseaseDet_row);
 }
-if (isset($elderBehaviour_info))
+/*if (isset($elderBehaviour_info))
 {
 	foreach($elderBehaviour_info as $elderBehaviour_row);
-}
+}*/
 if (isset($aidsRecomendation_info))
 {
 	foreach($aidsRecomendation_info as $aidsRecomendation_row);
@@ -122,7 +160,7 @@ if (isset($aidsRecomendation_info))
                           <div class="panel-body">
                               <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
-                                <form action="#" id="elder_form" class="form-horizontal">
+                                <form action="#" id="elder_info_form" class="form-horizontal">
                                     <div class="form-body">
                                       <br/>
                                         <div class="alert alert-danger display-hide">
@@ -135,7 +173,7 @@ if (isset($aidsRecomendation_info))
                                             <button class="close" data-close="alert"></button>
                                             تمت عملية حـفـظ البيـانات بنجـاح !
                                         </div>
-                                        
+                                        <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
                                         <div class="form-group">
                                             <label class="control-label col-md-3">تـصنيف الحـالة <span class="required">
                                             * </span>
@@ -195,16 +233,19 @@ if (isset($aidsRecomendation_info))
                                             * </span>
                                             </label>
                                             <div class="col-md-4">
-                                                <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                                    <input type="text" class="form-control" readonly id="dpDob" name="dpDob"
-                                                    value="<?php if(isset($elder_info_row->dob)) echo $elder_info_row->dob;?>"
-                                                    >
-                                                    <span class="input-group-btn">
-                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                    </span>
-                                                </div>
-                                                <!-- /input-group -->
-                                            </div>
+                                              <div id="dvDob" class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                                <input type="text" class="form-control" readonly id="dpDob" name="dpDob" 
+                                                value="<?php if(isset($elder_info_row->dob)) echo $elder_info_row->dob;?>"
+                                                onchange="claculateAge()">
+                                                <span class="input-group-btn">
+                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                              </div>
+                                              <!-- /input-group -->
+                                           </div>
+                                           <div class="col-md-4">
+                                             <label id="lblAge" class="control-label"></label>
+                                          </div>
                                         </div>
                                         
                                         <div class="form-group">
@@ -279,24 +320,50 @@ if (isset($aidsRecomendation_info))
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">المنطقـة <span class="required">
-                                            * </span>
-                                            </label>
-                                            <div class="col-md-4">
-                                                <input type="text" id="txtRegion" name="txtRegion" data-required="1" class="form-control"
-                                                value="<?php if(isset($elder_info_row->region)) echo $elder_info_row->region;?>"
-                                                />
-                                            </div>
+                                        <label class="control-label col-md-3">المدينة <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <select class="form-control" id="drpRegion" name="drpRegion" onchange="region_change();">
+                                                <option value="">اختر...</option>
+												<?php 
+                                                foreach ($region as $region_row)
+												{
+													$selected = '';
+													
+													if ($elder_info_row->region == $region_row->sub_constant_id)
+													  $selected = 'selected="selected"';
+													
+													echo ' <option value="'.$region_row->sub_constant_id.'" '.$selected.'>'
+																		   .$region_row->sub_constant_name.'</option>';
+												}
+												?>
+                                                
+                                             </select>
+                                          </div>
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">وصف العنوان بالكامل <span class="required">
-                                            * </span>
-                                            </label>
-                                            <div class="col-md-4">
-                                                <textarea name="txtFulladdress" cols="70" rows="2" class="form-control"><?php if(isset($elder_info_row->region)) echo $elder_info_row->region;?>
-                                                </textarea>
-                                            </div>
+                                          <label class="control-label col-md-3"> الحي <span class="required">
+                                          * </span>
+                                          </label>
+                                          <div class="col-md-4">
+                                              <select class="form-control" id="drpFulladdress" name="drpFulladdress">
+                                                  <option value="">اختر...</option>
+												  <?php 
+                                                  foreach ($fulladdress as $fulladdress_row)
+												  {
+													  $selected = '';
+													  
+													  if ($elder_info_row->full_address == $fulladdress_row->sub_constant_id)
+														$selected = 'selected="selected"';
+													  
+													  echo ' <option value="'.$fulladdress_row->sub_constant_id.'" '.$selected.'>'
+																			 .$fulladdress_row->sub_constant_name.'</option>';
+												  }
+												  ?>				
+                                               </select>
+                                           </div>
                                         </div>
                                                               
                                         <div class="form-group">
@@ -445,31 +512,13 @@ if (isset($aidsRecomendation_info))
                                                 </select>
                                             </div>
                                         </div>
-                                        
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">تـاريخ الوفاة <span class="required">
-                                            * </span>
-                                            </label>
-                                            <div class="col-md-4">
-                                                <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                                    <input type="text" class="form-control" readonly id="dpDeathdate" name="dpDeathdate"
-                                                    value="<?php if(isset($elder_info_row->death_date)) echo $elder_info_row->death_date;?>"
-                                                    >
-                                                    <span class="input-group-btn">
-                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                    </span>
-                                                </div>
-                                                <!-- /input-group -->
-                                            </div>
-                                        </div>
-                                        
                                     </div>
                                     <!-- END FORM BODY -->
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn blue-madison">حـفـظ</button>
-                                                <button type="button" class="btn default">الغاء الامر</button>
+                                                <button type="button" class="btn blue-madison" onclick="update_elder_info()">
+                                                حـفـظ</button>
                                             </div>
                                         </div>
                                     </div>
@@ -899,7 +948,9 @@ if (isset($aidsRecomendation_info))
                         			 <div class="tab-content">
                                      <div class="tab-pane active" id="tab_6_3">
                                      	<div class="col-md-12">
-                                        <input id="hdnElderDiseaseId" name="hdnElderDiseaseId" type="hidden" value="" />
+                                        <input id="hdnElderDiseaseId" name="hdnElderDiseaseId" type="hidden" value="
+                                        	<?php if(isset($elderDiseaseDet_row->elder_disease_details))
+											echo $elderDiseaseDet_row->elder_disease_id; ?>" />
                                      	<table class="table table-bordered table-striped">
                                         <thead>
                                           <tr>
@@ -985,7 +1036,9 @@ if (isset($aidsRecomendation_info))
                                      <!-- ** Income Resources ** -->
                                      <div class="tab-pane fade" id="tab_6_4">
                                      <fieldset><legend>تفاصيل الدخل</legend>
-                                     <input id="hdnIncomeResourcesId" name="hdnIncomeResourcesId" type="hidden" value="" />
+                                     <input id="hdnIncomeResourcesId" name="hdnIncomeResourcesId" type="hidden" 
+                                     	value="<?php if (isset($incomeResources_row->income_resources_id) )
+												echo $incomeResources_row->income_resources_id;?>" />
                                      <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                           <tr class="bg-grey-steel">
@@ -1058,81 +1111,85 @@ if (isset($aidsRecomendation_info))
                                           </tr>
                                         </thead>
                                         <tbody id="tbdIncomeSourceDet">
-        <?PHP
+										<?php
                                         $i=1;
-		$j=1;
-		$org_row = "";
-		$total_cash = 0;
-		$total_package = 0;
-		foreach($incomeResources_info as $row)
-		{
-			$total_cash = $total_cash + $row->cash_income;
-			$total_package = $total_package + $row->package_cash_value;
-			
-			if($row->resource_id == 75)
-			{
-				if ($j == 1)
-				{
-					$org = $row->resource;
-				}
-				$org_row = $org_row . '<tr><td>' . $j++ . '- ' . $row->organization . '</td>'
-									. '<td>' . $row->cash_income . '</td>'
-									. '<td>' . $row->package_income . '</td>'
-									. '<td>' . $row->package_cash_value . '</td>'
-									. '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-										  class="btn btn-circle red-sunglo btn-sm" 
-										  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
-																			   . $row->resource_id .',\''
-																			   . $row->organization_id .'\')">
-										   <i id="iConst" class="fa fa-close"></i></button>
-								  		 </div>
-								  </td></tr>';
-		
-			}
-			else
-			{
-				echo '<tr>';
-				echo '<td>' . $i++ . '</td>';
-				echo '<td>' . $row->resource . '</td>';
-				echo '<td>' . $row->cash_income . '</td>';
-				echo '<td>' . $row->package_income . '</td>';
-				echo '<td>' . $row->package_cash_value . '</td>';
-				echo '<td><div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-									  class="btn btn-circle red-sunglo btn-sm" 
-									  onclick="delete_income_resource_det('. $row->income_resources_details_id .','
-																		   . $row->resource_id .',\''
-																		   . $row->organization_id .'\')">
-									   <i id="iConst" class="fa fa-close"></i></button>
-							  </div>';
-				echo "</td>";
-				echo "</tr>";
-			}
-			
-		}
-		
-		if ($j > 1)
-		{
-			echo '<tr>';
-			echo '<td rowspan="' .$j. '">' . $i++ . '</td>';
-			echo '<td> ' . $org . ' </td>';
-			echo '<td> &nbsp; </td>';
-			echo '<td> &nbsp; </td>';
-			echo '<td> &nbsp; </td>';
-			echo '<td> &nbsp; </td>';
-			echo "</tr>";
-			echo $org_row;
-		}
-		
-		// Total Row
-		echo '<tr class="bg-grey-steel">';
-		echo '<td> &nbsp; </td>';
-		echo '<td> المــجـموع الكـلي </td>';
-		echo '<td> '.$total_cash.' </td>';
-		echo '<td> &nbsp; </td>';
-		echo '<td> '.$total_package.' </td>';
-		echo '<td> &nbsp; </td>';
-		echo "</tr>";
-        ?>
+                                        $j=1;
+                                        $org_row = "";
+                                        $total_cash = 0;
+                                        $total_package = 0;
+                                        foreach($incomeResources_info as $row)
+                                        {
+                                            $total_cash = $total_cash + $row->cash_income;
+                                            $total_package = $total_package + $row->package_cash_value;
+                                            
+                                            if($row->resource_id == 75)
+                                            {
+                                                if ($j == 1)
+                                                {
+                                                    $org = $row->resource;
+                                                }
+                                                $org_row = $org_row . '<tr><td>' . $j++ . '- ' . $row->organization . '</td>'
+                                                                    . '<td>' . $row->cash_income . '</td>'
+                                                                    . '<td>' . $row->package_income . '</td>'
+                                                                    . '<td>' . $row->package_cash_value . '</td>'
+                                                                    . '<td><div class="col-md-1">
+																	<button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+                                                                          class="btn btn-circle red-sunglo btn-sm" 
+                                                                          onclick="delete_income_resource_det('
+																				.$row->income_resources_details_id .','
+                                                                                .$row->resource_id .',\''
+                                                                                . $row->organization_id .'\')">
+                                                                           <i id="iConst" class="fa fa-close"></i></button>
+                                                                         </div>
+                                                                  </td></tr>';
+                                        
+                                            }
+                                            else
+                                            {
+                                                echo '<tr>';
+                                                echo '<td>' . $i++ . '</td>';
+                                                echo '<td>' . $row->resource . '</td>';
+                                                echo '<td>' . $row->cash_income . '</td>';
+                                                echo '<td>' . $row->package_income . '</td>';
+                                                echo '<td>' . $row->package_cash_value . '</td>';
+                                                echo '<td><div class="col-md-1">
+													  <button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+                                                                      class="btn btn-circle red-sunglo btn-sm" 
+                                                                      onclick="delete_income_resource_det('
+																			. $row->income_resources_details_id .','
+                                                                            . $row->resource_id .',\''
+                                                                            . $row->organization_id .'\')">
+                                                                       <i id="iConst" class="fa fa-close"></i></button>
+                                                              </div>';
+                                                echo "</td>";
+                                                echo "</tr>";
+                                            }
+                                            
+                                        }
+                                        
+                                        if ($j > 1)
+                                        {
+                                            echo '<tr>';
+                                            echo '<td rowspan="' .$j. '">' . $i++ . '</td>';
+                                            echo '<td> ' . $org . ' </td>';
+                                            echo '<td> &nbsp; </td>';
+                                            echo '<td> &nbsp; </td>';
+                                            echo '<td> &nbsp; </td>';
+                                            echo '<td> &nbsp; </td>';
+                                            echo "</tr>";
+                                            echo $org_row;
+                                        }
+                                        
+                                        // Total Row
+                                        echo '<tr class="bg-grey-steel">';
+                                        echo '<td> &nbsp; </td>';
+                                        echo '<td> المــجـموع الكـلي </td>';
+                                        echo '<td> '.$total_cash.' </td>';
+                                        echo '<td> &nbsp; </td>';
+                                        echo '<td> '.$total_package.' </td>';
+                                        echo '<td> &nbsp; </td>';
+                                        echo "</tr>";
+                                        ?>
                                         </tbody>
                                      </table>
                                      </fieldset>
@@ -1202,28 +1259,31 @@ if (isset($aidsRecomendation_info))
                                                 تـم عملية حـفـظ البيـانات بنجـاح !
                                           </div>-->
                                           <input id="hdnHomeStatusAction" name="hdnHomeStatusAction" type="hidden" 
-                                          value="<?php //echo $homeStatusction;?>" />
+                                          value="<?php echo $homeStatusction;?>" />
                                           <input id="hdnHomeStatusId" name="hdnHomeStatusId" type="hidden" 
-                                          value="" />
+                                          value="<?php if(isset($homeStatus_row->home_status_id))
+										  	echo $homeStatus_row->home_status_id; ?>" />
                                           <div class="form-group">
                                               <label class="control-label col-md-3">الوضع العام <span class="required">
                                                * </span>
                                                </label>
                                               <div class="col-md-4">
                                                   <select class="form-control" id="drpHomeStatus" name="drpHomeStatus">
-                                                    <option value="">اختر...</option>
-                                                    
-                                                     <?php
-													 $selected="";
-                                                      foreach($survey_HomeStatus as $survey_HomeStatus_row)
-                                                      {
-										 if ($homeStatus_row->home_situation_id == $survey_HomeStatus_row->sub_constant_id)
-                                                          $selected = 'selected="selected"';
-                                              echo '<option value="'.$survey_HomeStatus_row->sub_constant_id.'"'.$selected.'>'
-																.$survey_HomeStatus_row->sub_constant_name.'</option>';
-																$selected="";
+                                                    <option value="">اختر...</option> 
+												    <?php
+                                                   
+                                                    foreach($survey_HomeStatus as $survey_HomeStatus_row)
+                                                    {
+                                                        $selected="";
+                                                        if ($homeStatus_row->home_situation_id == 
+                                                            $survey_HomeStatus_row->sub_constant_id)
+                                                        	$selected = 'selected="selected"';
+                                                        
+                                                        echo '<option value="'.$survey_HomeStatus_row->sub_constant_id.'" '
+                                                                  .$selected.'>'
+                                                              .$survey_HomeStatus_row->sub_constant_name.'</option>';           
                                                     }
-                                                     ?>
+                                                   ?>
     
                                                 </select>
                                               </div>
@@ -1344,8 +1404,10 @@ if (isset($aidsRecomendation_info))
                                             تـم عملية حـفـظ البيـانات بنجـاح !
                                         </div>-->
                                         <input id="hdnElderRoomAction" name="hdnElderRoomAction" type="hidden" 
-                                          value="<?php // echo $elderRoomaction;?>" />
-                                        <input id="hdnElderRoomId" name="hdnElderRoomId" type="hidden" value="" />
+                                          value="<?php echo $elderRoomaction;?>" />
+                                        <input id="hdnElderRoomId" name="hdnElderRoomId" type="hidden" 
+                                          value="<?php if(isset($elderRoom_row->elder_room_id)) 
+										  	echo $elderRoom_row->elder_room_id; ?>" />
                                         
                                         <div class="form-group">
                                             <label class="control-label col-md-3">وصف السكن بالتفصيل للمسن <span class="required">
@@ -1357,12 +1419,14 @@ if (isset($aidsRecomendation_info))
                                                    <?php
 												   $selected="";
                                                     foreach($survey_Hometype as $survey_Hometype_row)
-                                                    {  if ($elderRoom_row->home_type_id == $survey_Hometype_row->sub_constant_id)
+                                                    {  
+														$selected="";
+														if ($elderRoom_row->home_type_id == $survey_Hometype_row->sub_constant_id)
                                                           $selected = 'selected="selected"';
 														
-                                         echo '<option value="'.$survey_Hometype_row->sub_constant_id.'"'.$selected.'>'
+                                         				echo '<option value="'.$survey_Hometype_row->sub_constant_id.'"'.$selected.'>'
 													  		.$survey_Hometype_row->sub_constant_name.'</option>';
-                                                  $selected="";
+                                                  
 												  }
                                                    ?>
                                               </select>
@@ -1760,7 +1824,7 @@ if (isset($aidsRecomendation_info))
                                             تـم عملية حـفـظ البيـانات بنجـاح !
                                         </div>-->
                                         <input id="hdnelderFamRelAction" name="hdnelderFamRelAction" type="hidden" 
-                                        	value="<?php //echo $elderFamRelAction;?>" />
+                                        	value="<?php echo $elderFamRelAction;?>" />
                                         
                                         <div class="form-group">
                                             <label class="control-label col-md-3">احترام متبادل <span class="required">
@@ -1928,8 +1992,7 @@ if (isset($aidsRecomendation_info))
                                      <!-- ** Elder-Family Relationship **-->
                                      <div class="tab-pane fade" id="tab_6_9">
                                     	<div class="col-md-12">
-                                        <input id="hdnElderDiseaseId" name="hdnElderDiseaseId" type="hidden" value="" />
-                                     	<table class="table table-bordered table-striped">
+                                        <table class="table table-bordered table-striped">
                                         <thead>
                                           <tr>
                                             <th>
@@ -2036,7 +2099,7 @@ if (isset($aidsRecomendation_info))
                                                       تمت عملية حـفـظ البيـانات بنجـاح !
                                                   </div>
                                            <input id="hdncooperativFamily" name="hdncooperativFamily" type="hidden" 
-                                             value="<?php //echo $cooperativFamilyAction;?>" />
+                                             value="<?php echo $cooperativFamilyAction;?>" />
                                         <div class="form-group">
                                             <label class="control-label col-md-3">تعاون الاسرة مع الباحث <span class="required">
                                              * </span>
@@ -2205,7 +2268,7 @@ if (isset($aidsRecomendation_info))
                                               تـم عملية حـفـظ البيـانات بنجـاح !
                                           </div>-->
                                           <input id="hdnlifeImprovaction" name="hdnlifeImprovaction" type="hidden" 
-                                          value="<?php //echo $lifeImprovAction;?>" />
+                                          value="<?php echo $lifeImprovAction;?>" />
                                           <div class="form-group">
                                             <label class="control-label col-md-3">قدرة المسن على العمل <span class="required">
                                             * </span>
@@ -2214,15 +2277,17 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpElderWorkAbility" name="drpElderWorkAbility">
                                                     <option value="">اختر...</option>
                                                      <?php
-													 $selected="";
                                                       foreach($survey_ElderWorkAbility as $row)
-                                                      {	if ($lifeImprovement_row->elder_work_ability_id == $row->sub_constant_id)
-                                                          $selected = 'selected="selected"';
-                                                        echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'.$row->sub_constant_name.'</option>';
-														$selected="";
-                                                    }
+                                                      {
+														  $selected="";
+														  if ($lifeImprovement_row->elder_work_ability_id == $row->sub_constant_id)
+                                                          	$selected = 'selected="selected"';
+                                                        
+														  echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'
+														  			.$row->sub_constant_name.'</option>';
+														
+                                                      }
                                                      ?>
-    
                                                 </select>
                                             </div>
                                         </div>
