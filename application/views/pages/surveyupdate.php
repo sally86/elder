@@ -2072,27 +2072,33 @@ if (isset($aidsRecomendation_info))
                                          </thead>
                                          <tbody id="tbdElderBehaviour">
 											<?php
-                                         		foreach($elderBehaviour_info as $row)
-                                                    {
-                                                        
-                                                        echo '<tr>';
-                                                        echo '<td>';
-                                                        echo '<div class="col-md-11">';
-                                                        echo '<span class="font-blue">' . $row->behaviour .'</span></div>';
-                                                        echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-                                                                              class="btn btn-circle red-sunglo btn-sm" 
-                                                                              onclick="delete_elder_behaviour('. $row->elder_behaviour_id .','
-                                                                                                             . $row->behaviour_id .')">
-                                                                               <i id="iConst" class="fa fa-close"></i>
-                                                                      </div>';
-                                                        echo "</td>";
-                                                        echo "</tr>";
-                                                    }
+											$dvPariahreasone_style = 'style="display:none"';
+											foreach($elderBehaviour_info as $row)
+											{
+												if ($row->behaviour_id == 211)
+													$dvPariahreasone_style = 'style="display:block"';
+												echo '<tr>';
+												echo '<td>';
+												echo '<div class="col-md-11">';
+												echo '<span class="font-blue">' . $row->behaviour .'</span></div>';
+												echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+																	  class="btn btn-circle red-sunglo btn-sm" 
+																	  onclick="delete_elder_behaviour('. $row->elder_behaviour_id .','
+																									 . $row->behaviour_id .')">
+																	   <i id="iConst" class="fa fa-close"></i>
+															  </div>';
+												echo "</td>";
+												echo "</tr>";
+											}
                                             
                                           ?>
                                          </tbody>
                                          </table>
-                                         <div id="dvPariahreasone" style="display:none">
+                                         <div id="dvPariahreasone" 
+                                         <?php
+										 echo $dvPariahreasone_style;
+										 ?>
+                                         >
                                          <table class="table table-bordered table-striped">
                                         <thead>
                                           <tr>
@@ -2115,7 +2121,7 @@ if (isset($aidsRecomendation_info))
                                               </div>
                                               <div class="col-md-2">
                                                 <button id="btnAddpariah" name="btnAddpariah" type="button" 
-                                                class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_pariah()">
+                                                class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_pariah_u()">
                                                 <i id="iConst" class="fa fa-plus"></i></button> 
                                               </div>
                                             </th>

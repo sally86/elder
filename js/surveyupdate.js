@@ -520,6 +520,34 @@ function add_elder_behaviour_u()
 		});//END $.ajax
 }
 
+function add_elder_pariah_u()
+{
+	/*if(!$("#drpPariahreasone").valid())
+		return false;*/
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addpariah",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    drpPariahreasone : $("#drpPariahreasone").val()
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#tbdElderPariah").html(returndb);
+				
+				$("#drpPariahreasone option:selected" ).attr("disabled","disabled");
+				$("#drpPariahreasone").val('');
+				
+			}
+		});//END $.ajax
+}
+_U
 //-------------------------- Validation ------------------------------//
 // File Validation
 /*var FileFormValidation = function () {
