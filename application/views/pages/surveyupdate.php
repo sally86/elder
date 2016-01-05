@@ -960,8 +960,8 @@ if (isset($aidsRecomendation_info))
                         			 <div class="tab-content">
                                      <div class="tab-pane active" id="tab_6_3">
                                      	<div class="col-md-12">
-                                        <input id="hdnElderDiseaseId" name="hdnElderDiseaseId" type="hidden" value="
-                                        	<?php if(isset($elderDiseaseDet_row->elder_disease_details))
+                                        <input id="hdnElderDiseaseId" name="hdnElderDiseaseId" type="hidden" 
+                                        value="<?php if(isset($elderDiseaseDet_row->elder_disease_details))
 											echo $elderDiseaseDet_row->elder_disease_id; ?>" />
                                      	<table class="table table-bordered table-striped">
                                         <thead>
@@ -984,7 +984,7 @@ if (isset($aidsRecomendation_info))
                                                 </select>
                                               </div>
                                               <div class="col-md-2">
-                                                <button id="btnAdddisease" name="btnAdddisease" type="button" class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_disease()">
+                                                <button id="btnAdddisease" name="btnAdddisease" type="button" class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_disease_u()">
                                                 <i id="iConst" class="fa fa-plus"></i></button> 
                                               </div>
                                             </th>
@@ -1032,7 +1032,7 @@ if (isset($aidsRecomendation_info))
                                                     <div class="col-md-2">
                                                     	<button id="btnAdddiseaasedet" name="btnAdddiseaasedet" type="button" 
 								  							class="btn btn-circle green-turquoise btn-sm" 
-								  							onclick="add_disease_details()">
+								  							onclick="add_disease_details_u()">
 								   							<i id="iConst" class="fa fa-check"></i></button>
 						  							</div>
                                                 </div>  

@@ -105,6 +105,74 @@ function addfamilymember()
 		});//END $.ajax
 }
 
+//------------------- Health Status Tab --------------------//
+function add_elder_disease_u()
+{
+	
+	/*if(!$("#drpDisease").valid())
+		return false;*/
+	alert($("#drpDisease").val());
+	$.ajax({
+			url: baseURL+"Surveycont/adddisease",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    hdnElderDiseaseId : $("#hdnElderDiseaseId").val(),
+					diseaseid : $("#drpDisease").val()	
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#hdnElderDiseaseId").val(returndb.substr(0, returndb.indexOf('|') ) );
+				$("#tbdElderDisease").html(returndb.substr(returndb.indexOf('|')+1 ) );
+				
+				$("#drpDisease option:selected" ).attr("disabled","disabled");
+				$("#drpDisease").val('');
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+function add_disease_details_u()
+{
+	/*if(!$("#txtarDiseaasedet").valid())
+		return false;*/
+	
+	$.ajax({
+			url: baseURL+"Surveycont/adddiseasedet",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    hdnElderDiseaseId : $("#hdnElderDiseaseId").val(),
+					elderdiseasedet : $("#txtarDiseaasedet").val()	
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#hdnElderDiseaseId").val(returndb);
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+
+
+
 //-------------------------- Validation ------------------------------//
 // File Validation
 /*var FileFormValidation = function () {
