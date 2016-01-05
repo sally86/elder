@@ -443,6 +443,51 @@ function add_medication_need_u()
 			}
 		});//END $.ajax
 }
+
+//------------ Elder Family Relationship Tab ---------------//
+function editeElderFamRel_u()
+{
+	var action = $("#hdnelderFamRelAction").val();
+	
+	//alert(action);
+	
+	/*if ( !validateElderFamRel() )
+		return;*/
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'				,  $("#hdnSurveyId").val()				);
+	formData.append('drpRespect'				,  $("#drpRespect").val() 				);
+	formData.append('drpPariah'					,  $("#drpPariah").val()				);
+	formData.append('drpCare'					,  $("#drpCare").val()					);
+	formData.append('drpPsycosupport'			,  $("#drpPsycosupport").val()			);
+	formData.append('drpNeeds'					,  $("#drpNeeds").val()					);
+	formData.append('txtarNeedreasone'			,  $("#txtarNeedreasone").val()			);
+	formData.append('drpLegaladvice'			,  $("#drpLegaladvice").val()			);
+	formData.append('txtarLegaladvicereasone'	,  $("#txtarLegaladvicereasone").val()	);
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$('#hdnelderFamRelAction').val('updateelderFamRel');
+				
+			}
+		});//END $.ajax
+	
+}
 //-------------------------- Validation ------------------------------//
 // File Validation
 /*var FileFormValidation = function () {

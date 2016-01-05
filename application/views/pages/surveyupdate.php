@@ -1956,13 +1956,16 @@ if (isset($aidsRecomendation_info))
                                                 <select class="form-control" id="drpNeeds" name="drpNeeds">
                                                   <option value="">اختر...</option>
                                                    <?php
-												    $selected="";
+												    
                                                     foreach($survey_Choice as $row)
                                                     {
+														$selected="";
 														if ($familyRelationship_row->provision_needs == $row->sub_constant_id)
                                                           $selected = 'selected="selected"';
-                                                      echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'.$row->sub_constant_name.'</option>';
-                                                  $selected="";
+														  
+                                                      echo '<option value="'.$row->sub_constant_id.'"'.$selected.'>'
+													  .$row->sub_constant_name.'</option>';
+                                                  
 												  }
 												  
                                                    ?>
@@ -1970,7 +1973,12 @@ if (isset($aidsRecomendation_info))
                                             </div>
                                         </div>
                                         
-                                        <div id="dvNeedreasone" class="form-group" style="display:none">
+                                        <div id="dvNeedreasone" class="form-group" 
+                                        <?php
+										if ($familyRelationship_row->provision_needs != 111)
+											echo 'style="display:none"';
+										?>
+                                        >
                                             <label class="control-label col-md-3">اذكر السـبب <span class="required">
                                              * </span>
                                              </label>
@@ -2001,13 +2009,18 @@ if (isset($aidsRecomendation_info))
                                             </div>
                                         </div>
                                         
-                                        <div id="dvLegaladvicereasone" class="form-group" style="display:none">
+                                        <div id="dvLegaladvicereasone" class="form-group" 
+                                        <?php
+										if ($familyRelationship_row->legal_advice != 110)
+											echo 'style="display:none"';
+										?>
+                                        >
                                             <label class="control-label col-md-3">اذكر السـبب <span class="required">
                                              * </span>
                                              </label>
                                             <div class="col-md-4">
                                                 <textarea id="txtarLegaladvicereasone" name="txtarLegaladvicereasone" 
-                                                  class="form-control input-large"></textarea>
+                                                  class="form-control input-large"><?php if (isset($familyRelationship_row->legal_advice_reason)) echo $familyRelationship_row->legal_advice_reason;?></textarea>
                                             </div>
                                         </div>
                                         
@@ -2016,7 +2029,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" class="btn blue-madison" onclick="editeElderFamRel()">
+                                                <button type="button" class="btn blue-madison" onclick="editeElderFamRel_u()">
                                                 حـفـظ</button>
                                             </div>
                                         </div>
