@@ -211,10 +211,16 @@ function get_followUp_info($elderId)
 	}
 
 function get_familyPsyStatus_info($SurveyId)
-	{	extract($_POST);
-		$this->db->where('survey_id',$SurveyId);
-		$query = $this->db->get('family_psychological_status_tb');
-		return $query->result();
+	{	
+		$myquery = "SELECT fp.family_psychological_status_id, fp.survey_id, 
+						   fp.psychological_status_id, psy.sub_constant_name psychological_status
+					  FROM family_psychological_status_tb fp, sub_constant_tb psy
+					 WHERE fp.psychological_status_id = psy.sub_constant_id
+  					   AND fp.survey_id = ".$SurveyId;
+		
+		$res = $this->db->query($myquery);
+		
+		return $res->result();
 		
 	}
 function get_homeImprovRecomend_info($SurveyId)

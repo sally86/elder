@@ -547,7 +547,234 @@ function add_elder_pariah_u()
 			}
 		});//END $.ajax
 }
-_U
+
+//******************cooperative family*************************//
+function editeCooperativFamily_u()
+{
+	var action = $("#hdncooperativFamily").val();
+	
+	//alert(action);
+	
+	if ( !validateCooperativFamily() )
+		return;
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'			,  $("#hdnSurveyId").val()			);
+	formData.append('drpIScooperative'	,  $("#drpIScooperative").val() 	);
+	formData.append('drpcooperPersonetype'		,  $("#drpcooperPersonetype").val()		);
+	formData.append('txtcooperPersoneId'		,  $("#txtcooperPersoneId").val()		);
+	formData.append('txtcooperPersoneName'		,  $("#txtcooperPersoneName").val()	);
+	formData.append('txtcooperPersoneMobile'		,  $("#txtcooperPersoneMobile").val()		);
+	formData.append('txtcooperPersoneAddress'		,  $("#txtcooperPersoneAddress").val()		);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$('#hdncooperativFamily').val('updatecooperFamily');	
+			}
+		});//END $.ajax
+}
+//----------------- Family Psycho Status Tab -------------------//
+function add_family_psycho_u()
+{
+	/*if(!$("#drpPsychologicalStatus").valid())
+		return false;*/
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addfamilypsycho",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    drpPsychologicalStatus : $("#drpPsychologicalStatus").val()	
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#tbdFamilyPsycho").html(returndb);
+				
+				$("#drpPsychologicalStatus option:selected" ).attr("disabled","disabled");
+				$("#drpPsychologicalStatus").val('');
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+//------------------ Life Improvement Tab ----------------------//
+function editeLifeImprov_u()
+{
+	var action = $("#hdnlifeImprovaction").val();
+	
+	//alert(action);
+	
+	/*if ( !validateLifeImprov() )
+		return;*/
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'			,  $("#hdnSurveyId").val()			);
+	formData.append('drpElderWorkAbility'	,  $("#drpElderWorkAbility").val() 	);
+	formData.append('txtelderworktype'		,  $("#txtelderworktype").val()		);
+	formData.append('drpFamilyMember'		,  $("#drpFamilyMember").val()		);
+	formData.append('txtFamilyworktype'		,  $("#txtFamilyworktype").val()	);
+	formData.append('drpNeedtraining'		,  $("#drpNeedtraining").val()		);
+	formData.append('txtTrainigType'		,  $("#txtTrainigType").val()		);
+	formData.append('drpStartproject'		,  $("#drpStartproject").val()		);
+	formData.append('txtProjectType'		,  $("#txtProjectType").val()		);
+	formData.append('txtProjectBudget'		,  $("#txtProjectBudget").val()		);
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$('#hdnlifeImprovaction').val('updatelifeImprov');	
+			}
+		});//END $.ajax
+}
+//-------------------- Recomindation Tab -----------------------//
+function editeaidrecomend_u()
+{
+	var action = $("#hdnaidraction").val();
+	
+	/*if( !validateAidRecommendation() )
+		return;*/
+	
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'				,  $("#hdnSurveyId").val()				);
+	formData.append('hdnAidsRecomendationId'	,  $("#hdnAidsRecomendationId").val()	);
+	formData.append('drpCashaidtype'			,  $("#drpCashaidtype").val() 			);
+	formData.append('txtCashaidamount'			,  $("#txtCashaidamount").val()			);
+	formData.append('drpNutritiontype'			,  $("#drpNutritiontype").val()			);
+	formData.append('txtNutritiondetails'		,  $("#txtNutritiondetails").val()		);
+	formData.append('txtarPsychologicalsupport'	,  $("#txtarPsychologicalsupport").val());
+	formData.append('txtarSocialsupport'		,  $("#txtarSocialsupport").val()		);
+	formData.append('txtarEntertainment'		,  $("#txtarEntertainment").val()		);
+	
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+				alert('error');
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				if(returndb == '')
+				{
+					$("#hdnaidraction").val("updateaidrecomend");
+					//var form = $('#Aidrecomend_form');
+					//$('.alert-success', form).show();
+				}
+			}
+		});//END $.ajax	
+	
+}
+function addmedicalaid_u()
+{
+	var action = $("#maidaction").val();
+	//alert(action);
+	
+	/*if(  !$("#drpMedicalaidtype").valid() )
+		return;*/
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data: {hdnSurveyId: $("#hdnSurveyId").val(),
+			drpMedicalaidtype: $("#drpMedicalaidtype").val()},
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#tbmedicalaid").html(returndb);
+				
+				$("#drpMedicalaidtype option:selected" ).attr("disabled","disabled");
+				$("#drpMedicalaidtype").val('');
+				if(returndb == '')
+				{
+					
+					var form = $('#medicalaid_form');
+					$('.alert-success', form).show();
+				}
+			}
+		});//END $.ajax
+}
+function addhomeaid_u()
+{
+	var action = $("#haidaction").val();
+	//alert(action);
+	
+	/*if( !validateHomeAid() )
+		return;*/
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:   {hdnSurveyId: $("#hdnSurveyId").val(),
+					 drpImprovementtype: $("#drpImprovementtype").val(),
+					 txtImprovementdet: $('#txtImprovementdet').val()},
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+			$("#tbhomeaid").html(returndb);
+			
+				$("#drpImprovementtype option:selected" ).attr("disabled","disabled");
+				$("#drpImprovementtype").val('');
+				$('#txtImprovementdet').val('');
+				$("#dvImprovementdet").css("display", "none");
+			}
+		});//END $.ajax
+}
+
 //-------------------------- Validation ------------------------------//
 // File Validation
 /*var FileFormValidation = function () {

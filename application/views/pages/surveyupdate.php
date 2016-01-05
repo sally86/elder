@@ -127,6 +127,11 @@ if (isset($elderDiseaseDet_info))
 if (isset($aidsRecomendation_info))
 {
 	foreach($aidsRecomendation_info as $aidsRecomendation_row);
+	
+	if(count($aidsRecomendation_info) > 0)
+		$aidsRecomendationAction = "updateaidrecomend";
+	else
+		$aidsRecomendationAction = "addaidrecomend";
 }
 
 
@@ -2128,7 +2133,24 @@ if (isset($aidsRecomendation_info))
                                           </tr>
                                          </thead>
                                          <tbody id="tbdElderPariah">
-                                         
+                                         <?php 
+                                         foreach($elderPariah_info as $row)
+										  {
+											  
+											  echo '<tr>';
+											  echo '<td>';
+											  echo '<div class="col-md-11">';
+											  echo '<span class="font-blue">' . $row->pariah_reason .'</span></div>';
+											  echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+																	class="btn btn-circle red-sunglo btn-sm" 
+																	onclick="delete_elder_pariah('. $row->elder_pariah_id .','
+																								   . $row->elder_pariah_reason_id .')">
+																	 <i id="iConst" class="fa fa-close"></i>
+															</div>';
+											  echo "</td>";
+											  echo "</tr>";
+										  }
+										  ?>
                                           
                                          </tbody>
                                          </table>
@@ -2239,7 +2261,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" class="btn blue-madison" onclick="editeCooperativFamily();">
+                                                <button type="button" class="btn blue-madison" onclick="editeCooperativFamily_u();">
                                                 حـفـظ</button>
                                             </div>
                                         </div>
@@ -2277,31 +2299,31 @@ if (isset($aidsRecomendation_info))
                                               </div>
                                               <div class="col-md-2">
                                                 <button id="btnAddfamilypsycho" name="btnAddfamilypsycho" type="button" 
-                                                 class="btn btn-circle green-turquoise btn-sm" onclick="add_family_psycho()">
+                                                 class="btn btn-circle green-turquoise btn-sm" onclick="add_family_psycho_u()">
                                                 <i id="iConst" class="fa fa-plus"></i></button> 
                                               </div>
                                             </th>
                                           </tr>
                                          </thead>
                                          <tbody id="tbdFamilyPsycho">
-										<?php 
-                                         foreach($elderPariah_info as $row)
-                                            {
-                                                
-                                                echo '<tr>';
-                                                echo '<td>';
-                                                echo '<div class="col-md-11">';
-                                                echo '<span class="font-blue">' . $row->pariah_reason .'</span></div>';
-                                                echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
-                                                                      class="btn btn-circle red-sunglo btn-sm" 
-                                                                      onclick="delete_elder_pariah('. $row->elder_pariah_id .','
-                                                                                                     . $row->elder_pariah_reason_id .')">
-                                                                       <i id="iConst" class="fa fa-close"></i>
-                                                              </div>';
-                                                echo "</td>";
-                                                echo "</tr>";
-                                            }
-											?>
+										 <?php
+										 foreach($familyPsyStatus_info as $row)
+										{
+											
+											echo '<tr>';
+											echo '<td>';
+											echo '<div class="col-md-11">';
+											echo '<span class="font-blue">' . $row->psychological_status .'</span></div>';
+											echo '<div class="col-md-1"><button id="btnDeletedoc" name="btnDeletedoc" type="button" 
+																  class="btn btn-circle red-sunglo btn-sm" 
+																  onclick="delete_family_psycho('. $row->family_psychological_status_id .','
+																								 . $row->psychological_status_id .')">
+																   <i id="iConst" class="fa fa-close"></i>
+														  </div>';
+											echo "</td>";
+											echo "</tr>";
+										}
+										 ?>
                                          </tbody>
                                          </table>
                                          
@@ -2455,7 +2477,7 @@ if (isset($aidsRecomendation_info))
                                       <div class="form-actions">
                                           <div class="row">
                                               <div class="col-md-offset-3 col-md-9">
-                                                  <button type="button" class="btn blue-madison" onclick="editeLifeImprov()">
+                                                  <button type="button" class="btn blue-madison" onclick="editeLifeImprov_u()">
                                                   حـفـظ</button>
                                                   
                                               </div>
@@ -2499,7 +2521,11 @@ if (isset($aidsRecomendation_info))
                                         </div>
                                         <!-- Add Here-->
                                         <fieldset><legend>مســاعدات</legend>
-                                    
+                                    	<input id="hdnaidraction" name="hdnaidraction" type="hidden" 
+                                        value="<?php echo $aidsRecomendationAction;?>" />
+                                   		<input id="hdnAidsRecomendationId" name="hdnAidsRecomendationId" type="hidden" 
+                                        value="<?php if (isset($aidsRecomendation_row->aids_recomendation_id)) 
+														echo $aidsRecomendation_row->aids_recomendation_id;?>" />
                                           <div class="form-group">
                                             <label class="control-label col-md-3">مساعدة مادية &nbsp;&nbsp;&nbsp;                                        </label>
                                             <div class="col-md-4">
@@ -2585,7 +2611,7 @@ if (isset($aidsRecomendation_info))
                                       <div class="form-actions">
                                           <div class="row">
                                               <div class="col-md-offset-3 col-md-9">
-                                                  <button type="button" class="btn blue-madison" onclick="editeaidrecomend()">
+                                                  <button type="button" class="btn blue-madison" onclick="editeaidrecomend_u()">
                                                   حـفـظ</button>
                                                   
                                               </div>
@@ -2624,7 +2650,7 @@ if (isset($aidsRecomendation_info))
                                       </div>
                                       <div class="col-md-2">
                                         <button id="btnAddmedicalaid" name="btnAddmedicalaid" type="button" 
-                                         class="btn btn-circle green-turquoise btn-sm" onclick="addmedicalaid()">
+                                         class="btn btn-circle green-turquoise btn-sm" onclick="addmedicalaid_u()">
                                         <i id="iConst" class="fa fa-plus"></i></button> 
                                      </div>
                                     </th>
@@ -2693,7 +2719,7 @@ if (isset($aidsRecomendation_info))
                                       </div>
                                       <div class="col-md-2">
                                          <button id="btnaddhomeaid" name="btnaddhomeaid" type="button" 
-                                         class="btn btn-circle green-turquoise btn-sm" onclick="addhomeaid()">
+                                         class="btn btn-circle green-turquoise btn-sm" onclick="addhomeaid_u()">
                                          <i id="iConst" class="fa fa-plus"></i></button> 
                                        </div>
                                       </th>
