@@ -1117,7 +1117,7 @@ if (isset($aidsRecomendation_info))
                                             <th>
                                             	<button id="btnAddincomeresource" name="btnAddincomeresource" type="button" 
 								  							class="btn btn-circle green-turquoise btn-sm" 
-								  							onclick="add_income_resource_det()">
+								  							onclick="add_income_resource_det_u()">
 								   							<i id="iConst" class="fa fa-check"></i></button>
                                             </th>
                                           </tr>
@@ -1243,7 +1243,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" class="btn blue-madison" onclick="edit_income_resource()">
+                                                <button type="button" class="btn blue-madison" onclick="edit_income_resource_u()">
                                                 حـفـظ</button>
                                             </div>
                                         </div>

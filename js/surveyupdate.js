@@ -170,7 +170,95 @@ function add_disease_details_u()
 			}
 		});//END $.ajax
 }
+//----------------------- Income Tab ------------------------//
+function add_income_resource_det_u()
+{
+	/*if ( !validateIncomeResourceDet() )
+		return;*/
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 	, $("#hdnSurveyId").val()		   );
+	formData.append('hdnIncomeResourcesId'	, $("#hdnIncomeResourcesId").val() );
+	formData.append('drpIncomeSource'		,  $("#drpIncomeSource").val()	   );
+	formData.append('drpOrganization'	  	,  $("#drpOrganization").val()	   );
+	formData.append('txtCashincome'	  		,  $('#txtCashincome').val()	   );
+	formData.append('txtPackageincome' 		,  $("#txtPackageincome").val()	   );
+	formData.append('txtPackagecashvalue'	,  $("#txtPackagecashvalue").val() );
 
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addincomeresourcedet",
+			type: "POST",
+			data:  formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#hdnIncomeResourcesId").val(returndb.substr(0, returndb.indexOf('|') ) );
+				$("#tbdIncomeSourceDet").html(returndb.substr(returndb.indexOf('|')+1 ) );
+				
+				if ($("#drpIncomeSource").val() == '75')	// NGOs
+					$("#drpOrganization option:selected" ).attr("disabled","disabled");
+				else
+					$("#drpIncomeSource option:selected" ).attr("disabled","disabled");
+				
+				clearIncomeFields();
+				/*if(returndb == '')
+				{
+					var form = $('#familyMemberTab');
+					$('.alert-success', form).show();
+					//$('#hdnAction').val('');
+				}*/
+			}
+		});//END $.ajax
+}
+
+function edit_income_resource_u()
+{
+	/*if( !validateIncomeResource() )
+		return false;*/
+	
+	if($("#hdnIncomeResourcesId").val() == "")
+		var action = "addincomeresource";
+	else
+		var action = "updateincomeresource";
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 	, $("#hdnSurveyId").val()		   );
+	formData.append('hdnIncomeResourcesId'	, $("#hdnIncomeResourcesId").val() );
+	formData.append('txtTotalincome'		,  $("#txtTotalincome").val()	   );
+	formData.append('txtElderportion'	  	,  $("#txtElderportion").val()	   );
+	
+		
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data: formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#hdnIncomeResourcesId").val(returndb);
+				
+			}
+		});//END $.ajax
+}
 
 
 //-------------------------- Validation ------------------------------//
