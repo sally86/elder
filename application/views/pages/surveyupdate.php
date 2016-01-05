@@ -1404,7 +1404,7 @@ if (isset($aidsRecomendation_info))
                                       <div class="form-actions">
                                           <div class="row">
                                               <div class="col-md-offset-3 col-md-9">
-                                                  <button type="button" class="btn blue-madison" onclick="editeHomeStatus()">
+                                                  <button type="button" class="btn blue-madison" onclick="editeHomeStatus_u()">
                                                   حـفـظ</button>
                                               </div>
                                           </div>
@@ -1616,7 +1616,8 @@ if (isset($aidsRecomendation_info))
                                                   <?php
 												  $selected="";
                                                     foreach($survey_Choice as $survey_Choice_row)
-                                                    {if ($elderRoom_row->room_need_maintenance == $survey_Choice_row->sub_constant_id)
+                                                    {
+														if ($elderRoom_row->room_need_maintenance == $survey_Choice_row->sub_constant_id)
                                                           $selected = 'selected="selected"';
                                                       echo '<option value="'.$survey_Choice_row->sub_constant_id.'"'.$selected.'>'.$survey_Choice_row->sub_constant_name.'</option>';
 													  $selected="";
@@ -1626,7 +1627,12 @@ if (isset($aidsRecomendation_info))
                                             </div>
                                         </div>
                                         
-                                        <div id="dvRoommaintinancedet" class="form-group" style="display:none">
+                                        <div id="dvRoommaintinancedet" class="form-group" 
+                                        <?php
+										if ($elderRoom_row->room_need_maintenance != 110)
+											echo 'style="display:none"';
+										?>
+                                        >
                                             <label class="control-label col-md-3">توضيح نوع الصيانة والترميم المطلوب <span class="required">
                                              * </span>
                                              </label>
@@ -1657,7 +1663,12 @@ if (isset($aidsRecomendation_info))
                                             </div>
                                         </div>
                                         
-                                        <div id="dvBathroommaintinancedet" class="form-group" style="display:none">
+                                        <div id="dvBathroommaintinancedet" class="form-group" 
+                                        <?php
+										if ($elderRoom_row->bathroom_status_id != 115 && $elderRoom_row->bathroom_status_id != 116)
+											echo 'style="display:none"';
+										?>
+                                        >
                                             <label class="control-label col-md-3">
                                             	توضيح نوع الصيانة والترميم المطلوب وخاصة في حالة الإعاقة<span class="required">
                                              * </span>
@@ -1695,7 +1706,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" class="btn blue-madison" onclick="editeElderRoom()">
+                                                <button type="button" class="btn blue-madison" onclick="editeElderRoom_u()">
                                                 حـفـظ</button>
                                             </div>
                                         </div>
@@ -1745,7 +1756,7 @@ if (isset($aidsRecomendation_info))
                                           <th>
                                           <button id="btnAddMedication" name="btnAddMedication" type="button" 
                                               class="btn btn-circle green-turquoise btn-sm" 
-                                              onclick="add_medication_availability()">
+                                              onclick="add_medication_availability_u()">
                                               <i id="iConst" class="fa fa-plus"></i></button>
                                           </th>
                                       </tr>
@@ -1805,7 +1816,7 @@ if (isset($aidsRecomendation_info))
                                           <th>
                                           	<button id="btnAddMedicationneed" name="btnAddMedicationneed" type="button" 
                                               class="btn btn-circle green-turquoise btn-sm" 
-                                              onclick="add_medication_need()">
+                                              onclick="add_medication_need_u()">
                                               <i id="iConst" class="fa fa-plus"></i></button>
                                           </th>
                                       </tr>

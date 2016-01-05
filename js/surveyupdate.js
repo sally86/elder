@@ -261,7 +261,7 @@ function edit_income_resource_u()
 }
 
 //-------------------- Home Status Tab ----------------------//
-function editeHomeStatus()
+function editeHomeStatus_u()
 {
 	var action = $("#hdnHomeStatusAction").val();
 	
@@ -308,7 +308,141 @@ function editeHomeStatus()
 			}
 		});//END $.ajax
 }
-
+//---------------- Elder Room Status Tab --------------------//
+function editeElderRoom_u()
+{
+	var action = $("#hdnElderRoomAction").val();
+	
+	//alert(action);
+	
+	/*if ( !validateHomeStatus() )
+		return;*/
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 			,  $("#hdnSurveyId").val()		   			);
+	formData.append('hdnElderRoomId'				,  $("#hdnElderRoomId").val() 				);
+	formData.append('drpElderHometype'				,  $("#drpElderHometype").val()	   			);
+	formData.append('drpRoomtype'	  				,  $("#drpRoomtype").val()	   				);
+	formData.append('drpClothes'	  				,  $('#drpClothes').val()					);
+	formData.append('drpVentilation' 				,  $("#drpVentilation").val()				);
+	formData.append('drpLighting'					,  $("#drpLighting").val() 					);
+	formData.append('drpCloset'						,  $("#drpCloset").val() 					);
+	formData.append('drpBed'						,  $("#drpBed").val() 						);
+	formData.append('drpCupboard'					,  $("#drpCupboard").val() 					);
+	formData.append('drpMaintenance'				,  $("#drpMaintenance").val() 				);
+	formData.append('txtarRoommaintinancedet'		,  $("#txtarRoommaintinancedet").val() 		);
+	formData.append('drpBathroom'					,  $("#drpBathroom").val() 					);
+	formData.append('txtarBathroommaintinancedet'	,  $("#txtarBathroommaintinancedet").val() 	);
+	formData.append('drpHigiene'					,  $("#drpHigiene").val() 					);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#hdnElderRoomId").val(returndb);
+				$('#hdnElderRoomAction').val('updateelderRoom');	
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
+//----------------- Elder Midication Tab -------------------//
+function add_medication_availability_u()
+{
+	/*if ( !validateMedicationAvailab() )
+		return;*/
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 		,  $("#hdnSurveyId").val()		   		);
+	formData.append('txtMedicinename'			,  $("#txtMedicinename").val() 			);
+	formData.append('drpMedicationAvailable'	,  $("#drpMedicationAvailable").val()	);
+	formData.append('txtReason'	  				,  $("#txtReason").val()	   			);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addmedicationavailabl",
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#tbdMedication").html(returndb);
+				clearMedicationAvaFields();
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
+function add_medication_need_u()
+{
+	/*if ( !validateMedicationNeed() )
+		return;*/
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'	,  $("#hdnSurveyId").val()		);
+	formData.append('drpMedtype'	,  $("#drpMedtype").val() 		);
+	formData.append('txtMeddetails'	,  $("#txtMeddetails").val()	);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addmedicationneed",
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$("#drpMedtype option:selected" ).attr("disabled","disabled");
+				$("#tbdMedicationneed").html(returndb);
+				clearMedicationNeedFields();
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
 //-------------------------- Validation ------------------------------//
 // File Validation
 /*var FileFormValidation = function () {
