@@ -156,7 +156,7 @@ if (isset($aidsRecomendation_info))
                           <strong>#1 بيـانات العضو</strong> </a>
                           </h4>
                       </div>
-                      <div id="collapse_1" class="panel-collapse in">
+                      <div id="collapse_1" class="panel-collapse collapse"><!--class="panel-collapse in-->
                           <div class="panel-body">
                               <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
@@ -539,7 +539,7 @@ if (isset($aidsRecomendation_info))
                           <div class="panel-body" style="height:200px; overflow-y:auto;">
                               <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
-                                <form action="#" id="file_form" class="form-horizontal">
+                                <form action="#" id="survey_visit" class="form-horizontal">
                                     <div class="form-body">
                                       <br/>
                                         <div class="alert alert-danger display-hide">
@@ -553,6 +553,7 @@ if (isset($aidsRecomendation_info))
                                             تمت عملية حـفـظ البيـانات بنجـاح !
                                         </div>
                                         <!-- Add Here-->
+                                        <input id="hdnSurveyId" name="hdnSurveyId" type="hidden" value="<?php echo $survey_id;?>" />
                                         <div class="form-group">
                                         <label class="control-label col-md-3">تـاريخ دراسـة الحـالة <span class="required">
                                         * </span>
@@ -607,11 +608,13 @@ if (isset($aidsRecomendation_info))
                                                 <option value="">اختر...</option>
                                                 <?php
 												 foreach($survey_employee_info as $employee_info_row)
-												 {$selected ="";
+												 {
+													 $selected ="";
 													 if ($survey_info_row->researcher_id == $employee_info_row->national_id)
                                                           $selected = 'selected="selected"';
                                                         
-                      								echo '<option value="'.$employee_info_row->national_id.'"'.$selected.'>'.$employee_info_row->name.'</option>';
+                      								echo '<option value="'.$employee_info_row->national_id.'"'.$selected.'>'
+																		  .$employee_info_row->name.'</option>';
 							  					  }
 							 					?>
 
@@ -627,11 +630,14 @@ if (isset($aidsRecomendation_info))
                                                 <option value="">اختر...</option>
                                                  <?php
 												  foreach($survey_employee_info as $row)
-												  {$selected ="";
-													   if ($survey_info_row->researcher_assistant_fst_id == $employee_info_row->national_id)
+												  {	
+												  		$selected ="";
+													   if ($survey_info_row->researcher_assistant_fst_id == 
+														   		$row->national_id) 
                                                           $selected = 'selected="selected"';
                                                     
-                      								echo '<option value="'.$row->national_id.'"'.$selected.'>'.$row->name.'</option>';
+                      								echo '<option value="'.$row->national_id.'" '.$selected.'>'
+																		  .$row->name.'</option>';
 							  					}
 							 					 ?>
 
@@ -647,11 +653,14 @@ if (isset($aidsRecomendation_info))
                                                 <option value="">اختر...</option>
                                                  <?php
 												  foreach($survey_employee_info as $row)
-												  {$selected ="";
-													 if ($survey_info_row->researcher_assistant_sec_id == $employee_info_row->national_id)
+												  {
+													  $selected ="";
+													 if ($survey_info_row->researcher_assistant_sec_id == 
+														 $row->national_id)
                                                           $selected = 'selected="selected"';
                                                       
-                      								echo '<option value="'.$row->national_id.'"'.$selected.'>'.$row->name.'</option>';
+                      								echo '<option value="'.$row->national_id.'"'.$selected.'>'
+																		  .$row->name.'</option>';
 							  					}
 							 					 ?>
 
@@ -663,7 +672,9 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button id="btnSavefile" type="submit" class="btn blue-madison">حـفـظ</button>
+                                                <button id="btnSavefile" type="button" class="btn blue-madison" 
+                                                 onclick="update_survey_visit()">
+                                                حـفـظ</button>
                                                 
                                             </div>
                                         </div>
@@ -684,7 +695,8 @@ if (isset($aidsRecomendation_info))
                       <div id="collapse_3" class="panel-collapse collapse">
                           <div class="panel-body">
                               <div class="note note-info">
-										<p><b> عــدد أفــــراد الأســــرة ( <span id="spnCountFamily"> 0 </span> )</b></p>
+										<p><b> عــدد أفــــراد الأســــرة ( <span id="spnCountFamily"> 
+																		   <?php echo count($familyMember_info);?> </span> )</b></p>
 									</div>
    <!------------------------------------------TABLE------------------------------------------------>
                                     <div class="table-scrollable" style="white-space: nowrap;">
@@ -843,7 +855,7 @@ if (isset($aidsRecomendation_info))
                                             </th>
                                             <th>
                                                  <button id="btnAddMem" name="btnAddMem" type="button" 
-                                                 class="btn btn-circle green-turquoise btn-sm" onclick="editefamilymember()">
+                                                 class="btn btn-circle green-turquoise btn-sm" onclick="addfamilymember()">
                                                 <i id="iConst" class="fa fa-plus"></i></button>
                                             </th>
                                         </tr>
@@ -942,7 +954,7 @@ if (isset($aidsRecomendation_info))
                                                   التشغيل وتحسين مستوى الدخل</a>
                                               </li>
                                           </ul>
-                                     <input id="hdnSurveyId" name="hdnSurveyId" type="hidden" value="" />
+                                     
                                      </div><!-- END col-md-3 (Tab Header)-->
                                      <div class="col-md-9 col-sm-9 col-xs-9">
                         			 <div class="tab-content">

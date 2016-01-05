@@ -90,6 +90,7 @@ class Surveyupdatecont extends CI_Controller
 
 		$this->load->model('Employeemodel');
 		$this->data['survey_employee_info'] = $this->Employeemodel->get_all_employee();
+		$this->data['survey_id'] = $_SESSION['update'];
 		
 		if(isset($_SESSION['update']))
 		{
