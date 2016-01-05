@@ -1331,20 +1331,29 @@ if (isset($aidsRecomendation_info))
                                                   <select class="form-control" id="drpCeilingType" name="drpCeilingType">
                                                     <option value="">اختر...</option>
                                                       <?php
-  													 $selected="";
+  													 
                                                       foreach($survey_CeilingType as $survey_CeilingType_row)
                                                       {
-													  if ($homeStatus_row->ceiling_type_id == $survey_CeilingType_row->sub_constant_id)
-                                                          $selected = 'selected="selected"';
-                  echo '<option value="'.$survey_CeilingType_row->sub_constant_id.'"'.$selected.'>'.$survey_CeilingType_row->sub_constant_name.'</option>';
-                                                    $selected="";
+														  $selected="";
+														  if ($homeStatus_row->ceiling_type_id == 
+															  $survey_CeilingType_row->sub_constant_id)
+															  $selected = 'selected="selected"';
+															  
+													   echo '<option value="'.$survey_CeilingType_row->sub_constant_id.'" '
+													   		   .$selected.'>'.$survey_CeilingType_row->sub_constant_name.'</option>';
+                                                    
 													}
                                                      ?>
                                                 </select>
                                               </div>
                                           </div>
                                           
-                                          <div id="dvCeilingDescription" class="form-group" style="display:none">
+                                          <div id="dvCeilingDescription" class="form-group" 
+                                          <?php 
+										  	if ($homeStatus_row->ceiling_type_id != 92)
+												echo 'style="display:none"';
+										  ?>
+                                          >
                                               <label class="control-label col-md-3">نوع السقف توضيح<span class="required">
                                                * </span>
                                                </label>
@@ -1375,7 +1384,12 @@ if (isset($aidsRecomendation_info))
                                               </div>
                                           </div>
                                           
-                                          <div id="dvFurnitureNeeds" class="form-group" style="display:none">
+                                          <div id="dvFurnitureNeeds" class="form-group"
+                                          <?php
+										  if ($homeStatus_row->furniture_level_id != 96)
+										  	echo 'style="display:none"';
+										  ?>
+                                          >
                                               <label class="control-label col-md-3">أذكر هذه الضروريات <span class="required">
                                                * </span>
                                                </label>

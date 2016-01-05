@@ -260,6 +260,54 @@ function edit_income_resource_u()
 		});//END $.ajax
 }
 
+//-------------------- Home Status Tab ----------------------//
+function editeHomeStatus()
+{
+	var action = $("#hdnHomeStatusAction").val();
+	
+	//alert(action);
+	
+	/*if ( !validateHomeStatus() )
+		return;*/
+		
+	// Create a new FormData object.
+	var formData = new FormData();
+	
+	// Add the data to the request.
+	formData.append('hdnSurveyId'		 	,  $("#hdnSurveyId").val()		   	);
+	formData.append('hdnHomeStatusId'		,  $("#hdnHomeStatusId").val() 		);
+	formData.append('drpHomeStatus'			,  $("#drpHomeStatus").val()	   	);
+	formData.append('drpHomeType'	  		,  $("#drpHomeType").val()	   		);
+	formData.append('drpCeilingType'	  	,  $('#drpCeilingType').val()		);
+	formData.append('txtCeilingdescription' ,  $("#txtCeilingdescription").val());
+	formData.append('drpFurnitureLevel'		,  $("#drpFurnitureLevel").val() 	);
+	formData.append('txtarFurnitureneeds'	,  $("#txtarFurnitureneeds").val() 	);
+	
+	
+	$.ajax({
+			url: baseURL+"Surveycont/"+action,
+			type: "POST",
+			data:formData,
+			processData: false,
+    		contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#hdnHomeStatusId").val(returndb);
+				$('#hdnHomeStatusAction').val('updatehomeStatus');
+				/*if (returndb=='')
+				{
+					var form = $('#HomeStatusTab');
+					$('.alert-success', form).show();
+					$('#homeStatushdnAction').val('updatehomeStatus');										
+				}*/
+			}
+		});//END $.ajax
+}
 
 //-------------------------- Validation ------------------------------//
 // File Validation
