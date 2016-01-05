@@ -488,6 +488,38 @@ function editeElderFamRel_u()
 		});//END $.ajax
 	
 }
+//------------------ Elder Behavior Tab ------------------------//
+function add_elder_behaviour_u()
+{
+	/*if(!$("#drpBehaviour").valid())
+		return false;*/
+	
+	$.ajax({
+			url: baseURL+"Surveycont/addbehaviour",
+			type: "POST",
+			data: { hdnSurveyId : $("#hdnSurveyId").val(),
+				    drpBehaviour : $("#drpBehaviour").val()
+				  },
+			
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				if($("#drpBehaviour").val() == '211')	// Pariah
+				{
+					$("#dvPariahreasone").css("display", "block");
+				}
+				
+				$("#tbdElderBehaviour").html(returndb);
+				$("#drpBehaviour option:selected" ).attr("disabled","disabled");
+				$("#drpBehaviour").val('');
+			}
+		});//END $.ajax
+}
+
 //-------------------------- Validation ------------------------------//
 // File Validation
 /*var FileFormValidation = function () {

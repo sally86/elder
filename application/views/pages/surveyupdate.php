@@ -2064,7 +2064,7 @@ if (isset($aidsRecomendation_info))
                                               </div>
                                               <div class="col-md-2">
                                                 <button id="btnAddBehaviour" name="btnAddBehaviour" type="button" 
-                                                class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_behaviour()">
+                                                class="btn btn-circle green-turquoise btn-sm" onclick="add_elder_behaviour_u()">
                                                 <i id="iConst" class="fa fa-plus"></i></button> 
                                               </div>
                                             </th>
