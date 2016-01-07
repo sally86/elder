@@ -33,7 +33,7 @@ function update_survey_visit()
 	$.ajax({
 			  url: baseURL+"Surveycont/updatesurvey",
 			  type: "POST",
-			  data:  $("#survey_visit").serialize(),
+			  data:  $("#visit_info_form").serialize(),
 			  error: function(xhr, status, error) {
 				  //var err = eval("(" + xhr.responseText + ")");
 				  alert(xhr.responseText);
@@ -108,10 +108,21 @@ function addfamilymember()
 //------------------- Health Status Tab --------------------//
 function add_elder_disease_u()
 {
+	var form = $('#health_status_update_form');
+    var error = $('.alert-danger', form);
 	
-	/*if(!$("#drpDisease").valid())
-		return false;*/
-	alert($("#drpDisease").val());
+	if(!$("#drpDisease").valid())
+	{
+		error.show();
+        Metronic.scrollTo(error, -200);
+		return false;
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	
 	$.ajax({
 			url: baseURL+"Surveycont/adddisease",
 			type: "POST",
@@ -173,8 +184,8 @@ function add_disease_details_u()
 //----------------------- Income Tab ------------------------//
 function add_income_resource_det_u()
 {
-	/*if ( !validateIncomeResourceDet() )
-		return;*/
+	if ( !validateIncomeResourceDet_u() )
+		return;
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -223,8 +234,8 @@ function add_income_resource_det_u()
 
 function edit_income_resource_u()
 {
-	/*if( !validateIncomeResource() )
-		return false;*/
+	if( !validateIncomeResource_u() )
+		return false;
 	
 	if($("#hdnIncomeResourcesId").val() == "")
 		var action = "addincomeresource";
@@ -259,7 +270,64 @@ function edit_income_resource_u()
 			}
 		});//END $.ajax
 }
-
+function validateIncomeResourceDet_u()
+{
+	var form = $('#income_resources_update_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpIncomeSource").valid() )
+		valid = false;
+	if ( !$("#drpOrganization").valid() )
+		valid = false;
+	if ( !$("#txtCashincome").valid() )
+		valid = false;
+	if ( !$("#txtPackageincome").valid() )
+		valid = false;
+	if ( !$("#txtPackagecashvalue").valid() )
+		valid = false;
+		
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+function validateIncomeResource_u()
+{
+	var form = $('#income_resources_update_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#txtTotalincome").valid() )
+		valid = false;
+	if ( !$("#txtElderportion").valid() )
+		valid = false;
+		
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
 //-------------------- Home Status Tab ----------------------//
 function editeHomeStatus_u()
 {
@@ -366,8 +434,8 @@ function editeElderRoom_u()
 //----------------- Elder Midication Tab -------------------//
 function add_medication_availability_u()
 {
-	/*if ( !validateMedicationAvailab() )
-		return;*/
+	if ( !validateMedicationAvailab_u() )
+		return;
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -405,8 +473,8 @@ function add_medication_availability_u()
 }
 function add_medication_need_u()
 {
-	/*if ( !validateMedicationNeed() )
-		return;*/
+	if ( !validateMedicationNeed_u() )
+		return;
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -442,6 +510,61 @@ function add_medication_need_u()
 				}*/
 			}
 		});//END $.ajax
+}
+function validateMedicationAvailab_u()
+{
+	
+	var form = $('#medication_update_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#txtMedicinename").valid() )
+		valid = false;
+	if ( !$("#drpMedicationAvailable").valid() )
+		valid = false;
+	if ( !$("#txtReason").valid() )
+		valid = false;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
+function validateMedicationNeed_u()
+{
+	
+	var form = $('#medication_update_form');
+    var error = $('.alert-danger', form);
+	
+	var valid = true;
+	
+	if ( !$("#drpMedtype").valid()  )
+		valid = false;
+	if ( !$("#txtMeddetails").valid()  )
+		valid = false;
+	
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
 }
 
 //------------ Elder Family Relationship Tab ---------------//
@@ -491,8 +614,19 @@ function editeElderFamRel_u()
 //------------------ Elder Behavior Tab ------------------------//
 function add_elder_behaviour_u()
 {
-	/*if(!$("#drpBehaviour").valid())
-		return false;*/
+	var form = $('#elder_behavior_update_form');
+    var error = $('.alert-danger', form);
+	
+	if(!$("#drpBehaviour").valid())
+	{
+		error.show();
+        Metronic.scrollTo(error, -200);
+		return false;
+	}
+	else
+	{
+		error.hide();
+	}
 	
 	$.ajax({
 			url: baseURL+"Surveycont/addbehaviour",
@@ -522,8 +656,19 @@ function add_elder_behaviour_u()
 
 function add_elder_pariah_u()
 {
-	/*if(!$("#drpPariahreasone").valid())
-		return false;*/
+	var form = $('#elder_behavior_update_form');
+    var error = $('.alert-danger', form);
+	
+	if(!$("#drpPariahreasone").valid())
+	{
+		error.show();
+        Metronic.scrollTo(error, -200);
+		return false;
+	}
+	else
+	{
+		error.hide();
+	}
 	
 	$.ajax({
 			url: baseURL+"Surveycont/addpariah",
@@ -776,13 +921,17 @@ function addhomeaid_u()
 }
 
 //-------------------------- Validation ------------------------------//
-// File Validation
-/*var FileFormValidation = function () {
+// Elder Validation
+var ElderInfoUpdateValidation = function () {
  var handleValidation = function() {
         	
-            var form = $('#file_form');
+            var form = $('#elder_info_form');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
+			
+			jQuery.validator.addMethod("greaterThanSixty", function(value, element) {
+    			return parseInt($("#spnAge").html()) > 60;
+			}, "* Amount must be greater than Sixty");
 			
 			form.validate({
                 errorElement: 'span', //default input error message container
@@ -790,46 +939,135 @@ function addhomeaid_u()
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "", // validate all fields including form hidden input
                 rules: {
-					drpFilestatus: {
+				// Elder Info
+					txtElderId: {
+                        required: true,
+						digits: true
+                    },
+					drpEldercategory: {
+						required: true
+                    },
+					txtFname: {
+                        required: true
+                    },
+	                txtMname: {
+                        required: true
+                    },
+					txtThname: {
+                        required: true
+                    },
+	                txtLname: {
+                        required: true
+                    },
+					dpDob: {
+                        required: true,
+						greaterThanSixty : true
+                    },
+					drpElderstatus: {
+                        required: true
+                    },
+					drpGovernorate: {
+                        required: true
+                    },
+					drpRegion: {
+                        required: true
+                    },
+					drpFulladdress: {
                         required: true
 					},
-					dpClose: {
-						 required: {
-							 depends: function(element) {
-								 if ($('#drpFilestatus').val() == '172')
-								 {
-									return true;
-								 }else{
-									return false;
-								 }
-							 }//END function
-						}//END required
-						
-					},//END dpClose
-					drpClosereasone: {
-						 required: {
-							 depends: function(element) {
-								 if ($('#drpFilestatus').val() == '172')
-								 {
-									return true;
-								 }else{
-									return false;
-								 }
-							 }//END function
-						}//END required
-						
-					}//END dpClose
+					txtPhone: {
+                       digits: true,
+						minlength: 7
+					},
+					txtMobile1: {
+						digits: true,
+						minlength: 10
+                    },
+					txtMobile2: {
+						digits: true,
+						minlength: 10
+                    },
+					drpEducationlevel: {
+						required: true
+                    },
+					drpSpecialization: {
+						required: true
+                    },
+					drpCurrentjob: {
+						required: true
+                    },
+					drpPreviousjob: {
+						required: true
+                    },
+					drpInsurence: {
+						required: true
+                    }
                 },
 
                messages: { // custom messages for radio buttons and checkboxes
-                    drpFilestatus: {
-						required: "الرجاء ادخال حالة الملف"
+                    txtElderId: {
+						required: "الرجاء إدخال رقم الهوية",
+						digits: "الرجـاء ادخـال ارقـام فقط"
                     },
-                    dpClose: {
-                        required: "الرجاء ادخال تاريخ الاغلاق"
+					drpEldercategory: {
+						required: "الرجاء إختيار قيمة"
                     },
-					drpClosereasone: {
-                        required: "الرجاء اختيار سبب الاغلاق"
+					txtFname: {
+                        required: "الرجاء ادخل الاسم"
+                    },
+                    txtMname: {
+                        required: "الرجاء ادخل الاسم"
+                    }
+					,
+                    txtThname: {
+                        required: "الرجاء ادخل الاسم"
+                    }
+					,
+                    txtLname: {
+                        required: "الرجاء ادخل الاسم"
+                    },
+					dpDob: {
+						required: "الرجاء إدخال تاريخ الميلاد",
+						greaterThanSixty: "عمر العضو يجب ان يكون أكبر من 60 سنة"
+                    },
+					drpElderstatus: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpGovernorate: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpRegion: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpFulladdress: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					txtPhone: {
+						minlength: "رقم الهاتف يجب ان يكون 7 ارقام",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+                    },
+					txtMobile1: {
+						minlength: "رقم الجوال يجب ان يكون 10 ارقام مبدوء ب 059",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+                    },
+					txtMobile2: {
+						minlength: "رقم الجوال يجب ان يكون 10 ارقام مبدوء ب 059",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+                    },
+					drpEducationlevel: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpSpecialization: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpCurrentjob: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpPreviousjob: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpInsurence: {
+						required: "الرجاء إختيار قيمة"
                     }
 					
                 },
@@ -876,7 +1114,7 @@ function addhomeaid_u()
 
                 submitHandler: function (form) {
                     errormsg.hide();
-					updatefile();
+					update_elder_info();
                     //form[0].submit(); // submit the form
                 }
 
@@ -891,4 +1129,1945 @@ return {
 
     };
 
-}();*/
+}();
+
+// Visit Info Validation
+var VisitInfoUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#visit_info_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Visit Info
+					dpVisitdate: {
+                        required: true
+                    }
+					,
+					txtVisittime: {
+                        required: true
+                    },
+					txtVisitendtime: {
+                        required: true
+                    },
+					drpResearcher: {
+                        required: true
+                    }
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Visit Info
+					dpVisitdate: {
+						required: "الرجاء إدخال تاريخ الزيارة"
+                    },
+					txtVisittime: {
+						required: "الرجاء إدخال الوقت"
+                    },
+					txtVisitendtime: {
+						required: "الرجاء إدخال الوقت"
+                    },
+					drpResearcher: {
+						required: "الرجاء إختيار الباحث"
+                    }
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					update_survey_visit();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+// Family Member Validation
+var FamilymemberUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#familymember_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Family Member
+					txtMemberId: {
+                        required: true,
+						digits: true
+                    },
+					txtMembername: {
+                        required: true
+                    },
+					dpMemDob: {
+                        required: true
+                    },
+					drpMemRelationship: {
+                        required: true
+                    },
+					drpMemStatus: {
+                        required: true
+                    },
+					drpMemEdulevel: {
+                        required: true
+                    },
+					drpMemHealth: {
+						required: true
+                    },
+					txtMemincome: {
+						required: true,
+						digits: true
+                    },
+					txtMemjob: {
+						required: true
+                    }
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Family Member
+					 txtMemberId: {
+						required: "الرجاء إدخال رقم الهوية",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+                    },
+					txtMembername: {
+                        required: "الرجاء ادخل الاسم"
+                    },
+					dpMemDob: {
+						required: "الرجاء إدخال تاريخ الميلاد"
+                    },
+					drpMemRelationship: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpMemStatus: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpMemEdulevel: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					drpMemHealth: {
+						required: "الرجاء إختيار قيمة"
+                    },
+					txtMemincome: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط",
+                    },
+					txtMemjob: {
+						required: "الرجاء إدخال قيمة"
+                    }
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					addfamilymember();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+// Health Status 
+var HealthstatusUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#health_status_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Health Status
+					drpDisease: {
+						required: true
+					}
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Health Status
+					drpDisease: {
+						required: "الرجاء إختيار قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+						error.addClass('font-red');
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					//addfamilymember();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+// Income
+var IncomeresourcesUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#income_resources_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Income Resouce
+					drpIncomeSource: {
+						required: true
+					},
+					drpOrganization: {
+						required: {
+							 depends: function(element) {
+								 if ($('#drpIncomeSource').val() == '75')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtCashincome: {
+						required: function(element) {
+							if ($('#txtPackageincome').val() == '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+						},
+						digits: true
+					},
+					txtPackageincome: {
+						required: function(element) {
+							if ($('#txtCashincome').val() == '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+						},
+					},
+					txtPackagecashvalue: {
+						required: {
+							 depends: function(element) {
+								 if ($('#txtPackageincome').val() != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						},//END required
+						digits: true
+					},
+					txtTotalincome: {
+						required: true,
+						digits: true
+					},
+					txtElderportion: {
+						required: true,
+						digits: true
+					}
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Income Resouce
+					drpIncomeSource: {
+						required: "الرجاء إختيار قيمة"
+					},
+					drpOrganization: {
+						required: "الرجاء إختيار قيمة"
+					},
+					txtCashincome: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					},
+					txtPackageincome: {
+						required: "الرجاء إدخال قيمة"
+					},
+					txtPackagecashvalue: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					},
+					txtTotalincome: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					},
+					txtElderportion: {
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					}
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+						error.addClass('font-red');
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					//addfamilymember();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+// Home Status Validation
+var HomestatusUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#home_status_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Home Status
+					drpHomeStatus: {
+						required: true
+					},
+					drpHomeType:{
+						required: true
+					},
+					drpCeilingType:{
+						required: true
+					},
+					txtCeilingdescription:{
+						 required: {
+							 depends: function(element) {
+								 if ($('#drpCeilingType').val() == '92')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpFurnitureLevel:{
+						required: true
+					},
+					txtarFurnitureneeds:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpFurnitureLevel').val() == '96')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					} 
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Home Status
+					drpHomeStatus: {
+						required: "الرجاء إختيار قيمة"
+					},
+					drpHomeType:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpCeilingType:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtCeilingdescription:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpFurnitureLevel:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarFurnitureneeds:{
+						required: "الرجاء إدخال قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editeHomeStatus_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+// Room Status Validation
+var RoomstatusUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#room_status_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Elder Room Status
+					drpElderHometype:{
+						required: true
+					},
+					drpRoomtype:{
+						required: true
+					},
+					drpClothes:{
+						required: true
+					},
+					drpVentilation:{
+						required: true
+					},
+					drpLighting:{
+						required: true
+					},
+					drpCloset:{
+						required: true
+					},
+					drpBed:{
+						required: true
+					},
+					drpCupboard:{
+						required: true
+					},
+					drpMaintenance:{
+						required: true
+					},
+					txtarRoommaintinancedet:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpMaintenance').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpBathroom:{
+						required: true
+					},
+					txtarBathroommaintinancedet:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpBathroom').val() == '115' || $('#drpBathroom').val() == '116')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpHigiene:{
+						required: true
+					} 
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Elder Room Status
+					drpElderHometype:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpRoomtype:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpClothes:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpVentilation:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpLighting:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpCloset:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpBed:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpCupboard:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpMaintenance:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarRoommaintinancedet:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpBathroom:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarBathroommaintinancedet:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpHigiene:{
+						required: "الرجاء إختيار قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editeElderRoom_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+// Elder Medication
+var MedicationUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#medication_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Medication Availability
+					txtMedicinename :{
+						required: true
+					},
+					drpMedicationAvailable:{
+						required: true
+					},
+					txtReason:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpMedicationAvailable').val() == '121')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpMedtype:{
+						required: true
+					},
+					txtMeddetails:{
+						required: true
+					}
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Medication Availability
+					txtMedicinename :{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpMedicationAvailable:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtReason:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpMedtype:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtMeddetails:{
+						required: "الرجاء إدخال قيمة"
+					}
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+						error.addClass('font-red');
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					//form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+// Family Elder Relation
+var FamEldrRelUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#family_elder_relation_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Elder Family Relationship
+					drpRespect:{
+						required: true
+					},
+					drpPariah:{
+						required: true
+					},
+					drpCare:{
+						required: true
+					},
+					drpPsycosupport:{
+						required: true
+					},
+					drpNeeds:{
+						required: true
+					},
+					txtarNeedreasone:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpNeeds').val() == '111')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpLegaladvice:{
+						required: true
+					},
+					txtarLegaladvicereasone:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpLegaladvice').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					} 
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Elder Family Relationship
+					drpRespect:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpPariah:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpCare:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpPsycosupport:{
+						required:"الرجاء إختيار قيمة"
+					},
+					drpNeeds:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarNeedreasone:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpLegaladvice:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarLegaladvicereasone:{
+						required: "الرجاء إدخال قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editeElderFamRel_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+// Elder Behavior
+var ElderbehaviorUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#elder_behavior_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Elder Behaviour
+					drpBehaviour :{
+						required: true
+					},
+					drpPariahreasone :{
+						required: true
+					} 
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Elder Behaviour
+					drpBehaviour :{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpPariahreasone :{
+						required: "الرجاء إختيار قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+						error.addClass('font-red');
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editeElderFamRel_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+// Family Cooperation
+var FamilycooperationUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#family_cooperation_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Family Cooperation Relationship
+					drpIScooperative:{
+						required: true
+					},
+					drpcooperPersonetype:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpIScooperative').val() == '111')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtcooperPersoneId:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpIScooperative').val() == '111')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtcooperPersoneName:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpIScooperative').val() == '111')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtcooperPersoneMobile:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpIScooperative').val() == '111')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtcooperPersoneAddress:{
+						required: {
+							 depends: function(element) {
+								 if ($('#drpIScooperative').val() == '111')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Family Cooperation Relationship
+					drpIScooperative:{
+						required: "الرجاء إختيار قيمة"
+					},
+					drpcooperPersonetype:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtcooperPersoneId:{
+						required: "الرجاء إدخال قيمة"
+					},
+					txtcooperPersoneName:{
+						required:"الرجاء إدخال قيمة"
+					},
+					txtcooperPersoneMobile:{
+						required: "الرجاء إدخال قيمة"
+					},
+					txtcooperPersoneAddress:{
+						required: "الرجاء إدخال قيمة"
+					},
+					drpLegaladvice:{
+						required: "الرجاء إختيار قيمة"
+					},
+					txtarLegaladvicereasone:{
+						required: "الرجاء إدخال قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editeCooperativFamily_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+// Family Psycho Behavior
+var FamilypsychoUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#family_psycho_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Family Psyco
+					drpPsychologicalStatus:{
+						required: true
+					}
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Family Psyco
+					drpPsychologicalStatus:{
+						required: "الرجاء إختيار قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+						error.addClass('font-red');
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					add_family_psycho_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+
+// Life Improvement
+var LifeimprovementUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#life_improvement_update_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Life Improvement
+					drpElderWorkAbility: {
+                        required: true
+					},
+					txtelderworktype: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpElderWorkAbility').val() == '142')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+                    },
+					drpFamilyMember: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpElderWorkAbility').val() == '143')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+                    },
+					txtFamilyworktype: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpElderWorkAbility').val() == '143')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+                    }, 
+					drpNeedtraining: {
+                        required: true
+                    },
+					txtTrainigType: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpNeedtraining').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					drpStartproject: {
+                        required: true
+                    },
+					txtProjectType: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpStartproject').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+                    },
+					txtProjectBudget: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpStartproject').val() == '110')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					}
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Life Improvement
+					drpElderWorkAbility: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtelderworktype: {
+                        required: "الرجاء إدخال قيمة"
+                    },
+					drpFamilyMember: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					txtFamilyworktype: {
+                        required: "الرجاء إدخال قيمة"
+                    },
+					drpNeedtraining: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					txtTrainigType: {
+                        required: "الرجاء إدخال قيمة"
+					},
+					drpStartproject: {
+                        required: "الرجاء إختيار قيمة"
+                    },
+					txtProjectType: {
+                        required: "الرجاء إدخال قيمة"
+                    },
+					txtProjectBudget: {
+                        required: "الرجاء إدخال قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editeLifeImprov_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+// Aid Validation
+var AidUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#aid_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					// Aids Recommendations
+					drpCashaidtype: {
+                        required: {
+							 depends: function(element) {
+								 if ($.trim($('#txtCashaidamount').val()) != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtCashaidamount: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpCashaidtype').val() != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						},//END required
+						digits:true
+					},
+					drpNutritiontype: {
+                        required: {
+							 depends: function(element) {
+								 if ($.trim($('#txtNutritiondetails').val()) != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					},
+					txtNutritiondetails: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpNutritiontype').val() != '')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					}
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Aids Recommendations
+					drpCashaidtype: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtCashaidamount: {
+                        required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+					},
+					drpNutritiontype: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtNutritiondetails: {
+                        required: "الرجاء إدخال قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					editeaidrecomend_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+// Medical Aid
+var MedicalAidUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#medical_aid_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					drpMedicalaidtype: {
+                        required: true
+					}
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Family Psyco
+					drpMedicalaidtype:{
+						required: "الرجاء إختيار قيمة"
+					}
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+						error.addClass('font-red');
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					addmedicalaid_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+// Home Aid
+var HomeAidUpdateValidation = function () {
+ var handleValidation = function() {
+        	
+            var form = $('#home_aid_form');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+			form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					drpImprovementtype: {
+                        required: true
+					},
+					txtImprovementdet: {
+                        required: {
+							 depends: function(element) {
+								 if ($('#drpImprovementtype').val() == '168' || $('#drpImprovementtype').val() == '169')
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
+					}
+                },
+
+               messages: { // custom messages for radio buttons and checkboxes
+                    // Home Aid
+					drpImprovementtype: {
+                        required: "الرجاء إختيار قيمة"
+					},
+					txtImprovementdet: {
+                        required: "الرجاء إدخال قيمة"
+					},
+					
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+						error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+						error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+						error.insertAfter(element); // for other inputs, just perform default behavior
+						error.addClass('font-red');
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group		
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					addhomeaid_u();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();

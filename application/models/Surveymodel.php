@@ -772,6 +772,7 @@ class Surveymodel extends CI_Model
 		$data['survey_id'] 				= $hdnSurveyId;
 		$data['elder_work_ability_id'] 	= $drpElderWorkAbility;
 		$data['elder_work_type'] 		= $txtelderworktype;
+		$data['family_work_type'] 		= $txtFamilyworktype;
 		$data['is_elder_need_training'] = $drpNeedtraining;
 		$data['elder_training_type'] 	= $txtTrainigType;
 		$data['can_start_project'] 		= $drpStartproject;
@@ -797,6 +798,7 @@ class Surveymodel extends CI_Model
 
 		$data['elder_work_ability_id'] 	= $drpElderWorkAbility;
 		$data['elder_work_type'] 		= $txtelderworktype;
+		$data['family_work_type'] 		= $txtFamilyworktype;
 		$data['is_elder_need_training'] = $drpNeedtraining;
 		$data['elder_training_type'] 	= $txtTrainigType;
 		$data['can_start_project'] 		= $drpStartproject;

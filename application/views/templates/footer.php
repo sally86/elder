@@ -169,7 +169,23 @@
 		ComponentsFormTools.init();
 		ComponentsDropdowns.init();
 		ComponentsPickers.init();
-		
+		//********** Update Surey **********************/
+		ElderInfoUpdateValidation.init();
+		VisitInfoUpdateValidation.init();
+		FamilymemberUpdateValidation.init();
+		HealthstatusUpdateValidation.init();
+		IncomeresourcesUpdateValidation.init();
+		HomestatusUpdateValidation.init();
+		RoomstatusUpdateValidation.init();
+		MedicationUpdateValidation.init();
+		FamEldrRelUpdateValidation.init();
+		ElderbehaviorUpdateValidation.init();
+		FamilycooperationUpdateValidation.init();
+		FamilypsychoUpdateValidation.init();
+		LifeimprovementUpdateValidation.init();
+		AidUpdateValidation.init();
+		MedicalAidUpdateValidation.init();
+		HomeAidUpdateValidation.init();
       });
    </script>
 <!-- END JAVASCRIPTS -->

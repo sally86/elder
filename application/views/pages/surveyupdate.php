@@ -4,7 +4,27 @@ if (isset($elder_info))
 	foreach($elder_info as $elder_info_row);
 	
 	if(count($elder_info) > 0)
+	{
 		$ction = "updateelder";
+		
+		// Calculate Age
+		date_default_timezone_set('Asia/Gaza');   
+		//date in yyyy-mm-dd format;
+  		$birthDate = $elder_info_row->dob;
+		//explode the date to get month, day and year
+		$birthDate = explode("-", $birthDate);
+		//get age from date or birthdate
+		$age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
+		  ? ((date("Y") - $birthDate[0]) - 1)
+		  : (date("Y") - $birthDate[0]));
+		
+		if ($age > 60 )
+			$lblClass = ' font-green ';
+		else
+			$lblClass = ' font-red ';
+			
+		$lblage = '<b> عمر العضو : <span id="spnAge">'.$age.'</span></b>';
+	}
 	else
 		$ction = "addelder";
 }
@@ -249,7 +269,11 @@ if (isset($aidsRecomendation_info))
                                               <!-- /input-group -->
                                            </div>
                                            <div class="col-md-4">
-                                             <label id="lblAge" class="control-label"></label>
+                                             <label id="lblAge" class="control-label <?php echo $lblClass?>">
+                                             <?php
+											 echo $lblage;
+											 ?>
+                                             </label>
                                           </div>
                                         </div>
                                         
@@ -522,7 +546,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" class="btn blue-madison" onclick="update_elder_info()">
+                                                <button type="submit" class="btn blue-madison">
                                                 حـفـظ</button>
                                             </div>
                                         </div>
@@ -541,10 +565,10 @@ if (isset($aidsRecomendation_info))
                           </h4>
                       </div>
                       <div id="collapse_2" class="panel-collapse collapse">
-                          <div class="panel-body" style="height:200px; overflow-y:auto;">
+                          <div class="panel-body">
                               <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
-                                <form action="#" id="survey_visit" class="form-horizontal">
+                                <form action="#" id="visit_info_form" class="form-horizontal">
                                     <div class="form-body">
                                       <br/>
                                         <div class="alert alert-danger display-hide">
@@ -614,11 +638,18 @@ if (isset($aidsRecomendation_info))
                                                 <?php
 												 foreach($survey_employee_info as $employee_info_row)
 												 {
-													 $selected ="";
+													 $selected = "";
+													 $disabled = "";
 													 if ($survey_info_row->researcher_id == $employee_info_row->national_id)
-                                                          $selected = 'selected="selected"';
+                                                          $selected = ' selected="selected" ';
+													 
+													 if ($employee_info_row->national_id 
+														 == $survey_info_row->researcher_assistant_fst_id 
+														 || $employee_info_row->national_id 
+														 == $survey_info_row->researcher_assistant_sec_id)
+													 		$disabled = ' disabled="disabled" ';
                                                         
-                      								echo '<option value="'.$employee_info_row->national_id.'"'.$selected.'>'
+                      								echo '<option value="'.$employee_info_row->national_id.'"'.$selected.$disabled.'>'
 																		  .$employee_info_row->name.'</option>';
 							  					  }
 							 					?>
@@ -637,11 +668,18 @@ if (isset($aidsRecomendation_info))
 												  foreach($survey_employee_info as $row)
 												  {	
 												  		$selected ="";
+														$disabled = "";
 													   if ($survey_info_row->researcher_assistant_fst_id == 
 														   		$row->national_id) 
                                                           $selected = 'selected="selected"';
+														
+													   if ($row->national_id 
+														 == $survey_info_row->researcher_id 
+														 || $row->national_id 
+														 == $survey_info_row->researcher_assistant_sec_id)
+													 		$disabled = ' disabled="disabled" ';
                                                     
-                      								echo '<option value="'.$row->national_id.'" '.$selected.'>'
+                      								echo '<option value="'.$row->national_id.'" '.$selected.$disabled.'>'
 																		  .$row->name.'</option>';
 							  					}
 							 					 ?>
@@ -660,11 +698,18 @@ if (isset($aidsRecomendation_info))
 												  foreach($survey_employee_info as $row)
 												  {
 													  $selected ="";
+													  $disabled = "";
 													 if ($survey_info_row->researcher_assistant_sec_id == 
 														 $row->national_id)
-                                                          $selected = 'selected="selected"';
+                                                          $selected = ' selected="selected" ';
+														  
+													 if ($row->national_id 
+														 == $survey_info_row->researcher_id 
+														 || $row->national_id 
+														 == $survey_info_row->researcher_assistant_fst_id)
+													 		$disabled = ' disabled="disabled" ';
                                                       
-                      								echo '<option value="'.$row->national_id.'"'.$selected.'>'
+                      								echo '<option value="'.$row->national_id.'"'.$selected.$disabled.'>'
 																		  .$row->name.'</option>';
 							  					}
 							 					 ?>
@@ -677,8 +722,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button id="btnSavefile" type="button" class="btn blue-madison" 
-                                                 onclick="update_survey_visit()">
+                                                <button id="btnSavefile" type="submit" class="btn blue-madison">
                                                 حـفـظ</button>
                                                 
                                             </div>
@@ -699,10 +743,23 @@ if (isset($aidsRecomendation_info))
                       </div>
                       <div id="collapse_3" class="panel-collapse collapse">
                           <div class="panel-body">
-                              <div class="note note-info">
-										<p><b> عــدد أفــــراد الأســــرة ( <span id="spnCountFamily"> 
-																		   <?php echo count($familyMember_info);?> </span> )</b></p>
-									</div>
+                            <div class="portlet-body form">
+                            <!-- BEGIN FORM-->
+                            <form action="#" id="familymember_update_form" class="form-horizontal">
+                              <div class="form-body">
+                                <br/>
+                                  <div class="alert alert-danger display-hide">
+                                      <button class="close" data-close="alert"></button>
+                                      يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                  </div>
+                                  <div class="alert alert-success display-hide">
+                                      <button class="close" data-close="alert"></button>
+                                        تـم عملية حـفـظ البيـانات بنجـاح !
+                                  </div>
+                                  <div class="note note-info">
+                                      <p><b> عــدد أفــــراد الأســــرة ( <span id="spnCountFamily"> 
+                                                                         <?php echo count($familyMember_info);?> </span> )</b></p>
+                                  </div>
    <!------------------------------------------TABLE------------------------------------------------>
                                     <div class="table-scrollable" style="white-space: nowrap;">
                                         <table class="table table-striped table-bordered table-hover">
@@ -859,8 +916,8 @@ if (isset($aidsRecomendation_info))
                                                    class="form-control input-sm input-xsmall"/>
                                             </th>
                                             <th>
-                                                 <button id="btnAddMem" name="btnAddMem" type="button" 
-                                                 class="btn btn-circle green-turquoise btn-sm" onclick="addfamilymember()">
+                                                 <button id="btnAddMem" name="btnAddMem" type="submit" 
+                                   					class="btn btn-circle green-turquoise btn-sm">
                                                 <i id="iConst" class="fa fa-plus"></i></button>
                                             </th>
                                         </tr>
@@ -891,18 +948,16 @@ if (isset($aidsRecomendation_info))
 														  </button></td>';
 												echo "</tr>";
 												
-												
-												
 											}
-	
-		
-										
-										
+
 										?>
                                         </tbody>
-                                      	</table>
-                        </div>
+                                     	</table>
+                        		</div>
    <!----------------------------------------END TABLE---------------------------------------------->
+   							    </div>
+                              </form>
+                            </div> <!--END panel-body-->
                           </div>
                       </div>
                   </div>
@@ -964,6 +1019,19 @@ if (isset($aidsRecomendation_info))
                                      <div class="col-md-9 col-sm-9 col-xs-9">
                         			 <div class="tab-content">
                                      <div class="tab-pane active" id="tab_6_3">
+                                     	<div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                     <form action="#" id="health_status_update_form" class="form-horizontal">
+                                     <div class="form-body">
+                                        <br/>
+                                          <div class="alert alert-danger display-hide">
+                                              <button class="close" data-close="alert"></button>
+                                              يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                          </div>
+                                          <div class="alert alert-success display-hide">
+                                              <button class="close" data-close="alert"></button>
+                                                تـم عملية حـفـظ البيـانات بنجـاح !
+                                          </div>
                                      	<div class="col-md-12">
                                         <input id="hdnElderDiseaseId" name="hdnElderDiseaseId" type="hidden" 
                                         value="<?php if(isset($elderDiseaseDet_row->elder_disease_details))
@@ -975,14 +1043,23 @@ if (isset($aidsRecomendation_info))
                                               <div class="col-md-3">
                                                  الحـــالة الصحيـــة 
                                               </div>
-                                              <div class="col-md-6">
+                                              <div class="col-md-7">
                                                 <select id="drpDisease" name="drpDisease"
                                                    class="form-control input-large" >
                                                     <option value="">اختر...</option>
                                                     <?php
                                                      foreach($survey_ElderDisease as $row)
-                                                      {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'
+                                                     {
+														 $disabled = '';
+														 foreach($elderDisease_info as $elderDisease_row)
+														 {
+															 if ($row->sub_constant_id == $elderDisease_row->disease_id)
+															 {
+															 	$disabled = 'disabled="disabled"';
+																break;
+															 }
+														 }
+                                                         echo '<option value="'.$row->sub_constant_id.'" '.$disabled.'>'
                                                                 .$row->sub_constant_name.'</option>';
                                                       }
                                                     ?>
@@ -1045,13 +1122,27 @@ if (isset($aidsRecomendation_info))
                                             </tr>
                                           </thead>
                                           </table>
-                                         </div>
-                                         
-                                         
+                                         </div> <!-- END col-12 -->
+                                        </div>
+                                        </form>
+                                      </div> 
                                      </div><!-- END tab_6_3-->
                                      <!-- ** END Health Status ** -->
                                      <!-- ** Income Resources ** -->
                                      <div class="tab-pane fade" id="tab_6_4">
+                                     <div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                     <form action="#" id="income_resources_update_form" class="form-horizontal">
+                                     <div class="form-body">
+                                        <br/>
+                                          <div class="alert alert-danger display-hide">
+                                              <button class="close" data-close="alert"></button>
+                                              يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                          </div>
+                                          <div class="alert alert-success display-hide">
+                                              <button class="close" data-close="alert"></button>
+                                                تـم عملية حـفـظ البيـانات بنجـاح !
+                                          </div>
                                      <fieldset><legend>تفاصيل الدخل</legend>
                                      <input id="hdnIncomeResourcesId" name="hdnIncomeResourcesId" type="hidden" 
                                      	value="<?php if (isset($incomeResources_row->income_resources_id) )
@@ -1090,7 +1181,15 @@ if (isset($aidsRecomendation_info))
                                                   <?php
                                                     foreach($survey_IncomeSource as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'
+														$disabled = "";
+														foreach($incomeResources_info as $incomeResources_row)
+														{
+														  if ($row->sub_constant_id == $incomeResources_row->resource_id
+															  && $row->sub_constant_id != 75)
+															  $disabled = ' disabled="disabled" ';
+														}
+														
+														echo '<option value="'.$row->sub_constant_id.'"'.$disabled.'>'
 													  			.$row->sub_constant_name.'</option>';
                                                   	}
                                                    ?>
@@ -1101,7 +1200,13 @@ if (isset($aidsRecomendation_info))
                                                   <?php
                                                     foreach($survey_Organization as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'
+														$disabled = "";
+														foreach($incomeResources_info as $incomeResources_row)
+														{
+														  if ($row->sub_constant_id == $incomeResources_row->organization_id)
+															  $disabled = ' disabled="disabled" ';
+														}
+                                                      echo '<option value="'.$row->sub_constant_id.'"'.$disabled.'>'
 													  			.$row->sub_constant_name.'</option>';
                                                   	}
                                                    ?>
@@ -1211,19 +1316,7 @@ if (isset($aidsRecomendation_info))
                                      </table>
                                      </fieldset>
                               		 <fieldset><legend>ملخص الدخل</legend>
-                                     <div class="portlet-body form">
-                                    <!-- BEGIN FORM-->
-                                     <form action="#" id="file_form" class="form-horizontal">
-                                     <div class="form-body">
-                                      <br/>
-                                        <!--<div class="alert alert-danger display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
-                                        </div>
-                                        <div class="alert alert-success display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            Your form validation is successful!
-                                        </div>-->
+                                     
                                         
                                         <div class="form-group">
                                           <label class="control-label col-md-3">المجموع الكلي للدخل  <span class="required">
@@ -1243,8 +1336,7 @@ if (isset($aidsRecomendation_info))
                                           </div>
                                         </div>
                                         
-                                    </div>
-                                    <!-- END FORM BODY -->
+                                    
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
@@ -1253,28 +1345,29 @@ if (isset($aidsRecomendation_info))
                                             </div>
                                         </div>
                                     </div>
-                                     </form>
-                                        <!-- END FORM-->
-                                    </div>
-                                     </fieldset><!-- END fieldset Summery-->
                                      
+                                    
+                                     </fieldset><!-- END fieldset Summery-->
+                                     </div>
+                                     </form>
+                                     </div>
                                      </div><!-- END tab_6_4-->
                                      <!-- ** END Income Resources ** -->
                                    	 <!-- ** Home Status ** -->
                                      <div class="tab-pane fade" id="tab_6_5">
                                      <div class="portlet-body form">
                                         <!-- BEGIN FORM-->
-                                     <form action="#" id="file_form" class="form-horizontal">
+                                     <form action="#" id="home_status_update_form" class="form-horizontal">
                                      <div class="form-body">
                                         <br/>
-                                          <!--<div class="alert alert-danger display-hide">
+                                          <div class="alert alert-danger display-hide">
                                               <button class="close" data-close="alert"></button>
                                               يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                           </div>
                                           <div class="alert alert-success display-hide">
                                               <button class="close" data-close="alert"></button>
                                                 تـم عملية حـفـظ البيـانات بنجـاح !
-                                          </div>-->
+                                          </div>
                                           <input id="hdnHomeStatusAction" name="hdnHomeStatusAction" type="hidden" 
                                           value="<?php echo $homeStatusction;?>" />
                                           <input id="hdnHomeStatusId" name="hdnHomeStatusId" type="hidden" 
@@ -1409,7 +1502,7 @@ if (isset($aidsRecomendation_info))
                                       <div class="form-actions">
                                           <div class="row">
                                               <div class="col-md-offset-3 col-md-9">
-                                                  <button type="button" class="btn blue-madison" onclick="editeHomeStatus_u()">
+                                                  <button type="submit" class="btn blue-madison">
                                                   حـفـظ</button>
                                               </div>
                                           </div>
@@ -1423,17 +1516,17 @@ if (isset($aidsRecomendation_info))
                                      <div class="tab-pane fade" id="tab_6_6">
                                      <div class="portlet-body form">
                                     <!-- BEGIN FORM-->
-                                     <form action="#" id="file_form" class="form-horizontal">
+                                     <form action="#" id="room_status_update_form" class="form-horizontal">
                                      <div class="form-body">
                                       <br/>
-                                        <!--<div class="alert alert-danger display-hide">
+                                        <div class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
                                             يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                         </div>
                                         <div class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button>
                                             تـم عملية حـفـظ البيـانات بنجـاح !
-                                        </div>-->
+                                        </div>
                                         <input id="hdnElderRoomAction" name="hdnElderRoomAction" type="hidden" 
                                           value="<?php echo $elderRoomaction;?>" />
                                         <input id="hdnElderRoomId" name="hdnElderRoomId" type="hidden" 
@@ -1711,7 +1804,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" class="btn blue-madison" onclick="editeElderRoom_u()">
+                                                <button type="submit" class="btn blue-madison">
                                                 حـفـظ</button>
                                             </div>
                                         </div>
@@ -1723,6 +1816,19 @@ if (isset($aidsRecomendation_info))
                                      <!-- ** END Elder Room **-->
                                      <!-- ** Elder Midication **-->
                                      <div class="tab-pane fade" id="tab_6_7">
+                                     <div class="portlet-body form">
+                                    <!-- BEGIN FORM-->
+                                     <form action="#" id="medication_update_form" class="form-horizontal">
+                                     <div class="form-body">
+                                      <br/>
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                        </div>
+                                        <div class="alert alert-success display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            تـم عملية حـفـظ البيـانات بنجـاح !
+                                        </div>
                               		 <fieldset><legend>توفر العلاج</legend>
                                     <table class="table table-bordered table-striped">
                                     <thead>
@@ -1808,7 +1914,14 @@ if (isset($aidsRecomendation_info))
                                                   <?php
                                                   foreach($survey_MedicationType as $row)
                                                   {
-                                                    echo '<option value="'.$row->sub_constant_id.'">'
+													  $disabled = "";
+													  foreach($medicationNeed_info as $medicationNeed_row)
+													  {
+														if ($row->sub_constant_id == $medicationNeed_row->medication_type_id)
+															$disabled = ' disabled="disabled" ';
+													  }
+													  
+													  echo '<option value="'.$row->sub_constant_id.'"'.$disabled.'>'
 													      .$row->sub_constant_name.'</option>';
                                                   }
                                                  ?>
@@ -1848,23 +1961,26 @@ if (isset($aidsRecomendation_info))
                                      </tbody>
                                      </table>   
                                      </fieldset><!-- END fieldset Mication Needs-->
+                                     </div>
+                                     </form>
+                                     </div>
                                      </div><!-- END tab_6_7-->
                                      <!-- ** END Elder Midication **-->
                                      <!-- ** Family-Elder Relationship **-->
                                      <div class="tab-pane fade" id="tab_6_8">
                                      <div class="portlet-body form">
                                     <!-- BEGIN FORM-->
-                                     <form action="#" id="file_form" class="form-horizontal">
+                                     <form action="#" id="family_elder_relation_update_form" class="form-horizontal">
                                      <div class="form-body">
                                       <br/>
-                                        <!--<div class="alert alert-danger display-hide">
+                                        <div class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
                                             يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                         </div>
                                         <div class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button>
                                             تـم عملية حـفـظ البيـانات بنجـاح !
-                                        </div>-->
+                                        </div>
                                         <input id="hdnelderFamRelAction" name="hdnelderFamRelAction" type="hidden" 
                                         	value="<?php echo $elderFamRelAction;?>" />
                                         
@@ -2034,7 +2150,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" class="btn blue-madison" onclick="editeElderFamRel_u()">
+                                                <button type="submit" class="btn blue-madison">
                                                 حـفـظ</button>
                                             </div>
                                         </div>
@@ -2046,6 +2162,19 @@ if (isset($aidsRecomendation_info))
                                      <!-- ** END Family-Elder Relationship **-->
                                      <!-- ** Elder-Family Relationship **-->
                                      <div class="tab-pane fade" id="tab_6_9">
+                                     <div class="portlet-body form">
+                                    <!-- BEGIN FORM-->
+                                     <form action="#" id="elder_behavior_update_form" class="form-horizontal">
+                                     <div class="form-body">
+                                      <br/>
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                        </div>
+                                        <div class="alert alert-success display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            تـم عملية حـفـظ البيـانات بنجـاح !
+                                        </div>
                                     	<div class="col-md-12">
                                         <table class="table table-bordered table-striped">
                                         <thead>
@@ -2054,16 +2183,22 @@ if (isset($aidsRecomendation_info))
                                               <div class="col-md-3">
                                                  علافة المسن بالأسرة والمجتمع المحلي 
                                               </div>
-                                              <div class="col-md-6">
+                                              <div class="col-md-7">
                                                 <select id="drpBehaviour" name="drpBehaviour"
                                                    class="form-control input-large" >
                                                     <option value="">اختر...</option>
                                                     <?php
                                                      foreach($survey_ElderBehaviour as $row)
-                                                      {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'
-                                                                .$row->sub_constant_name.'</option>';
-                                                      }
+													 {
+														$disabled = "";
+														foreach($elderBehaviour_info as $elderBehaviour_row)
+														{
+														  if ($row->sub_constant_id == $elderBehaviour_row->behaviour_id)
+															  $disabled = ' disabled="disabled" ';
+														}
+														 echo '<option value="'.$row->sub_constant_id.'"'.$disabled.'>'
+															  .$row->sub_constant_name.'</option>';
+													 }
                                                     ?>
                                                 </select>
                                               </div>
@@ -2111,16 +2246,23 @@ if (isset($aidsRecomendation_info))
                                               <div class="col-md-3">
                                                  سبب نبذ المسن 
                                               </div>
-                                              <div class="col-md-6">
+                                              <div class="col-md-7">
                                                 <select id="drpPariahreasone" name="drpPariahreasone"
                                                    class="form-control input-large" >
                                                     <option value="">اختر...</option>
                                                     <?php
                                                      foreach($survey_ElderPariah as $row)
-                                                      {
-                                                        echo '<option value="'.$row->sub_constant_id.'">'
+                                                     {
+														$disabled = "";
+														foreach($elderPariah_info as $elderPariah_row)
+														{
+														  if ($row->sub_constant_id == $elderPariah_row->elder_pariah_reason_id)
+															  $disabled = ' disabled="disabled" ';
+														}
+														
+                                                        echo '<option value="'.$row->sub_constant_id.'"'.$disabled.'>'
                                                                 .$row->sub_constant_name.'</option>';
-                                                      }
+                                                     }
                                                     ?>
                                                 </select>
                                               </div>
@@ -2155,15 +2297,18 @@ if (isset($aidsRecomendation_info))
                                          </tbody>
                                          </table>
                                           </div>
-                                         </div>   
+                                         </div>
+                                       </div>
+                                       </form>
+                                       </div>   
                                      </div><!-- END tab_6_9-->
                                      <!-- ** END Elder-Family Relationship **-->
-                                      <!-- ** Elder-Family Relationship **-->
+                                      <!-- ** Family Cooperation **-->
                                       <div class="tab-pane fade" id="tab_6_12">
                                     	<div class="col-md-12">
                                         <div class="portlet-body form">
                                         <!-- BEGIN FORM-->
-                                          <form action="#" id="file_form" class="form-horizontal">
+                                          <form action="#" id="family_cooperation_update_form" class="form-horizontal">
                                               <div class="form-body">
                                                 <br/>
                                                   <div class="alert alert-danger display-hide">
@@ -2253,7 +2398,7 @@ if (isset($aidsRecomendation_info))
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneAddress" name="txtcooperPersoneAddress" data-required="1" 
-                                            class="form-control"  value="<?php if(isset($familyCooperation_row-> 	cooperative_persone_address)) echo $familyCooperation_row-> 	cooperative_persone_address;?>"/>
+                                            class="form-control"  value="<?php if(isset($familyCooperation_row-> 	cooperative_persone_address)) echo $familyCooperation_row->cooperative_persone_address;?>"/>
                                         </div>
                                     </div>
                                     
@@ -2261,7 +2406,7 @@ if (isset($aidsRecomendation_info))
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" class="btn blue-madison" onclick="editeCooperativFamily_u();">
+                                                <button type="submit" class="btn blue-madison">
                                                 حـفـظ</button>
                                             </div>
                                         </div>
@@ -2276,6 +2421,19 @@ if (isset($aidsRecomendation_info))
                                      <!-- ** END Elder-Family Relationship **-->
                                      <!-- ** Family Status **-->
                                      <div class="tab-pane fade" id="tab_6_10">
+                                     <div class="portlet-body form">
+                                    <!-- BEGIN FORM-->
+                                     <form action="#" id="family_psycho_update_form" class="form-horizontal">
+                                     <div class="form-body">
+                                      <br/>
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                        </div>
+                                        <div class="alert alert-success display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            تـم عملية حـفـظ البيـانات بنجـاح !
+                                        </div>
                                      <div class="col-md-12">
                                         <table class="table table-bordered table-striped">
                                         <thead>
@@ -2284,22 +2442,29 @@ if (isset($aidsRecomendation_info))
                                               <div class="col-md-3">
                                                  حالة أسرة المسن الاجتماعية والنفسية 
                                               </div>
-                                              <div class="col-md-6">
+                                              <div class="col-md-7">
                                                 <select class="form-control" id="drpPsychologicalStatus" 
                                                 	name="drpPsychologicalStatus">
                                                   <option value="">اختر...</option>
                                                   <?php
                                                     foreach($survey_PsychologicalStatus as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'
+														$disabled = "";
+														foreach($familyPsyStatus_info as $familyPsyStatus_row)
+														{
+														  if ($row->sub_constant_id == $familyPsyStatus_row->psychological_status_id)
+															  $disabled = ' disabled="disabled" ';
+														}
+                                                        
+														echo '<option value="'.$row->sub_constant_id.'"'.$disabled.'>'
 													  		.$row->sub_constant_name.'</option>';
                                                   }
                                                    ?>
                                               </select>
                                               </div>
                                               <div class="col-md-2">
-                                                <button id="btnAddfamilypsycho" name="btnAddfamilypsycho" type="button" 
-                                                 class="btn btn-circle green-turquoise btn-sm" onclick="add_family_psycho_u()">
+                                                <button id="btnAddfamilypsycho" name="btnAddfamilypsycho" type="submit" 
+                                                 class="btn btn-circle green-turquoise btn-sm">
                                                 <i id="iConst" class="fa fa-plus"></i></button> 
                                               </div>
                                             </th>
@@ -2328,23 +2493,26 @@ if (isset($aidsRecomendation_info))
                                          </table>
                                          
                                          </div>
+                                       </div>
+                                       </form>
+                                       </div>
                                      </div><!-- END tab_6_10-->
                                      <!-- ** END Family Status **-->
                                      <!-- ** Life Improvement ** -->
                                      <div class="tab-pane fade" id="tab_6_11">
                                      <div class="portlet-body form">
                                      <!-- BEGIN FORM-->
-                                      <form action="#" id="file_form" class="form-horizontal">
+                                      <form action="#" id="life_improvement_update_form" class="form-horizontal">
                                      <div class="form-body">
                                         <br/>
-                                          <!--<div class="alert alert-danger display-hide">
+                                          <div class="alert alert-danger display-hide">
                                               <button class="close" data-close="alert"></button>
                                               يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                           </div>
                                           <div class="alert alert-success display-hide">
                                               <button class="close" data-close="alert"></button>
                                               تـم عملية حـفـظ البيـانات بنجـاح !
-                                          </div>-->
+                                          </div>
                                           <input id="hdnlifeImprovaction" name="hdnlifeImprovaction" type="hidden" 
                                           value="<?php echo $lifeImprovAction;?>" />
                                           <div class="form-group">
@@ -2477,7 +2645,7 @@ if (isset($aidsRecomendation_info))
                                       <div class="form-actions">
                                           <div class="row">
                                               <div class="col-md-offset-3 col-md-9">
-                                                  <button type="button" class="btn blue-madison" onclick="editeLifeImprov_u()">
+                                                  <button type="submit" class="btn blue-madison">
                                                   حـفـظ</button>
                                                   
                                               </div>
@@ -2506,7 +2674,7 @@ if (isset($aidsRecomendation_info))
                           <div class="panel-body">
                               <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
-                                <form action="#" id="file_form" class="form-horizontal">
+                                <form action="#" id="aid_form" class="form-horizontal">
                                     <div class="form-body">
                                       <br/>
                                         <div class="alert alert-danger display-hide">
@@ -2611,7 +2779,7 @@ if (isset($aidsRecomendation_info))
                                       <div class="form-actions">
                                           <div class="row">
                                               <div class="col-md-offset-3 col-md-9">
-                                                  <button type="button" class="btn blue-madison" onclick="editeaidrecomend_u()">
+                                                  <button type="submit" class="btn blue-madison">
                                                   حـفـظ</button>
                                                   
                                               </div>
@@ -2621,9 +2789,21 @@ if (isset($aidsRecomendation_info))
                                </form>
                                <!-- END FORM-->
                                <fieldset><legend>مساعدات طبية</legend>
-                                  <div class="form-body">
-                                  <br/>
-                                    
+                                <div class="portlet-body form">
+                                <!-- BEGIN FORM-->
+                                <form action="#" id="medical_aid_form" class="form-horizontal">
+                                    <div class="form-body">
+                                      <br/>
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            <span id="spnMsg">
+                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                            </span>
+                                        </div>
+                                        <div class="alert alert-success display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            تمت عملية حـفـظ البيـانات بنجـاح !
+                                        </div>                                    
                                    <input id="maidaction" name="maidaction" type="hidden" value="addmedicalaid" />
                                     <table class="table table-bordered table-striped">
                                         <thead>
@@ -2640,8 +2820,14 @@ if (isset($aidsRecomendation_info))
                                               <?php
                                               foreach($survey_PsychologicalSupport as $row)
                                               {
+												  $disabled = "";
+												  foreach($medicalAidRecomend_info as $medicalAidRecomend_row)
+												  {
+													  if ($row->sub_constant_id == $medicalAidRecomend_row->medical_aid_type_id)
+													   	$disabled = ' disabled="disabled" ';
+												  }
 												  
-												  echo '<option value="'.$row->sub_constant_id.'">'
+												  echo '<option value="'.$row->sub_constant_id.'"'.$disabled.'>'
                                                           .$row->sub_constant_name.'</option>';
                                               }
                                               ?>
@@ -2649,8 +2835,8 @@ if (isset($aidsRecomendation_info))
                                           
                                       </div>
                                       <div class="col-md-2">
-                                        <button id="btnAddmedicalaid" name="btnAddmedicalaid" type="button" 
-                                         class="btn btn-circle green-turquoise btn-sm" onclick="addmedicalaid_u()">
+                                        <button id="btnAddmedicalaid" name="btnAddmedicalaid" type="submit" 
+                                         class="btn btn-circle green-turquoise btn-sm">
                                         <i id="iConst" class="fa fa-plus"></i></button> 
                                      </div>
                                     </th>
@@ -2679,16 +2865,31 @@ if (isset($aidsRecomendation_info))
                                     }
                                     ?>
                                                       
-                                 </tbody>
-                                 </table>
-                                  
-                                </div>
-                                <!-- END FORM BODY -->
-                                  
+                                   </tbody>
+                                   </table>
+                                    
+                                  </div><!-- END FORM BODY -->
+                                  </form>
+                                  </div>
+                                
                                   </fieldset><!-- END fieldset Midical Aids-->
+                                  
                                   <fieldset><legend>السـكـن</legend>
-                                  <div class="form-body">
-                                  <br/>
+                                  <div class="portlet-body form">
+                                  <!-- BEGIN FORM-->
+                                  <form action="#" id="home_aid_form" class="form-horizontal">
+                                      <div class="form-body">
+                                        <br/>
+                                          <div class="alert alert-danger display-hide">
+                                              <button class="close" data-close="alert"></button>
+                                              <span id="spnMsg">
+                                              يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                              </span>
+                                          </div>
+                                          <div class="alert alert-success display-hide">
+                                              <button class="close" data-close="alert"></button>
+                                              تمت عملية حـفـظ البيـانات بنجـاح !
+                                          </div>
                                     
                                      <input id="haidaction" name="haidaction" type="hidden" value="addhomeaid" />
                                     <table class="table table-bordered table-striped">
@@ -2707,7 +2908,14 @@ if (isset($aidsRecomendation_info))
                                               <?php
                                               foreach($survey_HomeImprovRecomend as $row)
                                               {
-                                                  echo '<option value="'.$row->sub_constant_id.'">'
+												  $disabled = "";
+												  foreach($homeImprovRecomend_info as $homeImprovRecomend_row)
+												  {
+													  if ($row->sub_constant_id == $homeImprovRecomend_row->improvement_type_id)
+													   	$disabled = ' disabled="disabled" ';
+												  }
+												  
+                                                  echo '<option value="'.$row->sub_constant_id.'"'.$disabled.'>'
                                                           .$row->sub_constant_name.'</option>';
                                               }
                                               ?>
@@ -2718,8 +2926,8 @@ if (isset($aidsRecomendation_info))
                                           </div>
                                       </div>
                                       <div class="col-md-2">
-                                         <button id="btnaddhomeaid" name="btnaddhomeaid" type="button" 
-                                         class="btn btn-circle green-turquoise btn-sm" onclick="addhomeaid_u()">
+                                         <button id="btnaddhomeaid" name="btnaddhomeaid" type="submit" 
+                                         class="btn btn-circle green-turquoise btn-sm">
                                          <i id="iConst" class="fa fa-plus"></i></button> 
                                        </div>
                                       </th>
@@ -2758,11 +2966,12 @@ if (isset($aidsRecomendation_info))
 							?>
                                     </tbody>
                                  </table>
+                                </div><!-- END FORM BODY -->
+                                </form>
                                 </div>
-                                  <!-- END FORM BODY -->
                                   
-                                  </fieldset><!-- END fieldset Home Aids-->
-                          </div> <!-- END portlet-body -->
+                               </fieldset><!-- END fieldset Home Aids-->   
+                            </div> <!-- END portlet-body -->
                           </div>
                       </div>
                   </div>
