@@ -85,7 +85,7 @@ var SurveyTableAjax = function () {
 }();
 function gotoSurveyUpdate(arg1,arg2)
 {
-alert('arg1: '+arg1+'  arg2 :'+arg2);
+	//alert('arg1: '+arg1+'  arg2 :'+arg2);
 	$.ajax({
 			url: baseURL+"Surveyupdatecont/senddata",
 			type: "POST",
