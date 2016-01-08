@@ -105,7 +105,15 @@ $readonly = '';
                                             class="form-control"  onblur="check_elder_id()"/>
                                         </div>
                                     </div>
-                                    
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">رقم الملف الورقي <span class="required">
+                                        * </span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtFiledocId" name="txtFiledocId" data-required="1" 
+                                            class="form-control" />
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">تـصنيف الحـالة <span class="required">
                                         * </span>

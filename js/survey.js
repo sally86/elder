@@ -2103,6 +2103,10 @@ var FormWizard = function () {
                         required: true,
 						digits: true
                     },
+					txtFiledocId: {
+                        required: true,
+						digits: true
+                    },
 					drpEldercategory: {
 						required: true
                     },
@@ -2606,6 +2610,10 @@ var FormWizard = function () {
                messages: { // custom messages for radio buttons and checkboxes
                     txtElderId: {
 						required: "الرجاء إدخال رقم الهوية",
+						digits: "الرجـاء ادخـال ارقـام فقط"
+                    },
+					txtFiledocId: {
+                        required: "الرجاء إدخال رقم الملف الورقي",
 						digits: "الرجـاء ادخـال ارقـام فقط"
                     },
 					drpEldercategory: {

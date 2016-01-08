@@ -39,6 +39,7 @@ class Surveymodel extends CI_Model
 		
 		// Insert file_tb
 		$filedata['elder_id'] = $txtElderId;
+		$filedata['file_doc_id'] = $txtFiledocId;
 		$filedata['file_status_id'] = 170;
 		//$filedata['created_by'] = $_SESSION['username'];
 		
