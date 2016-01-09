@@ -2,9 +2,20 @@
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row">
 				<div class="col-md-12">
-					 Page content goes here
-                     <?php $query = $this->db->get('constant_tb');
-					 		echo count($query->result());?>
+					 
+                     <?php /*$query = $this->db->get('constant_tb');
+					 		echo count($query->result());
+					Page content goes here
+					$res = $this->session->userdata('logged_in');
+					$res_menue = $this->session->userdata('menue');
+
+					foreach($res_menue as $row)
+					{
+						echo $row->menu_name.'<br/>';
+						echo $row->page_title.'<br/>';
+					}*/
+							
+					?>
               <!------------------------------------------TABLE------------------------------------------------>
   <!-- <span class="required">
                                         		* </span>

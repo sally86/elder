@@ -3,19 +3,42 @@
 			<!--<h3 class="page-title">
 			<?php // echo $title;?> <small>blank page</small>
 			</h3>-->
+            <?php
+			$res_menue = $this->session->userdata('menue');
+			$menuName ='';
+			$pageName = '';
+			$pageURL= '';
+			foreach($res_menue as $row)
+			{
+				$url = explode("/", $row->page_url);
+				
+				if ($url[1] == $title)
+				{
+					$menuName =$row->menu_name;
+					$pageName = $row->page_title;
+					$pageURL= $row->page_url;
+				}
+					
+			}
+			?>
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
 					<li>
 						<i class="fa fa-home"></i>
-						<a href="home">Home</a>
-						<i class="fa fa-angle-right"></i>
+						<a href="<?php echo base_url();?>home">الصفحة الرئيسية</a>
+						<i class="fa fa-angle-left"></i>
 					</li>
-					<!--<li>
-						<a href="#">Page Layouts</a>
-						<i class="fa fa-angle-right"></i>
-					</li>-->
+                    <?php
+					if ($menuName !='')
+					{
+						echo '<li>
+								  <a href="#">'.$menuName.'</a>
+								  <i class="fa fa-angle-left"></i>
+							  </li>';
+					}
+					?>
 					<li>
-						<a href="#"><?php echo $title;?></a>
+						<a href="<?php echo base_url().$pageURL;?>"><?php echo $pageName;?></a>
 					</li>
 				</ul>
 				<div class="page-toolbar">

@@ -22,6 +22,11 @@ function update_elder_info()
 					//$("#hdnFileId")  .val(returndb['file_id']);
 					
 					$("#hdnAction").val('updateelder');
+					
+					var form = $('#elder_info_form');
+					$('.alert-success', form).show();
+					$('.alert-danger', form).hide();
+					Metronic.scrollTo( $('.alert-danger', form), -200);
 				}
 			}
 		});//END $.ajax
@@ -43,7 +48,10 @@ function update_survey_visit()
 			  success: function(returndb){
 				  if(returndb == '')
 				  {
-					  
+					  var form = $('#visit_info_form');
+					  $('.alert-success', form).show();
+					  $('.alert-danger', form).hide();
+					  Metronic.scrollTo( $('.alert-danger', form), -200);
 				  }		
 			  
 			  }
@@ -172,6 +180,11 @@ function add_disease_details_u()
 			complete: function(){},
 			success: function(returndb){
 				$("#hdnElderDiseaseId").val(returndb);
+				
+				var form = $('#health_status_update_form');
+				$('.alert-success', form).show();
+				$('.alert-danger', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
 				/*if(returndb == '')
 				{
 					var form = $('#familyMemberTab');
@@ -266,6 +279,11 @@ function edit_income_resource_u()
 			success: function(returndb){
 				
 				$("#hdnIncomeResourcesId").val(returndb);
+				
+				var form = $('#income_resources_update_form');
+				$('.alert-success', form).show();
+				$('.alert-danger', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
 				
 			}
 		});//END $.ajax
@@ -367,6 +385,13 @@ function editeHomeStatus_u()
 			success: function(returndb){
 				$("#hdnHomeStatusId").val(returndb);
 				$('#hdnHomeStatusAction').val('updatehomeStatus');
+				
+				var form = $('#home_status_update_form');
+				$('.alert-success', form).show();
+				$('.alert-danger', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
+
+				
 				/*if (returndb=='')
 				{
 					var form = $('#HomeStatusTab');
@@ -421,7 +446,14 @@ function editeElderRoom_u()
 			complete: function(){},
 			success: function(returndb){
 				$("#hdnElderRoomId").val(returndb);
-				$('#hdnElderRoomAction').val('updateelderRoom');	
+				$('#hdnElderRoomAction').val('updateelderRoom');
+				
+				var form = $('#room_status_update_form');
+				$('.alert-success', form).show();
+				$('.alert-danger', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
+
+				
 				/*if (returndb=='')
 				{
 					var form = $('#HomeStatusTab');
@@ -607,6 +639,12 @@ function editeElderFamRel_u()
 				
 				$('#hdnelderFamRelAction').val('updateelderFamRel');
 				
+				var form = $('#family_elder_relation_update_form');
+				$('.alert-success', form).show();
+				$('.alert-danger', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
+
+				
 			}
 		});//END $.ajax
 	
@@ -730,7 +768,13 @@ function editeCooperativFamily_u()
 			complete: function(){},
 			success: function(returndb){
 				
-				$('#hdncooperativFamily').val('updatecooperFamily');	
+				$('#hdncooperativFamily').val('updatecooperFamily');
+				
+				var form = $('#family_cooperation_update_form');
+				$('.alert-success', form).show();
+				$('.alert-danger', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
+
 			}
 		});//END $.ajax
 }
@@ -806,7 +850,12 @@ function editeLifeImprov_u()
 			complete: function(){},
 			success: function(returndb){
 				
-				$('#hdnlifeImprovaction').val('updatelifeImprov');	
+				$('#hdnlifeImprovaction').val('updatelifeImprov');
+				
+				var form = $('#life_improvement_update_form');
+				$('.alert-success', form).show();
+				$('.alert-danger', form).hide();
+				Metronic.scrollTo( $('.alert-danger', form), -200);
 			}
 		});//END $.ajax
 }
@@ -851,6 +900,11 @@ function editeaidrecomend_u()
 				if(returndb == '')
 				{
 					$("#hdnaidraction").val("updateaidrecomend");
+					
+					var form = $('#aid_form');
+					$('.alert-success', form).show();
+					$('.alert-danger', form).hide();
+					Metronic.scrollTo( $('.alert-danger', form), -200);
 					//var form = $('#Aidrecomend_form');
 					//$('.alert-success', form).show();
 				}

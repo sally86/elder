@@ -54,11 +54,22 @@ class Elder extends CI_Controller
 		$this->load->model('eldermodel');
 		$rec = $this->eldermodel->get_search_elder($_REQUEST);
 		
+		$allowFileupdate = false;
+		$allowFamilyupdate = false;
+		$res_menue = $this->session->userdata('menue');
+		foreach($res_menue as $row)
+		{
+			if($row->page_id == 24)
+				$allowFileupdate = true;
+			if($row->page_id == 25)
+				$allowFamilyupdate = true;
+		}
 		
 		$i = 1;
 		$data = array();
 		foreach($rec as $row)
 		{
+			$btn = '';
 			$nestedData=array();
 			
 			if ($row->isDeadElder == 1)
@@ -68,11 +79,12 @@ class Elder extends CI_Controller
 				
 			/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
 			  <i class="fa fa-edit"></i> تعديل </a>';*/
-			
-			$btn ='<a class="btn default btn-xs purple" onclick="gotoElder(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i> تعديل </a>';
-			$btn = $btn.' <a class="btn default btn-xs purple" onclick="gotoFamilyMember(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i>تعديل بيانات العائلة </a>';
+			if ($allowFileupdate)
+			  $btn ='<a class="btn default btn-xs purple" onclick="gotoElder(\''.$row->elder_id.'\')">
+				<i class="fa fa-edit"></i>تعديل الملف </a>';
+			if ($allowFamilyupdate)	
+			  $btn = $btn.' <a class="btn default btn-xs purple" onclick="gotoFamilyMember(\''.$row->elder_id.'\')">
+				<i class="fa fa-edit"></i>تعديل بيانات العائلة </a>';
 			
 			$nestedData[] = $i++;
 			$nestedData[] = $row->elder_id;

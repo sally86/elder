@@ -1316,6 +1316,7 @@ if (isset($aidsRecomendation_info))
                                      </table>
                                      </fieldset>
                               		 <fieldset><legend>ملخص الدخل</legend>
+
                                      
                                         
                                         <div class="form-group">
@@ -1448,8 +1449,7 @@ if (isset($aidsRecomendation_info))
                                           
                                           <div id="dvCeilingDescription" class="form-group" 
                                           <?php 
-										  	if (!isset($homeStatus_row->ceiling_type_id) || 
-													  $homeStatus_row->ceiling_type_id != 92)
+										  	if ($homeStatus_row->ceiling_type_id != 92)
 												echo 'style="display:none"';
 										  ?>
                                           >
@@ -1485,8 +1485,7 @@ if (isset($aidsRecomendation_info))
                                           
                                           <div id="dvFurnitureNeeds" class="form-group"
                                           <?php
-										  if (!isset($homeStatus_row->furniture_level_id) ||
-													$homeStatus_row->furniture_level_id != 96)
+										  if ($homeStatus_row->furniture_level_id != 96)
 										  	echo 'style="display:none"';
 										  ?>
                                           >
@@ -1729,8 +1728,7 @@ if (isset($aidsRecomendation_info))
                                         
                                         <div id="dvRoommaintinancedet" class="form-group" 
                                         <?php
-										if (isset($elderRoom_row->room_need_maintenance) &&
-												  $elderRoom_row->room_need_maintenance != 110)
+										if ($elderRoom_row->room_need_maintenance != 110)
 											echo 'style="display:none"';
 										?>
                                         >
@@ -1766,9 +1764,7 @@ if (isset($aidsRecomendation_info))
                                         
                                         <div id="dvBathroommaintinancedet" class="form-group" 
                                         <?php
-										if (!isset($elderRoom_row->bathroom_status_id) ||
-												  ($elderRoom_row->bathroom_status_id != 115 && 
-												  $elderRoom_row->bathroom_status_id != 116))
+										if ($elderRoom_row->bathroom_status_id != 115 && $elderRoom_row->bathroom_status_id != 116)
 											echo 'style="display:none"';
 										?>
                                         >
@@ -2101,8 +2097,7 @@ if (isset($aidsRecomendation_info))
                                         
                                         <div id="dvNeedreasone" class="form-group" 
                                         <?php
-										if (!isset($familyRelationship_row->provision_needs) ||
-												  $familyRelationship_row->provision_needs != 111)
+										if ($familyRelationship_row->provision_needs != 111)
 											echo 'style="display:none"';
 										?>
                                         >
@@ -2138,8 +2133,7 @@ if (isset($aidsRecomendation_info))
                                         
                                         <div id="dvLegaladvicereasone" class="form-group" 
                                         <?php
-										if (!isset($familyRelationship_row->legal_advice) ||
-												  $familyRelationship_row->legal_advice != 110)
+										if ($familyRelationship_row->legal_advice != 110)
 											echo 'style="display:none"';
 										?> >
                                         

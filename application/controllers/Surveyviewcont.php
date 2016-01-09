@@ -103,16 +103,30 @@ class Surveyviewcont extends CI_Controller
 		$rec = $this->Surveyviewmodel->get_search_survey($_REQUEST);
 		$totalFiltered = count($rec);
 		
+		$allowSurveyupdate = false;
+		$allowFolloupinsert = false;
+		$res_menue = $this->session->userdata('menue');
+		foreach($res_menue as $row)
+		{
+			if($row->page_id == 26)
+				$allowSurveyupdate = true;
+			if($row->page_id == 27)
+				$allowFolloupinsert = true;
+		}
+		
 		$i = 1;
 		$data = array();
 		foreach($rec as $row)
 		{
+			$btn='';
 			$nestedData=array();
 			
-			$btn='<a class="btn default btn-xs purple" onclick="gotoSurveyUpdate('.$row->survey_id.','.$row->elder_id.')">
-			  <i class="fa fa-edit"></i> تعديل </a>
-			  <a class="btn default btn-xs purple" onclick="gotoFollowup(\''.$row->elder_id.'\')">
-			  <i class="fa fa-edit"></i> ملف المتابعة </a>';
+			if ($allowSurveyupdate)
+			  $btn='<a class="btn default btn-xs purple" onclick="gotoSurveyUpdate('.$row->survey_id.','.$row->elder_id.')">
+				<i class="fa fa-edit"></i>تعديل الاستبانة </a>';
+			if ($allowFolloupinsert)
+			  $btn=$btn.'<a class="btn default btn-xs purple" onclick="gotoFollowup(\''.$row->elder_id.'\')">
+				<i class="fa fa-edit"></i> ملف المتابعة </a>';
 			
 			/*$btn='<a class="btn default btn-xs purple" onclick="gotoFollowup(\''.$row->elder_id.'\')">
 			  <i class="fa fa-edit"></i> ملف المتابعة </a>';*/
