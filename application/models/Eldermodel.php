@@ -17,10 +17,11 @@ class Eldermodel extends CI_Model
 							e.third_name, e.last_name,
 							e.dob, e.sex_id, e.status_id, e.governorate_id,e.region,e.full_address,
 							reg.sub_constant_name as region_desc,
-							address.sub_constant_name as fulladdress,e.phone, 
+							address.sub_constant_name as fulladdress,
+							e.phone, e.address_details,
         					e.mobile_first, e.mobile_second, e.education_level_id, e.specialization_id, 
         					e.current_job_id, e.previous_job_id, e.insurance_type_id, e.death_date,
-        					f.file_id, f.file_status_id
+        					f.file_id, f.file_doc_id, f.file_status_id
 					 FROM 	elder_tb e
 					 LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id= gov.sub_constant_id
 					 LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id

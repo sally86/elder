@@ -33,10 +33,10 @@ class Surveyviewmodel extends CI_Model
 		{
 			$myquery = $myquery." AND CONCAT(elder_tb.first_name,' ',elder_tb.middle_name,' ',elder_tb.third_name,' ',elder_tb.last_name) LIKE '%".$requestData['txtElderName']."%' ";
 		}
-		if(!isset($requestData['dpAppfrom']) && !isset($requestData['dpAppto']))
+		/*if(!isset($requestData['dpAppfrom']) && !isset($requestData['dpAppto']))
 		{
 			$myquery = $myquery." AND DATE_FORMAT(visit_date,'%Y-%m-%d')>= '$today_date'";
-		}
+		}*/
 		if(isset($requestData['dpAppfrom']) && $requestData['dpAppfrom'] != ''
 		   && isset($requestData['dpAppto']) && $requestData['dpAppto'] != '')
 		{

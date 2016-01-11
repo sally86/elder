@@ -996,7 +996,9 @@ var ElderInfoUpdateValidation = function () {
 				// Elder Info
 					txtElderId: {
                         required: true,
-						digits: true
+						digits: true,
+						minlength: 9,
+						maxlength: 9
                     },
 					drpEldercategory: {
 						required: true
@@ -1029,6 +1031,9 @@ var ElderInfoUpdateValidation = function () {
 					drpFulladdress: {
                         required: true
 					},
+					txtAddressdetails: {
+                        required: true
+					},
 					txtPhone: {
                        digits: true,
 						minlength: 7
@@ -1045,7 +1050,16 @@ var ElderInfoUpdateValidation = function () {
 						required: true
                     },
 					drpSpecialization: {
-						required: true
+						required: {
+							 depends: function(element) {
+								 if ($('#drpEducationlevel').val() > 27)
+								 {
+									return true;
+								 }else{
+									return false;
+								 }
+							 }//END function
+						}//END required
                     },
 					drpCurrentjob: {
 						required: true
@@ -1061,7 +1075,9 @@ var ElderInfoUpdateValidation = function () {
                messages: { // custom messages for radio buttons and checkboxes
                     txtElderId: {
 						required: "الرجاء إدخال رقم الهوية",
-						digits: "الرجـاء ادخـال ارقـام فقط"
+						digits: "الرجـاء ادخـال ارقـام فقط",
+						minlength: "رقم الهوية يجب ان يكون 9 ارقام",
+						maxlength: "رقم الهوية يجب ان يكون 9 ارقام"
                     },
 					drpEldercategory: {
 						required: "الرجاء إختيار قيمة"
@@ -1096,6 +1112,9 @@ var ElderInfoUpdateValidation = function () {
 					drpFulladdress: {
 						required: "الرجاء إختيار قيمة"
                     },
+					txtAddressdetails: {
+                        required: "الرجاء ادخـال قيمة"
+					},
 					txtPhone: {
 						minlength: "رقم الهاتف يجب ان يكون 7 ارقام",
 						digits: "الرجـاء ادخـال ارقـام فقط"
@@ -1329,11 +1348,7 @@ var FamilymemberUpdateValidation = function () {
 						required: true
                     },
 					txtMemincome: {
-						required: true,
 						digits: true
-                    },
-					txtMemjob: {
-						required: true
                     }
                 },
 
@@ -1362,11 +1377,7 @@ var FamilymemberUpdateValidation = function () {
 						required: "الرجاء إختيار قيمة"
                     },
 					txtMemincome: {
-						required: "الرجاء إدخال قيمة",
-						digits: "الرجـاء ادخـال ارقـام فقط",
-                    },
-					txtMemjob: {
-						required: "الرجاء إدخال قيمة"
+						digits: "الرجـاء ادخـال ارقـام فقط"
                     }
 					
                 },

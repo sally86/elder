@@ -394,21 +394,26 @@ if (isset($aidsRecomendation_info))
                                                </select>
                                            </div>
                                         </div>
-                                                              
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">رقم الهاتف <span class="required">
+                                            <label class="control-label col-md-3">وصف العنوان بالكامل <span class="required">
                                             * </span>
                                             </label>
                                             <div class="col-md-4">
+                                                <textarea name="txtAddressdetails" id="txtAddressdetails" cols="70" rows="2" class="form-control"><?php if(isset($elder_info_row->address_details)) echo $elder_info_row->address_details;?></textarea>
+                                            </div>
+                                    	</div>                      
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">رقم الهاتف &nbsp;&nbsp;&nbsp;
+                                            </label>
+                                            <div class="col-md-4">
                                                 <input type="text" id="txtPhone" name="txtPhone" class="form-control"
-                                           ;      value="<?php if(isset($elder_info_row->phone)) echo $elder_info_row->phone;?>"
+                                              value="<?php if(isset($elder_info_row->phone)) echo $elder_info_row->phone;?>"
                                                 />
                                             </div>
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">رقم الجوال (1) <span class="required">
-                                            * </span>
+                                            <label class="control-label col-md-3">رقم الجوال (1)  &nbsp;&nbsp;&nbsp;
                                             </label>
                                             <div class="col-md-4">
                                                 <input type="text" id="txtMobile1" name="txtMobile1" class="form-control"
@@ -432,7 +437,8 @@ if (isset($aidsRecomendation_info))
                                             * </span>
                                             </label>
                                             <div class="col-md-4">
-                                                <select class="form-control select2me" id="drpEducationlevel" name="drpEducationlevel">
+                                               <select class="form-control select2me" id="drpEducationlevel" name="drpEducationlevel"
+                                                onchange="educationlevel_change();">
                                                   <option value="">اختر...</option>
                                                     <?php 
                                                     foreach ($survey_Educationlevel as $education_level_row)
@@ -450,7 +456,10 @@ if (isset($aidsRecomendation_info))
                                             </div>
                                         </div>
                                         
-                                        <div class="form-group">
+                                        <div id="divSpecialization" class="form-group" 
+                                        <?php if (!isset($elder_info_row->education_level_id) || 
+														 $elder_info_row->education_level_id <27)
+												echo 'style="display:none"';?> >
                                             <label class="control-label col-md-3">التخصص <span class="required">
                                             * </span>
                                             </label>
@@ -497,8 +506,7 @@ if (isset($aidsRecomendation_info))
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">العمل السابق <span class="required">
-                                            * </span>
+                                            <label class="control-label col-md-3">العمل السابق &nbsp;&nbsp;&nbsp;
                                             </label>
                                             <div class="col-md-4">
                                                 <select class="form-control select2me" id="drpPreviousjob" name="drpPreviousjob">
@@ -808,13 +816,9 @@ if (isset($aidsRecomendation_info))
                                             </th>
                                             <th scope="col">
                                                  المهنة
-                                                 <span class="font-red">
-                                        		* </span>
                                             </th>
                                             <th scope="col">
                                                  الدخل بالشيكل
-                                                 <span class="font-red">
-                                        		* </span>
                                             </th>
                                             <th scope="col">&nbsp;
                                                  

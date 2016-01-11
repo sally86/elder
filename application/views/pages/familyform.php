@@ -119,13 +119,9 @@ if (isset($elder_info))
                               </th>
                               <th scope="col">
                                    المهنة
-                                   <span class="font-red">
-                                  * </span>
                               </th>
                               <th scope="col">
                                    الدخل بالشيكل
-                                   <span class="font-red">
-                                  * </span>
                               </th>
                               <th scope="col">&nbsp;
                                    

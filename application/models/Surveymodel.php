@@ -25,15 +25,18 @@ class Surveymodel extends CI_Model
 		$data['governorate_id'] 	= $drpGovernorate;
 		$data['region'] 			= $drpRegion;
 		$data['full_address'] 		= $drpFulladdress;
+		$data['address_details'] 	= $txtAddressdetails;
 		$data['phone'] 				= $txtPhone;
 		$data['mobile_first'] 		= $txtMobile1;
 		$data['mobile_second'] 		= $txtMobile2;
 		$data['education_level_id'] = $drpEducationlevel;
-		$data['specialization_id'] 	= $drpSpecialization;
+		
 		$data['current_job_id'] 	= $drpCurrentjob;
 		$data['previous_job_id'] 	= $drpPreviousjob;
 		$data['insurance_type_id'] 	= $drpInsurence;
 		
+		if ( $drpSpecialization == '')
+			$data['specialization_id'] 	= NULL;
 		
 		$this->db->insert('elder_tb',$data);
 		
@@ -84,6 +87,7 @@ class Surveymodel extends CI_Model
 		$data['governorate_id'] 	= $drpGovernorate;
 		$data['region'] 			= $drpRegion;
 		$data['full_address'] 		= $drpFulladdress;
+		$data['address_details'] 	= $txtAddressdetails;
 		$data['phone'] 				= $txtPhone;
 		$data['mobile_first'] 		= $txtMobile1;
 		$data['mobile_second'] 		= $txtMobile2;
@@ -92,6 +96,9 @@ class Surveymodel extends CI_Model
 		$data['current_job_id'] 	= $drpCurrentjob;
 		$data['previous_job_id'] 	= $drpPreviousjob;
 		$data['insurance_type_id']  = $drpInsurence;
+		
+		if ( $drpSpecialization == '')
+			$data['specialization_id'] 	= NULL;
 		
 		if(isset($dpDeathdate))
 			$data['death_date'] 		= $dpDeathdate;
@@ -189,8 +196,10 @@ class Surveymodel extends CI_Model
 		$data['dob'] 			  = $dpMemDob;
 		$data['education_level_id']  = $drpMemEdulevel;
 		$data['health_status_id'] = $drpMemHealth;
-		$data['income_shekel'] 	  = $txtMemincome;
 		$data['job'] 			  = $txtMemjob;
+		
+		if($txtMemincome == '')
+			$data['income_shekel'] 	  = NULL;
 		
 		
 		$this->db->insert('family_member_tb',$data);
@@ -209,8 +218,10 @@ class Surveymodel extends CI_Model
 		$data['dob'] = $dpMemDob;
 		$data['education_level'] = $drpMemEdulevel;
 		$data['health_status_id'] = $drpMemHealth;
-		$data['income_shekel'] = $txtMemincome;
 		$data['job'] = $txtMemjob;
+		
+		if($txtMemincome == '')
+			$data['income_shekel'] 	  = NULL;
 		
 		$this->db->where('member_id',$txtMemberId);
 		$this->db->update('family_member_tb',$data);

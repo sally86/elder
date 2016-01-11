@@ -43,9 +43,10 @@ class Familymodel extends CI_Model
 		$data['dob'] 			  = $dpMemDob;
 		$data['education_level_id']  = $drpMemEdulevel;
 		$data['health_status_id'] = $drpMemHealth;
-		$data['income_shekel'] 	  = $txtMemincome;
 		$data['job'] 			  = $txtMemjob;
 		
+		if($txtMemincome == '')
+			$data['income_shekel'] 	  = NULL;
 		
 		$this->db->insert('family_member_tb',$data);
 	}
@@ -63,8 +64,10 @@ class Familymodel extends CI_Model
 		$data['dob'] = $dpMemDob;
 		$data['education_level_id'] = $drpMemEdulevel;
 		$data['health_status_id'] = $drpMemHealth;
-		$data['income_shekel'] = $txtMemincome;
 		$data['job'] = $txtMemjob;
+		
+		if($txtMemincome == '')
+			$data['income_shekel'] 	  = NULL;
 		
 		$this->db->where('member_id',$txtMemberId);
 		$this->db->update('family_member_tb',$data);

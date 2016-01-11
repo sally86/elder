@@ -79,7 +79,7 @@ if (isset($elder_file))
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtFiledocId" name="txtFiledocId" data-required="1" 
-                                            class="form-control" />
+                                            class="form-control" value="<?php echo $elder_file_row->file_doc_id;?>"/>
                                         </div>
                                     </div>
                                     
@@ -319,21 +319,12 @@ if (isset($elder_file))
                           </label>
                           <div class="col-md-4">
                               <input type="text" id="txtRegion" name="txtRegion" data-required="1" class="form-control"
-                              value="<?php if(isset($elder_info_row->region)) echo $elder_info_row->region;?>"
+                              value="<?php// if(isset($elder_info_row->region)) echo $elder_info_row->region;?>"
                               />
                           </div>
-                      </div>
-                      
-                      <div class="form-group">
-                          <label class="control-label col-md-3">وصف العنوان بالكامل <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                          	  <textarea name="txtFulladdress" cols="70" rows="2" class="form-control"><?php if(isset($elder_info_row->region)) echo $elder_info_row->region;?>
-                              </textarea>
-                          </div>
-                      </div>
-                       -->
+                      </div>-->
+                     
+                       
                        <!-- -------------------- change the Area with drplist  --->
                 
 				                <div class="form-group">
@@ -356,7 +347,7 @@ if (isset($elder_file))
 								  }
 								  ?>
 									
-									?>				
+												
                                             </select>
                                         </div>
                                   </div>
@@ -382,10 +373,19 @@ if (isset($elder_file))
 								  ?>				
                                             </select>
                                         </div>
-                                  </div>                     
+                                  </div>
+                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">رقم الهاتف <span class="required">
+                          <label class="control-label col-md-3">وصف العنوان بالكامل <span class="required">
                           * </span>
+                          </label>
+                          <div class="col-md-4">
+                          	  <textarea id="txtAddressdetails" name="txtAddressdetails" cols="70" rows="2" class="form-control"><?php if(isset($elder_info_row->address_details)) echo $elder_info_row->address_details;?></textarea>
+                          </div>
+                      </div>
+                                           
+                      <div class="form-group">
+                          <label class="control-label col-md-3">رقم الهاتف &nbsp;&nbsp;&nbsp;
                           </label>
                           <div class="col-md-4">
                               <input type="text" id="txtPhone" name="txtPhone" class="form-control"
@@ -395,8 +395,7 @@ if (isset($elder_file))
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">رقم الجوال (1) <span class="required">
-                          * </span>
+                          <label class="control-label col-md-3">رقم الجوال (1)  &nbsp;&nbsp;&nbsp;
                           </label>
                           <div class="col-md-4">
                               <input type="text" id="txtMobile1" name="txtMobile1" class="form-control"
@@ -406,7 +405,7 @@ if (isset($elder_file))
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">رقم الجوال (2)&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">رقم الجوال (2) &nbsp;&nbsp;&nbsp;
                           </label>
                           <div class="col-md-4">
                               <input type="text" id="txtMobile2" name="txtMobile2" class="form-control"
@@ -420,7 +419,8 @@ if (isset($elder_file))
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control select2me" id="drpEducationlevel" name="drpEducationlevel">
+                              <select class="form-control select2me" id="drpEducationlevel" name="drpEducationlevel"
+                               onchange="educationlevel_change();">
                               	<option value="">اختر...</option>
                                   <?php 
 								  foreach ($education_level as $education_level_row)
@@ -438,7 +438,10 @@ if (isset($elder_file))
                           </div>
                       </div>
                       
-                      <div class="form-group">
+                      <div id="divSpecialization" class="form-group" 
+                                        <?php if (!isset($elder_info_row->education_level_id) || 
+														 $elder_info_row->education_level_id <27)
+												echo 'style="display:none"';?> >
                           <label class="control-label col-md-3">التخصص <span class="required">
                           * </span>
                           </label>
@@ -485,8 +488,7 @@ if (isset($elder_file))
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">العمل السابق <span class="required">
-                          * </span>
+                          <label class="control-label col-md-3">العمل السابق &nbsp;&nbsp;&nbsp;
                           </label>
                           <div class="col-md-4">
                               <select class="form-control select2me" id="drpPreviousjob" name="drpPreviousjob">

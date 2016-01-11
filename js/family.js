@@ -217,11 +217,7 @@ var FamilyMemberValidation = function () {
 						required: true
                     },
 					txtMemincome: {
-						required: true,
 						digits: true
-                    },
-					txtMemjob: {
-						required: true
                     }
 				},
 
@@ -249,11 +245,7 @@ var FamilyMemberValidation = function () {
 						required: "الرجاء إختيار قيمة"
                     },
 					txtMemincome: {
-						required: "الرجاء إدخال قيمة",
 						digits: "الرجـاء ادخـال ارقـام فقط",
-                    },
-					txtMemjob: {
-						required: "الرجاء إدخال قيمة"
                     }
 					
                 },

@@ -257,16 +257,16 @@ $readonly = '';
                                             <input type="text" id="txtRegion" name="txtRegion" data-required="1" class="form-control"/>
                                         </div>
                                     </div>
-                                    
+                                    --> 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">وصف العنوان بالكامل <span class="required">
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <textarea name="txtFulladdress" id="txtFulladdress" cols="70" rows="2" class="form-control"></textarea>
+                                            <textarea name="txtAddressdetails" id="txtAddressdetails" cols="70" rows="2" class="form-control"></textarea>
                                         </div>
                                     </div>
-                     -->                                     
+                                                         
                                     <div class="form-group">
                                         <label class="control-label col-md-3">رقم الهاتف &nbsp;&nbsp;&nbsp;
                                         </label>
@@ -296,12 +296,14 @@ $readonly = '';
                                         * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <select class="form-control" id="drpEducationlevel" name="drpEducationlevel" onchange="educationlevel_change();">
+                                            <select class="form-control" id="drpEducationlevel" name="drpEducationlevel" 
+                                            onchange="educationlevel_change();">
                                                 <option value="">اختر...</option>
    													<?php
 												  		foreach($survey_Educationlevel as $row)
 												 	 {
-                      										echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                      										echo '<option value="'.$row->sub_constant_id.'">'
+															.$row->sub_constant_name.'</option>';
 							  						}
 							 						 ?>
 
@@ -309,7 +311,7 @@ $readonly = '';
                                         </div>
                                     </div>
                                     
-                                    <div id=divSpecialization class="form-group">
+                                    <div id="divSpecialization" class="form-group" style="display:none">
                                         <label class="control-label col-md-3">التخصص <span class="required">
                                         * </span>
                                         </label>
@@ -345,8 +347,7 @@ $readonly = '';
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">العمل السابق <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">العمل السابق &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <select class="form-control" id="drpPreviousjob" name="drpPreviousjob">
@@ -536,13 +537,9 @@ $readonly = '';
                                             </th>
                                             <th scope="col">
                                                  المهنة
-                                                 <span class="font-red">
-                                        		* </span>
                                             </th>
                                             <th scope="col">
                                                  الدخل بالشيكل
-                                                 <span class="font-red">
-                                        		* </span>
                                             </th>
                                             <th scope="col">&nbsp;
                                                  
