@@ -121,6 +121,7 @@
 <script src="<?php echo base_url();?>js/elderfile.js"></script>
 <script src="<?php echo base_url();?>js/report.js"></script>
 <script src="<?php echo base_url();?>js/surveyupdate.js"></script>
+<script src="<?php echo base_url();?>js/sendsms.js"></script>
 <!-- END OUR SCRIPTS -->
 
 <script>

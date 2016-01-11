@@ -66,6 +66,7 @@ $route['usertypeperm/(:any)'] = 'usertypeperm/view/$1';
 $route['elderfilecont/(:any)'] = 'elderfilecont/view/$1';
 
 $route['reports/(:any)'] = 'reports/view/$1';
+$route['sms/(:any)'] = 'sms/view/$1';
 
 $route['(:any)'] = 'pages/view/$1';
 $route['default_controller'] = 'pages/view';
