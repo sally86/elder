@@ -57,7 +57,7 @@ class Reports extends CI_Controller
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->elder_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->age;
@@ -174,7 +174,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->elder_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
@@ -226,7 +226,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->elder_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
@@ -281,7 +281,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->elder_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->sex;
@@ -332,7 +332,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
@@ -388,7 +388,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
@@ -450,7 +450,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
@@ -509,7 +509,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
@@ -563,7 +563,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
@@ -619,7 +619,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
@@ -673,7 +673,7 @@ function get_fulladdress()
 			$nestedData=array();
 						
 			$nestedData[] = $i++;
-			$nestedData[] = $row->file_id;
+			$nestedData[] = $row->file_doc_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;

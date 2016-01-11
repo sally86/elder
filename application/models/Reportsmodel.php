@@ -4,7 +4,7 @@ class Reportsmodel extends CI_Model
 	function get_eldr_info_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'elder_id',
 			3 => 'name',
 			4 => 'dob',
@@ -21,7 +21,7 @@ class Reportsmodel extends CI_Model
 							e.full_address, e.phone, e.mobile_first, e.mobile_second,
 							e.status_id, sts.sub_constant_name as status,
 							e.governorate_id,e.region,e.full_address, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,address.sub_constant_name as fulladdress,
-							f.file_id, f.file_status_id
+							f.file_id, f.file_doc_id, f.file_status_id
  					FROM 	elder_tb e
 					LEFT 	OUTER JOIN sub_constant_tb sts  ON e.status_id      = sts.sub_constant_id
 					LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
@@ -33,7 +33,7 @@ class Reportsmodel extends CI_Model
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+			$myquery = $myquery." AND f.file_doc_id  = ".$requestData['txtFileid'];
 		}
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
@@ -120,7 +120,7 @@ function get_fulladress_list()
 	function get_eldr_gender_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'elder_id',
 			3 => 'name',
 			4 => 'phone',
@@ -134,7 +134,7 @@ function get_fulladress_list()
 							,e.phone,e.mobile_first,
 							e.sex_id, sx.sub_constant_name as sex,
 							e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
-							address.sub_constant_name as fulladdress,f.file_id, f.file_status_id
+							address.sub_constant_name as fulladdress,f.file_id, f.file_doc_id, f.file_status_id
  					 FROM	elder_tb e
 					 LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
 					 LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
@@ -146,7 +146,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+			$myquery = $myquery." AND f.file_doc_id  = ".$requestData['txtFileid'];
 		}
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
@@ -198,7 +198,7 @@ function get_fulladress_list()
 	function get_eldr_edu_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'elder_id',
 			3 => 'name', 
 			4 => 'phone', 
@@ -218,7 +218,7 @@ function get_fulladress_list()
                             e.previous_job_id, pjb.sub_constant_name as previous_job,
 							e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
 							address.sub_constant_name as fulladdress,
-							f.file_id, f.file_status_id
+							f.file_id, f.file_doc_id, f.file_status_id
  					FROM 	elder_tb e
 					LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
 					LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
@@ -232,7 +232,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+			$myquery = $myquery." AND f.file_doc_id = ".$requestData['txtFileid'];
 		}
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
@@ -295,7 +295,7 @@ function get_fulladress_list()
 	function get_elder_health_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'elder_id',
 			3 => 'name',
 			4 => 'sex',
@@ -324,7 +324,7 @@ function get_fulladress_list()
 							 FROM 	medication_availability_tb emed, sub_constant_tb med 
 							 WHERE  emed.survey_id = s.survey_id
 							 AND    emed.availability_status_id = med.sub_constant_id) as elder_medicine,
-									f.file_id, f.file_status_id ";
+									f.file_id, f.file_doc_id, f.file_status_id ";
 									
 		$from = "FROM  		  elder_tb e
 				 LEFT 		OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
@@ -373,7 +373,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$where = $where." AND f.file_id = ".$requestData['txtFileid'];
+			$where = $where." AND f.file_doc_id  = ".$requestData['txtFileid'];
 		}
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
@@ -474,7 +474,7 @@ function get_fulladress_list()
 							e.phone, mobile_first, e.mobile_second,
                             e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
 							address.sub_constant_name as fulladdress,
-							f.file_id, f.file_status_id,
+							f.file_id, f.file_doc_id, f.file_status_id,
                             ir.total_income, ir.elder_portion, ";
 							
 		$from = " FROM 	elder_tb e
@@ -490,7 +490,7 @@ function get_fulladress_list()
                      AND 	f.file_status_id = 170";
 					  
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'name', 
 			3 => 'phone', 
 			4 => 'mobile_first',
@@ -505,7 +505,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$where = $where." AND f.file_id = ".$requestData['txtFileid'];
+			$where = $where." AND f.file_doc_id  = ".$requestData['txtFileid'];
 		}
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
@@ -577,7 +577,7 @@ function get_fulladress_list()
 	function get_home_status_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'name', 
 			3 => 'phone', 
 			4 => 'mobile_first',
@@ -601,7 +601,7 @@ function get_fulladress_list()
                             h.furniture_level_id, fr.sub_constant_name as furniture_level,
                             h.furniture_needs,
                             e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
-							address.sub_constant_name as fulladdress,f.file_id, f.file_status_id
+							address.sub_constant_name as fulladdress,f.file_id, f.file_doc_id, f.file_status_id
  					FROM 	elder_tb e
 					LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
 				  	LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
@@ -620,7 +620,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+			$myquery = $myquery." AND f.file_doc_id  = ".$requestData['txtFileid'];
 		}
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
@@ -690,7 +690,7 @@ function get_fulladress_list()
 	function get_elder_room_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'name', 
 			3 => 'phone', 
 			4 => 'mobile_first',
@@ -720,7 +720,7 @@ function get_fulladress_list()
 					    er.has_medicine_cupboard, hmc.sub_constant_name as has_medicine_cupboard,
 					    er.elder_higiene_id, hig.sub_constant_name as elder_higiene,
                         e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
-							address.sub_constant_name as fulladdress,f.file_id, f.file_status_id
+							address.sub_constant_name as fulladdress,f.file_id, f.file_doc_id, f.file_status_id
 				FROM    elder_tb e
 				LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
 			  	LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
@@ -745,7 +745,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+			$myquery = $myquery." AND f.file_doc_id  = ".$requestData['txtFileid'];
 		}
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
@@ -827,7 +827,7 @@ function get_fulladress_list()
 	function get_family_elder_Relation_rpt($requestData)
 	{
 			$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'name', 
 			3 => 'phone', 
 			4 => 'mobile_first',
@@ -864,7 +864,7 @@ function get_fulladress_list()
 									FROM elder_pariah_tb ep, sub_constant_tb prh
 								   WHERE ep.elder_pariah_reason_id = prh.sub_constant_id
 									 AND ep.survey_id = s.survey_id)  as elder_pariah_reason,
-                        f.file_id, f.file_status_id ";
+                        f.file_id, f.file_doc_id, f.file_status_id ";
 						
 		$from = "FROM   elder_tb e, file_tb f,  survey_tb s 
 						  LEFT 	OUTER JOIN family_elder_relationship_tb fer ON s.survey_id = fer.survey_id
@@ -888,7 +888,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$where = $where." AND f.file_id = ".$requestData['txtFileid'];
+			$where = $where." AND f.file_doc_id = ".$requestData['txtFileid'];
 		}
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
@@ -971,7 +971,7 @@ function get_fulladress_list()
 	function get_maintenance_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'name', 
 			3 => 'phone', 
 			4 => 'mobile_first',
@@ -991,7 +991,7 @@ function get_fulladress_list()
 					    er.bathroom_status_id, bth.sub_constant_name as bathroom_status,
 					    er.bathroom_maintenance_details,
                         e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
-							address.sub_constant_name as fulladdress,f.file_id, f.file_status_id
+							address.sub_constant_name as fulladdress,f.file_id, f.file_doc_id, f.file_status_id
 				FROM    elder_tb e
 				LEFT 	OUTER JOIN sub_constant_tb gov  ON e.governorate_id      = gov.sub_constant_id
 			  	LEFT 	OUTER JOIN sub_constant_tb reg  ON e.region= reg.sub_constant_id
@@ -1008,7 +1008,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+			$myquery = $myquery." AND f.file_doc_id = ".$requestData['txtFileid'];
 		}
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
@@ -1070,7 +1070,7 @@ function get_fulladress_list()
 	function get_life_improvement_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'name', 
 			3 => 'phone', 
 			4 => 'mobile_first',
@@ -1093,7 +1093,7 @@ function get_fulladress_list()
                         lf.elder_training_type,
                         lf.can_start_project, prj.sub_constant_name as can_start_proj,
                         lf.project_type, lf.project_budget,
-                        f.file_id, f.file_status_id
+                        f.file_id, f.file_doc_id, f.file_status_id
 				FROM    elder_tb e, file_tb f,  survey_tb s, life_improvement_tb lf
 							LEFT OUTER JOIN sub_constant_tb wrk ON lf.elder_work_ability_id = wrk.sub_constant_id
                             LEFT OUTER JOIN sub_constant_tb fm  ON lf.family_member_id = fm.sub_constant_id
@@ -1106,7 +1106,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$myquery = $myquery." AND f.file_id = ".$requestData['txtFileid'];
+			$myquery = $myquery." AND f.file_doc_id  = ".$requestData['txtFileid'];
 		}
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
@@ -1172,7 +1172,7 @@ function get_fulladress_list()
 	function get_aid_recomendation_rpt($requestData)
 	{
 		$columns = array( 
-			1 => 'file_id',
+			1 => 'file_doc_id',
 			2 => 'name', 
 			3 => 'phone', 
 			4 => 'mobile_first',
@@ -1214,7 +1214,7 @@ function get_fulladress_list()
 								   FROM medical_aid_recomendation_tb medc, sub_constant_tb medtp
 								  WHERE medc.medical_aid_type_id = medtp.sub_constant_id
 									AND medc.survey_id = s.survey_id)  as medical_aid,
-							f.file_id, f.file_status_id ";
+							f.file_id, f.file_doc_id, f.file_status_id ";
 							
 		$from = "FROM    elder_tb e, file_tb f,  survey_tb s 
 								LEFT OUTER JOIN aids_recomendation_tb ad ON  s.survey_id = ad.survey_id 
@@ -1231,7 +1231,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtFileid']) && $requestData['txtFileid'] !='')
 		{
-			$where = $where." AND f.file_id = ".$requestData['txtFileid'];
+			$where = $where." AND f.file_doc_id = ".$requestData['txtFileid'];
 		}
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
 		{
