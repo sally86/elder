@@ -86,7 +86,7 @@ function get_fulladress_list($regionCode)
 	{
 		$myquery = "SELECT constant_id, constant_name
 					  FROM constant_tb 
-					 WHERE constant_id IN (22,23,24,26,7,28,30,32,33,41,56,44,45,46,47,49,48)";
+					 WHERE constant_id IN (22,23,24,26,7,54,30,32,33,41,56,44,45,46,47,49,48)";
 		
 		$res = $this->db->query($myquery);
 		return $res->result();
