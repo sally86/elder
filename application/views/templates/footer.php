@@ -187,6 +187,8 @@
 		AidUpdateValidation.init();
 		MedicalAidUpdateValidation.init();
 		HomeAidUpdateValidation.init();
+		//********** SMS **********************/
+		SMSFormValidation.init();
       });
    </script>
 <!-- END JAVASCRIPTS -->

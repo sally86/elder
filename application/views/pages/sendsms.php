@@ -1,5 +1,9 @@
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
+<?php
+header('Access-Control-Allow-Origin: *');
+
+?>
 <div class="row">
     <div class="col-md-12">
       <!-- BEGIN VALIDATION STATES-->
@@ -20,8 +24,9 @@
               </div>
           </div>
           <div class="portlet-body form">
-              <!-- BEGIN FORM-->
-              <form action="#" id="form_sample_3" class="form-horizontal">
+          <br /><br />
+          	<fieldset><legend>خيـــــارات البحــــث</legend>
+              <form action="#" id="sms_filter_form" class="form-horizontal">
                   <div class="form-body">
                   	<br/>
                       <div class="alert alert-danger display-hide">
@@ -32,6 +37,7 @@
                           <button class="close" data-close="alert"></button>
                           Your form validation is successful!
                       </div>
+                      
                       <div class="form-group">
                         <label class="control-label col-md-3">خيـارات الفـلتـرة : 
                         </label>
@@ -48,7 +54,17 @@
 									 echo ' <option value="'.$constants_row->constant_id.'">'
 									  						.$constants_row->constant_name.'</option>';
 								  }
+								  
 								  ?>
+                                  <option value="-1">يوجد خزانة ملابس</option>
+                                  <option value="-2">يوجد سرير وفرشة مناسبة</option>
+                                  <option value="-3">يوجد مكان مخصص للأدوية</option>
+                                  <option value="-4">غرفة كبير السن بحاجة للترميم/صيانة</option>
+                                  <option value="-5">الاحتياج للعيادة القانونية</option>
+                                  <option value="-6">إمكانية عمل مشروع صغير مدر للدخل</option>
+                                  <option value="-7">دعم نفسي</option>
+                                  <option value="-8">دعم اجتماعي</option>
+                                  <option value="-9">ترفيه</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -79,6 +95,15 @@
 									  						.$constants_row->constant_name.'</option>';
 								  }
 								  ?>
+                                  <option value="-1">يوجد خزانة ملابس</option>
+                                  <option value="-2">يوجد سرير وفرشة مناسبة</option>
+                                  <option value="-3">يوجد مكان مخصص للأدوية</option>
+                                  <option value="-4">غرفة كبير السن بحاجة للترميم/صيانة</option>
+                                  <option value="-5">الاحتياج للعيادة القانونية</option>
+                                  <option value="-6">إمكانية عمل مشروع صغير مدر للدخل</option>
+                                  <option value="-7">دعم نفسي</option>
+                                  <option value="-8">دعم اجتماعي</option>
+                                  <option value="-9">ترفيه</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -109,6 +134,15 @@
 									  						.$constants_row->constant_name.'</option>';
 								  }
 								  ?>
+                                  <option value="-1">يوجد خزانة ملابس</option>
+                                  <option value="-2">يوجد سرير وفرشة مناسبة</option>
+                                  <option value="-3">يوجد مكان مخصص للأدوية</option>
+                                  <option value="-4">غرفة كبير السن بحاجة للترميم/صيانة</option>
+                                  <option value="-5">الاحتياج للعيادة القانونية</option>
+                                  <option value="-6">إمكانية عمل مشروع صغير مدر للدخل</option>
+                                  <option value="-7">دعم نفسي</option>
+                                  <option value="-8">دعم اجتماعي</option>
+                                  <option value="-9">ترفيه</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -139,6 +173,15 @@
 									  						.$constants_row->constant_name.'</option>';
 								  }
 								  ?>
+                                  <option value="-1">يوجد خزانة ملابس</option>
+                                  <option value="-2">يوجد سرير وفرشة مناسبة</option>
+                                  <option value="-3">يوجد مكان مخصص للأدوية</option>
+                                  <option value="-4">غرفة كبير السن بحاجة للترميم/صيانة</option>
+                                  <option value="-5">الاحتياج للعيادة القانونية</option>
+                                  <option value="-6">إمكانية عمل مشروع صغير مدر للدخل</option>
+                                  <option value="-7">دعم نفسي</option>
+                                  <option value="-8">دعم اجتماعي</option>
+                                  <option value="-9">ترفيه</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -169,6 +212,15 @@
 									  						.$constants_row->constant_name.'</option>';
 								  }
 								  ?>
+                                  <option value="-1">يوجد خزانة ملابس</option>
+                                  <option value="-2">يوجد سرير وفرشة مناسبة</option>
+                                  <option value="-3">يوجد مكان مخصص للأدوية</option>
+                                  <option value="-4">غرفة كبير السن بحاجة للترميم/صيانة</option>
+                                  <option value="-5">الاحتياج للعيادة القانونية</option>
+                                  <option value="-6">إمكانية عمل مشروع صغير مدر للدخل</option>
+                                  <option value="-7">دعم نفسي</option>
+                                  <option value="-8">دعم اجتماعي</option>
+                                  <option value="-9">ترفيه</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -182,35 +234,83 @@
                               </select>
                         </div>
                       </div>
-                      
+                      </div>
+                      <!-- END FORM BODY -->
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="button" class="btn blue-madison" onclick="getNum()">بحــث</button>
+                                    <button type="reset" class="btn default">الغاء الامر</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </form>
+                    </fieldset>
+                    <!-- END FORM-->
+                     <br />
+                     <br />
+                     <div id="dvFilter" style="display:none">
+                     	<table class="table table-bordered table-striped">
+                          <thead>
+                            <tr class="bg-grey-steel">
+                              <th>الاســــــم
+                              </th>
+                              <th>رقـم الجــوال
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody id="tbElder">
+                          	
+                          </tbody>
+                        </table>
+                     </div>
+                     </fieldset>
+                     <br />
+                     <fieldset><legend>ارســـــــال رسالة</legend>
+                      <!-- BEGIN FORM-->
+              <form action="#" id="sms_form" class="form-horizontal">
+                  <div class="form-body">
+                  	<br/>
+                      <div class="alert alert-danger display-hide">
+                          <button class="close" data-close="alert"></button>
+                          يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                      </div>
+                      <div class="alert alert-success display-hide">
+                          <button class="close" data-close="alert"></button>
+                          Your form validation is successful!
+                      </div>
                       <div class="form-group">
                           <label class="control-label col-md-3">رقم الجوال <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtVisittime" name="txtVisittime" data-required="1" class="form-control"/>
+                              <input type="text" id="txtMobilenum" name="txtMobilenum" data-required="1" class="form-control"/>
+                              <span class="help-block"> 059xxxxxx,059xxxxxx</span>
                           </div>
                       </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">الرســــالة&nbsp;&nbsp;&nbsp;
+                          <label class="control-label col-md-3">الرســــالة <span class="required">
+                          * </span>
                           </label>
                           <div class="col-md-4">
-                              <textarea name="txtFulladdress" cols="70" rows="2" class="form-control"></textarea>
+                              <textarea id="txtMSG" name="txtMSG" cols="70" rows="2" class="form-control"></textarea>
                           </div>
                       </div>
-                      
                   </div>
                   <!-- END FORM BODY -->
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
                               <button type="submit" class="btn blue-madison">ارســال</button>
-                              <button type="button" class="btn default">الغاء الامر</button>
+                              <button type="reset" class="btn default">الغاء الامر</button>
                           </div>
                       </div>
                   </div>
+                  <br />
               </form>
+              </fieldset>
               <!-- END FORM-->
           </div>
           <!-- END VALIDATION STATES-->
