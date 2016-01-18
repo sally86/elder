@@ -4,7 +4,7 @@ $page_title = "اضـــافة مستخدم";
 $readonly = '';
 if (isset($user_info))
 {
-	unset($_SESSION['update']);
+	unset($_SESSION['update_user']);
 	foreach($user_info as $user_row);
 	$ction ="updateuser";
 	$page_title = "تعـــديل مستخدم";

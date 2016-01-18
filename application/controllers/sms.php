@@ -46,13 +46,24 @@ class Sms extends CI_Controller
 	{
 		extract($_POST);
 		
-		if ($constantid < 0)
+		if ($constantid == 0)
+			$constantid = '58,59,60,61,68';
+			
+		else if ($constantid < 0)
 			$constantid = 38; // Yes/No Choice
 			
 		$data['constant_id'] = $constantid;
 		
+		
 		$this->load->model('constantmodel');
-		$rec =  $this->constantmodel->get_sub_constant($constantid);
+		
+		$pos = strpos($constantid, ',');
+		if ($pos != false)
+		{	
+			$rec =  $this->constantmodel->get_all_city($constantid);
+		}else {
+			$rec =  $this->constantmodel->get_sub_constant($constantid);
+		}
 		
 		foreach ($rec as $row)
 		{

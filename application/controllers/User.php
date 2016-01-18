@@ -43,10 +43,10 @@ class User extends CI_Controller
 		$this->load->model('constantmodel');
 		$this->data['user_type'] = $this->constantmodel->get_sub_constant(20);
 		
-		if(isset($_SESSION['update']))
+		if(isset($_SESSION['update_user']))
 		{
 			$this->load->model('usermodel');
-			$this->data['user_info'] = $this->usermodel->get_user_info($_SESSION['update']);
+			$this->data['user_info'] = $this->usermodel->get_user_info($_SESSION['update_user']);
 			
 		}
 	}
@@ -70,7 +70,7 @@ class User extends CI_Controller
 	function senddata()
 	{
 		extract($_POST);
-		$_SESSION['update'] = $username;
+		$_SESSION['update_user'] = $username;
 	}
 	
 	/************************************************************/

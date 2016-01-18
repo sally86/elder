@@ -28,10 +28,21 @@ function getValue(optnum)
 
 function getNum()
 {
+	if($("#drpConstant1").val() == '' && $("#drpConstant2").val() == '' && 
+	   $("#drpConstant3").val() == '' && $("#drpConstant4").val() == '' && 
+	   $("#drpConstant5").val() == '')
+	{
+		var form = $('#sms_filter_form');
+		$('.alert-danger', form).show();
+		return;
+	}
+	
+	$('.alert-danger', form).hide();
+	
 	$.ajax({
 			url: baseURL+"Sms/filter",
 			type: "POST",
-			data: $('#sms_form').serialize(),
+			data: $('#sms_filter_form').serialize(),
 			error: function(xhr, status, error) {
   				alert(xhr.responseText);
 			},

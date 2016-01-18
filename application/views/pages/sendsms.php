@@ -31,7 +31,7 @@ header('Access-Control-Allow-Origin: *');
                   	<br/>
                       <div class="alert alert-danger display-hide">
                           <button class="close" data-close="alert"></button>
-                          يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                          الرجــاء ادخـــال قيـم البحــث
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
@@ -65,6 +65,7 @@ header('Access-Control-Allow-Origin: *');
                                   <option value="-7">دعم نفسي</option>
                                   <option value="-8">دعم اجتماعي</option>
                                   <option value="-9">ترفيه</option>
+                                  <option value="0">المدينة</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -104,6 +105,7 @@ header('Access-Control-Allow-Origin: *');
                                   <option value="-7">دعم نفسي</option>
                                   <option value="-8">دعم اجتماعي</option>
                                   <option value="-9">ترفيه</option>
+                                  <option value="0">المدينة</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -143,6 +145,7 @@ header('Access-Control-Allow-Origin: *');
                                   <option value="-7">دعم نفسي</option>
                                   <option value="-8">دعم اجتماعي</option>
                                   <option value="-9">ترفيه</option>
+                                  <option value="0">المدينة</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -182,6 +185,7 @@ header('Access-Control-Allow-Origin: *');
                                   <option value="-7">دعم نفسي</option>
                                   <option value="-8">دعم اجتماعي</option>
                                   <option value="-9">ترفيه</option>
+                                  <option value="0">المدينة</option>
                               </select>
                         </div>
                         <div class="col-md-2">
@@ -221,6 +225,7 @@ header('Access-Control-Allow-Origin: *');
                                   <option value="-7">دعم نفسي</option>
                                   <option value="-8">دعم اجتماعي</option>
                                   <option value="-9">ترفيه</option>
+                                  <option value="0">المدينة</option>
                               </select>
                         </div>
                         <div class="col-md-2">

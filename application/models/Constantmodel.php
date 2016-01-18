@@ -91,5 +91,16 @@ function get_fulladress_list($regionCode)
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+	function get_all_city($constant_id)
+	{
+		extract($_POST);
+		
+		$myquery = "SELECT sub_constant_id, constant_id, sub_constant_name, parent_id
+					  FROM sub_constant_tb 
+					 WHERE constant_id IN (".$constant_id.")";
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+	}
 }
 ?>

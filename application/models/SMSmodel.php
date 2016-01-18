@@ -10,6 +10,7 @@ class SMSmodel extends CI_Model
 		$columns = array( 
 			7 => 'efltr.insurance_type_id',
 			22 => 'efltr.governorate_id',
+			0  => 'efltr.region',
 			23 => 'efltr.efltr.education_level_id',
 			24 => 'efltr.specialization_id',
 			26 => 'efltr.previous_job_id',
@@ -38,6 +39,7 @@ class SMSmodel extends CI_Model
 		$table = array( 
 			7  => 'elder_tb efltr',
 			22 => 'elder_tb efltr',
+			0  => 'elder_tb efltr',
 			23 => 'elder_tb efltr',
 			24 => 'elder_tb efltr',
 			26 => 'elder_tb efltr', 
@@ -67,6 +69,7 @@ class SMSmodel extends CI_Model
 		$join = array( 
 			7  => ' AND e.elder_id = efltr.elder_id ',
 			22 => ' AND e.elder_id = efltr.elder_id ',
+			0  => ' AND e.elder_id = efltr.elder_id ',
 			23 => ' AND e.elder_id = efltr.elder_id ',
 			24 => ' AND e.elder_id = efltr.elder_id ',
 			26 => ' AND e.elder_id = efltr.elder_id ', 
