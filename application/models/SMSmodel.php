@@ -220,13 +220,31 @@ class SMSmodel extends CI_Model
 		$this->db->insert('sms_tb',$data);
 		$sms_id = $this->db->insert_id();
 		
+		$mobileNum = explode(",", $txtMobilenum);
 		
-		$myquery = "INSERT INTO sms_receiver_tb
-					(file_id, sms_id)
-					(SELECT f.file_id,".$sms_id."
+		$inSelect = "";
+		for($i=0; $i<count($mobileNum); $i++)
+		{
+			if ($i == 0)
+				$inSelect = $inSelect."SELECT '".$mobileNum[$i]."' as num";
+			else
+				$inSelect = $inSelect." UNION ALL SELECT '".$mobileNum[$i]."' ";
+   
+		}
+		
+		/*$myquery = "INSERT INTO sms_receiver_tb
+					(file_id, mobile_num, sms_id)
+					(SELECT f.file_id, e.mobile_first, ".$sms_id."
 					   FROM file_tb f, elder_tb e
 					  WHERE f.elder_id = e.elder_id
-					    AND mobile_first IN (".$txtMobilenum."))";
+					    AND mobile_first IN (".$txtMobilenum."))";*/
+					
+		   $myquery = "INSERT INTO sms_receiver_tb
+						(file_id, mobile_num, sms_id)
+						(SELECT f.file_id, num_list.num, ".$sms_id."
+					   	   FROM               
+				      	   (".$inSelect.") num_list left join elder_tb e ON num_list.num = e.mobile_first
+						   left join file_tb f ON f.elder_id = e.elder_id)";
 		
 		$res = $this->db->query($myquery);
 		
