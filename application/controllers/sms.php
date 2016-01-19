@@ -74,8 +74,8 @@ class Sms extends CI_Controller
 	}
 	function filter()
 	{
-		$this->load->model('SMSmodel');
-		$rec = $this->SMSmodel->get_num();
+		$this->load->model('msgmodel');
+		$rec = $this->msgmodel->get_num();
 		
 		if (count($rec) == 0)
 		{
@@ -142,8 +142,8 @@ class Sms extends CI_Controller
 		//var_dump($result);
 		if ($result == 1001)
 		{
-			$this->load->model('SMSmodel');
-			$this->SMSmodel->sms_insert();
+			$this->load->model('msgmodel');
+			$this->msgmodel->sms_insert();
 			
 			echo 'تمت عملية الارسال بنجاح';
 		}

@@ -1,6 +1,6 @@
 <?php
 
-class SMSmodel extends CI_Model
+class Msgmodel extends CI_Model
 {
 	
 	function get_num()
