@@ -393,6 +393,8 @@ function clearFamilymemberFields()
 	  $("#dpMemDob").val('');
 	  $("#drpMemEdulevel").val('');
 	  $("#drpMemHealth").val('');
+	  $("#txtMemincome").val('');
+	  $("#txtMemjob").val('');
 	  
 	
 }
