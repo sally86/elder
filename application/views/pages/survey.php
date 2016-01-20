@@ -1575,7 +1575,8 @@ $readonly = '';
                                      <!-- ** END Elder-Family Relationship **-->
                                       <!-- ** Elder-Family Relationship **-->
                                      <div class="tab-pane fade" id="tab_6_12">
-                                    	<div class="col-md-12">
+                                     <div class="form-body">
+                                      <br/>
                                      <input id="hdncooperativFamily" name="hdncooperativFamily" type="hidden" value="<?php echo $cooperativFamilyAction;?>" />
                                         <div class="form-group">
                                             <label class="control-label col-md-3">تعاون الاسرة مع الباحث <span class="required">

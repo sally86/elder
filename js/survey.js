@@ -910,7 +910,7 @@ function editeElderRoom()
 	
 	//alert(action);
 	
-	if ( !validateHomeStatus() )
+	if ( !validateElderRoom() )
 		return;
 		
 	// Create a new FormData object.
@@ -958,7 +958,7 @@ function editeElderRoom()
 			}
 		});//END $.ajax
 }
-function validateHomeStatus()
+function validateElderRoom()
 {
 	var form = $('#submit_form');
     var error = $('.alert-danger', form);

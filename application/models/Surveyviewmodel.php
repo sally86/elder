@@ -18,10 +18,9 @@ class Surveyviewmodel extends CI_Model
 		$myquery = "SELECT survey_tb.survey_id,elder_tb.elder_id,survey_tb.file_id,visit_date,survey_tb.researcher_id,
 						   CONCAT(elder_tb.first_name,' ',elder_tb.middle_name,' ',elder_tb.third_name,' ',elder_tb.last_name) 
 						   as Elder_name, employee_tb.name as Researcher_name 
-					  FROM survey_tb,employee_tb,elder_tb,file_tb
-					 WHERE survey_tb.researcher_id=employee_tb.national_id
-					   AND survey_tb.file_id=file_tb.file_id
-					   AND file_tb.elder_id=elder_tb.elder_id";
+					  FROM elder_tb,file_tb,survey_tb LEFT JOIN employee_tb ON survey_tb.researcher_id = employee_tb.national_id
+					 WHERE survey_tb.file_id = file_tb.file_id
+					   AND file_tb.elder_id = elder_tb.elder_id";
 		
 		
 		if(isset($requestData['txtResearchername']) && $requestData['txtResearchername'] !='')
