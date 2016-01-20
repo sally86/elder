@@ -274,6 +274,9 @@ header('Access-Control-Allow-Origin: *');
                      <br />
                      <fieldset><legend>ارســـــــال رسالة</legend>
                       <!-- BEGIN FORM-->
+                      <div class="note note-info">
+                          <p><b> رصيـــــد الرســـــائـل ( <span id="spnCountSMS"> <?php echo $smscount; ?> </span> )</b></p>
+                      </div>
               <form action="#" id="sms_form" class="form-horizontal">
                   <div class="form-body">
                   	<br/>

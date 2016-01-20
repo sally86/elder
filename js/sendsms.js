@@ -74,8 +74,16 @@ function sendSMS()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				
-				alert(returndb);
+				if (returndb.search("-") != -1)
+				{
+					var res = returndb.split("-");
+					alert(res[0]);
+					$('#spnCountSMS').html(res[1]);
+				}
+				else
+				{
+					alert(returndb);
+				}
 				
 			}
 		});//END $.ajax

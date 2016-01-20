@@ -41,6 +41,8 @@ class Sms extends CI_Controller
 	{
 		$this->load->model('constantmodel');
 		$this->data['constants'] = $this->constantmodel->get_constant_for_sms();
+		
+		$this->data['smscount'] = $this->getsmscount();
 	}
 	function getvalue()
 	{
@@ -135,6 +137,7 @@ class Sms extends CI_Controller
 		);
 		$context  = stream_context_create($options);
 		$result = file_get_contents($url, false, $context);
+		
 		if ($result === FALSE) 
 		{
 			echo 'حدث خطأ اثناء عملية الارسال';
@@ -144,8 +147,10 @@ class Sms extends CI_Controller
 		{
 			$this->load->model('msgmodel');
 			$this->msgmodel->sms_insert();
+			$smscount = $this->getsmscount();
+			echo 'تمت عملية الارسال بنجاح - '.$smscount;
 			
-			echo 'تمت عملية الارسال بنجاح';
+			
 		}
 		else if ($result == 1000)
 		{
@@ -174,6 +179,27 @@ class Sms extends CI_Controller
 		/////////////////////////////
 
 	
+	}
+	
+	function getsmscount()
+	{
+		$user_name = "Albwwaba";
+		$user_pass = "5812257";
+		
+		$url = 'http://www.hotsms.ps/getbalance.php';
+		$data = array('user_name' => $user_name,
+					  'user_pass' => $user_pass);
+		
+		// use key 'http' even if you send the request to https://...
+		$options = array(
+			'http' => array(
+				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+				'method'  => 'POST',
+				'content' => http_build_query($data),
+			),
+		);
+		$context  = stream_context_create($options);
+		return file_get_contents($url, false, $context);
 	}
 }
 ?>
