@@ -60,8 +60,8 @@ class Surveymodel extends CI_Model
 		
 		
 		// Insert survey_elder_info_tb
-		$data['survey_id'] = $survey_id;
-		$this->db->insert('survey_elder_info_tb',$data);
+		//$data['survey_id'] = $survey_id;
+		//$this->db->insert('survey_elder_info_tb',$data);
 		
 		
 		
@@ -112,11 +112,11 @@ class Surveymodel extends CI_Model
 			
 			if($hdnSurveyId != "")
 			{
-				$this->db->where('survey_id',$hdnSurveyId);
+				/*$this->db->where('survey_id',$hdnSurveyId);
 				$this->db->update('survey_elder_info_tb',$data);
 				
 				$file_id = $hdnFileId;
-				$survey_id = $hdnSurveyId; 
+				$survey_id = $hdnSurveyId; */
 			}
 			else if($hdnSurveyId == "")
 			{
@@ -127,9 +127,9 @@ class Surveymodel extends CI_Model
 				
 				
 				// Insert survey_elder_info_tb
-				$survey_id = $this->db->insert_id();
+				/*$survey_id = $this->db->insert_id();
 				$data['survey_id'] = $this->db->insert_id();
-				$this->db->insert('survey_elder_info_tb',$data);
+				$this->db->insert('survey_elder_info_tb',$data);*/
 				
 				$file_id = $hdnFileId;
 			}
