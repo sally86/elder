@@ -400,8 +400,10 @@ function clearFamilymemberFields()
 }
 function validateFamilymember()
 {
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+	
+	var error = $('#dvSurveyErrorMsg');
 	
 	var valid = true;
 	
@@ -555,6 +557,9 @@ function add_disease_details()
 	if(!$("#txtarDiseaasedet").valid())
 		return false;
 	
+	$("#dvHealthErrorMsg").hide();
+	$("#dvHealthSuccessMsg").hide();
+	
 	$.ajax({
 			url: baseURL+"Surveycont/adddiseasedet",
 			type: "POST",
@@ -570,6 +575,8 @@ function add_disease_details()
 			complete: function(){},
 			success: function(returndb){
 				$("#hdnElderDiseaseId").val(returndb);
+				$("#dvHealthSuccessMsg").show();
+				Metronic.scrollTo($("#dvHealthSuccessMsg"), -200);
 				/*if(returndb == '')
 				{
 					var form = $('#familyMemberTab');
@@ -667,6 +674,9 @@ function edit_income_resource()
 	if( !validateIncomeResource() )
 		return false;
 	
+	$("#dvIncomeErrorMsg").hide();
+	$("#dvIncomeSuccessMsg").hide();
+	
 	if($("#hdnIncomeResourcesId").val() == "")
 		var action = "addincomeresource";
 	else
@@ -696,6 +706,8 @@ function edit_income_resource()
 			success: function(returndb){
 				
 				$("#hdnIncomeResourcesId").val(returndb);
+				$("#dvIncomeSuccessMsg").show();
+				Metronic.scrollTo($("#dvIncomeSuccessMsg"), -200);
 				
 			}
 		});//END $.ajax
@@ -712,8 +724,8 @@ function clearIncomeFields()
 }
 function validateIncomeResourceDet()
 {
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
 	
 	var valid = true;
 	
@@ -729,7 +741,7 @@ function validateIncomeResourceDet()
 		valid = false;
 		
 	
-	if(!valid)
+	/*if(!valid)
 	{
 		
 		error.show();
@@ -738,14 +750,16 @@ function validateIncomeResourceDet()
 	else
 	{
 		error.hide();
-	}
+	}*/
 		
 	return valid;
 }
 function validateIncomeResource()
 {
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+	
+	var error = $("#dvIncomeErrorMsg");
 	
 	var valid = true;
 	
@@ -798,6 +812,9 @@ function editeHomeStatus()
 	
 	if ( !validateHomeStatus() )
 		return;
+	
+	$("dvHomeErrorMsg").hide();
+	$("dvHomeSuccessMsg").hide();
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -828,6 +845,9 @@ function editeHomeStatus()
 			success: function(returndb){
 				$("#hdnHomeStatusId").val(returndb);
 				$('#hdnHomeStatusAction').val('updatehomeStatus');
+				
+				$("#dvHomeSuccessMsg").show();
+				Metronic.scrollTo($("#dvHomeSuccessMsg"), -200);
 				/*if (returndb=='')
 				{
 					var form = $('#HomeStatusTab');
@@ -839,8 +859,10 @@ function editeHomeStatus()
 }
 function validateHomeStatus()
 {
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+	
+	 var error = $("#dvHomeErrorMsg");
 	
 	var valid = true;
 	
@@ -914,7 +936,10 @@ function editeElderRoom()
 	
 	if ( !validateElderRoom() )
 		return;
-		
+	
+	$("dvRoomErrorMsg").hide();
+	$("dvRoomSuccessMsg").hide();
+	
 	// Create a new FormData object.
 	var formData = new FormData();
 	
@@ -950,7 +975,10 @@ function editeElderRoom()
 			complete: function(){},
 			success: function(returndb){
 				$("#hdnElderRoomId").val(returndb);
-				$('#hdnElderRoomAction').val('updateelderRoom');	
+				$('#hdnElderRoomAction').val('updateelderRoom');
+				
+				$("#dvRoomSuccessMsg").show();
+				Metronic.scrollTo($("#dvRoomSuccessMsg"), -200);
 				/*if (returndb=='')
 				{
 					var form = $('#HomeStatusTab');
@@ -962,8 +990,10 @@ function editeElderRoom()
 }
 function validateElderRoom()
 {
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+	
+	var error = $("#dvRoomErrorMsg")
 	
 	var valid = true;
 	
@@ -1175,20 +1205,20 @@ function delete_medication_need(medicationneedid,medicationtypeid)
 }
 function validateMedicationAvailab()
 {
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
 	
 	var valid = true;
 	
-	if ( !$("#txtMedicinename").valid() )
-		valid = false;
+	/*if ( !$("#txtMedicinename").valid() )
+		valid = false;*/
 	if ( !$("#drpMedicationAvailable").valid() )
 		valid = false;
 	if ( !$("#txtReason").valid() )
 		valid = false;
 	
 	
-	if(!valid)
+	/*if(!valid)
 	{
 		
 		error.show();
@@ -1197,15 +1227,15 @@ function validateMedicationAvailab()
 	else
 	{
 		error.hide();
-	}
+	}*/
 		
 	return valid;
 }
 function validateMedicationNeed()
 {
 	
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
 	
 	var valid = true;
 	
@@ -1215,7 +1245,7 @@ function validateMedicationNeed()
 		valid = false;
 	
 	
-	if(!valid)
+	/*if(!valid)
 	{
 		
 		error.show();
@@ -1224,7 +1254,7 @@ function validateMedicationNeed()
 	else
 	{
 		error.hide();
-	}
+	}*/
 		
 	return valid;
 }
@@ -1249,6 +1279,9 @@ function editeElderFamRel()
 	
 	if ( !validateElderFamRel() )
 		return;
+		
+	$("dvFamRelErrorMsg").hide();
+	$("dvFamRelSuccessMsg").hide();
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -1280,6 +1313,9 @@ function editeElderFamRel()
 				
 				$('#hdnelderFamRelAction').val('updateelderFamRel');
 				
+				$("#dvFamRelSuccessMsg").show();
+				Metronic.scrollTo($("#dvFamRelSuccessMsg"), -200);
+				
 			}
 		});//END $.ajax
 	
@@ -1287,8 +1323,10 @@ function editeElderFamRel()
 function validateElderFamRel()
 {
 										 
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+	
+	var error = $("#dvFamRelErrorMsg");
 	
 	var valid = true;
 	
@@ -1542,6 +1580,10 @@ function editeLifeImprov()
 	
 	if ( !validateLifeImprov() )
 		return;
+	
+		
+	$("dvLifeImprovErrorMsg").hide();
+	$("dvLifeImprovSuccessMsg").hide();
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -1573,14 +1615,19 @@ function editeLifeImprov()
 			success: function(returndb){
 				
 				$('#hdnlifeImprovaction').val('updatelifeImprov');	
+				
+				$("#dvLifeImprovSuccessMsg").show();
+				Metronic.scrollTo($("#dvLifeImprovSuccessMsg"), -200);
 			}
 		});//END $.ajax
 }
 function validateLifeImprov()
 {
 										 
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+	
+	 var error = $("#dvLifeImprovErrorMsg");
 	
 	var valid = true;
 	
@@ -1669,6 +1716,10 @@ function editeCooperativFamily()
 	
 	if ( !validateCooperativFamily() )
 		return;
+	
+		
+	$("dvCooFamErrorMsg").hide();
+	$("dvCooFamSuccessMsg").hide();
 		
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -1697,15 +1748,20 @@ function editeCooperativFamily()
 			complete: function(){},
 			success: function(returndb){
 				
-				$('#hdncooperativFamily').val('updatecooperFamily');	
+				$('#hdncooperativFamily').val('updatecooperFamily');
+				
+				$("#dvCooFamSuccessMsg").show();
+				Metronic.scrollTo($("#dvCooFamSuccessMsg"), -200);
 			}
 		});//END $.ajax
 }
 function validateCooperativFamily()
 {
 										 
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+	
+	var error = $("#dvCooFamErrorMsg");
 	
 	var valid = true;
 	
@@ -1737,6 +1793,9 @@ function editeaidrecomend()
 	
 	if( !validateAidRecommendation() )
 		return;
+		
+	$("dvAidErrorMsg").hide();
+	$("dvAidSuccessMsg").hide();
 	
 	// Create a new FormData object.
 	var formData = new FormData();
@@ -1771,6 +1830,9 @@ function editeaidrecomend()
 				if(returndb == '')
 				{
 					$("#hdnaidraction").val("updateaidrecomend");
+					
+					$("#dvAidSuccessMsg").show();
+					Metronic.scrollTo($("#dvAidSuccessMsg"), -200);
 					//var form = $('#Aidrecomend_form');
 					//$('.alert-success', form).show();
 				}
@@ -1922,8 +1984,10 @@ function deletehomeaidbyId(homeaidId,hometypeid)
 function validateAidRecommendation()
 {
 										 
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+	
+	var error = $("#dvAidErrorMsg");
 	
 	var valid = true;
 	
@@ -1954,8 +2018,8 @@ function validateAidRecommendation()
 function validateHomeAid()
 {
 										 
-	var form = $('#submit_form');
-    var error = $('.alert-danger', form);
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
 	
 	var valid = true;
 	
@@ -1965,7 +2029,7 @@ function validateHomeAid()
 		valid = false;
 	
 	
-	if(!valid)
+	/*if(!valid)
 	{
 		
 		error.show();
@@ -1974,7 +2038,7 @@ function validateHomeAid()
 	else
 	{
 		error.hide();
-	}
+	}*/
 		
 	return valid;
 }
@@ -2384,9 +2448,9 @@ var FormWizard = function () {
 					},
 					
 					// Medication Availability
-					txtMedicinename :{
+					/*txtMedicinename :{
 						required: true
-					},
+					},*/
 					drpMedicationAvailable:{
 						required: true
 					},
@@ -2824,9 +2888,9 @@ var FormWizard = function () {
 					},
 					
 					// Medication Availability
-					txtMedicinename :{
+					/*txtMedicinename :{
 						required: "الرجاء إدخال قيمة"
-					},
+					},*/
 					drpMedicationAvailable:{
 						required: "الرجاء إختيار قيمة"
 					},

@@ -32,11 +32,19 @@ class Surveymodel extends CI_Model
 		$data['education_level_id'] = $drpEducationlevel;
 		
 		$data['current_job_id'] 	= $drpCurrentjob;
-		$data['previous_job_id'] 	= $drpPreviousjob;
+		//$data['previous_job_id'] 	= $drpPreviousjob;
 		$data['insurance_type_id'] 	= $drpInsurence;
 		
 		if ( $drpSpecialization == '')
 			$data['specialization_id'] 	= NULL;
+		else 
+			$data['specialization_id'] 	= $drpSpecialization;
+		
+		if ( $drpPreviousjob == '')
+			$data['previous_job_id'] 	= NULL;
+		else 
+			$data['previous_job_id'] 	= $drpPreviousjob;
+		
 		
 		$this->db->insert('elder_tb',$data);
 		
@@ -92,13 +100,20 @@ class Surveymodel extends CI_Model
 		$data['mobile_first'] 		= $txtMobile1;
 		$data['mobile_second'] 		= $txtMobile2;
 		$data['education_level_id'] = $drpEducationlevel;
-		$data['specialization_id'] 	= $drpSpecialization;
+		//$data['specialization_id'] 	= $drpSpecialization;
 		$data['current_job_id'] 	= $drpCurrentjob;
-		$data['previous_job_id'] 	= $drpPreviousjob;
+		//$data['previous_job_id'] 	= $drpPreviousjob;
 		$data['insurance_type_id']  = $drpInsurence;
 		
 		if ( $drpSpecialization == '')
 			$data['specialization_id'] 	= NULL;
+		else 
+			$data['specialization_id'] 	= $drpSpecialization;
+		
+		if ( $drpPreviousjob == '')
+			$data['previous_job_id'] 	= NULL;
+		else 
+			$data['previous_job_id'] 	= $drpPreviousjob;
 		
 		if(isset($dpDeathdate))
 			$data['death_date'] 		= $dpDeathdate;
@@ -843,12 +858,22 @@ class Surveymodel extends CI_Model
 
 		$data['survey_id'] 					 = $hdnSurveyId;
 		$data['is_cooperative_family'] 		 = $drpIScooperative;
-		$data['cooperative_persone_type_id'] = $drpcooperPersonetype;
-		$data['cooperative_persone_id'] 	 = $txtcooperPersoneId;
 		$data['cooperative_persone_name']    = $txtcooperPersoneName;
 		$data['cooperative_persone_mobile']  = $txtcooperPersoneMobile;
 		$data['cooperative_persone_address'] = $txtcooperPersoneAddress;
 		
+		if (isset($drpcooperPersonetype) && $drpcooperPersonetype == "" )
+			$data['cooperative_persone_type_id'] = NULL;
+		else
+			$data['cooperative_persone_type_id'] = $drpcooperPersonetype;
+		
+		
+		if (isset($txtcooperPersoneId) && $txtcooperPersoneId == "" )
+			$data['cooperative_persone_id'] = NULL;
+		else
+			$data['cooperative_persone_id'] = $txtcooperPersoneId;
+			
+			
 		$this->db->insert('family_cooperation_tb',$data);
 		
 	}

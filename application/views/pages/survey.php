@@ -82,11 +82,11 @@ $readonly = '';
                                 </div>
                             </div>
                             <div class="tab-content">
-                                <div class="alert alert-danger display-none">
+                                <div id="dvSurveyErrorMsg" class="alert alert-danger display-none">
                                     <button class="close" data-dismiss="alert"></button>
                                     يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة.
                                 </div>
-                                <div class="alert alert-success display-none">
+                                <div id="dvSurveySuccessMsg" class="alert alert-success display-none">
                                     <button class="close" data-dismiss="alert"></button>
                                     تـم عملية حـفـظ البيـانات بنجـاح!
                                 </div>
@@ -747,6 +747,16 @@ $readonly = '';
                                           <thead>
                                             <tr>
                                               <th>
+                                              	<!---->
+                                              	 <div id="dvHealthErrorMsg" class="alert alert-danger display-hide">
+                                                    <button class="close" data-close="alert"></button>
+                                                    يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                                </div>
+                                                <div id="dvHealthSuccessMsg" class="alert alert-success display-hide">
+                                                    <button class="close" data-close="alert"></button>
+                                                      تـم عملية حـفـظ البيـانات بنجـاح !
+                                                </div>
+                                                <!---->
                                               	<div class="form-group">
                                                     <label class="control-label col-md-3"><b>
                                                     تــفاصيـل الحــالة المـرضيـة </b>
@@ -853,14 +863,14 @@ $readonly = '';
                               		 <fieldset><legend>ملخص الدخل</legend>
                                      <div class="form-body">
                                       <br/>
-                                        <!--<div class="alert alert-danger display-hide">
+                                        <div id="dvIncomeErrorMsg" class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
                                             يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                         </div>
-                                        <div class="alert alert-success display-hide">
+                                        <div id="dvIncomeSuccessMsg" class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button>
-                                            Your form validation is successful!
-                                        </div>-->
+                                            تـم عملية حـفـظ البيـانات بنجـاح !
+                                        </div>
                                         
                                         <div class="form-group">
                                           <label class="control-label col-md-3">المجموع الكلي للدخل  <span class="required">
@@ -898,14 +908,14 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_5">
                                      <div class="form-body">
                                         <br/>
-                                          <!--<div class="alert alert-danger display-hide">
+                                          <div id="dvHomeErrorMsg" class="alert alert-danger display-hide">
                                               <button class="close" data-close="alert"></button>
                                               يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                           </div>
-                                          <div class="alert alert-success display-hide">
+                                          <div id="dvHomeSuccessMsg" class="alert alert-success display-hide">
                                               <button class="close" data-close="alert"></button>
                                                 تـم عملية حـفـظ البيـانات بنجـاح !
-                                          </div>-->
+                                          </div>
                                           <input id="hdnHomeStatusAction" name="hdnHomeStatusAction" type="hidden" 
                                           value="<?php echo $homeStatusction;?>" />
                                           <input id="hdnHomeStatusId" name="hdnHomeStatusId" type="hidden" 
@@ -1019,14 +1029,14 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_6">
                                      <div class="form-body">
                                       <br/>
-                                        <!--<div class="alert alert-danger display-hide">
+                                        <div id="dvRoomErrorMsg" class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
                                             يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                         </div>
-                                        <div class="alert alert-success display-hide">
+                                        <div id="dvRoomSuccessMsg" class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button>
                                             تـم عملية حـفـظ البيـانات بنجـاح !
-                                        </div>-->
+                                        </div>
                                         <input id="hdnElderRoomAction" name="hdnElderRoomAction" type="hidden" 
                                           value="<?php echo $elderRoomaction;?>" />
                                         <input id="hdnElderRoomId" name="hdnElderRoomId" type="hidden" value="" />
@@ -1259,8 +1269,7 @@ $readonly = '';
                                     <table class="table table-bordered table-striped">
                                     <thead>
                                       <tr class="bg-grey-steel">
-                                          <th>اسم الدواء <span class="font-red">
-                                             * </span>
+                                          <th>اسم الدواء
                                           </th>
                                           <th>حالة الدواء <span class="font-red">
                                              * </span>
@@ -1352,14 +1361,14 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_8">
                                      <div class="form-body">
                                       <br/>
-                                        <!--<div class="alert alert-danger display-hide">
+                                        <div id="dvFamRelErrorMsg" class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
                                             يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                         </div>
-                                        <div class="alert alert-success display-hide">
+                                        <div id="dvFamRelSuccessMsg" class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button>
                                             تـم عملية حـفـظ البيـانات بنجـاح !
-                                        </div>-->
+                                        </div>
                                         <input id="hdnelderFamRelAction" name="hdnelderFamRelAction" type="hidden" 
                                         	value="<?php echo $elderFamRelAction;?>" />
                                         
@@ -1577,7 +1586,16 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_12">
                                      <div class="form-body">
                                       <br/>
-                                     <input id="hdncooperativFamily" name="hdncooperativFamily" type="hidden" value="<?php echo $cooperativFamilyAction;?>" />
+                                        <div id="dvCooFamErrorMsg" class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                        </div>
+                                        <div id="dvCooFamSuccessMsg" class="alert alert-success display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            تـم عملية حـفـظ البيـانات بنجـاح !
+                                        </div>
+                                     <input id="hdncooperativFamily" name="hdncooperativFamily" type="hidden" 
+                                        value="<?php echo $cooperativFamilyAction;?>" />
                                         <div class="form-group">
                                             <label class="control-label col-md-3">تعاون الاسرة مع الباحث <span class="required">
                                              * </span>
@@ -1588,7 +1606,8 @@ $readonly = '';
                                                    <?php
                                                     foreach($survey_Choice as $row)
                                                     {
-                                                      echo '<option value="'.$row->sub_constant_id.'">'.$row->sub_constant_name.'</option>';
+                                                      echo '<option value="'.$row->sub_constant_id.'">'
+													  						.$row->sub_constant_name.'</option>';
                                                   }
                                                    ?>
                                               </select>
@@ -1596,8 +1615,7 @@ $readonly = '';
                                         </div>
                                         
                                          <div class="form-group">
-                                            <label class="control-label col-md-3">يمكن الاستعانة بمن <span class="required">
-                                             * </span>
+                                            <label class="control-label col-md-3">يمكن الاستعانة بمن >
                                              </label>
                                             <div class="col-md-4">
                                                 <select class="form-control" id="drpcooperPersonetype" name="drpcooperPersonetype">
@@ -1613,8 +1631,7 @@ $readonly = '';
                                             </div>
                                         </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">رقم الهوية <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">رقم الهوية
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneId" name="txtcooperPersoneId" data-required="1" 
@@ -1622,8 +1639,7 @@ $readonly = '';
                                         </div>
                                     </div>
                                         <div class="form-group">
-                                        <label class="control-label col-md-3">الاسم بالكامل <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">الاسم بالكامل 
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneName" name="txtcooperPersoneName" data-required="1" 
@@ -1638,8 +1654,7 @@ $readonly = '';
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">العنوان <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">العنوان
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneAddress" name="txtcooperPersoneAddress" data-required="1" 
@@ -1703,14 +1718,14 @@ $readonly = '';
                                      <div class="tab-pane fade" id="tab_6_11">
                                      <div class="form-body">
                                         <br/>
-                                          <!--<div class="alert alert-danger display-hide">
+                                          <div id="dvLifeImprovErrorMsg" class="alert alert-danger display-hide">
                                               <button class="close" data-close="alert"></button>
                                               يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
                                           </div>
-                                          <div class="alert alert-success display-hide">
+                                          <div id="dvLifeImprovSuccessMsg" class="alert alert-success display-hide">
                                               <button class="close" data-close="alert"></button>
                                               تـم عملية حـفـظ البيـانات بنجـاح !
-                                          </div>-->
+                                          </div>
                                           <input id="hdnlifeImprovaction" name="hdnlifeImprovaction" type="hidden" 
                                           value="<?php echo $lifeImprovAction;?>" />
                                           <div class="form-group">
@@ -1846,7 +1861,15 @@ $readonly = '';
                                     <h3 class="block">ادخل تـوصيـات البـاحــث</h3>
                                     <fieldset><legend>مســاعدات</legend>
                                     <div class="form-body">
-                                    <br/>
+                                        <br/>
+                                          <div id="dvAidErrorMsg" class="alert alert-danger display-hide">
+                                              <button class="close" data-close="alert"></button>
+                                              يـوجد بـعـض الادخـالات الخـاطئة، الرجـاء التأكد من القيم المدخلة
+                                          </div>
+                                          <div id="dvAidSuccessMsg" class="alert alert-success display-hide">
+                                              <button class="close" data-close="alert"></button>
+                                              تـم عملية حـفـظ البيـانات بنجـاح !
+                                          </div>
                                        <input id="hdnaidraction" name="hdnaidraction" type="hidden" value="addaidrecomend" />
                                    		<input id="hdnAidsRecomendationId" name="hdnAidsRecomendationId" type="hidden" value="" />
                                       <div class="form-group">

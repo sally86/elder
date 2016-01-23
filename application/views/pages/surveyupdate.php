@@ -1,4 +1,5 @@
 <?php
+$eldername = "";
 if (isset($elder_info))
 {
 	foreach($elder_info as $elder_info_row);
@@ -24,6 +25,16 @@ if (isset($elder_info))
 			$lblClass = ' font-red ';
 			
 		$lblage = '<b> عمر العضو : <span id="spnAge">'.$age.'</span></b>';
+		
+		// Elder Name
+		if(isset($elder_info_row->first_name)) 
+			$eldername = $elder_info_row->first_name;
+		if(isset($elder_info_row->first_name)) 
+			$eldername = $eldername.' '.$elder_info_row->middle_name;
+		if(isset($elder_info_row->first_name)) 
+			$eldername = $eldername.' '.$elder_info_row->third_name;
+		if(isset($elder_info_row->first_name)) 
+			$eldername = $eldername.' '.$elder_info_row->last_name;
 	}
 	else
 		$ction = "addelder";
@@ -168,7 +179,7 @@ if (isset($aidsRecomendation_info))
        <div class="portlet box blue-madison">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-gift"></i>تعـــديل استبـــانة
+                  <i class="fa fa-gift"></i>تعـــديل استبـــانة العـضــو (<?php echo $eldername;?>)
               </div>
           </div>
           
@@ -1842,8 +1853,7 @@ if (isset($aidsRecomendation_info))
                                     <table class="table table-bordered table-striped">
                                     <thead>
                                       <tr class="bg-grey-steel">
-                                          <th>اسم الدواء <span class="font-red">
-                                             * </span>
+                                          <th>اسم الدواء
                                           </th>
                                           <th>حالة الدواء <span class="font-red">
                                              * </span>
@@ -2357,8 +2367,7 @@ if (isset($aidsRecomendation_info))
                                         </div>
                                         
                                          <div class="form-group">
-                                            <label class="control-label col-md-3">يمكن الاستعانة بمن <span class="required">
-                                             * </span>
+                                            <label class="control-label col-md-3">يمكن الاستعانة بمن  &nbsp;&nbsp;&nbsp;
                                              </label>
                                             <div class="col-md-4">
                                                 <select class="form-control" id="drpcooperPersonetype" name="drpcooperPersonetype">
@@ -2379,8 +2388,7 @@ if (isset($aidsRecomendation_info))
                                             </div>
                                         </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">رقم الهوية <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">رقم الهوية   &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneId" name="txtcooperPersoneId" data-required="1" 
@@ -2388,8 +2396,7 @@ if (isset($aidsRecomendation_info))
                                         </div>
                                     </div>
                                         <div class="form-group">
-                                        <label class="control-label col-md-3">الاسم بالكامل <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">الاسم بالكامل   &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneName" name="txtcooperPersoneName" data-required="1" 
@@ -2404,8 +2411,7 @@ if (isset($aidsRecomendation_info))
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">العنوان <span class="required">
-                                        * </span>
+                                        <label class="control-label col-md-3">العنوان   &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneAddress" name="txtcooperPersoneAddress" data-required="1" class="form-control"  value="<?php if(isset($familyCooperation_row->cooperative_persone_address)) echo $familyCooperation_row->cooperative_persone_address;?>"/>

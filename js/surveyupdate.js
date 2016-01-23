@@ -551,8 +551,8 @@ function validateMedicationAvailab_u()
 	
 	var valid = true;
 	
-	if ( !$("#txtMedicinename").valid() )
-		valid = false;
+	/*if ( !$("#txtMedicinename").valid() )
+		valid = false;*/
 	if ( !$("#drpMedicationAvailable").valid() )
 		valid = false;
 	if ( !$("#txtReason").valid() )
@@ -2016,9 +2016,9 @@ var MedicationUpdateValidation = function () {
                 ignore: "", // validate all fields including form hidden input
                 rules: {
 					// Medication Availability
-					txtMedicinename :{
+					/*txtMedicinename :{
 						required: true
-					},
+					},*/
 					drpMedicationAvailable:{
 						required: true
 					},
@@ -2044,9 +2044,9 @@ var MedicationUpdateValidation = function () {
 
                messages: { // custom messages for radio buttons and checkboxes
                     // Medication Availability
-					txtMedicinename :{
+					/*txtMedicinename :{
 						required: "الرجاء إدخال قيمة"
-					},
+					},*/
 					drpMedicationAvailable:{
 						required: "الرجاء إختيار قيمة"
 					},
@@ -2400,7 +2400,9 @@ var FamilycooperationUpdateValidation = function () {
 									return false;
 								 }
 							 }//END function
-						}//END required
+						},//END required
+						digits: true
+						
 					},
 					txtcooperPersoneName:{
 						required: {
@@ -2449,7 +2451,8 @@ var FamilycooperationUpdateValidation = function () {
 						required: "الرجاء إختيار قيمة"
 					},
 					txtcooperPersoneId:{
-						required: "الرجاء إدخال قيمة"
+						required: "الرجاء إدخال قيمة",
+						digits: "الرجـاء ادخـال ارقـام فقط"
 					},
 					txtcooperPersoneName:{
 						required:"الرجاء إدخال قيمة"
