@@ -32,6 +32,8 @@ class Familymodel extends CI_Model
 	function insert_familyMember()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
 		
 		$data['survey_id'] 		  = $hdnSurveyId;
 		$data['elder_id'] 		  = $txtElderId;
@@ -44,6 +46,8 @@ class Familymodel extends CI_Model
 		$data['education_level_id']  = $drpMemEdulevel;
 		$data['health_status_id'] = $drpMemHealth;
 		$data['job'] 			  = $txtMemjob;
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		if($txtMemincome == '')
 			$data['income_shekel'] 	  = NULL;

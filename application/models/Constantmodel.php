@@ -28,7 +28,12 @@ class Constantmodel extends CI_Model
 	function constant_insart()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['constant_name'] = $txtConstantName;
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('constant_tb',$data);
 	}
@@ -37,8 +42,13 @@ class Constantmodel extends CI_Model
 	function sub_constant_insart()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['constant_id'] = $hdnConstantid;
 		$data['sub_constant_name'] = $txtSubConstantName;
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('sub_constant_tb',$data);
 	}

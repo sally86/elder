@@ -7,7 +7,9 @@ class Recomendmodel extends CI_Model
 	function insert_aidrecomend()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		  = $hdnSurveyId;
 		$data['cash_aid_type_id'] = $drpCashaidtype;
 		$data['cash_aid_amount'] = $txtCashaidamount;
@@ -16,27 +18,36 @@ class Recomendmodel extends CI_Model
 		$data['psychological_support'] = $chbxPsychologicalsupport;
 		$data['social_support'] = $chbxSocialsupport;
 		$data['entertainment'] = $chbxEntertainment;
-		
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+
 		$this->db->insert('aids_recomendation_tb',$data);
 	}
 	function insert_medicalaid()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		  = $hdnSurveyId;
 		$data['medical_aid_type_id'] = $drpMedicalaidtype;
-		
-		
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+
 		$this->db->insert('medical_aid_recomendation_tb',$data);
 	}
 
 	function insert_homeaid()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		  = $hdnSurveyId;
 		$data['improvement_type_id'] = $drpImprovementtype;
-		
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+
 		
 		$this->db->insert('home_improvement_recomendation_tb',$data);
 	}

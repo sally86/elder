@@ -57,12 +57,16 @@ class Elderfilemodel extends CI_Model
 	{
 		extract($_POST);
 		
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$newfilename = $fileid . mt_rand() . '.' .pathinfo($filename,PATHINFO_EXTENSION);
 		
 		$data['file_id']     = $fileid;
 		$data['doc_type_id'] = $doctype;
 		$data['doc_path']    = $newfilename;
-		//$data['created_by'] = $_SESSION['username'];
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('elder_doc_tb',$data);
 		

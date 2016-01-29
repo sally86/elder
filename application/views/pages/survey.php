@@ -1615,7 +1615,7 @@ $readonly = '';
                                         </div>
                                         
                                          <div class="form-group">
-                                            <label class="control-label col-md-3">يمكن الاستعانة بمن >
+                                            <label class="control-label col-md-3">يمكن الاستعانة بمن   &nbsp;&nbsp;&nbsp;
                                              </label>
                                             <div class="col-md-4">
                                                 <select class="form-control" id="drpcooperPersonetype" name="drpcooperPersonetype">
@@ -1631,7 +1631,7 @@ $readonly = '';
                                             </div>
                                         </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">رقم الهوية
+                                        <label class="control-label col-md-3">رقم الهوية   &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneId" name="txtcooperPersoneId" data-required="1" 
@@ -1639,7 +1639,7 @@ $readonly = '';
                                         </div>
                                     </div>
                                         <div class="form-group">
-                                        <label class="control-label col-md-3">الاسم بالكامل 
+                                        <label class="control-label col-md-3">الاسم بالكامل  &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneName" name="txtcooperPersoneName" data-required="1" 
@@ -1654,7 +1654,7 @@ $readonly = '';
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">العنوان
+                                        <label class="control-label col-md-3">العنوان  &nbsp;&nbsp;&nbsp;
                                         </label>
                                         <div class="col-md-4">
                                             <input type="text" id="txtcooperPersoneAddress" name="txtcooperPersoneAddress" data-required="1" 

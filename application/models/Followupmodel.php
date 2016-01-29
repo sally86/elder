@@ -29,6 +29,9 @@ class Followupmodel extends CI_Model
 	function insert_followup()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 
 		$data['elder_id'] = $txtElderId;
 		$data['researcher_id'] = $drpResearcher;
@@ -38,6 +41,8 @@ class Followupmodel extends CI_Model
 		$data['visit_reason'] = $txtVisitreason;
 		$data['notes'] = $txtnotes;
 		$data['recommendation'] = $txtRecommendation;
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('follow_up_tb',$data);
 

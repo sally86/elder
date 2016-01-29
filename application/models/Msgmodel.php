@@ -215,8 +215,8 @@ class Msgmodel extends CI_Model
 		$sdata = $this->session->userdata('logged_in');
 		
 		$data['sms_text'] = $txtMSG;
-		$data['sms_date'] = date("Y-m-d"); ;
-		$data['send_by'] = $sdata['username'];
+		$data['sms_date'] = date("Y-m-d H:i:s"); ;
+		$data['send_by'] = $sdata['userid'];
 		//$data['send_to'] = $txtMobilenum;
 		
 		

@@ -12,6 +12,9 @@ class Surveymodel extends CI_Model
 	function insert_elder()
 	{
 		extract($_POST);
+		
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
 
 		$data['elder_id'] 	  		= $txtElderId;
 		$data['elder_category_id'] 	= $drpEldercategory;
@@ -52,15 +55,16 @@ class Surveymodel extends CI_Model
 		$filedata['elder_id'] = $txtElderId;
 		$filedata['file_doc_id'] = $txtFiledocId;
 		$filedata['file_status_id'] = 170;
-		//$filedata['created_by'] = $_SESSION['username'];
+		$filedata['created_on']  = date("Y-m-d H:i:s");
+		$filedata['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('file_tb',$filedata);
 		$file_id = $this->db->insert_id();
 		
-		
 		// Insert survey_tb
 		$surveydata['file_id'] = $file_id;
-		//$surveydata['created_by'] = $_SESSION['username'];
+		$surveydata['created_on'] = date("Y-m-d H:i:s");
+		$surveydata['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('survey_tb',$surveydata);
 		$survey_id = $this->db->insert_id();
@@ -136,7 +140,13 @@ class Surveymodel extends CI_Model
 			else if($hdnSurveyId == "")
 			{
 				// Insert survey_tb
+				date_default_timezone_set('Asia/Gaza');
+				$sdata = $this->session->userdata('logged_in');
+				
+				$surveydata['created_on']  = date("Y-m-d H:i:s");
+				$surveydata['created_by']  = $sdata['userid'];
 				$surveydata['file_id'] = $hdnFileId;
+				
 				//$surveydata['created_by'] = $_SESSION['username'];
 				$this->db->insert('survey_tb',$surveydata);
 				
@@ -201,6 +211,9 @@ class Surveymodel extends CI_Model
 	{
 		extract($_POST);
 		
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		  = $hdnSurveyId;
 		$data['elder_id'] 		  = $txtElderId;
 		$data['member_id'] 		  = $txtMemberId;
@@ -212,6 +225,8 @@ class Surveymodel extends CI_Model
 		$data['education_level_id']  = $drpMemEdulevel;
 		$data['health_status_id'] = $drpMemHealth;
 		$data['job'] 			  = $txtMemjob;
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		if($txtMemincome == '')
 			$data['income_shekel'] 	  = NULL;
@@ -294,10 +309,15 @@ class Surveymodel extends CI_Model
 	{
 		
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		
 		if($hdnElderDiseaseId=='')
 		{
 			$masterdata['survey_id'] = $hdnSurveyId;
+			$masterdata['created_on']  = date("Y-m-d H:i:s");
+			$masterdata['created_by']  = $sdata['userid'];
 			
 			$this->db->insert('elder_disease_tb',$masterdata);
 			$hdnElderDiseaseId = $this->db->insert_id();
@@ -305,6 +325,8 @@ class Surveymodel extends CI_Model
 		
 		$data['elder_disease_id'] 	 = $hdnElderDiseaseId;
 		$data['disease_id']  = $diseaseid;
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('elder_disease_det_tb',$data);
 		
@@ -322,9 +344,13 @@ class Surveymodel extends CI_Model
 	function elder_disease_insert()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
 		
 		$data['survey_id'] = $hdnSurveyId;
 		$data['elder_disease_details'] = $elderdiseasedet;
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('elder_disease_tb',$data);
 		
@@ -369,6 +395,9 @@ class Surveymodel extends CI_Model
 	function income_resources_insert()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		
 		$data['survey_id'] 			= $hdnSurveyId;
 		if (isset($txtTotalincome) && $txtTotalincome != "")
@@ -379,6 +408,9 @@ class Surveymodel extends CI_Model
 			$data['elder_portion'] 	= $txtElderportion;
 		else
 			$data['elder_portion'] 	= NULL;
+			
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		$this->db->insert('income_resources_tb',$data);
 		 
@@ -399,6 +431,8 @@ class Surveymodel extends CI_Model
 	function income_resources_details_insert()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
 		
 		if ($hdnIncomeResourcesId == "")
 			$hdnIncomeResourcesId = $this->income_resources_insert();
@@ -425,6 +459,9 @@ class Surveymodel extends CI_Model
 			$data['package_cash_value']  = $txtPackagecashvalue;
 		else
 			$data['package_cash_value']  = NULL;
+			
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
 		
 		
 		$this->db->insert('income_resources_details_tb',$data);
@@ -467,7 +504,9 @@ class Surveymodel extends CI_Model
 	function insert_homeStatus()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		    	= $hdnSurveyId;
 		$data['home_situation_id']  	= $drpHomeStatus;
 		$data['home_type_id'] 	    	= $drpHomeType;
@@ -475,6 +514,8 @@ class Surveymodel extends CI_Model
 		$data['ceiling_description']    = $txtCeilingdescription;
 		$data['furniture_level_id'] 	= $drpFurnitureLevel;
 		$data['furniture_needs'] 		= $txtarFurnitureneeds;
+		$data['created_on']  			= date("Y-m-d H:i:s");
+		$data['created_by']  			= $sdata['userid'];
 			
 		$this->db->insert('home_status_tb ',$data);
 		
@@ -508,7 +549,9 @@ class Surveymodel extends CI_Model
 	function insert_elderRoom()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		    		= $hdnSurveyId;
 		$data['home_type_id'] 				= $drpElderHometype;
 		$data['room_type_id'] 				= $drpRoomtype;
@@ -523,6 +566,8 @@ class Surveymodel extends CI_Model
 		$data['bathroom_status_id'] 			= $drpBathroom;
 		$data['bathroom_maintenance_details'] 	= $txtarBathroommaintinancedet;
 		$data['elder_higiene_id'] 				= $drpHigiene;
+		$data['created_on']  					= date("Y-m-d H:i:s");
+		$data['created_by']  					= $sdata['userid'];
 		
 			
 		$this->db->insert('elder_room_tb ',$data);
@@ -568,12 +613,16 @@ class Surveymodel extends CI_Model
 	function medication_availability_insert()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
 
 		$data['survey_id'] 		    		= $hdnSurveyId;
 		$data['medicine_name'] 				= $txtMedicinename;
 		$data['availability_status_id'] 	= $drpMedicationAvailable;
 		$data['unavailable_reason'] 		= $txtReason;		
-			
+		$data['created_on']  				= date("Y-m-d H:i:s");
+		$data['created_by']  				= $sdata['userid'];
+		
 		$this->db->insert('medication_availability_tb ',$data);
 		
 		return $this->db->insert_id();
@@ -601,12 +650,15 @@ class Surveymodel extends CI_Model
 	function medication_need_insert()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		    	= $hdnSurveyId;
 		$data['medication_type_id'] 	= $drpMedtype;
 		$data['medication_details'] 	= $txtMeddetails;
-		
-			
+		$data['created_on']  			= date("Y-m-d H:i:s");
+		$data['created_by']  			= $sdata['userid'];
+
 		$this->db->insert('medication_need_tb ',$data);
 		
 		return $this->db->insert_id();
@@ -639,7 +691,9 @@ class Surveymodel extends CI_Model
 	function insert_elderFamilyRelation()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		 	   		   = $hdnSurveyId;
 		$data['respect'] 		 	   		   = $drpRespect;
 		$data['pariah'] 		       		   = $drpPariah;
@@ -649,7 +703,9 @@ class Surveymodel extends CI_Model
 		$data['no_provision_needs_reason'] 	   = $txtarNeedreasone;
 		$data['legal_advice'] 	   			   = $drpLegaladvice;
 		$data['legal_advice_reason'] 	   	   = $txtarLegaladvicereasone;
-		
+		$data['created_on']  				   = date("Y-m-d H:i:s");
+		$data['created_by']  				   = $sdata['userid'];
+
 			
 		$this->db->insert('family_elder_relationship_tb',$data);
 		
@@ -685,10 +741,14 @@ class Surveymodel extends CI_Model
 	function elder_behaviour_insert()
 	{
 		extract($_POST);
-
-		$data['survey_id'] 		= $hdnSurveyId;
-		$data['behaviour_id']  = $drpBehaviour;
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
 		
+		$data['survey_id'] 		= $hdnSurveyId;
+		$data['behaviour_id']  	= $drpBehaviour;
+		$data['created_on']  	= date("Y-m-d H:i:s");
+		$data['created_by']  	= $sdata['userid'];
+
 			
 		$this->db->insert('elder_behaviour_tb',$data);
 	}
@@ -718,11 +778,14 @@ class Surveymodel extends CI_Model
 	function elder_pariah_insert()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		= $hdnSurveyId;
 		$data['elder_pariah_reason_id']  = $drpPariahreasone;
-		
-			
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+
 		$this->db->insert('elder_pariah_tb',$data);
 	}
 	function elder_pariah_delete()
@@ -761,11 +824,14 @@ class Surveymodel extends CI_Model
 	function family_psychological_status_insert()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		 	   	   = $hdnSurveyId;
 		$data['psychological_status_id']   = $drpPsychologicalStatus;
-		
-			
+		$data['created_on']  			   = date("Y-m-d H:i:s");
+		$data['created_by']  			   = $sdata['userid'];
+
 		$this->db->insert('family_psychological_status_tb',$data);
 	}
 	
@@ -798,7 +864,9 @@ class Surveymodel extends CI_Model
 	function insert_lifeImprovement()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 				= $hdnSurveyId;
 		$data['elder_work_ability_id'] 	= $drpElderWorkAbility;
 		$data['elder_work_type'] 		= $txtelderworktype;
@@ -817,7 +885,10 @@ class Surveymodel extends CI_Model
 			$data['project_budget'] 		= $txtProjectBudget;
 		else
 			$data['project_budget'] 		= NULL;
-		
+			
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+
 			
 		$this->db->insert('life_improvement_tb',$data);
 		
@@ -855,6 +926,9 @@ class Surveymodel extends CI_Model
 	function insert_cooperFamily()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 
 		$data['survey_id'] 					 = $hdnSurveyId;
 		$data['is_cooperative_family'] 		 = $drpIScooperative;
@@ -873,6 +947,8 @@ class Surveymodel extends CI_Model
 		else
 			$data['cooperative_persone_id'] = $txtcooperPersoneId;
 			
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];	
 			
 		$this->db->insert('family_cooperation_tb',$data);
 		
@@ -898,7 +974,9 @@ class Surveymodel extends CI_Model
 	function insert_survey()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['file_id'] = $txtFileid;
 		$data['visit_date'] = $dpVisitdate;
 		$data['visit_time'] = $txtVisittime;
@@ -906,7 +984,9 @@ class Surveymodel extends CI_Model
 		$data['researcher_id'] = $drpResearcher;
 		$data['researcher_assistant_fst_id'] = $drpResearcherass1;
 		$data['researcher_assistant_sec_id'] = $drpResearcherass2;
-			
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+	
 		$this->db->insert('survey_tb',$data);
 		$Surveyid=$this->db->insert_id();
 		return $Surveyid;
@@ -962,7 +1042,9 @@ function get_homeStatus_info()
 	function insert_aidrecomend()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 				= $hdnSurveyId;
 		
 		if ($drpCashaidtype != "")
@@ -976,28 +1058,37 @@ function get_homeStatus_info()
 		$data['psychological_support'] 	= $txtarPsychologicalsupport;
 		$data['social_support'] 		= $txtarSocialsupport;
 		$data['entertainment'] 			= $txtarEntertainment;
-		
+		$data['created_on']  			= date("Y-m-d H:i:s");
+		$data['created_by']  			= $sdata['userid'];
+
 		$this->db->insert('aids_recomendation_tb',$data);
 	}
 	function insert_medicalaid()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		  = $hdnSurveyId;
 		$data['medical_aid_type_id'] = $drpMedicalaidtype;
-		
-		
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+
 		$this->db->insert('medical_aid_recomendation_tb',$data);
 	}
 
 	function insert_homeaid()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['survey_id'] 		  	 = $hdnSurveyId;
 		$data['improvement_type_id'] = $drpImprovementtype;
 		$data['improvement_details'] = $txtImprovementdet;
-		
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+
 		$this->db->insert('home_improvement_recomendation_tb',$data);
 		
 	}

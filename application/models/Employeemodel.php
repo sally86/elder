@@ -62,7 +62,9 @@ class Employeemodel extends CI_Model
 	function insert_employee()
 	{
 		extract($_POST);
-
+		date_default_timezone_set('Asia/Gaza');
+		$sdata = $this->session->userdata('logged_in');
+		
 		$data['national_id'] = $txtNationalId;
 		$data['emp_id'] = $txtEmployeeId;
 		$data['name'] = $txtName;
@@ -72,7 +74,9 @@ class Employeemodel extends CI_Model
 		$data['phone'] = $txtPhone;
 		$data['email'] = $txtEmail;
 		$data['is_active'] = $chbxIsactive;
-		
+		$data['created_on']  = date("Y-m-d H:i:s");
+		$data['created_by']  = $sdata['userid'];
+
 		$this->db->insert('employee_tb',$data);
 	}
 	function update_employee()
