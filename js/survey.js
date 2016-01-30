@@ -319,6 +319,7 @@ function editefamilymember()
 	
 	// Add the data to the request.
 	formData.append('hdnSurveyId'		 , $("#hdnSurveyId").val()		  );
+	formData.append('hdnElderId'		 , $("#hdnElderId").val()		  );
 	formData.append('txtElderId'		 , $("#txtElderId").val()		  );
 	formData.append('txtMemberId'		 ,  $("#txtMemberId").val()		  );
 	formData.append('txtMembername'	  	 ,  $("#txtMembername").val()	  );
@@ -3146,6 +3147,7 @@ var FormWizard = function () {
 								success: function(returndb){
 									if(returndb != 0)
 									{
+										$("#hdnElderId") .val(returndb['elder_id']);
 										$("#hdnSurveyId").val(returndb['survey_id']);
 										$("#hdnFileId")  .val(returndb['file_id']);
 										

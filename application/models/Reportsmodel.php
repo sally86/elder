@@ -5,7 +5,7 @@ class Reportsmodel extends CI_Model
 	{
 		$columns = array( 
 			1 => 'file_doc_id',
-			2 => 'elder_id',
+			2 => 'elder_national_id',
 			3 => 'name',
 			4 => 'dob',
 			5 => 'status', 
@@ -16,7 +16,8 @@ class Reportsmodel extends CI_Model
 			10 => 'region_desc',
 			11 => 'fulladdress');
 		
-		$myquery = "SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$myquery = "SELECT 	e.elder_id, e.elder_national_id, 
+							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							TIMESTAMPDIFF(YEAR,e.dob,CURDATE()) as age,
 							e.full_address, e.phone, e.mobile_first, e.mobile_second,
 							e.status_id, sts.sub_constant_name as status,
@@ -38,7 +39,7 @@ class Reportsmodel extends CI_Model
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
 		{
-			$myquery = $myquery." AND e.elder_id = ".$requestData['txtElderid'];
+			$myquery = $myquery." AND e.elder_national_id = ".$requestData['txtElderid'];
 		}
 		
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
@@ -121,7 +122,7 @@ function get_fulladress_list()
 	{
 		$columns = array( 
 			1 => 'file_doc_id',
-			2 => 'elder_id',
+			2 => 'elder_national_id',
 			3 => 'name',
 			4 => 'phone',
 			5 => 'mobile_first',
@@ -130,7 +131,8 @@ function get_fulladress_list()
 			8 => 'region_desc',
 			9 => 'fulladdress');
 		
-		$myquery = "SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
+		$myquery = "SELECT 	e.elder_id, e.elder_national_id, 
+							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
 							,e.phone,e.mobile_first,
 							e.sex_id, sx.sub_constant_name as sex,
 							e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
@@ -151,7 +153,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
 		{
-			$myquery = $myquery." AND e.elder_id = ".$requestData['txtElderid'];
+			$myquery = $myquery." AND e.elder_national_id = ".$requestData['txtElderid'];
 		}
 		
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
@@ -199,7 +201,7 @@ function get_fulladress_list()
 	{
 		$columns = array( 
 			1 => 'file_doc_id',
-			2 => 'elder_id',
+			2 => 'elder_national_id',
 			3 => 'name', 
 			4 => 'phone', 
 			5 => 'mobile_first',
@@ -211,7 +213,8 @@ function get_fulladress_list()
 			11 => 'region_desc',
 			12=> 'fulladdress');
 		
-		$myquery = "SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$myquery = "SELECT 	e.elder_id, e.elder_national_id, 
+							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second,
 							e.specialization_id, spc.sub_constant_name as specialization,
                             e.current_job_id, cjb.sub_constant_name as current_job,
@@ -237,7 +240,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
 		{
-			$myquery = $myquery." AND e.elder_id = ".$requestData['txtElderid'];
+			$myquery = $myquery." AND e.elder_national_id = ".$requestData['txtElderid'];
 		}
 		
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
@@ -296,7 +299,7 @@ function get_fulladress_list()
 	{
 		$columns = array( 
 			1 => 'file_doc_id',
-			2 => 'elder_id',
+			2 => 'elder_national_id',
 			3 => 'name',
 			4 => 'sex',
 			5 => 'phone', 
@@ -308,7 +311,7 @@ function get_fulladress_list()
 			11 => 'region_desc',
 			12=> 'fulladdress');
 		
-		$select = "SELECT  	DISTINCT(s.survey_id), e.elder_id, 
+		$select = "SELECT  	DISTINCT(s.survey_id), e.elder_id, e.elder_national_id,
 							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second, 
 							e.sex_id, sx.sub_constant_name as sex,
@@ -340,7 +343,7 @@ function get_fulladress_list()
 							UNION 	SELECT survey_id FROM medication_availability_tb)
 				  AND f.file_status_id = 170";
 		
-		$myquery = "SELECT  DISTINCT(s.survey_id), e.elder_id, 
+		$myquery = "SELECT  DISTINCT(s.survey_id), e.elder_id, e.elder_national_id,
 							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second, 
 							e.sex_id, sx.sub_constant_name as sex,
@@ -378,7 +381,7 @@ function get_fulladress_list()
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
 		{
-			$where = $where." AND e.elder_id = ".$requestData['txtElderid'];
+			$where = $where." AND e.elder_national_id = ".$requestData['txtElderid'];
 		}
 		
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')
@@ -469,7 +472,7 @@ function get_fulladress_list()
 							   FROM family_member_tb fm
 							  WHERE fm.survey_id = s.survey_id";
 		
-		$select = "SELECT 	ir.income_resources_id, s.survey_id, e.elder_id, 
+		$select = "SELECT 	ir.income_resources_id, s.survey_id, e.elder_id, e.elder_national_id, 
 							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second,
                             e.governorate_id, gov.sub_constant_name as governorate,reg.sub_constant_name as region_desc,
@@ -592,7 +595,8 @@ function get_fulladress_list()
 			13 => 'region_desc',
 			14=> 'fulladdress');
 		
-		$myquery = "  SELECT 	e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$myquery = "  SELECT 	e.elder_id, e.elder_national_id,
+							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second,
                             h.home_situation_id, sts.sub_constant_name as home_situation,
                             h.home_type_id, tp.sub_constant_name as home_type,
@@ -708,7 +712,8 @@ function get_fulladress_list()
 			16 => 'region_desc',
 			17=> 'fulladdress');
 		
-		$myquery = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$myquery = "SELECT e.elder_id, e.elder_national_id,
+						CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 					    e.phone, mobile_first, e.mobile_second,
 					    er.home_type_id, ht.sub_constant_name as home_type,
 					    er.room_type_id, rt.sub_constant_name as room_type,
@@ -843,7 +848,8 @@ function get_fulladress_list()
 			14 => 'is_cooperative',
 			15 => 'cooperative_persone_name');
 		
-		$select = "SELECT s.survey_id, e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$select = "SELECT s.survey_id, e.elder_id, e.elder_national_id,
+						CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 					    e.phone, mobile_first, e.mobile_second, 
                         fer.respect, r.sub_constant_name is_respect,
                         fer.pariah, p.sub_constant_name is_pariah,
@@ -984,7 +990,8 @@ function get_fulladress_list()
 			11 => 'region_desc',
 			12=> 'fulladdress');
 		
-		$myquery = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$myquery = "SELECT e.elder_id, e.elder_national_id,
+						CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 					    e.phone, mobile_first, e.mobile_second,
 					    er.room_need_maintenance, rm.sub_constant_name as rm_need_maintenance,
 					    er.room_maintenance_details,
@@ -1084,7 +1091,8 @@ function get_fulladress_list()
 			12 => 'project_type',
 			13 => 'project_budget');
 		
-		$myquery = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$myquery = "SELECT e.elder_id, e.elder_national_id,
+						CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 					    e.phone, mobile_first, e.mobile_second,
 					    lf.elder_work_ability_id, wrk.sub_constant_name as elder_work_ability,
 					    lf.elder_work_type,
@@ -1192,7 +1200,8 @@ function get_fulladress_list()
 		$home_aid_search = '0';	
 		$home_aid_where = "";
 		
-		$select = "SELECT DISTINCT(s.survey_id), e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$select = "SELECT DISTINCT(s.survey_id), e.elder_id, e.elder_national_id,
+							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 							e.phone, mobile_first, e.mobile_second,
 							ad.cash_aid_type_id, csh.sub_constant_name as cash_aid_type,
 							ad.cash_aid_amount, ad.psychological_support, ad.social_support, ad.entertainment,

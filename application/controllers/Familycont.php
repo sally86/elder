@@ -179,7 +179,7 @@ class Familycont extends CI_Controller
 			extract($_POST);
 			
 			$this->load->model('Familymodel');
-			$rec = $this->Familymodel->get_familyMember_by_elder_id($txtElderId);
+			$rec = $this->Familymodel->get_familyMember_by_elder_id($hdnElderId);
 	//	$this->data['familymember_info'] =$this->Familymodel->get_familyMember_by_elder_id($_SESSION['update']);
 			
 					$i=1;

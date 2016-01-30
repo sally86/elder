@@ -18,7 +18,8 @@ class Followupmodel extends CI_Model
 	// Get Elder By ID
 	function get_elder_byid($elderid)
 	{
-		$myquery = "SELECT	e.elder_id,CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
+		$myquery = "SELECT	e.elder_id, e.elder_national_id, 
+							CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
 					FROM 	elder_tb e
 					WHERE 	e.elder_id = ".$elderid;
 		
@@ -33,7 +34,7 @@ class Followupmodel extends CI_Model
 		$sdata = $this->session->userdata('logged_in');
 		
 
-		$data['elder_id'] = $txtElderId;
+		$data['elder_id'] = $hdnElderId;
 		$data['researcher_id'] = $drpResearcher;
 		$data['visit_date'] = $dpVisitdate;
 		$data['visit_time'] = $txtVisittime;
@@ -51,7 +52,7 @@ class Followupmodel extends CI_Model
 	{
 		extract($_POST);
 
-		$data['elder_id'] = $txtElderId;
+		$data['elder_id'] = $hdnElderId;
 		$data['researcher_id'] = $drpResearcher;
 		$data['visit_date'] = $dpVisitdate;
 		$data['visit_time'] = $txtVisittime;

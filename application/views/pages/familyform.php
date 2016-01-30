@@ -50,7 +50,8 @@ if (isset($elder_info))
                        <input id="hdnActionFM" name="hdnActionFM" type="hidden" value="addfamilymember" />
 					   <input id="hdnSurveyId" name="hdnSurveyId" type="hidden" 
                         value="<?php if(isset($elder_row->survey_id)) echo $elder_row->survey_id;?>" />
-                               
+                       <input id="hdnElderId" name="hdnElderId" type="hidden" 
+                        value="<?php if(isset($elder_row->elder_id)) echo $elder_row->elder_id;?>" />      
                       </div>
                        <div class="form-group">
                             <label class="control-label col-md-3">رقم الهوية <span class="required">
@@ -59,7 +60,7 @@ if (isset($elder_info))
                             <div class="col-md-4">
                                 <input type="text" id="txtElderId" name="txtElderId"  data-required="1" readonly 
                                  class="form-control"  
-                                 value="<?php if(isset($elder_row->elder_id)) echo $elder_row->elder_id;?>"/>
+                                 value="<?php if(isset($elder_row->elder_national_id)) echo $elder_row->elder_national_id;?>"/>
                             </div>
                         </div>
 

@@ -95,6 +95,7 @@ $readonly = '';
                                 <div class="tab-pane active" id="tab1">
                                     <h3 class="block">بيـانات مـلـف الـعــضـو</h3>
                                     <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
+                                    <input id="hdnElderId" name="hdnElderId" type="hidden" value="" />
                                     <input id="hdnFileId" name="hdnFileId" type="hidden" value="" />
                                     <div class="form-group">
                                         <label class="control-label col-md-3">رقم الهوية <span class="required">

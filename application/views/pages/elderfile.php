@@ -170,7 +170,7 @@ if (isset($elder_file))
                           <button class="close" data-close="alert"></button>
                           تمت عملية حـفـظ البيـانات بنجـاح !
                       </div>
-                      
+                      <input id="hdnElderId" name="hdnElderId" type="hidden" value="<?php echo $elder_info_row->elder_id?>" />
                       <div class="form-group">
                           <label class="control-label col-md-3">تـصنيف الحـالة <span class="required">
                           * </span>
@@ -202,7 +202,7 @@ if (isset($elder_file))
                           </label>
                           <div class="col-md-4">
                               <input type="text" id="txtElderId" name="txtElderId" data-required="1" class="form-control"
-                               value="<?php if(isset($elder_info_row->elder_id)) echo $elder_info_row->elder_id;?>"
+                               value="<?php if(isset($elder_info_row->elder_national_id)) echo $elder_info_row->elder_national_id;?>"
                               />
                           </div>
                       </div>

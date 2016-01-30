@@ -11,6 +11,7 @@ function editefamilymem()
 	
 	// Add the file to the request.
 	formData.append('hdnSurveyId'		 , $("#hdnSurveyId").val()		  );
+	formData.append('hdnElderId'		 , $("#hdnElderId").val()		  );
 	formData.append('txtElderId'		 , $("#txtElderId").val()		  );
 	formData.append('txtMemberId'		 ,  $("#txtMemberId").val()		  );
 	formData.append('txtMembername'	  	 ,  $("#txtMembername").val()	  );
@@ -66,7 +67,7 @@ function deleteFamilybyId(familymemberid)
 			url: baseURL+"Familycont/deletefamilymember",
 			type: "POST",
 			data:  {familymemberid: familymemberid,
-					txtElderId: $("#txtElderId").val()},
+					hdnElderId: $("#hdnElderId").val()},
 			error: function(xhr, status, error) {
   				alert(xhr.responseText);
 			},

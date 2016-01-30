@@ -95,7 +95,8 @@ class Msgmodel extends CI_Model
 			-9 => ' AND s.survey_id = aidfltr.survey_id ',
 			50 => ' AND s.survey_id = hmaidfltr.survey_id ');
 		
-		$select = "SELECT e.elder_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
+		$select = "SELECT e.elder_id, e.elder_national_id, 
+						  CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name,
 						  e.mobile_first, e.mobile_second ";
 		$from   = " FROM elder_tb e,survey_tb s,file_tb f ";
 		$where  = " WHERE f.elder_id = e.elder_id

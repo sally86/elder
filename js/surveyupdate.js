@@ -62,7 +62,7 @@ function update_survey_visit()
 function addfamilymember()
 {
 	//var action = $("#hdnActionFM").val();
-	//alert(action);
+	alert("hi");
 	
 	/*if ( !validateFamilymember() )
 		return;*/
@@ -72,6 +72,7 @@ function addfamilymember()
 	
 	// Add the data to the request.
 	formData.append('hdnSurveyId'		 , $("#hdnSurveyId").val()		  );
+	formData.append('hdnElderId'		 , $("#hdnElderId").val()		  );
 	formData.append('txtElderId'		 , $("#txtElderId").val()		  );
 	formData.append('txtMemberId'		 ,  $("#txtMemberId").val()		  );
 	formData.append('txtMembername'	  	 ,  $("#txtMembername").val()	  );

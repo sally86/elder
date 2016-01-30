@@ -39,14 +39,15 @@ if (isset($elder_info))
                       
                        <input id="hdnAction" name="hdnAction" type="hidden" value="addfollowup" />
 					   <input id="hdnfollowupId" name="hdnfollowupId" type="hidden" value="" />
-                               
+                       <input id="hdnElderId" name="hdnElderId" type="hidden" 
+                       	value="<?php if(isset($elder_row->elder_id)) echo $elder_row->elder_id;?>" />        
                       </div>
                        <div class="form-group">
                           <label class="control-label col-md-3">رقم الهوية <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <input type="text" id="txtElderId" name="txtElderId"  data-required="1" readonly class="form-control"  value="<?php if(isset($elder_row->elder_id)) echo $elder_row->elder_id;?>"/>
+                              <input type="text" id="txtElderId" name="txtElderId"  data-required="1" readonly class="form-control"  value="<?php if(isset($elder_row->elder_national_id)) echo $elder_row->elder_national_id;?>"/>
                           </div>
                       </div>
 

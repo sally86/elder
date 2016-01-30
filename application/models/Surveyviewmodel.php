@@ -15,7 +15,8 @@ class Surveyviewmodel extends CI_Model
 			3 => 'visit_date'
 						);
 		
-		$myquery = "SELECT survey_tb.survey_id,elder_tb.elder_id,survey_tb.file_id,visit_date,survey_tb.researcher_id,
+		$myquery = "SELECT survey_tb.survey_id, elder_tb.elder_id, elder_tb.elder_national_id,
+						   survey_tb.file_id, visit_date, survey_tb.researcher_id,
 						   CONCAT(elder_tb.first_name,' ',elder_tb.middle_name,' ',elder_tb.third_name,' ',elder_tb.last_name) 
 						   as Elder_name, employee_tb.name as Researcher_name 
 					  FROM elder_tb,file_tb,survey_tb LEFT JOIN employee_tb ON survey_tb.researcher_id = employee_tb.national_id

@@ -58,7 +58,7 @@ class Reports extends CI_Controller
 						
 			$nestedData[] = $i++;
 			$nestedData[] = $row->file_doc_id;
-			$nestedData[] = $row->elder_id;
+			$nestedData[] = $row->elder_national_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->age;
 			$nestedData[] = $row->status;
@@ -175,7 +175,7 @@ function get_fulladdress()
 						
 			$nestedData[] = $i++;
 			$nestedData[] = $row->file_doc_id;
-			$nestedData[] = $row->elder_id;
+			$nestedData[] = $row->elder_national_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
@@ -227,7 +227,7 @@ function get_fulladdress()
 						
 			$nestedData[] = $i++;
 			$nestedData[] = $row->file_doc_id;
-			$nestedData[] = $row->elder_id;
+			$nestedData[] = $row->elder_national_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
@@ -282,7 +282,7 @@ function get_fulladdress()
 						
 			$nestedData[] = $i++;
 			$nestedData[] = $row->file_doc_id;
-			$nestedData[] = $row->elder_id;
+			$nestedData[] = $row->elder_national_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->sex;
 			$nestedData[] = $row->phone;

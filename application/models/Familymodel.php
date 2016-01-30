@@ -8,7 +8,8 @@ class Familymodel extends CI_Model
 		// Get elder id from POST otherwise get elder id from function arg $elderid
 		
 		
-		$myquery = "SELECT	e.elder_id, s.survey_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
+		$myquery = "SELECT	e.elder_id, e.elder_national_id, 
+							s.survey_id, CONCAT(e.first_name,' ',e.middle_name,' ',e.third_name,' ',e.last_name) as name
 					FROM 	elder_tb e, survey_tb s, file_tb f
 					WHERE 	e.elder_id = f.elder_id
 					  AND	f.file_id  = s.file_id
@@ -36,7 +37,7 @@ class Familymodel extends CI_Model
 		$sdata = $this->session->userdata('logged_in');
 		
 		$data['survey_id'] 		  = $hdnSurveyId;
-		$data['elder_id'] 		  = $txtElderId;
+		$data['elder_id'] 		  = $hdnElderId;
 		$data['member_id'] 		  = $txtMemberId;
 		$data['member_name'] 	  = $txtMembername;
 		$data['member_sex_id'] 	  = $rdMemSex;
@@ -51,6 +52,8 @@ class Familymodel extends CI_Model
 		
 		if($txtMemincome == '')
 			$data['income_shekel'] 	  = NULL;
+		else
+			$data['income_shekel'] 	  = $txtMemincome;
 		
 		$this->db->insert('family_member_tb',$data);
 	}
@@ -72,7 +75,9 @@ class Familymodel extends CI_Model
 		
 		if($txtMemincome == '')
 			$data['income_shekel'] 	  = NULL;
-		
+		else
+			$data['income_shekel'] 	  = $txtMemincome;
+			
 		$this->db->where('member_id',$txtMemberId);
 		$this->db->update('family_member_tb',$data);
 	}

@@ -16,7 +16,7 @@ class Surveymodel extends CI_Model
 		date_default_timezone_set('Asia/Gaza');
 		$sdata = $this->session->userdata('logged_in');
 
-		$data['elder_id'] 	  		= $txtElderId;
+		$data['elder_national_id'] 	= $txtElderId;
 		$data['elder_category_id'] 	= $drpEldercategory;
 		$data['first_name'] 		= $txtFname;
 		$data['middle_name'] 		= $txtMname;
@@ -50,9 +50,10 @@ class Surveymodel extends CI_Model
 		
 		
 		$this->db->insert('elder_tb',$data);
+		$elder_id = $this->db->insert_id();
 		
 		// Insert file_tb
-		$filedata['elder_id'] = $txtElderId;
+		$filedata['elder_id'] = $elder_id;
 		$filedata['file_doc_id'] = $txtFiledocId;
 		$filedata['file_status_id'] = 170;
 		$filedata['created_on']  = date("Y-m-d H:i:s");
@@ -76,7 +77,7 @@ class Surveymodel extends CI_Model
 		//$this->db->insert('survey_elder_info_tb',$data);
 		
 		
-		
+		$outdata['elder_id']  = $elder_id;
 		$outdata['file_id']   = $file_id;
 		$outdata['survey_id'] = $survey_id;
 		return $outdata;
@@ -87,7 +88,8 @@ class Surveymodel extends CI_Model
 	function update_elder()
 	{
 		extract($_POST);
-
+		
+		$data['elder_national_id'] 	= $txtElderId;
 		$data['elder_category_id'] 	= $drpEldercategory;
 		$data['first_name'] 		= $txtFname;
 		$data['middle_name'] 		= $txtMname;
@@ -122,7 +124,7 @@ class Surveymodel extends CI_Model
 		if(isset($dpDeathdate))
 			$data['death_date'] 		= $dpDeathdate;
 
-		$this->db->where('elder_id',$txtElderId);
+		$this->db->where('elder_id',$hdnElderId);
 		$this->db->update('elder_tb',$data);
 		
 		// From Survey
@@ -158,6 +160,7 @@ class Surveymodel extends CI_Model
 				
 				$file_id = $hdnFileId;
 			}
+			$outdata['elder_id']  = $hdnElderid;
 			$outdata['survey_id'] = $survey_id;
 			$outdata['file_id']   = $file_id;
 			return $outdata;
@@ -215,7 +218,7 @@ class Surveymodel extends CI_Model
 		$sdata = $this->session->userdata('logged_in');
 		
 		$data['survey_id'] 		  = $hdnSurveyId;
-		$data['elder_id'] 		  = $txtElderId;
+		$data['elder_id'] 		  = $hdnElderId;
 		$data['member_id'] 		  = $txtMemberId;
 		$data['member_name'] 	  = $txtMembername;
 		$data['member_sex_id'] 	  = $rdMemSex;

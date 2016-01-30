@@ -11,6 +11,7 @@ function editefollowup()
 	var formData = new FormData();
 	
 	// Add the follow up to the formdata.
+	formData.append('hdnElderId'		 , $("#hdnElderId").val()		  );
 	formData.append('txtElderId'		 , $("#txtElderId").val()		  );
 	formData.append('dpVisitdate'	  	 ,  $("#dpVisitdate").val()	  	  );
 	formData.append('txtVisittime' 		 ,  $("#txtVisittime").val()      );
@@ -63,7 +64,7 @@ function deleteFollowupbyId(followupid)
 			url: baseURL+"Followupcont/deletefollowup",
 			type: "POST",
 			data:  {hdnfollowupId: followupid,
-					txtElderId: $("#txtElderId").val()},
+					hdnElderId: $("#hdnElderId").val()},
 			error: function(xhr, status, error) {
   				alert(xhr.responseText);
 			},

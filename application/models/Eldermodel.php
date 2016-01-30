@@ -13,7 +13,7 @@ class Eldermodel extends CI_Model
 			$elderid = $elder_id;
 		}
 		
-		$myquery = "SELECT 	e.elder_id, e.elder_category_id, e.first_name, e.middle_name, 
+		$myquery = "SELECT 	e.elder_id, e.elder_national_id, e.elder_category_id, e.first_name, e.middle_name, 
 							e.third_name, e.last_name,
 							e.dob, e.sex_id, e.status_id, e.governorate_id,e.region,e.full_address,
 							reg.sub_constant_name as region_desc,
@@ -39,7 +39,7 @@ class Eldermodel extends CI_Model
 	function get_search_elder($requestData)
 	{
 		$columns = array( 
-			1 => 'elder_id',
+			1 => 'elder_national_id',
 			2 => 'name',
 			3 => 'phone', 
 			4 => 'mobile_first',
@@ -47,7 +47,7 @@ class Eldermodel extends CI_Model
 			6 => 'Eder_governorate',
 			7 => 'isDeadElder');
 		
-		$myquery = "SELECT 	elder_id,CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name) as name,
+		$myquery = "SELECT 	elder_id, elder_national_id, CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name) as name,
 							phone,mobile_first, mobile_second,
 							CASE WHEN death_date IS null then 1 ELSE  0 END AS  isDeadElder,
 							governconst.sub_constant_name as Eder_governorate 
@@ -56,7 +56,7 @@ class Eldermodel extends CI_Model
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
 		{
-			$myquery = $myquery." AND elder_id = ".$requestData['txtElderid'];
+			$myquery = $myquery." AND elder_national_id = ".$requestData['txtElderid'];
 		}
 		
 		if(isset($requestData['txtElderName']) && $requestData['txtElderName'] !='')

@@ -119,7 +119,7 @@ class Followupcont extends CI_Controller
 		extract($_POST);
 		
 		$this->load->model('Followupmodel');
-		$rec = $this->Followupmodel->get_followup_by_elderid($txtElderId);
+		$rec = $this->Followupmodel->get_followup_by_elderid($hdnElderId);
 //	$this->data['familymember_info'] =$this->Familymodel->get_familyMember_by_elder_id($_SESSION['update']);
 		$i=1;
 		foreach($rec as $row)

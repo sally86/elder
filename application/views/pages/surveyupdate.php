@@ -209,7 +209,11 @@ if (isset($aidsRecomendation_info))
                                             <button class="close" data-close="alert"></button>
                                             تمت عملية حـفـظ البيـانات بنجـاح !
                                         </div>
+                                        
                                         <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
+                                        <input id="hdnElderId" name="hdnElderId"  type="hidden" 
+                                        value="<?php if(isset($elder_info_row->elder_id)) echo $elder_info_row->elder_id;?>" />
+                                 
                                         <div class="form-group">
                                             <label class="control-label col-md-3">تـصنيف الحـالة <span class="required">
                                             * </span>
@@ -241,7 +245,8 @@ if (isset($aidsRecomendation_info))
                                             </label>
                                             <div class="col-md-4">
                                                 <input type="text" id="txtElderId" name="txtElderId" data-required="1" class="form-control"
-                                                 value="<?php if(isset($elder_info_row->elder_id)) echo $elder_info_row->elder_id;?>"
+                                                 value="<?php if(isset($elder_info_row->elder_national_id)) 
+												 			echo $elder_info_row->elder_national_id;?>"
                                                 />
                                             </div>
                                         </div>

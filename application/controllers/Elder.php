@@ -87,7 +87,7 @@ class Elder extends CI_Controller
 				<i class="fa fa-edit"></i>تعديل بيانات العائلة </a>';
 			
 			$nestedData[] = $i++;
-			$nestedData[] = $row->elder_id;
+			$nestedData[] = $row->elder_national_id;
 			$nestedData[] = $row->name;
 			$nestedData[] = $row->phone;
 			$nestedData[] = $row->mobile_first;
