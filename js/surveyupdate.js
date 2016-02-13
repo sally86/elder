@@ -2674,9 +2674,6 @@ var LifeimprovementUpdateValidation = function () {
 							 }//END function
 						}//END required
                     }, 
-					drpNeedtraining: {
-                        required: true
-                    },
 					txtTrainigType: {
                         required: {
 							 depends: function(element) {
@@ -2731,9 +2728,6 @@ var LifeimprovementUpdateValidation = function () {
                     },
 					txtFamilyworktype: {
                         required: "الرجاء إدخال قيمة"
-                    },
-					drpNeedtraining: {
-                        required: "الرجاء إختيار قيمة"
                     },
 					txtTrainigType: {
                         required: "الرجاء إدخال قيمة"

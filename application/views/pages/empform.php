@@ -41,6 +41,7 @@ if (isset($employee_info))
                       </div>
                       <div>
                       <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
+                      <input id="hdnEmployeeId" name="hdnEmployeeId" type="hidden" value="<?php if(isset($employee_row->employee_id)) echo $employee_row->employee_id;?>" />
                       </div>
                       <div class="form-group">
                           <label class="control-label col-md-3">رقم الهوية <span class="required">

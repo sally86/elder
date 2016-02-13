@@ -11,7 +11,7 @@ class Msgmodel extends CI_Model
 			7 => 'efltr.insurance_type_id',
 			22 => 'efltr.governorate_id',
 			0  => 'efltr.region',
-			23 => 'efltr.efltr.education_level_id',
+			23 => 'efltr.education_level_id',
 			24 => 'efltr.specialization_id',
 			26 => 'efltr.previous_job_id',
 			54 => 'disease_id',
@@ -22,6 +22,7 @@ class Msgmodel extends CI_Model
 			-2 => 'has_good_bed',
 			-3 => 'has_medicine_cupboard',
 			-4 => 'room_need_maintenance',
+			41 => 'availability_status_id',
 			42 => 'medication_type_id',
 			-5 => 'legal_advice',
 			56 => 'elder_pariah_reason_id',
@@ -34,6 +35,7 @@ class Msgmodel extends CI_Model
 			-7 => 'psychological_support',
 			-8 => 'social_support',
 			-9 => 'entertainment',
+			49 => 'medical_aid_type_id',
 			50 => 'improvement_type_id');
 		
 		$table = array( 
@@ -51,6 +53,7 @@ class Msgmodel extends CI_Model
 			-2 => 'elder_room_tb rmfltr',
 			-3 => 'elder_room_tb rmfltr',
 			-4 => 'elder_room_tb rmfltr',
+			41 => 'medication_availability_tb medavfltr',
 			42 => 'medication_need_tb mednfltr', 
 			-5 => 'family_elder_relationship_tb ferelfltr',
 			56 => 'elder_pariah_tb prhfltr',
@@ -63,6 +66,7 @@ class Msgmodel extends CI_Model
 			-7 => 'aids_recomendation_tb aidfltr',
 			-8 => 'aids_recomendation_tb aidfltr',
 			-9 => 'aids_recomendation_tb aidfltr',
+			49 => 'medical_aid_recomendation_tb medaidfltr',
 			50 => 'home_improvement_recomendation_tb hmaidfltr');
 		
 		
@@ -73,14 +77,15 @@ class Msgmodel extends CI_Model
 			23 => ' AND e.elder_id = efltr.elder_id ',
 			24 => ' AND e.elder_id = efltr.elder_id ',
 			26 => ' AND e.elder_id = efltr.elder_id ', 
-			54 => ' AND disfltr.elder_disease_id = mstr.elder_disease_id AND s.survey_id = mstr.survey_id  ',
-			30 => ' AND s.survey_id = hst.survey_id ', 
-			32 => ' AND s.survey_id = hst.survey_id ',
-			33 => ' AND s.survey_id = hst.survey_id ',
+			54 => ' AND disfltr.elder_disease_id = dismstr.elder_disease_id AND s.survey_id = dismstr.survey_id  ',
+			30 => ' AND s.survey_id = hstfltr.survey_id ', 
+			32 => ' AND s.survey_id = hstfltr.survey_id ',
+			33 => ' AND s.survey_id = hstfltr.survey_id ',
 			-1 => ' AND s.survey_id = rmfltr.survey_id ',
 			-2 => ' AND s.survey_id = rmfltr.survey_id ',
 			-3 => ' AND s.survey_id = rmfltr.survey_id ',
 			-4 => ' AND s.survey_id = rmfltr.survey_id ',
+			41 => ' AND s.survey_id = medavfltr.survey_id ', 
 			42 => ' AND s.survey_id = mednfltr.survey_id ', 
 			-5 => ' AND s.survey_id = ferelfltr.survey_id ',
 			56 => ' AND s.survey_id = prhfltr.survey_id ',
@@ -93,6 +98,7 @@ class Msgmodel extends CI_Model
 			-7 => ' AND s.survey_id = aidfltr.survey_id ',
 			-8 => ' AND s.survey_id = aidfltr.survey_id ',
 			-9 => ' AND s.survey_id = aidfltr.survey_id ',
+			49 => ' AND s.survey_id = medaidfltr.survey_id ',
 			50 => ' AND s.survey_id = hmaidfltr.survey_id ');
 		
 		$select = "SELECT e.elder_id, e.elder_national_id, 

@@ -197,7 +197,7 @@ function claculateAge()
     	}
 		
 		$('#lblAge').html('<b> عمر العضو : <span id="spnAge">'+age+'</span></b>');
-		if (age >= 60)
+		if (age >= 59)
 		{
 			$('#lblAge').removeClass('font-red').addClass('font-green');
 		}
@@ -1640,8 +1640,6 @@ function validateLifeImprov()
 		valid = false;
 	if ( !$("#txtFamilyworktype").valid()  )
 		valid = false;
-	if ( !$("#drpNeedtraining").valid()  )
-		valid = false;
 	if ( !$("#txtTrainigType").valid()  )
 		valid = false;
 	if ( !$("#drpStartproject").valid()  )
@@ -2559,9 +2557,6 @@ var FormWizard = function () {
 							 }//END function
 						}//END required
                     },
-					drpNeedtraining: {
-                        required: true
-                    },
 					txtTrainigType: {
                         required: {
 							 depends: function(element) {
@@ -2952,9 +2947,6 @@ var FormWizard = function () {
                         required: "الرجاء إدخال قيمة"
                     },
 					drpFamilyMember: {
-                        required: "الرجاء إختيار قيمة"
-                    },
-					drpNeedtraining: {
                         required: "الرجاء إختيار قيمة"
                     },
 					txtTrainigType: {

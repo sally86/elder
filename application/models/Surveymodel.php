@@ -874,7 +874,6 @@ class Surveymodel extends CI_Model
 		$data['elder_work_ability_id'] 	= $drpElderWorkAbility;
 		$data['elder_work_type'] 		= $txtelderworktype;
 		$data['family_work_type'] 		= $txtFamilyworktype;
-		$data['is_elder_need_training'] = $drpNeedtraining;
 		$data['elder_training_type'] 	= $txtTrainigType;
 		$data['can_start_project'] 		= $drpStartproject;
 		$data['project_type'] 			= $txtProjectType;
@@ -883,6 +882,11 @@ class Surveymodel extends CI_Model
 			$data['family_member_id'] 		= $drpFamilyMember;
 		else
 			$data['family_member_id'] 		= NULL;
+		
+		if($drpNeedtraining != '')
+			$data['is_elder_need_training'] = $drpNeedtraining;
+		else
+			$data['is_elder_need_training']	= NULL;
 		
 		if ($txtProjectBudget != '')
 			$data['project_budget'] 		= $txtProjectBudget;
@@ -903,7 +907,6 @@ class Surveymodel extends CI_Model
 		$data['elder_work_ability_id'] 	= $drpElderWorkAbility;
 		$data['elder_work_type'] 		= $txtelderworktype;
 		$data['family_work_type'] 		= $txtFamilyworktype;
-		$data['is_elder_need_training'] = $drpNeedtraining;
 		$data['elder_training_type'] 	= $txtTrainigType;
 		$data['can_start_project'] 		= $drpStartproject;
 		$data['project_type'] 			= $txtProjectType;
@@ -912,6 +915,11 @@ class Surveymodel extends CI_Model
 			$data['family_member_id'] 		= $drpFamilyMember;
 		else
 			$data['family_member_id'] 		= NULL;
+		
+		if($drpNeedtraining != '')
+			$data['is_elder_need_training'] = $drpNeedtraining;
+		else
+			$data['is_elder_need_training']	= NULL;
 		
 		if ($txtProjectBudget != '')
 			$data['project_budget'] 		= $txtProjectBudget;

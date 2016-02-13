@@ -439,7 +439,7 @@ $readonly = '';
                                                 <?php
 												 foreach($survey_employee_info as $row)
 												 {
-                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+                      								echo '<option value="'.$row->employee_id.'">'.$row->name.'</option>';
 							  					  }
 							 					?>
 
@@ -456,7 +456,7 @@ $readonly = '';
                                                  <?php
 												  foreach($survey_employee_info as $row)
 												  {
-                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+                      								echo '<option value="'.$row->employee_id.'">'.$row->name.'</option>';
 							  					}
 							 					 ?>
 
@@ -473,7 +473,7 @@ $readonly = '';
                                                  <?php
 												  foreach($survey_employee_info as $row)
 												  {
-                      								echo '<option value="'.$row->national_id.'">'.$row->name.'</option>';
+                      								echo '<option value="'.$row->employee_id.'">'.$row->name.'</option>';
 							  					}
 							 					 ?>
 
@@ -1779,9 +1779,7 @@ $readonly = '';
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">هل يوجد حاجة للتدريب  <span class="required">
-                                            * </span>
-                                            </label>
+                                            <label class="control-label col-md-3">هل يوجد حاجة للتدريب </label>
                                             <div class="col-md-4">
     
                                                 <select class="form-control" id="drpNeedtraining" name="drpNeedtraining">

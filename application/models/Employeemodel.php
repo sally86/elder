@@ -49,7 +49,7 @@ class Employeemodel extends CI_Model
 	}
 	function get_employee_info($national_id)
 	{
-		$myquery = "SELECT 	national_id, emp_id, name , sex_id , job_title_id ,mobile,
+		$myquery = "SELECT 	employee_id, national_id, emp_id, name , sex_id , job_title_id ,mobile,
 							phone, email,is_active active_account,constjob.sub_constant_name
 					FROM 	employee_tb, sub_constant_tb constjob
 					WHERE 	employee_tb.job_title_id = constjob.sub_constant_id
@@ -98,7 +98,7 @@ class Employeemodel extends CI_Model
 		else
 			$data['is_active'] = 0;
 		
-		$this->db->where('national_id',$txtNationalId);
+		$this->db->where('employee_id',$hdnEmployeeId);
 		$this->db->update('employee_tb',$data);
 	}
 	
@@ -118,9 +118,9 @@ class Employeemodel extends CI_Model
 				      FROM  employee_tb,sub_constant_tb constjob
 				     WHERE  job_title_id = constjob.sub_constant_id";
 		
-		if(isset($requestData['txtNationalid']) && $requestData['txtNationalid'] !='')
+		if(isset($requestData['txtNational_id']) && $requestData['txtNational_id'] !='')
 		{
-			$myquery = $myquery." AND national_id = ".$requestData['txtNationalid'];
+			$myquery = $myquery." AND national_id = ".$requestData['txtNational_id'];
 		}
 		if(isset($requestData['txtEmpid']) && $requestData['txtEmpid'] !='')
 		{

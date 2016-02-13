@@ -664,16 +664,16 @@ if (isset($aidsRecomendation_info))
 												 {
 													 $selected = "";
 													 $disabled = "";
-													 if ($survey_info_row->researcher_id == $employee_info_row->national_id)
+													 if ($survey_info_row->researcher_id == $employee_info_row->employee_id)
                                                           $selected = ' selected="selected" ';
 													 
-													 if ($employee_info_row->national_id 
+													 if ($employee_info_row->employee_id 
 														 == $survey_info_row->researcher_assistant_fst_id 
-														 || $employee_info_row->national_id 
+														 || $employee_info_row->employee_id 
 														 == $survey_info_row->researcher_assistant_sec_id)
 													 		$disabled = ' disabled="disabled" ';
                                                         
-                      								echo '<option value="'.$employee_info_row->national_id.'"'.$selected.$disabled.'>'
+                      								echo '<option value="'.$employee_info_row->employee_id.'"'.$selected.$disabled.'>'
 																		  .$employee_info_row->name.'</option>';
 							  					  }
 							 					?>
@@ -694,16 +694,16 @@ if (isset($aidsRecomendation_info))
 												  		$selected ="";
 														$disabled = "";
 													   if ($survey_info_row->researcher_assistant_fst_id == 
-														   		$row->national_id) 
+														   		$row->employee_id) 
                                                           $selected = 'selected="selected"';
 														
-													   if ($row->national_id 
+													   if ($row->employee_id 
 														 == $survey_info_row->researcher_id 
-														 || $row->national_id 
+														 || $row->employee_id 
 														 == $survey_info_row->researcher_assistant_sec_id)
 													 		$disabled = ' disabled="disabled" ';
                                                     
-                      								echo '<option value="'.$row->national_id.'" '.$selected.$disabled.'>'
+                      								echo '<option value="'.$row->employee_id.'" '.$selected.$disabled.'>'
 																		  .$row->name.'</option>';
 							  					}
 							 					 ?>
@@ -724,16 +724,16 @@ if (isset($aidsRecomendation_info))
 													  $selected ="";
 													  $disabled = "";
 													 if ($survey_info_row->researcher_assistant_sec_id == 
-														 $row->national_id)
+														 $row->employee_id)
                                                           $selected = ' selected="selected" ';
 														  
-													 if ($row->national_id 
+													 if ($row->employee_id 
 														 == $survey_info_row->researcher_id 
-														 || $row->national_id 
+														 || $row->employee_id 
 														 == $survey_info_row->researcher_assistant_fst_id)
 													 		$disabled = ' disabled="disabled" ';
                                                       
-                      								echo '<option value="'.$row->national_id.'"'.$selected.$disabled.'>'
+                      								echo '<option value="'.$row->employee_id.'"'.$selected.$disabled.'>'
 																		  .$row->name.'</option>';
 							  					}
 							 					 ?>
@@ -2595,9 +2595,7 @@ if (isset($aidsRecomendation_info))
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">هل يوجد حاجة للتدريب  <span class="required">
-                                            * </span>
-                                            </label>
+                                            <label class="control-label col-md-3">هل يوجد حاجة للتدريب  </label>
                                             <div class="col-md-4">
     
                                                 <select class="form-control" id="drpNeedtraining" name="drpNeedtraining">
@@ -2688,7 +2686,7 @@ if (isset($aidsRecomendation_info))
                       <div class="panel-heading">
                           <h4 class="panel-title">
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_5">
-                          <strong>#5 توصيات الادارة </strong>  </a>
+                          <strong>#5 توصيات البـاحث الاجتمــاعي </strong>  </a>
                           </h4>
                       </div>
                       <div id="collapse_5" class="panel-collapse collapse">
