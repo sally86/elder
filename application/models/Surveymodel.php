@@ -122,10 +122,24 @@ class Surveymodel extends CI_Model
 			$data['previous_job_id'] 	= $drpPreviousjob;
 		
 		if(isset($dpDeathdate))
-			$data['death_date'] 		= $dpDeathdate;
+		{
+			if ($dpDeathdate =='')
+				$data['death_date'] 	= NULL;
+			else 
+				$data['death_date'] 		= $dpDeathdate;
+		}
+		
 
 		$this->db->where('elder_id',$hdnElderId);
 		$this->db->update('elder_tb',$data);
+		
+		// Update file_tb From Update Survey Page
+		if (isset($hdnFileId))
+		{
+			$filedata['file_doc_id'] = $txtFiledocId;
+			$this->db->where ('file_id',$hdnFileId);
+			$this->db->update('file_tb',$filedata);
+		}
 		
 		// From Survey
 		if(isset($hdnSurveyId))
@@ -160,9 +174,9 @@ class Surveymodel extends CI_Model
 				
 				$file_id = $hdnFileId;
 			}
-			$outdata['elder_id']  = $hdnElderid;
-			$outdata['survey_id'] = $survey_id;
-			$outdata['file_id']   = $file_id;
+			$outdata['elder_id']  = $hdnElderId;
+			$outdata['survey_id'] = $hdnSurveyId;
+			$outdata['file_id']   = $hdnFileId;
 			return $outdata;
 		}
 		

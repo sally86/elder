@@ -95,7 +95,10 @@ class Surveyupdatecont extends CI_Controller
 		if(isset($_SESSION['update']))
 		{
 			$this->load->model('Surveyviewmodel');
+			$this->load->model('Elderfilemodel');
 			$this->data['elder_info'] = $this->Surveyviewmodel->get_elder_info($_SESSION['elder_id']);
+			$this->data['elder_file'] = $this->Elderfilemodel->get_elder_file($_SESSION['elder_id']);
+			
 			foreach ($this->data['elder_info'] as $row);
 			{	
 				$this->data['region']     = $this->constantmodel->get_region_list($row->governorate_id);

@@ -39,7 +39,11 @@ if (isset($elder_info))
 	else
 		$ction = "addelder";
 }
-
+if (isset($elder_file))
+{
+	foreach($elder_file as $elder_file_row);
+	
+}
 if (isset($survey_info))
 {
 	foreach($survey_info as $survey_info_row);
@@ -213,6 +217,7 @@ if (isset($aidsRecomendation_info))
                                         <input id="hdnAction" name="hdnAction" type="hidden" value="<?php echo $ction;?>" />
                                         <input id="hdnElderId" name="hdnElderId"  type="hidden" 
                                         value="<?php if(isset($elder_info_row->elder_id)) echo $elder_info_row->elder_id;?>" />
+                                        <input id="hdnFileId" name="hdnFileId" type="hidden" value="<?php if(isset($elder_file_row->file_id)) echo $elder_file_row->file_id;?>" />
                                  
                                         <div class="form-group">
                                             <label class="control-label col-md-3">تـصنيف الحـالة <span class="required">
@@ -240,6 +245,17 @@ if (isset($aidsRecomendation_info))
                                         </div>
                                         
                                         <div class="form-group">
+                                          <label class="control-label col-md-3">رقم الملف الورقي <span class="required">
+                                          * </span>
+                                          </label>
+                                          <div class="col-md-4">
+                                              <input type="text" id="txtFiledocId" name="txtFiledocId" data-required="1" 
+                                              class="form-control"  value="<?php if(isset($elder_file_row->file_doc_id)) 
+												 			echo $elder_file_row->file_doc_id;?>"/>
+                                          </div>
+                                    	</div>
+                                        
+                                        <div class="form-group">
                                             <label class="control-label col-md-3">رقم الهوية <span class="required">
                                             * </span>
                                             </label>
@@ -250,7 +266,7 @@ if (isset($aidsRecomendation_info))
                                                 />
                                             </div>
                                         </div>
-                                        
+                                    
                                         <div class="form-group">
                                           <label class="control-label col-md-3">الاســـم <span class="required">
                                           * </span>

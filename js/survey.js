@@ -2170,8 +2170,7 @@ var FormWizard = function () {
 						maxlength: 9
                     },
 					txtFiledocId: {
-                        required: true,
-						digits: true
+                        required: true
                     },
 					drpEldercategory: {
 						required: true
@@ -2683,8 +2682,7 @@ var FormWizard = function () {
 						maxlength: "رقم الهوية يجب ان يكون 9 ارقام"
                     },
 					txtFiledocId: {
-                        required: "الرجاء إدخال رقم الملف الورقي",
-						digits: "الرجـاء ادخـال ارقـام فقط"
+                        required: "الرجاء إدخال رقم الملف الورقي"
                     },
 					drpEldercategory: {
 						required: "الرجاء إختيار قيمة"
