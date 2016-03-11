@@ -1320,8 +1320,7 @@ $readonly = '';
                                           <th>نوع العلاج <span class="font-red">
                                              * </span>
                                           </th>
-                                          <th>تفـاصيل العلاج <span class="font-red">
-                                             * </span>
+                                          <th>تفـاصيل العلاج
                                           </th>
                                           <th>&nbsp;</th>
                                       </tr>

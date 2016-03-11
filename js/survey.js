@@ -1242,8 +1242,8 @@ function validateMedicationNeed()
 	
 	if ( !$("#drpMedtype").valid()  )
 		valid = false;
-	if ( !$("#txtMeddetails").valid()  )
-		valid = false;
+	/*if ( !$("#txtMeddetails").valid()  )
+		valid = false;*/
 	
 	
 	/*if(!valid)

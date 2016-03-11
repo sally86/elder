@@ -582,8 +582,8 @@ function validateMedicationNeed_u()
 	
 	if ( !$("#drpMedtype").valid()  )
 		valid = false;
-	if ( !$("#txtMeddetails").valid()  )
-		valid = false;
+	/*if ( !$("#txtMeddetails").valid()  )
+		valid = false;*/
 	
 	
 	if(!valid)
@@ -2037,9 +2037,6 @@ var MedicationUpdateValidation = function () {
 					},
 					drpMedtype:{
 						required: true
-					},
-					txtMeddetails:{
-						required: true
 					}
                 },
 
@@ -2056,9 +2053,6 @@ var MedicationUpdateValidation = function () {
 					},
 					drpMedtype:{
 						required: "الرجاء إختيار قيمة"
-					},
-					txtMeddetails:{
-						required: "الرجاء إدخال قيمة"
 					}
                 },
 
