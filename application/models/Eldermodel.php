@@ -39,20 +39,28 @@ class Eldermodel extends CI_Model
 	function get_search_elder($requestData)
 	{
 		$columns = array( 
-			1 => 'elder_national_id',
-			2 => 'name',
-			3 => 'phone', 
-			4 => 'mobile_first',
-			5 => 'mobile_second',
-			6 => 'Eder_governorate',
-			7 => 'isDeadElder');
+			1 => 'file_doc_id',
+			2 => 'elder_national_id',
+			3 => 'name',
+			4 => 'phone', 
+			5 => 'mobile_first',
+			6 => 'mobile_second',
+			7 => 'Eder_governorate',
+			8 => 'isDeadElder');
 		
-		$myquery = "SELECT 	elder_id, elder_national_id, CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name) as name,
+		$myquery = "SELECT 	f.file_doc_id, e.elder_id, elder_national_id,
+							CONCAT(first_name,' ',middle_name,' ',third_name,' ',last_name) as name,
 							phone,mobile_first, mobile_second,
 							CASE WHEN death_date IS null then 1 ELSE  0 END AS  isDeadElder,
 							governconst.sub_constant_name as Eder_governorate 
- 					FROM 	elder_tb ,sub_constant_tb governconst
-					WHERE 	elder_tb.governorate_id=governconst.sub_constant_id";
+ 					FROM 	elder_tb e,sub_constant_tb governconst, file_tb f
+					WHERE 	e.governorate_id = governconst.sub_constant_id
+					  AND   f.elder_id = e.elder_id";
+		
+		if(isset($requestData['txtFiledocid']) && $requestData['txtFiledocid'] !='')
+		{
+			$myquery = $myquery." AND file_doc_id = '".$requestData['txtFiledocid']."'";
+		}
 		
 		if(isset($requestData['txtElderid']) && $requestData['txtElderid'] !='')
 		{

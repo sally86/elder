@@ -18,10 +18,13 @@
                       <th width="2%">
                           <input type="checkbox" class="group-checkable">
                       </th>
+                       <th width="5%">
+                           رقـم الملف
+                      </th>
                       <th width="12%">
                            رقـم الهوية
                       </th>
-                      <th width="20%">
+                      <th width="15%">
                            اســم العضو
                       </th>
                       <th width="10%">
@@ -45,6 +48,9 @@
                   </tr>
                   <tr role="row" class="filter">
                       <td>
+                      </td>
+                      <td>
+                          <input type="text" class="form-control form-filter input-sm" id="txtFiledocid" name="txtFiledocid">
                       </td>
                       <td>
                           <input type="text" class="form-control form-filter input-sm" id="txtElderid" name="txtElderid">
