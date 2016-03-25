@@ -78,8 +78,10 @@ class Constant extends CI_Controller
 		$this->load->model('constantmodel');
 		$rec =  $this->constantmodel->get_sub_constant($constantid);
 		
+		$parentid=''; 
 		foreach($rec as $row)
   		{
+			$parentid = $row->parent_id;
 			echo '<tr>
 					<td>
 					  <div class="col-md-11">
@@ -91,6 +93,7 @@ class Constant extends CI_Controller
 					</td>
 				 </tr>';
 		}
+		echo '/**/'.$parentid;
 		
 		
 	}

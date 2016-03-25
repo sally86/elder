@@ -105,7 +105,9 @@ function show_sub(constantid,constantname)
 			complete: function(){},
 			success: function(returndb){
 				$("#dvSub").css({ display: "block" });
-				$('#tbdSub').html(returndb);
+				var parts = returndb.split("/**/");
+				$('#tbdSub').html(parts[0]);
+				$('#hdnParentid').val(parts[1]);
 				
 			}
 		});//END $.ajax
@@ -130,6 +132,7 @@ function reload_constant_form()
 	
 	$('#hdnSubConstid').val('');
 	$('#txtSubConstantName').val('');
+	$('#hdnParentid').val('');
 	$('#iSub').attr('class', 'fa fa-plus');
 	
 	$('#tbdSub').html('');

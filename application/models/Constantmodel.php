@@ -50,6 +50,9 @@ class Constantmodel extends CI_Model
 		$data['created_on']  = date("Y-m-d H:i:s");
 		$data['created_by']  = $sdata['userid'];
 		
+		if ($hdnParentid !='')
+			$data['parent_id'] = $hdnParentid;
+		
 		$this->db->insert('sub_constant_tb',$data);
 	}
 	

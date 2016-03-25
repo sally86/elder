@@ -93,6 +93,7 @@
                                 <div class="col-md-6">
                                   <input id="txtSubConstantName" name="txtSubConstantName" type="text" 
                                   class="form-control form-filter input-sm" >
+                                  <input id="hdnParentid" name="hdnParentid" type="hidden" value="" />
                                 </div>
                                 <div class="col-md-2">
                                   <button id="btnAddsub" name="btnAddsub" type="button" class="btn btn-circle green-turquoise btn-sm">
